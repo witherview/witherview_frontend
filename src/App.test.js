@@ -2,15 +2,31 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { MemoryRouter } from 'react-router-dom';
+
 import App from './App';
 
-function renderApp() {
-  return render(<App />);
+function renderApp({ path }) {
+  return render(
+    <MemoryRouter initialEntries={[path]}>
+      <App />
+    </MemoryRouter>,
+  );
 }
 describe('App', () => {
-  it('render without explosion', () => {
-    const { container } = renderApp();
+  context('with path /', () => {
+    it('show button test', () => {
+      const { container } = renderApp({ path: '/' });
 
-    expect(container).toHaveTextContent('Hello React!');
+      expect(container).toHaveTextContent('Click Me!');
+    });
+  });
+
+  context('with invalid path', () => {
+    it('show 404 page', () => {
+      const { container } = renderApp({ path: '/broken' });
+
+      expect(container).toHaveTextContent('404 Not Found');
+    });
   });
 });
