@@ -18,7 +18,7 @@ describe('App', () => {
     it('show button test', () => {
       const { container } = renderApp({ path: '/' });
 
-      expect(container).toHaveTextContent('Click Me!');
+      expect(container).toHaveTextContent('+-reset');
     });
   });
 
