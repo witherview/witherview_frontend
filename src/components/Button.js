@@ -2,8 +2,14 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import styled from 'styled-components';
+
 import { setNumber, resetNumber } from '../slice';
 import { get } from '../utils';
+
+const Font = styled.div`
+  font-family: 'AppleSDGothicNeoBold';
+`;
 
 export default function Button() {
   const dispatch = useDispatch();
@@ -20,7 +26,7 @@ export default function Button() {
 
   return (
     <div>
-      <div id="test-num">{number}</div>
+      <Font id="test-num">{number}</Font>
       <button type="button" onClick={() => add()}>
         +
       </button>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Route, Switch } from 'react-router-dom';
 
 import Button from './components/Button';
@@ -9,6 +8,7 @@ export default function App() {
   return (
     <>
       <Switch>
+        {/* <GlobalFonts /> */}
         <Route exact path="/" component={Button} />
         <Route component={NotFound} />
       </Switch>
