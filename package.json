@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
+    "axios": "^0.20.0",
     "css-loader": "^4.3.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
