@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 
-import { setNumber, resetNumber } from '../slice';
-import { get } from '../utils';
+import { setNumber, resetNumber } from '../store/slice';
+import { get } from '../utils/snippet';
 
 const Font = styled.div`
   font-family: 'AppleSDGothicNeoBold';

@@ -8,7 +8,6 @@ export default function App() {
   return (
     <>
       <Switch>
-        {/* <GlobalFonts /> */}
         <Route exact path="/" component={Button} />
         <Route component={NotFound} />
       </Switch>
