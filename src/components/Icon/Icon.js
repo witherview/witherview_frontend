@@ -64,7 +64,7 @@ const I = styled.i`
                                   props.type === "play" ? "-309px -580px" :
                                   props.type === "cancel_circle" ? "-391px -580px" :
                                   props.type === "check_border" ? "-474px -580px" :
-                                  props.type === "check_Square" ? "-550px -576px" : "0 0"};
+                                  props.type === "check_square" ? "-550px -576px" : "0 0"};
 
 `;
 const cx = classNames.bind();
@@ -101,7 +101,7 @@ export default function Icon(props) {
      type === "check_border" )  {
        size = "md"
      }
-  if(type === "check_Square") {
+  if(type === "check_square") {
     size = "lg"
   }
 
@@ -173,7 +173,7 @@ Icon.propTypes = {
     "play",
     "cancel_circle",
     "check_border", 
-    "check_Square", 
+    "check_square", 
   ]),
   size: PropTypes.oneOf(["xsm", "sm", "md", "lmd", "lg"]),
   alt: PropTypes.string,
