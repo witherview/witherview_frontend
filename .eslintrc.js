@@ -24,5 +24,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/jsx-filename-extension': [0],
+    'react/require-default-props': 0,
+    'no-nested-ternary': 0
   },
 };
