@@ -9,7 +9,7 @@
     "lint": "eslint --fix --ext .js,.jsx src",
     "build": "webpack",
     "start": "webpack-dev-server",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6060 -c .storybook watch-css -s ./public",
     "build-storybook": "build-storybook"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-controls": "^6.0.26",
     "@storybook/addon-essentials": "^6.0.26",
     "@storybook/addon-links": "^6.0.26",
     "@storybook/react": "^6.0.26",
