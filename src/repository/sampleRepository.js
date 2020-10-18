@@ -1,15 +1,16 @@
-import { api } from "../context/serverContext";
+import api from '../context/serverContext';
 
-export const ApiGetSampleData = async param => {
-  return await api({
-    url: `/this/is/sample/api`,
-    type: "get",
-    param
+const ApiGetSampleData = async (param) => {
+  await api({
+    url: '/this/is/sample/api',
+    type: 'get',
+    param,
   });
 };
 
+export default ApiGetSampleData;
 
-//usage
+// usage
 // ApiGetSampleData(param).then(data=>{
-//      do someting...           
+//      do someting...
 // })
