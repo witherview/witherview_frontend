@@ -8,7 +8,7 @@ import { setNumber, resetNumber } from '../store/slice';
 import { get } from '../utils/snippet';
 
 const Font = styled.div`
-  font-family: 'AppleSDGothicNeoBold';
+  font-family: 'TitilliumWeb';
 `;
 
 export default function Button() {
@@ -26,7 +26,8 @@ export default function Button() {
 
   return (
     <div>
-      <Font id="test-num">{number}</Font>
+      <div id="test-num">{number}</div>
+      <Font>abcdef 012345 안녕하세요 </Font>
       <button type="button" onClick={() => add()}>
         +
       </button>
