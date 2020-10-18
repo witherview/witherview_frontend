@@ -9,7 +9,7 @@
     "lint": "eslint --fix --ext .js,.jsx src",
     "build": "webpack",
     "start": "webpack-dev-server",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6060 -c .storybook watch-css -s ./public",
     "build-storybook": "build-storybook"
   },
   "repository": {
