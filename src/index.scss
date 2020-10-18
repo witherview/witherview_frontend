@@ -1,12 +1,35 @@
 @font-face {
-  font-family: 'AppleSDGothicNeoBold';
-  font-style: normal;
-  font-weight: 400;
-  src: local('AppleSDGothicNeoBold'), local('AppleSDGothicNeoBold'),
-       url('../public/fonts/AppleSDGothicNeoBold.woff') format('woff'),
-       url('../public/fonts/AppleSDGothicNeoBold.woff2') format('woff2'),
+  font-family: 'AppleSDGothicNeoM00';
+  src: url('../public/fonts/AppleSDGothicNeoM.ttf') format('truetype'),
 }
 
-// body {
-//   font-family: 'AppleSDGothicNeoBold';
-// }
+@font-face {
+  font-family: 'AppleSDGothicNeoB00';
+  src: url('../public/fonts/AppleSDGothicNeoB.ttf') format('truetype'),
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeoEB00';
+  src: url('../public/fonts/AppleSDGothicNeoEB.ttf') format('truetype'),
+}
+
+// 한글을 제외한 부분에서 종종 사용되므로 아래의 범위에서만 사용되게끔 변경(한글은 AppleSDGothicNeo 사용)
+// 영문 범위: U+0041-005A(대문자), U+0061-007A(소문자)
+// 숫자 범위: U+0030-0039
+// 특수문자 범위: U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E
+@font-face {
+  font-family: 'TitilliumWeb';
+  src: url('../public/fonts/TitilliumWeb-Regular.ttf') format('truetype') font-weight-normal,
+       url('../public/fonts/TitilliumWeb-Bold.ttf') format('truetype') font-weight-bold;
+  unicode-range: U+0041-005A, U+0061-007A, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
+}
+// 한글 범위: U+AC00-D7AF
+@font-face {
+  font-family: 'TitilliumWeb';
+  src: url('../public/fonts/AppleSDGothicNeoM.ttf') format('truetype');
+  unicode-range: U+AC00-D7AF;
+}
+
+body {
+  font-family: 'AppleSDGothicNeoM00';
+}
