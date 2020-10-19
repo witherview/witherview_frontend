@@ -1,7 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import reducer from './slice';
+// import reducer from './Slice/slice';
+import timeReducer from './Time/time';
 
-const store = configureStore({ reducer });
+const reducers = {
+  time: timeReducer,
+};
+
+const store = configureStore({ reducer: reducers });
 
 export default store;
