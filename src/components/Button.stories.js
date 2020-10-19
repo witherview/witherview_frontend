@@ -1,10 +1,10 @@
-import React from 'react';
+// import React from 'react';
 
-import Button from './Button';
+// import Button from './Button';
 
-export default {
-  title: 'Button',
-  component: Button,
-};
+// export default {
+//   title: 'Button',
+//   component: Button,
+// };
 
-export const Default = () => <Button />;
+// export const Default = () => <Button />;
