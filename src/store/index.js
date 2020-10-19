@@ -1,11 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 // import reducer from './Slice/slice';
 import timeReducer from './Time/time';
 
-const reducers = {
+export const reducers = combineReducers({
   time: timeReducer,
-};
+});
 
 const store = configureStore({ reducer: reducers });
 
