@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { setTime } from '../../store/Time/time';
+import { get } from '../../utils/snippet';
 
 const Box = styled.div`
   width: 201px;
@@ -30,6 +31,7 @@ const Time = styled.span`
   line-height: 1.1;
   letter-spacing: normal;
   text-align: center;
+  user-select: none;
 `;
 
 const Unit = styled.span`
@@ -43,17 +45,17 @@ const Unit = styled.span`
   line-height: 0.7;
   letter-spacing: normal;
   text-align: left;
+  user-select: none;
 `;
 
 const TimeButton = ({ time }) => {
   const [isClicked, setIsClicked] = useState(false);
   const dispatch = useDispatch();
 
-  const { timeState } = useSelector((state) => ({
-    timeState: state.time.time,
-  }));
+  const timeState = useSelector(get('time'));
+
   useEffect(() => {
-    if (timeState === time) {
+    if (timeState.time === time) {
       setIsClicked(true);
     } else {
       setIsClicked(false);
@@ -79,5 +81,5 @@ TimeButton.propTypes = {
 };
 
 TimeButton.defaultProp = {
-  time: '45',
+  time: 45,
 };

@@ -10,3 +10,6 @@ export default {
 const Template = (args) => <Icon {...args} />;
 
 export const icon = Template.bind({});
+icon.args = {
+  type: 'bubble_black',
+};

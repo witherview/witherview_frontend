@@ -65,9 +65,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
-    "@storybook/addon-controls": "^6.0.26",
-    "@storybook/addons": "^6.0.26",
-    "addon-redux": "^1.1.0",
     "axios": "^0.20.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
