@@ -1,9 +1,3 @@
-import PropTypes from 'prop-types';
+export default function RangeBar() {
 
-Rangebar.propTypes = {
-    
-}
-Rangebar.defaultProp = {
-    type: 'test',
-    alt: '',
 }
