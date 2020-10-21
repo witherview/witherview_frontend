@@ -29,7 +29,7 @@ describe('RemainTime', () => {
     it('toggle is not activate', () => {
       const { container } = renderButton(100);
 
-      expect(container).toHaveTextContent(100);
+      expect(container).toHaveTextContent('01:40');
     });
   });
 });
