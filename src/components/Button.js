@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { setNumber, resetNumber } from '../store/slice';
 import { get } from '../utils/snippet';
 import Icon from './Icon';
-import InputBar from './InputBar/InputBar';
 
 const Font = styled.div`
   font-family: 'AppleSDGothicNeoBold';
