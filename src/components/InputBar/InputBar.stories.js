@@ -7,6 +7,5 @@ export default {
   title: 'inputBar',
   component: InputBar,
 };
-const Template = (args) => <InputBar {...args} />;
 
-export const inputBar = Template.bind({});
+export const TextInput = (args) => <InputBar {...args} />;

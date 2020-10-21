@@ -7,6 +7,5 @@ export default {
   title: 'rangeBar',
   component: RangeBar,
 };
-const Template = (args) => <RangeBar {...args} />;
 
-export const rangeBar = Template.bind({});
+export const RangeInput = (args) => <RangeBar {...args} />;
