@@ -12,11 +12,6 @@ const Toggle = styled.input`
   opacity: 0;
   width: 0;
   height: 0;
-  &:checked + span::before {
-    -webkit-transform: translateX(36px);
-    -ms-transform: translateX(36px);
-    transform: translateX(36px);
-  }
 `;
 
 const Slider = styled.span`
@@ -42,12 +37,17 @@ const Slider = styled.span`
     -webkit-transition: .4s;
     transition: .4s;
   }
+  input:checked + &::before {
+    -webkit-transform: translateX(36px);
+    -ms-transform: translateX(36px);
+    transform: translateX(36px);
+  }
 `;
 
 export default function ToggleButton() {
   return (
     <Switch>
-      <Toggle type="text" placeholder="기업명을 입력해주세요" />
+      <Toggle type="checkbox" placeholder="기업명을 입력해주세요" />
       <Slider />
     </Switch>
   );
