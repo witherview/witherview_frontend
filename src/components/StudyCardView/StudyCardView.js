@@ -112,13 +112,13 @@ const ButtonText = styled.div`
 `;
 
 export default function StudyCardView({ title, description, time }) {
-  const [hover, setHover] = useState('time_black');
+  const [type, setType] = useState('time_black');
   const hoverIn = () => {
-    setHover('time_white');
+    setType('time_white');
   };
 
   const hoverOut = () => {
-    setHover('time_black');
+    setType('time_black');
   };
   return (
     <Box onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -130,7 +130,7 @@ export default function StudyCardView({ title, description, time }) {
           {description}
         </Description>
         <Time>
-          <Icon type={hover} alt="" />
+          <Icon type={type} alt="" />
           <TimeText>
             {time}
           </TimeText>
