@@ -9,7 +9,6 @@ export default function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={NotFound} />
         <Route exact path="/" component={ConferenceButton} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
         <Route component={NotFound} />

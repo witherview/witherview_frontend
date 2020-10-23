@@ -34,9 +34,8 @@ export default function ConferenceRoom({ match }) {
 
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
-      id: callerID,
       initiator: true,
-      trickle: false,
+      trickle: true,
       stream,
     });
 
@@ -54,7 +53,7 @@ export default function ConferenceRoom({ match }) {
   function addPeer(incomingSignal, callerID, stream) {
     const peer = new Peer({
       initiator: false,
-      trickle: false,
+      trickle: true,
       stream,
     });
 
@@ -118,7 +117,8 @@ export default function ConferenceRoom({ match }) {
     <Container>
       <StyledVideo muted ref={userVideo} autoPlay playsInline />
       {peers ? (
-        peers.map((peer) => <PeerVideo key={peer.id} peer={peer} />)
+        // eslint-disable-next-line react/no-array-index-key
+        peers.map((peer, index) => <PeerVideo key={index} peer={peer} />)
       ) : (
         <></>
       )}

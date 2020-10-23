@@ -16,11 +16,11 @@ export default function PeerVideo({ peer }) {
     });
   }, []);
 
-  return <WrapVideo playsInline autoPlay ref={ref} />;
+  return <WrapVideo muted playsInline autoPlay ref={ref} />;
 }
 
 PeerVideo.propTypes = {
-  peer: PropTypes,
+  peer: PropTypes.object.isRequired,
 };
 
 PeerVideo.defaultProp = {
