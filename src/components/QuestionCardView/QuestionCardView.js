@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Icon from '../Icon';
 
 const Box = styled.div`
-  display: flex;
+  position: relative;
   width: 334px;
   height: 270px;
   border-radius: 10px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px ${({ clicked }) => (clicked ? '#5f5fd9;' : '#f6f6f6;')}
+  border: solid  ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')}
   background-color: #ffffff;
-  box-sizing: border-box;  
+  box-sizing: content-box;
+  user-select: none;
 `;
 
 const Content = styled.div`
@@ -26,8 +28,7 @@ const Number = styled.div`
 `;
 
 const NumberText = styled.div`
-  width: 62px;
-  height: 83px;
+  display: inline-block;
   float: left;
   font-family: TitilliumWeb;
   font-size: 55px;
@@ -59,8 +60,9 @@ const SubText = styled.div`
 const Line = styled.div`
   width: 243px;
   height: 0;
-  border: solid 1px #707070;
+  border-top: solid 2px #707070;
   margin-bottom: 32.5px;
+  margin-left: 8px;
 `;
 
 const Title = styled.div`
@@ -105,31 +107,54 @@ const SubTitle = styled.div`
   color: #000000;
 `;
 
-export default function QuestionCardView() {
+const StyledIcon = styled.div`
+  display:inline-block;
+  position: absolute;
+  top: -18px;
+  left: -18px;
+`;
+
+export default function QuestionCardView({ number, title, description }) {
   const [clicked, setClicked] = useState(false);
+
   const handleButtonClick = () => {
     setClicked(!clicked);
   };
   return (
-    <Box onClick={handleButtonClick} clicked={clicked}>
-      <Content>
-        <Number>
-          <NumberText>15</NumberText>
-          <SubText>
-            개의 질문이
-            <br />
-            존재합니다.
-          </SubText>
-        </Number>
-        <Line />
-        <Title>
-          <TitleText>
-            카카오 1차ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
-          </TitleText>
-          <Icon type="post" alt="" />
-        </Title>
-        <SubTitle>서비스 기획 ㅁㅁㅁㅁㅁㅁㅁㅁ</SubTitle>
-      </Content>
-    </Box>
+    <>
+      <Box onClick={handleButtonClick} clicked={clicked}>
+        {clicked && (<StyledIcon><Icon type="check_on" alt="" /></StyledIcon>)}
+        <Content>
+          <Number>
+            <NumberText>{number}</NumberText>
+            <SubText>
+              개의 질문이
+              <br />
+              존재합니다.
+            </SubText>
+          </Number>
+          <Line />
+          <Title>
+            <TitleText>
+              {title}
+            </TitleText>
+            <Icon type="post" alt="" />
+          </Title>
+          <SubTitle>{description}</SubTitle>
+        </Content>
+      </Box>
+    </>
   );
 }
+
+QuestionCardView.propTypes = {
+  number: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
+
+QuestionCardView.defaultProp = {
+  number: 1,
+  title: '예시 제목입니다.',
+  description: '예시 내용입니다.',
+};
