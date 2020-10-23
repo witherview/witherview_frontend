@@ -8,7 +8,7 @@ const Switch = styled.label`
   height: 46px;
 `;
 
-const Toggle = styled.input`
+const Input = styled.input`
   opacity: 0;
   width: 0;
   height: 0;
@@ -47,7 +47,7 @@ const Slider = styled.span`
 export default function ToggleButton() {
   return (
     <Switch>
-      <Toggle type="checkbox" placeholder="기업명을 입력해주세요" />
+      <Input type="checkbox" />
       <Slider />
     </Switch>
   );
