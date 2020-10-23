@@ -82,3 +82,4 @@ TimeButton.propTypes = {
 TimeButton.defaultProp = {
   time: 45,
 };
+
