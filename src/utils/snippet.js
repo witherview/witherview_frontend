@@ -1,4 +1,5 @@
-/* eslint-disable import/prefer-default-export */
-export function get(key) {
-  return (obj) => obj[key];
-}
+export const get = (key) => (obj) => obj[key];
+
+export const numberPad = (n, width = 2) => (n.length >= width
+  ? n
+  : new Array(width - n.length + 1).join('0') + n);
