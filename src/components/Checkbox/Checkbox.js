@@ -45,6 +45,9 @@ const Checkmark = styled.span`
     position: absolute;
     display: none;
   }
+  label:hover input ~ & {
+    background-color: #f0f0f0;
+  }
   label input:checked ~ & {
     background-color: #5f5fd9;
     border-color: #5f5fd9;
