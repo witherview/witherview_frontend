@@ -10,14 +10,14 @@ const Box = styled.div`
   height: 127px;
   border-radius: 10px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: ${(props) => (props.isClicked ? 'solid 3px #5f5fd9;' : 'none')};
+  border: ${({ isClicked }) => (isClicked ? 'solid 3px #5f5fd9;' : 'none')};
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  color: ${(props) => (props.isClicked ? '#5f5fd9;' : 'black')};
+  color: ${({ isClicked }) => (isClicked ? '#5f5fd9;' : 'black')};
 `;
 
 const Time = styled.span`
@@ -74,7 +74,6 @@ const TimeButton = ({ time }) => {
     </div>
   );
 };
-export default TimeButton;
 
 TimeButton.propTypes = {
   time: PropTypes.number.isRequired,
@@ -83,3 +82,5 @@ TimeButton.propTypes = {
 TimeButton.defaultProp = {
   time: 45,
 };
+
+export default TimeButton;
