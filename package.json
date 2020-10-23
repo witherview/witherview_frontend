@@ -10,7 +10,8 @@
     "build": "webpack",
     "start": "webpack-dev-server",
     "storybook": "start-storybook -p 6060 -c .storybook watch-css -s ./public",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@storybook/addon-essentials": "^6.0.26",
     "@storybook/addon-links": "^6.0.26",
     "@storybook/react": "^6.0.26",
+    "@storybook/storybook-deployer": "^2.8.7",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@types/jest": "^26.0.14",
@@ -65,7 +67,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
-    "@storybook/addon-controls": "^6.0.26",
     "axios": "^0.20.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -75,5 +76,10 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.0"
+  },
+  "storybook-deployer": {
+    "gitUsername": "dididy",
+    "gitEmail": "201704147@cs-cnu.org",
+    "commitMessage": "Deployed on https://Yapp-17th.github.io/Web_2_Client/"
   }
 }
