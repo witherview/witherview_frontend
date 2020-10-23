@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import styled from 'styled-components';
 
 import QuestionCardView from './QuestionCardView';
 
@@ -7,12 +8,28 @@ export default {
   title: 'questionCardView',
   component: QuestionCardView,
 };
-const questionCardView = (args) => <QuestionCardView {...args} />;
+
+const Div = styled.div`
+  display: flex;
+  width: 500px;
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const questionCardView = (args) => <Div><QuestionCardView {...args} /></Div>;
 
 export const CardView = questionCardView.bind({});
+export const LongCardView = questionCardView.bind({});
 
 CardView.args = {
-  title: '면접 스터디 모집합니다.',
-  description: '데이터분석 / AI엔지니어 직무 관련 면접 스터디 입니다.',
-  time: '9월 24일 PM 14:00',
+  number: 15,
+  title: '카카오 1차',
+  description: '데이터분석',
+};
+
+LongCardView.args = {
+  number: 150,
+  title: '카카오 엔터프라이즈 1차',
+  description: '데이터분석 / AI 전문가 / BigData',
 };
