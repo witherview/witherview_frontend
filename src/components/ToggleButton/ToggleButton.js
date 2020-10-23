@@ -1,5 +1,8 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
+import PropTypes from 'prop-types';
 
 const Switch = styled.label`
   position: relative;
@@ -44,11 +47,21 @@ const Slider = styled.span`
   }
 `;
 
-export default function ToggleButton() {
+export default function ToggleButton({
+  className,
+}) {
   return (
     <Switch>
-      <Input type="checkbox" />
+      <Input type="checkbox" className={className} />
       <Slider />
     </Switch>
   );
 }
+
+ToggleButton.propTypes = {
+  className: PropTypes.string,
+};
+
+ToggleButton.defaultProps = {
+  className: '',
+};

@@ -1,5 +1,8 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
+import PropTypes from 'prop-types';
 
 const Wrapper = styled.input`
   width: 533px;
@@ -17,8 +20,18 @@ const Wrapper = styled.input`
   }
 `;
 
-export default function InputBar() {
+export default function InputBar({
+  className,
+}) {
   return (
-    <Wrapper type="text" placeholder="기업명을 입력해주세요" />
+    <Wrapper className={className} type="text" placeholder="기업명을 입력해주세요" />
   );
 }
+
+InputBar.propTypes = {
+  className: PropTypes.string,
+};
+
+InputBar.defaultProps = {
+  className: '',
+};

@@ -1,5 +1,8 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
+import PropTypes from 'prop-types';
 
 const Wrapper = styled.label`
   display: block;
@@ -57,11 +60,21 @@ const Checkmark = styled.span`
   }
 `;
 
-export default function Checkbox() {
+export default function Checkbox({
+  className,
+}) {
   return (
     <Wrapper>
-      <Input type="checkbox" />
+      <Input type="checkbox" className={className} />
       <Checkmark />
     </Wrapper>
   )
 }
+
+Checkbox.propTypes = {
+  className: PropTypes.string,
+};
+
+Checkbox.defaultProps = {
+  className: '',
+};
