@@ -14,10 +14,22 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm ci
+      - run: npm run build-storybook
 
       - name: Deploy to Github Pages
-        run: npm install && npm run deploy-storybook -- --ci --host-token-env-variable=GH_TOKEN
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./storybook-static
+          commit_message: https://Yapp-17th.github.io/Web_2_Client/
