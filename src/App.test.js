@@ -18,8 +18,12 @@ describe('App', () => {
     it('show button test', () => {
       const { container } = renderApp({ path: '/' });
 
-      expect(container).toHaveTextContent('+-reset');
+      expect(container).toHaveTextContent('컨퍼런스 생성');
     });
+  });
+
+  context('with path /room:roomID', () => {
+    // need to update
   });
 
   context('with invalid path', () => {

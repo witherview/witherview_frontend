@@ -27,5 +27,6 @@ module.exports = {
     'react/require-default-props': 0,
     'no-nested-ternary': 0,
     'linebreak-style': 0,
+    'react/forbid-prop-types': 0,
   },
 };
