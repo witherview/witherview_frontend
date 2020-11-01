@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import iconImage from '../../assets/images/icons.png';
 
 const I = styled.i`
-  margin:2px;
+  margin: 2px;
   display: inline-block;
   background-image: url(${iconImage});
   background-size: 928px 708px;
