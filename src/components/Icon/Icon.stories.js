@@ -7,6 +7,9 @@ export default {
   title: 'icon',
   component: Icon,
 };
-const Template = (args) => <Icon {...args} />;
+const IconComponent = (args) => <Icon {...args} />;
 
-export const icon = Template.bind({});
+export const icon = IconComponent.bind({});
+icon.args = {
+  type: 'bubble_black',
+};
