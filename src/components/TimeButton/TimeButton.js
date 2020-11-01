@@ -48,21 +48,21 @@ const Unit = styled.span`
   user-select: none;
 `;
 
-const TimeButton = ({ time }) => {
+export default function TimeButton({ time }) {
   const [isClicked, setIsClicked] = useState(false);
   const dispatch = useDispatch();
 
-  const timeState = useSelector(get('time'));
+  const timeSelector = useSelector(get('time'));
 
   useEffect(() => {
-    if (timeState.time === time) {
+    if (timeSelector.time === time) {
       setIsClicked(true);
     } else {
       setIsClicked(false);
     }
-  }, [timeState]);
+  }, [timeSelector]);
 
-  function timeSet() {
+  const timeSet = () => {
     dispatch(setTime({ time }));
   }
   return (
@@ -82,5 +82,3 @@ TimeButton.propTypes = {
 TimeButton.defaultProp = {
   time: 45,
 };
-
-export default TimeButton;
