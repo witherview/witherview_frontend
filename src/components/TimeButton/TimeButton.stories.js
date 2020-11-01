@@ -36,12 +36,11 @@ export default {
   decorators: [withReduxMockStore],
 };
 
-const nomal = (args) => <TimeButton {...args} />;
-const clicked = (args) => <TimeButton {...args} />;
+const TimeButtonComponent = (args) => <TimeButton {...args} />;
 
-export const timeButton = nomal.bind({});
+export const timeButton = TimeButtonComponent.bind({});
 
-export const clickedTimeButton = clicked.bind({});
+export const clickedTimeButton = TimeButtonComponent.bind({});
 
 timeButton.args = { time: 30 };
 clickedTimeButton.args = { time: 45 };
