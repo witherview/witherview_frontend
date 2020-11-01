@@ -10,8 +10,13 @@ const Box = styled.div`
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   border: solid 1px #f6f6f6;
   background-color: white;
+<<<<<<< HEAD
   box-sizing: border-box;
   display: flex;
+=======
+  box-sizing:border-box;
+  display:flex;
+>>>>>>> b29af0cc3edf35d925a35fdd1eae041d02ecc14e
   &:hover {
     color: white;
     background-color: black;
@@ -21,12 +26,21 @@ const Box = styled.div`
 const Content = styled.div`
   padding: 40px;
   display: flex;
+<<<<<<< HEAD
   flex-direction: column;
   justify-content: space-around;
+=======
+  flex-direction:column;
+  justify-content:space-around;
+>>>>>>> b29af0cc3edf35d925a35fdd1eae041d02ecc14e
   &:hover {
     border-radius: 20px;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+<<<<<<< HEAD
+=======
+
+>>>>>>> b29af0cc3edf35d925a35fdd1eae041d02ecc14e
     & > div, & > div > span {
       color: #ffffff;
     }
