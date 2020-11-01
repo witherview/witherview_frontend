@@ -64,7 +64,7 @@ export default function TimeButton({ time }) {
 
   const timeSet = () => {
     dispatch(setTime({ time }));
-  }
+  };
   return (
     <div>
       <Box onClick={timeSet} isClicked={isClicked}>
@@ -73,7 +73,7 @@ export default function TimeButton({ time }) {
       </Box>
     </div>
   );
-};
+}
 
 TimeButton.propTypes = {
   time: PropTypes.number.isRequired,
@@ -82,4 +82,3 @@ TimeButton.propTypes = {
 TimeButton.defaultProp = {
   time: 45,
 };
-

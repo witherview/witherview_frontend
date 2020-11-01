@@ -10,8 +10,8 @@ const Box = styled.div`
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   border: solid 1px #f6f6f6;
   background-color: white;
-  box-sizing:border-box;
-  display:flex;
+  box-sizing: border-box;
+  display: flex;
   &:hover {
     color: white;
     background-color: black;
@@ -21,13 +21,12 @@ const Box = styled.div`
 const Content = styled.div`
   padding: 40px;
   display: flex;
-  flex-direction:column;
-  justify-content:space-around;
+  flex-direction: column;
+  justify-content: space-around;
   &:hover {
     border-radius: 20px;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-
     & > div, & > div > span {
       color: #ffffff;
     }
@@ -41,7 +40,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.div`
-  display:inline-block;
+  display: inline-block;
   font-family: AppleSDGothicNeoEB00;
   font-size: 24px;
   font-weight: normal;
@@ -51,12 +50,12 @@ const Title = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: black;
-  word-break:break-all;
+  word-break: break-all;
   justify-self: flex-start;
 `;
 
 const Description = styled.div`
-  display:inline-block;
+  display: inline-block;
   font-family: AppleSDGothicNeoM00;
   font-size: 20px;
   font-weight: normal;
@@ -66,7 +65,7 @@ const Description = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: black;
-  word-break:break-all;
+  word-break: break-all;
 `;
 
 const Time = styled.div`
@@ -84,7 +83,7 @@ const TimeText = styled.span`
   line-height: 2.25;
   letter-spacing: normal;
   color: #3d3d3d;
-  word-break:break-all;
+  word-break: break-all;
   margin-left: 27px;
 `;
 
@@ -108,7 +107,6 @@ const ButtonText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #5f5fd9;
-  
 `;
 
 export default function StudyCardView({ title, description, time }) {

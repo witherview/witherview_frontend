@@ -74,9 +74,9 @@ const TitleText = styled.span`
   max-width: 210px;
   max-height: 30px;
   overflow: hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  word-wrap:normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
   font-family: AppleSDGothicNeoEB00;
   font-size: 24px;
   font-weight: normal;
@@ -94,8 +94,8 @@ const SubTitle = styled.div`
   max-height: 30px;
   overflow: hidden;
   text-overflow:ellipsis;
-  white-space:nowrap;
-  word-wrap:normal;
+  white-space: nowrap;
+  word-wrap: normal;
   font-family: AppleSDGothicNeoB00;
   font-size: 20px;
   font-weight: normal;
@@ -108,7 +108,7 @@ const SubTitle = styled.div`
 `;
 
 const StyledIcon = styled.div`
-  display:inline-block;
+  display: inline-block;
   position: absolute;
   top: -18px;
   left: -18px;
