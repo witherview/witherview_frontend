@@ -52,16 +52,17 @@ const IconWrapper = styled.span`
 const AnswerBox = styled.div`
   width: 1153px;
   margin: 5px;
+  display: ${({ clicked }) => (clicked ? 'block' : 'none')};
+  overflow: hidden;
   box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
   border: solid 3px #f6f6f6;
   border-radius: 10px;
   background-color: #ffffff;
-  transform: translateY(-20px);
+  transform:  translateY(-20px);
 `;
 
 const ContenText = styled.div`
   width: 963px;
-  height: auto;
   margin: 70px 96px;
   outline: none;
   resize: none;
@@ -79,7 +80,7 @@ const ContenText = styled.div`
 `;
 
 export default function QuestionItem({
-  id, text, index, moveCard,
+  id, title, text, index, moveCard,
 }) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef(null);
@@ -141,15 +142,15 @@ export default function QuestionItem({
         <QuestionCard onClick={handleTitleClick} clicked={clicked}>
           <QusetionSymbol clicked={clicked}>Q</QusetionSymbol>
           <TitleText clicked={clicked}>
-            {text}
+            {title}
           </TitleText>
           <IconWrapper>
             <Icon type={clicked ? 'arrow_up' : 'arrow_down'} alt="" />
           </IconWrapper>
         </QuestionCard>
-        <AnswerBox>
+        <AnswerBox clicked={clicked}>
           <ContenText contentEditable="true">
-            안녕하십니까! 플러스엑스 예비 UX 디자이너 홍길동 인사드립니다.
+            {text}
           </ContenText>
         </AnswerBox>
       </div>
@@ -158,14 +159,16 @@ export default function QuestionItem({
 }
 
 QuestionItem.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string,
   text: PropTypes.string,
-  index: PropTypes.number,
-  moveCard: PropTypes.func,
+  index: PropTypes.number.isRequired,
+  moveCard: PropTypes.func.isRequired,
 };
 
 QuestionItem.defaultProp = {
   id: 1,
+  title: 'Sample Title',
   text: 'Sample Question',
   index: 1,
   moveCard: () => {},

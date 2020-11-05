@@ -6,31 +6,23 @@ export default function QuestionList() {
   const [cards, setCards] = useState([
     {
       id: 1,
-      text: 'Write a cool JS library',
+      title: '1번제목',
+      text: '1번내용',
     },
     {
       id: 2,
-      text: 'Make it generic enough',
+      title: '2번제목',
+      text: '2번내용',
     },
     {
       id: 3,
-      text: 'Write README',
+      title: '3번제목',
+      text: '3번내용',
     },
     {
       id: 4,
-      text: 'Create some examples',
-    },
-    {
-      id: 5,
-      text: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)',
-    },
-    {
-      id: 6,
-      text: '???',
-    },
-    {
-      id: 7,
-      text: 'PROFIT',
+      title: '4번제목',
+      text: '4번내용',
     },
   ]);
   const moveCard = useCallback((dragIndex, hoverIndex) => {
@@ -47,6 +39,7 @@ export default function QuestionList() {
       key={card.id}
       index={index}
       id={card.id}
+      title={card.title}
       text={card.text}
       moveCard={moveCard}
     />
