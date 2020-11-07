@@ -5,14 +5,13 @@ import PropTypes from 'prop-types';
 
 const Box = styled.div`
   display: flex;
-  content-align: center;
   justify-content: center;
   width: 296px;
   height: 60px;
   border-radius: 10px;
   user-select: none;
-  ${({ theme }) => (theme === 'blue' ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
-                  : theme === 'gray' ? 'background-color: #f6f6f6;' : '')}
+  ${({ theme }) => (theme === 'blue' ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%)'
+                  : theme === 'gray' ? 'background-color: #f6f6f6' : '')};
 `;
 
 const Text = styled.p`
@@ -25,8 +24,8 @@ const Text = styled.p`
   line-height: 1.4;
   letter-spacing: normal;
   text-align: left;
-  color: ${({ theme }) => (theme === 'blue' ? '#ffffff;'
-                        : theme === 'gray' ? '#3d3d3d;' : '#3d3d3d;')}
+  color: ${({ theme }) => (theme === 'blue' ? '#ffffff'
+                        : theme === 'gray' ? '#3d3d3d' : '#3d3d3d')};
   line-height: 0.9;
 `;
 

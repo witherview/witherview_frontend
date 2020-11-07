@@ -58,7 +58,7 @@ const AnswerBox = styled.div`
   border: solid 3px #f6f6f6;
   border-radius: 10px;
   background-color: #ffffff;
-  transform:  translateY(-20px);
+  transform: translateY(-20px);
 `;
 
 const ContenText = styled.div`
@@ -141,17 +141,13 @@ export default function QuestionItem({
       <div ref={ref} isDragging={isDragging}>
         <QuestionCard onClick={handleTitleClick} clicked={clicked}>
           <QusetionSymbol clicked={clicked}>Q</QusetionSymbol>
-          <TitleText clicked={clicked}>
-            {title}
-          </TitleText>
+          <TitleText clicked={clicked}>{title}</TitleText>
           <IconWrapper>
             <Icon type={clicked ? 'arrow_up' : 'arrow_down'} alt="" />
           </IconWrapper>
         </QuestionCard>
         <AnswerBox clicked={clicked}>
-          <ContenText contentEditable="true">
-            {text}
-          </ContenText>
+          <ContenText contentEditable="true">{text}</ContenText>
         </AnswerBox>
       </div>
     </>
