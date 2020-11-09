@@ -1,7 +1,10 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
+
 import iconImage from '../../assets/images/icons.png';
 
 const I = styled.i`
