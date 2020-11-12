@@ -24,7 +24,7 @@ const Name = styled.div`
 `;
 
 const NameBelow = styled.div`
-  font-family: AppleSDGothicNeoEM00;
+  font-family: AppleSDGothicNeoM00;
 `;
 
 export default function ProfileInfoContainer({ name, participateRate, src }) {
