@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -25,7 +25,35 @@ const WrapVideo = styled.video`
   z-index: -1;
 `;
 
-export default function CamView({ src, width, height, name, isRecord }) {
+export default function CamView({ peerRef, width, height, name, status, mediaBlobUrl }) {
+  const videoRef = useRef(null);
+
+  const setupStream = () => {
+    if (peerRef) {
+      videoRef = peerRef
+    }
+    navigator.mediaDevices.
+    getUserMedia({ video: true, audio: true })
+    .then((stream) => {
+      videoRef.current.srcObject = stream;
+    })
+    .catch(error => {/* TODO: Handle error */});
+  };
+
+  useEffect(() => {
+    setupStream()
+  }, [peerRef])
+
+  // TODO: 해당 useEffect는 잘 녹화되었는지 테스트 목적 - 실제 서비스에선 제거되어야 함
+  useEffect(() => {
+    if (status === "stopped") {
+      videoRef.current.srcObject = undefined;
+    } 
+    if (status === "recording") {
+      setupStream()
+    }
+  }, [status])
+
   return (
     <Wrapper width={width} height={height}>
       {
@@ -33,28 +61,26 @@ export default function CamView({ src, width, height, name, isRecord }) {
           <NameLabel name={name} /> : <></>
       }
       {
-        isRecord ?
+        status === "recording" ?
           <RecLabel /> : <></>
       }
-      <WrapVideo width={width} height={height} alt="image_view" controls autoPlay>
-        <source
-          src={src}
-          type="video/mp4" />
-      </ WrapVideo>
+      {/* TODO: src property의 mediaBolbUrl은 잘 녹화되었는지 테스트 목적 - 실제 서비스에선 제거되어야 함*/}
+      <WrapVideo src={mediaBlobUrl} ref={videoRef} width={width} height={height} alt="image_view" controls autoPlay loop muted />
     </Wrapper>
   );
 }
 
 CamView.propTypes = {
-  src: PropTypes.string,
+  peerRef: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number,
   name: PropTypes.string.isRequired,
-  isRecord: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
+  mediaBlobUrl: PropTypes.bool.isRequired,
 };
 
 CamView.defaultProps = {
-  src: "https://archive.org/download/ElephantsDream/ed_1024_512kb.mp4",
+  peerRef: undefined,
   width: 1167,
   height: 590,
 };

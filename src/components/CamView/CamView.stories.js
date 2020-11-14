@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useReactMediaRecorder } from '../../hooks/useMediaRecorder';
+
 import CamView from './CamView';
 
 
@@ -7,7 +10,24 @@ export default {
   component: CamView,
 };
 
-export const NormalCamView = () => <CamView />;
+export const NormalCamView = () => {
+  const {
+    status,
+    startRecording,
+    stopRecording,
+    mediaBlobUrl,
+  } = useReactMediaRecorder({ screen: true });
+
+  return (
+    <div>
+      <button type="button" onClick={() => startRecording()}>Start Record</button>
+      <button type="button" onClick={() => stopRecording()}>Stop Recroing</button>
+      <div>{status}</div>
+      <CamView status={status} mediaBlobUrl={mediaBlobUrl} />
+    </div>
+  )
+};
+
 export const NormalCamViewRecord = () => <CamView isRecord />;
 export const NormalCamViewRecordName = () => <CamView name="ABC" isRecord />;
 
