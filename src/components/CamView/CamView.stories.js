@@ -28,7 +28,9 @@ export const NormalCamView = () => {
   )
 };
 
-export const NormalCamViewRecord = () => <CamView isRecord />;
-export const NormalCamViewRecordName = () => <CamView name="ABC" isRecord />;
+export const NormalCamViewRecord = () => <CamView status="recording" />;
+export const NormalCamViewRecordName = () => <CamView name="ABC" status="recording" />;
 
-export const ScriptCamView = () => <CamView width={773} height={590} name="AAA" isRecord />;
+export const ScriptCamView = () => <CamView width={773} height={590} name="AAA" />;
+
+export const OneOnOneCamView = () => <CamView oneOnOne width={800} height={590} />;

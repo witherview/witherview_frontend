@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import NameLabel from './NameLabel';
 import RecLabel from './RecLabel';
+import SmallCamView from './SmallCamView';
 
 const Wrapper = styled.div`
   width: ${({ width }) => width}px;
@@ -25,19 +26,19 @@ const WrapVideo = styled.video`
   z-index: -1;
 `;
 
-export default function CamView({ peerRef, width, height, name, status, mediaBlobUrl }) {
+export default function CamView({ oneOnOne, peerRef, width, height, name, status, mediaBlobUrl }) {
   const videoRef = useRef(null);
 
   const setupStream = () => {
-    if (peerRef) {
+    if (!oneOnOne && peerRef) {
       videoRef = peerRef
     }
     navigator.mediaDevices.
-    getUserMedia({ video: true, audio: true })
-    .then((stream) => {
-      videoRef.current.srcObject = stream;
-    })
-    .catch(error => {/* TODO: Handle error */});
+      getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        videoRef.current.srcObject = stream;
+      })
+      .catch(error => {/* TODO: Handle error */ });
   };
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function CamView({ peerRef, width, height, name, status, mediaBlo
   useEffect(() => {
     if (status === "stopped") {
       videoRef.current.srcObject = undefined;
-    } 
+    }
     if (status === "recording") {
       setupStream()
     }
@@ -66,11 +67,13 @@ export default function CamView({ peerRef, width, height, name, status, mediaBlo
       }
       {/* TODO: src property의 mediaBolbUrl은 잘 녹화되었는지 테스트 목적 - 실제 서비스에선 제거되어야 함*/}
       <WrapVideo src={mediaBlobUrl} ref={videoRef} width={width} height={height} alt="image_view" controls autoPlay loop muted />
+      {oneOnOne ? <SmallCamView peerRef={peerRef} /> : <></>}
     </Wrapper>
   );
 }
 
 CamView.propTypes = {
+  oneOnOne: PropTypes.boolean,
   peerRef: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number,
@@ -80,6 +83,7 @@ CamView.propTypes = {
 };
 
 CamView.defaultProps = {
+  oneOnOne: false,
   peerRef: undefined,
   width: 1167,
   height: 590,
