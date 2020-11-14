@@ -226,12 +226,12 @@ export default function AloneQuestionCheckList({ src }) {
     progressBar.style.width = `${Math.floor((video.currentTime / video.duration) * 100)}%`;
   };
 
-  const onProgressClck = (evt) => {
-    const pos = (
-      evt.pageX - (progress.offsetLeft + progress.offsetParent.offsetLeft)
-    ) / progress.offsetWidth;
-    video.currentTime = pos * video.duration;
-  };
+  // const onProgressClck = (evt) => {
+  //   const pos = (
+  //     evt.pageX - (progress.offsetLeft + progress.offsetParent.offsetLeft)
+  //   ) / progress.offsetWidth;
+  //   video.currentTime = pos * video.duration;
+  // };
 
   return (
     <Background>
@@ -239,14 +239,15 @@ export default function AloneQuestionCheckList({ src }) {
       <Content>
         <LeftContent>
           <Video>
-            <video id="video" controls preload="metadata" ref={video} onLoadedMetadata={loadVideoMetaData} onPlay={onPlay} onPause={onPause} onTimeUpdate={onTimeUpdate}>
+            <video id="video" controls preload="metadata" onLoadedMetadata={loadVideoMetaData} onPlay={onPlay} onPause={onPause} onTimeUpdate={onTimeUpdate}>
+              <track src="" kind="captions" srcLang="ko" label="korean_captions" />
               <source src={src} type="video/webm" />
             </video>
-            <div id="video-controls" className="controls" data-state="hidden" ref={videoControls}>
-              <button id="playpause" type="button" data-state="play" ref={playpause} onClick={onPlayPause}>Play/Pause</button>
+            <div id="video-controls" className="controls" data-state="hidden">
+              <button id="playpause" type="button" data-state="play" onClick={onPlayPause}>Play/Pause</button>
               <div className="progress">
-                <progress id="progress" value="0" min="0" ref={progress} onClick={onProgressClck}>
-                  <span id="progress-bar" ref={progressBar} />
+                <progress id="progress" value="0" min="0">
+                  <span id="progress-bar" />
                 </progress>
               </div>
             </div>
