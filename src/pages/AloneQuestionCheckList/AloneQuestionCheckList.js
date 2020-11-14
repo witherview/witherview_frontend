@@ -27,7 +27,8 @@ const LeftContent = styled.div`
 
 const Video = styled.video`
     width: 470px;
-    height: 330px;
+    border: 10px solid #ffffff;
+    border-radius: 20px;
 `;
 
 const ButtonsWrapper = styled.div`
