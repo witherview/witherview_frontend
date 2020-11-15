@@ -41,10 +41,19 @@ jobs:
       - name: Debug
         run: echo ${{ env.BRANCH_NAME }}
 
-      - name: Deploy to Github Pages
+      - name: Deploy to Github Pages(pr)
         uses: peaceiris/actions-gh-pages@v3
+        if: env.BRANCH_NAME != 'master'
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_dir: ./storybook-static
-          destination_dir: ${{ env.BRANCH_NAME }}
           commit_message: https://Yapp-17th.github.io/Web_2_Client/${{ env.BRANCH_NAME }}
+          destination_dir: ${{ env.BRANCH_NAME }}
+
+      - name: Deploy to Github Pages(master)
+        uses: peaceiris/actions-gh-pages@v3
+        if: env.BRANCH_NAME == 'master'
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./storybook-static
+          commit_message: https://Yapp-17th.github.io/Web_2_Client/
