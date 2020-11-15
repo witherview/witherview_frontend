@@ -3,6 +3,7 @@ import update from 'immutability-helper';
 import QuestionItem from '../QuestionItem';
 
 export default function QuestionList() {
+  /* 추후 api를 통해 받아올 list */
   const [cards, setCards] = useState([
     {
       id: 1,
