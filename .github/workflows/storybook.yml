@@ -27,9 +27,24 @@ jobs:
       - run: npm ci
       - run: npm run build-storybook
 
+      # extract branch name
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/#//')" >> $GITHUB_ENV
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | sed 's/#//')" >> $GITHUB_ENV
+
+      - name: Debug
+        run: echo ${{ env.BRANCH_NAME }}
+
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_dir: ./storybook-static
-          commit_message: https://Yapp-17th.github.io/Web_2_Client/
+          destination_dir: ${{ env.BRANCH_NAME }}
+          commit_message: https://Yapp-17th.github.io/Web_2_Client/${{ env.BRANCH_NAME }}
