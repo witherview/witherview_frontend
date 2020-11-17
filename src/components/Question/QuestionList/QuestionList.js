@@ -1,31 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import update from 'immutability-helper';
 import QuestionItem from '../QuestionItem';
+import { QuestionMock } from '../../../mocks/QuestionMock';
 
 export default function QuestionList() {
   /* 추후 api를 통해 받아올 list */
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      title: '1번제목',
-      text: '1번내용',
-    },
-    {
-      id: 2,
-      title: '2번제목',
-      text: '2번내용',
-    },
-    {
-      id: 3,
-      title: '3번제목',
-      text: '3번내용',
-    },
-    {
-      id: 4,
-      title: '4번제목',
-      text: '4번내용',
-    },
-  ]);
+  const [cards, setCards] = useState(QuestionMock);
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     const dragCard = cards[dragIndex];
     setCards(update(cards, {
