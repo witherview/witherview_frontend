@@ -95,9 +95,9 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
 `;
 
 export default function Icon({
-  type, alt, style, src, propsize
+  type, alt, style, src
 }) {
-  const [size, setSize] = useState(propsize ? propsize : 'md');
+  const [size, setSize] = useState('md');
   useEffect(() => {
     if (type === 'arrow_down_blue' || type === 'arrow_down_grey' || type === 'arrow_up_blue' || type === 'drawer' || type === 'check_off' || type === 'check_on') {
       setSize('xsm');
