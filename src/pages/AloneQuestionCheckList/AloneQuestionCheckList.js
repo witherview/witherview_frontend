@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../../components/Button';
+import Icon from '../../components/Icon';
 
 const Background = styled.div`
     background-color: #eef0ff;
@@ -23,6 +24,12 @@ const Content = styled.div`
 const LeftContent = styled.div`
     width: 490px;
     height: auto;
+`;
+
+const RightContent = styled.div`
+    width: 1178px;
+    height: auto;
+    margin-left: 55px;
 `;
 
 const Video = styled.figure`
@@ -131,44 +138,51 @@ const ButtonsWrapper = styled.div`
     }
 `;
 
+const CheckListContainer = styled.div`
+    display: inline-block;
+    width: 550px;
+    height: 671px;
+    box-sizing: border-box;
+    margin-right: 11px;
+    padding: 43px 52px 57px 56px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+    background-color: #ffffff;
+    font-family: AppleSDGothicNeoM00;
+
+    & > ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            font-size: 22px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.33;
+            text-align: left;
+            letter-spacing: normal;
+            text-align: left;
+            color: #3d3d3d;
+        }
+    }
+`;
+
+const ListBox = styled.div`
+    display: inline-block;
+    vertical-align: top;
+
+    & > * {
+        display: block;
+        height: auto;
+        margin: 0;
+        margin-bottom: 30px;
+    }
+`;
+
 export default function AloneQuestionCheckList({src,}) {
     const [clickedBtn, setClickedBtn] = useState(1);
-    // const video = useRef();
-    // const videoControls = useRef();
-    // const playpause = useRef();
-    // const progress = ref => ref;
-    // const progressBar = useRef();
-    // useEffect(() => {
-    //     video.current.controls = false;
-    //     videoControls.current.setAttribute('data-state', 'visible');
-        
-    // }, []);
-
-    // const loadVideoMetaData = () => progress.current.setAttribute('max', video.current.duration);
-    // const changeButtonState = function() {
-    //     if (video.current.paused || video.current.ended) {
-    //         playpause.setAttribute('data-state', 'play');
-    //     } else {
-    //         playpause.setAttribute('data-state', 'pause');
-    //     }
-    // }
-
-    // const onPlay = () => changeButtonState();
-    // const onPause = () => changeButtonState();
-    // const onPlayPause = () => {
-    //     if(video.current.paused || video.current.ended) {
-    //         video.current.play();
-    //     } else {
-    //         video.current.pause();
-    //     }
-    // }
-    // const onTimeUpdate = () => {
-    //     if (!progress.current.getAttribute('max')) {
-    //         progress.current.setAttribute('max', video.current.duration);
-    //     }
-	// 	progress.value = video.current.currentTime;
-	// 	progressBar.style.width = Math.floor((video.current.currentTime / video.current.duration) * 100) + '%';
-    // }
     let video = null;
     let videoControls = null;
     let playpause = null;
@@ -182,7 +196,7 @@ export default function AloneQuestionCheckList({src,}) {
         progressBar = document.getElementById('progress-bar');
         video.controls = false;
         videoControls.setAttribute('data-state', 'visible');
-    }, []);
+    }, [clickedBtn]);
 
     const loadVideoMetaData = () => progress.setAttribute('max', video.duration);
     const changeButtonState = function() {
@@ -240,6 +254,81 @@ export default function AloneQuestionCheckList({src,}) {
                         <Button text={'체크리스트 저장'} theme={clickedBtn === 4 ? 'blue' : 'white'} func={() => setClickedBtn(4)} />
                     </ButtonsWrapper>
                 </LeftContent>
+                <RightContent>
+                    <CheckListContainer>
+                        <h2>태도 및 비언어</h2>
+                        <ul>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>목소리가 작지 않았다.</span>
+                            </li>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>복장이 단정하며 청결하였다.</span>
+                            </li>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>말하는 태도와 표정의 관리가 일관적이었다.</span>
+                            </li>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>눈빛의 흔들림이 없었다.</span>
+                            </li>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>카메라 혹은 화면을 제대로 응시했다.</span>
+                            </li>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>불필요한 추임새를 하지 않았다.</span>
+                            </li>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>고개를 흔들거리거나 몸을 좌우로 흔들지 않았다.</span>
+                            </li>
+                            <li>
+                                <Icon type="check" alt="checkbox" />
+                                <span>처음부터 끝까지 일관된 톤으로만 대답하지 않았다.</span>
+                            </li>
+                        </ul>
+                    </CheckListContainer>
+                    <ListBox>
+                        <CheckListContainer>
+                            <h3>답변 내용</h3>
+                            <ul>
+                                <li>
+                                    <Icon type="check" alt="checkbox" />
+                                    <span>똑같은 단어, 문장을 반복하지 않았다.</span>
+                                </li>
+                                <li>
+                                    <Icon type="check" alt="checkbox" />
+                                    <span>구체적인 예화, 사례, 근거를 통해 설명했다.</span>
+                                </li>
+                                <li>
+                                    <Icon type="check" alt="checkbox" />
+                                    <span>두괄식으로 처음부터 하고자 하는 말을 요약해서 전달했다.</span>
+                                </li>
+                            </ul>
+                        </CheckListContainer>
+                        <CheckListContainer>
+                            <h3>영상 환경 체크</h3>
+                            <ul>
+                                <li>
+                                    <Icon type="check" alt="checkbox" />
+                                    <span>화면안에 얼굴이 다 들어간다.</span>
+                                </li>
+                                <li>
+                                    <Icon type="check" alt="checkbox" />
+                                    <span>조명이 어둡지않고 이목구비가 잘 보인다.</span>
+                                </li>
+                                <li>
+                                    <Icon type="check" alt="checkbox" />
+                                    <span>목소리가 잘 들리며 주변의 소음이 크지 않다.</span>
+                                </li>
+                            </ul>
+                        </CheckListContainer>
+                    </ListBox>
+                </RightContent>
             </Content>
         </Background>
     );
