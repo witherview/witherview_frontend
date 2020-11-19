@@ -4,19 +4,25 @@ const { actions, reducer } = createSlice({
   name: 'modal',
   initialState: {
     show: false,
+    props: null,
     element: null,
+    style: '',
   },
   reducers: {
-    displayModal(_, { payload: { element } }) {
+    displayModal(state, { payload: { props, element, style } }) {
       document.querySelector('body').style.overflow = "hidden";
       return {
+        ...state,
         show: true,
+        props,
         element,
+        style,
       };
     },
-    removeModal() {
-        document.querySelector('body').style.overflow = "none";
+    removeModal(state) {
+      document.querySelector('body').style.overflow = "none";
       return {
+        ...state,
         show: false,
         element: null,
       }
@@ -26,8 +32,8 @@ const { actions, reducer } = createSlice({
 
 export const { displayModal, removeModal } = actions;
 
-export const showModal = () => (dispatch) => {
-  dispatch(displayModal({ element }));
+export const showModal = ({props, element, style}) => (dispatch) => {
+  dispatch(displayModal({ props, element, style }));
 };
 
 export const hideModal = () => (dispatch) => {
