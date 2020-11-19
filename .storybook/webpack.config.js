@@ -10,7 +10,7 @@ module.exports = async ({ config }) => {
 
   // fonts
   config.module.rules.push({
-    test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+    test: /\.(woff|woff2|eot|ttf|svg)$/,
     use: [
       {
         loader: 'file-loader',
