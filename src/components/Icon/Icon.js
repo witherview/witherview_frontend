@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import iconImage from '../../assets/images/icons.png';
+
+import iconImage from '../../../public/assets/images/icons.png';
 
 const I = styled.i`
   margin: 2px;
@@ -95,14 +96,14 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
 `;
 
 export default function Icon({
-  type, alt, style, src
+  type, alt, style, src,
 }) {
   const [size, setSize] = useState('md');
   useEffect(() => {
     if (type === 'arrow_down_blue' || type === 'arrow_down_grey' || type === 'arrow_up_blue' || type === 'drawer' || type === 'check_off' || type === 'check_on') {
       setSize('xsm');
     }
-    
+
     if (type === 'cancel_white' || type === 'add_orange' || type === 'add_blue' || type === 'check' || type === 'check_off' || type === 'check_on') {
       setSize('sm');
     }
@@ -211,7 +212,7 @@ Icon.propTypes = {
     'bubble_big',
     'memo_big',
     'star_big',
-    'thumb_up_big', 
+    'thumb_up_big',
     'thumb_down_big',
   ]).isRequired,
   alt: PropTypes.string.isRequired,
