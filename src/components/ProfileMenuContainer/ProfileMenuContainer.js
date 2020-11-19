@@ -30,7 +30,7 @@ export default function ProfileMenuContainer({ name, src }) {
     <Wrapper>
       <ProfileIcon src={src} />
       <Name>{name}</Name>
-      <Icon type="arrow_down" alt="arrow_down" style={{ width: '12px', height: '7px' }} />
+      <Icon type="arrow_down_grey" alt="arrow_down_grey" />
     </Wrapper>
   );
 }
