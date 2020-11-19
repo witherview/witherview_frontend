@@ -1,0 +1,34 @@
+name: Netlify
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - uses: jsmrcaga/action-netlify-deploy@master
+        with:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_TO_PROD: true
+          build_directory: ./dist
+          install_command	: npm i
+          build_command: npm run build
