@@ -30,7 +30,7 @@ const NameBelow = styled.div`
 export default function ProfileInfoContainer({ name, participateRate, src }) {
   return (
     <Wrapper>
-      <ProfileIcon src={src} size="small" />
+      <ProfileIcon src={src} isSmall />
       <Name>
         <div>{name}</div>
         <NameBelow>
