@@ -105,7 +105,7 @@ export default function Icon({
     if (type === 'arrow_down_blue' || type === 'arrow_down_grey' || type === 'arrow_up_blue' || type === 'drawer' || type === 'check_off' || type === 'check_on') {
       setSize('xsm');
     }
-    
+
     if (type === 'cancel_white' || type === 'add_orange' || type === 'add_blue' || type === 'check' || type === 'check_off' || type === 'check_on') {
       setSize('sm');
     }
@@ -214,7 +214,7 @@ Icon.propTypes = {
     'bubble_big',
     'memo_big',
     'star_big',
-    'thumb_up_big', 
+    'thumb_up_big',
     'thumb_down_big',
   ]).isRequired,
   alt: PropTypes.string.isRequired,
