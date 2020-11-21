@@ -22,7 +22,7 @@ const modalReducer = createSlice({
   },
 });
 
-export const { displayModal, removeModal } = modalReducer.actions;
+const { displayModal, removeModal } = modalReducer.actions;
 
 export const showModal = (modalName) => (dispatch) => {
   dispatch(displayModal({ modalName }));
