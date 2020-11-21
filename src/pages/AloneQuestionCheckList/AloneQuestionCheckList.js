@@ -117,7 +117,7 @@ const Video = styled.figure`
       width:0%;
       height:100%;
       display:inline-block;
-      background-color:#2a84cd;	
+      background-color:#2a84cd;
     }
 
     .controls progress::-moz-progress-bar {
