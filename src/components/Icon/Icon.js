@@ -1,6 +1,8 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 
 import iconImage from '../../../public/assets/images/icons.png';
@@ -96,7 +98,7 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
 `;
 
 export default function Icon({
-  type, alt, style, src,
+  type, alt, style, src
 }) {
   const [size, setSize] = useState('md');
   useEffect(() => {
