@@ -1,43 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { MODALS } from '../../utils/constant';
 
-const { actions, reducer } = createSlice({
+const modalReducer = createSlice({
   name: 'modal',
   initialState: {
-    show: false,
-    props: null,
-    element: null,
-    style: '',
+    [MODALS.QUESTIONLIST_SAVE_MODAL]: false,
   },
   reducers: {
-    displayModal(state, { payload: { props, element, style } }) {
-      document.querySelector('body').style.overflow = "hidden";
+    displayModal(state, { payload: { modalName } }) {
       return {
         ...state,
-        show: true,
-        props,
-        element,
-        style,
+        [modalName]: true,
       };
     },
-    removeModal(state) {
-      document.querySelector('body').style.overflow = "none";
+    removeModal(state, { payload: { modalName } }) {
       return {
         ...state,
-        show: false,
-        element: null,
-      }
-    }
+        [modalName]: false,
+      };
+    },
   },
 });
 
-export const { displayModal, removeModal } = actions;
+export const { displayModal, removeModal } = modalReducer.actions;
 
-export const showModal = ({props, element, style}) => (dispatch) => {
-  dispatch(displayModal({ props, element, style }));
+export const showModal = (modalName) => (dispatch) => {
+  dispatch(displayModal({ modalName }));
 };
 
-export const hideModal = () => (dispatch) => {
-  dispatch(removeModal());
+export const hideModal = (modalName) => (dispatch) => {
+  dispatch(removeModal({ modalName }));
 };
 
-export default reducer;
+export default modalReducer.reducer;
