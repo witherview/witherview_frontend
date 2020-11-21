@@ -1,3 +1,3 @@
 export const MODALS = {
-    QUESTIONLIST_SAVE_MODAL: 'questionListSaveModal'
-}
+  QUESTIONLIST_SAVE_MODAL: 'questionListSaveModal',
+};

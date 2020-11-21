@@ -1,9 +1,9 @@
 import React from 'react';
-import AloneQuestionCheckList from "./AloneQuestionCheckList";
+import AloneQuestionCheckList from './AloneQuestionCheckList';
 
 export default {
-    title: 'AloneQuestionCheckList',
-    component: AloneQuestionCheckList
-}
+  title: 'AloneQuestionCheckList',
+  component: AloneQuestionCheckList,
+};
 
-export const CheckList = (args) => <AloneQuestionCheckList {...args} />
+export const CheckList = (args) => <AloneQuestionCheckList {...args} />;
