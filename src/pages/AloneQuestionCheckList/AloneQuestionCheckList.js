@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect,
+  useState, useEffect, useCallback,
 } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -64,9 +64,9 @@ const Video = styled.figure`
   }
   .controls > * {
     float:left;
-    width:3.90625%;
+    width:11.2%;
     height:100%;
-    margin-left:0.1953125%;
+    margin-left:5%;
     display:block;
   }
   .controls > *:first-child {
@@ -74,57 +74,56 @@ const Video = styled.figure`
   }
   .controls .progress {
     cursor:pointer;
-    width:95.9%;
+    width:80%;
   }
   .controls button {
+    border:none;
     text-align:center;
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    border:none;
     cursor:pointer;
-    text-indent:-99999px;
     background:transparent;
     background-size:contain;
     background-repeat:no-repeat;
+
+    &:focus {
+      outline: none;
+    }
   }
-  .controls button:hover, .controls button:focus {
+  .controls button:hover {
     opacity:0.5;
-  }
-  .controls button[data-state="play"] {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFNDZDNDg2MEEzMjFFMjExOTBEQkQ4OEMzRUMyQjhERCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNkU0NTY5NkE0MDcxMUUyQjgwQkYzQzhCMDZBRTU1NCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNkU0NTY5NUE0MDcxMUUyQjgwQkYzQzhCMDZBRTU1NCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjQzQ0QwNDBBMDJBNEUyMTFCOTZEQzYyRDgyRUVBOUZDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkU0NkM0ODYwQTMyMUUyMTE5MERCRDg4QzNFQzJCOEREIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+kBUJ9AAAAXFJREFUeNrsmLtOAkEUhneQyiAdDTExGlYMBaW9oq/ge8jlUbwkthTY2EGBLehbKK0UxsQgVK7/SWbMZo3j3mbmxPAnXyi2+fIzZ3dmRBAEHucUPO6hBhUyNXAH3umxJRZgCBo/nCKCe+DVoliUN5LUCd46lFOMwk4iPCRCiDl+Ko5X3RJOm99OEcGAyVyIrFO8lEPE9jXTBNvgRq4ba6+ZuAs5nFMwy3NQdFOcRpBSBtfgk6ugykkebZoUpGyBqyxtmhZUaYFnzoKqzcukbdoUVDkGT5wFKSVwEadNV4IqR3+16VrQkxuSVRxBVzvqKija+tQl/fafyx00u7/YBxOOU0yttcEHx9fMPphy/JJQa50krdkUrIMHjruZDdBN25ppwYOsrZkSpNZ68hDFast/Bg7Bo4nDu+7g/m/Oxc6u3+YMnBY6wTEDwXvdbmYXvDi82aKrP183xZQd0LcsSktrIC9PvV+neH1HvRZ0kC8BBgADq2RhyZa7BQAAAABJRU5ErkJggg==');
-  }
-  .controls button[data-state="pause"] {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFNDZDNDg2MEEzMjFFMjExOTBEQkQ4OEMzRUMyQjhERCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNzE0QzJGQUE0MDcxMUUyQjgwQkYzQzhCMDZBRTU1NCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNzAxODM5QUE0MDcxMUUyQjgwQkYzQzhCMDZBRTU1NCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjQzQ0QwNDBBMDJBNEUyMTFCOTZEQzYyRDgyRUVBOUZDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkU0NkM0ODYwQTMyMUUyMTE5MERCRDg4QzNFQzJCOEREIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+r7sqzQAAANdJREFUeNrs2MEKwjAMBuDGswd9C/UdPHvy6Ft6UTyKr6RDcceawDpKHZsE2kb4Az87GOiHNLCFvPfOcs2c9ZJ/MKSrDefCaeXnQmm7M9dfpgQoDY+CsDRy9moMeKqICznGJoqHhIie/JhXvnUNmxa9KQF6I3NBfzPFANYC7uTKRtkqeyZLOyQ0dLcVPRgSAAEEEEAAAQQQwJ9ftzQ92YAHzjLKXtmT7YUVX3UA5gK+DJiaMeDNAPCaToyl9dvdTazfpMIC810QJmed3cACk7CjBrByfQQYAHwMIXlfZRgfAAAAAElFTkSuQmCC');
   }
   .controls progress {
     display:block;
     width:100%;
-    margin-top:2px;
-    margin-top:0.125rem;
+    margin-top:1.125rem;
     border:none;
     overflow:hidden;
     -moz-border-radius:2px;
     -webkit-border-radius:2px;
     border-radius:2px;
-    color:#0095dd; /* Internet Explorer uses this value as the progress bar's value colour */
+    color:#6e6eff;
   }
   .controls progress[data-state="fake"] {
-    background:#e6e6e6;
+    background:#d3d3d3;
     height:65%;
   }
   .controls progress span {
     width:0%;
     height:100%;
     display:inline-block;
-    background-color:#2a84cd;
+    background-color:#6e6eff;
   }
   
   .controls progress::-moz-progress-bar {
-    background-color:#0095dd;
+    background-color:#6e6eff;
   }
   .controls progress::-webkit-progress-value {
-    background-color:#0095dd;
+    background-color:#6e6eff;
+  }
+  .controls progress::-webkit-progress-bar {
+    background-color: #d3d3d3;
   }
 `;
 
@@ -137,6 +136,7 @@ const ButtonsWrapper = styled.div`
   & > * {
     margin: 10px;
     flex: 1 0 calc(50% - 20px);
+    cursor: pointer;
   }
 `;
 
@@ -146,11 +146,13 @@ const CheckListContainer = styled.div`
   height: 671px;
   box-sizing: border-box;
   margin-right: 11px;
-  padding: 43px 52px 57px 56px;
+  margin-bottom: 30px;
+  padding: 43px 42px 57px 56px;
   border-radius: 10px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   background-color: #ffffff;
   font-family: AppleSDGothicNeoM00;
+  text-align: left;
 
   & > ul {
     margin: 0;
@@ -158,15 +160,28 @@ const CheckListContainer = styled.div`
     list-style: none;
 
     li {
-      font-size: 22px;
+      display: table;
+      font-size: 20px;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
-      line-height: 1.33;
       text-align: left;
       letter-spacing: normal;
       text-align: left;
       color: #3d3d3d;
+      margin-bottom: 20px;
+
+      i {
+        float: left;
+        margin-right: 25px;
+        cursor: pointer;
+      }
+
+      span {
+        display: table-cell;
+        vertical-align: middle;
+        line-height: 1.5;
+      }
     }
   }
 `;
@@ -185,6 +200,8 @@ const ListBox = styled.div`
 
 export default function AloneQuestionCheckList({ src }) {
   const [clickedBtn, setClickedBtn] = useState(1);
+  const [playPauseBtn, setPlayPauseBtn] = useState(true);
+  const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
   let video = null;
   let videoControls = null;
   let playpause = null;
@@ -198,40 +215,49 @@ export default function AloneQuestionCheckList({ src }) {
     progressBar = document.getElementById('progress-bar');
     video.controls = false;
     videoControls.setAttribute('data-state', 'visible');
-  }, [clickedBtn]);
+  }, [clickedBtn, playPauseBtn, checkListArray]);
 
-  const loadVideoMetaData = () => progress.setAttribute('max', video.duration);
-  const changeButtonState = () => {
+  const loadVideoMetaData = useCallback(() => progress.setAttribute('max', video.duration), []);
+  const changeButtonState = useCallback(() => {
     if (video.paused || video.ended) {
       playpause.setAttribute('data-state', 'play');
     } else {
       playpause.setAttribute('data-state', 'pause');
     }
-  };
+  }, []);
 
-  const onPlay = () => changeButtonState();
-  const onPause = () => changeButtonState();
-  const onPlayPause = () => {
+  const onPlay = useCallback(() => changeButtonState(), []);
+  const onPause = useCallback(() => changeButtonState(), []);
+  const onPlayPause = useCallback(() => {
     if (video.paused || video.ended) {
       video.play();
     } else {
       video.pause();
     }
-  };
-  const onTimeUpdate = () => {
-    if (!progress.getAttribute('max')) {
+    setPlayPauseBtn(!playPauseBtn);
+  }, [playPauseBtn]);
+
+  const onTimeUpdate = useCallback(() => {
+    if (!progress?.getAttribute('max')) {
       progress.setAttribute('max', video.duration);
     }
     progress.value = video.currentTime;
     progressBar.style.width = `${Math.floor((video.currentTime / video.duration) * 100)}%`;
-  };
+  }, []);
 
-  // const onProgressClck = (evt) => {
-  //   const pos = (
-  //     evt.pageX - (progress.offsetLeft + progress.offsetParent.offsetLeft)
-  //   ) / progress.offsetWidth;
-  //   video.currentTime = pos * video.duration;
-  // };
+  const onProgressClck = useCallback((evt) => {
+    const pos = (
+      evt.pageX - (progress.offsetLeft + progress.offsetParent.offsetLeft)
+    ) / progress.offsetWidth;
+    video.currentTime = pos * video.duration;
+  }, []);
+
+  const onCheck = useCallback((evt) => {
+    const newCheckList = checkListArray.map(
+      (item, idx) => (idx === parseInt(evt.target.parentNode.id, 10) ? !item : item),
+    );
+    setCheckListArray(newCheckList);
+  }, [checkListArray]);
 
   return (
     <Background>
@@ -244,9 +270,11 @@ export default function AloneQuestionCheckList({ src }) {
               <source src={src} type="video/webm" />
             </video>
             <div id="video-controls" className="controls" data-state="hidden">
-              <button id="playpause" type="button" data-state="play" onClick={onPlayPause}>Play/Pause</button>
+              <button id="playpause" type="button" data-state="play" onClick={onPlayPause}>
+                <Icon type={playPauseBtn ? 'play_blue' : 'pause'} alt="play/button" />
+              </button>
               <div className="progress">
-                <progress id="progress" value="0" min="0">
+                <progress id="progress" value="0" min="0" onClick={onProgressClck}>
                   <span id="progress-bar" />
                 </progress>
               </div>
@@ -263,71 +291,71 @@ export default function AloneQuestionCheckList({ src }) {
           <CheckListContainer>
             <h2>태도 및 비언어</h2>
             <ul>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={0}>
+                <Icon type={checkListArray[0] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>목소리가 작지 않았다.</span>
               </li>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={1}>
+                <Icon type={checkListArray[1] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>복장이 단정하며 청결하였다.</span>
               </li>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={2}>
+                <Icon type={checkListArray[2] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>말하는 태도와 표정의 관리가 일관적이었다.</span>
               </li>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={3}>
+                <Icon type={checkListArray[3] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>눈빛의 흔들림이 없었다.</span>
               </li>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={4}>
+                <Icon type={checkListArray[4] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>카메라 혹은 화면을 제대로 응시했다.</span>
               </li>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={5}>
+                <Icon type={checkListArray[5] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>불필요한 추임새를 하지 않았다.</span>
               </li>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={6}>
+                <Icon type={checkListArray[6] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>고개를 흔들거리거나 몸을 좌우로 흔들지 않았다.</span>
               </li>
-              <li>
-                <Icon type="check" alt="checkbox" />
+              <li id={7}>
+                <Icon type={checkListArray[7] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                 <span>처음부터 끝까지 일관된 톤으로만 대답하지 않았다.</span>
               </li>
             </ul>
           </CheckListContainer>
           <ListBox>
             <CheckListContainer>
-              <h3>답변 내용</h3>
+              <h2>답변 내용</h2>
               <ul>
-                <li>
-                  <Icon type="check" alt="checkbox" />
+                <li id={8}>
+                  <Icon type={checkListArray[8] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                   <span>똑같은 단어, 문장을 반복하지 않았다.</span>
                 </li>
-                <li>
-                  <Icon type="check" alt="checkbox" />
+                <li id={9}>
+                  <Icon type={checkListArray[9] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                   <span>구체적인 예화, 사례, 근거를 통해 설명했다.</span>
                 </li>
-                <li>
-                  <Icon type="check" alt="checkbox" />
+                <li id={10}>
+                  <Icon type={checkListArray[10] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                   <span>두괄식으로 처음부터 하고자 하는 말을 요약해서 전달했다.</span>
                 </li>
               </ul>
             </CheckListContainer>
             <CheckListContainer>
-              <h3>영상 환경 체크</h3>
+              <h2>영상 환경 체크</h2>
               <ul>
-                <li>
-                  <Icon type="check" alt="checkbox" />
+                <li id={11}>
+                  <Icon type={checkListArray[11] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                   <span>화면안에 얼굴이 다 들어간다.</span>
                 </li>
-                <li>
-                  <Icon type="check" alt="checkbox" />
+                <li id={12}>
+                  <Icon type={checkListArray[12] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                   <span>조명이 어둡지않고 이목구비가 잘 보인다.</span>
                 </li>
-                <li>
-                  <Icon type="check" alt="checkbox" />
+                <li id={13}>
+                  <Icon type={checkListArray[13] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
                   <span>목소리가 잘 들리며 주변의 소음이 크지 않다.</span>
                 </li>
               </ul>
