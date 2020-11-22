@@ -4,21 +4,24 @@ const authReducer = createSlice({
   name: 'auth',
   initialState: {
     isLogin: false,
-    user: '',
+    email: '',
+    name: '',
   },
   reducers: {
-    setLogin(state, { payload: { user } }) {
+    setLogin(state, { payload: { email, name } }) {
       return {
         ...state,
         isLogin: true,
-        user,
+        email: email,
+        name: name,
       };
     },
     setLogout(state) {
       return {
         ...state,
         isLogin: false,
-        user: '',
+        email: '',
+        name: '',
       };
     },
   },
