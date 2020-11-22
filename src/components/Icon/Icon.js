@@ -98,7 +98,7 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
 `;
 
 export default function Icon({
-  type, alt, style, src
+  type, alt, style, src,
 }) {
   const [size, setSize] = useState('md');
   useEffect(() => {

@@ -113,7 +113,6 @@ export default function RangeBar({
     const inputRightRange = inputRight.current;
     const min = parseInt(inputRightRange.min);
     const max = parseInt(inputRightRange.max);
-
     inputRightRange.value = Math.max(
       parseInt(inputRightRange.value), parseInt(inputLeft.current.value) + 1,
     );
