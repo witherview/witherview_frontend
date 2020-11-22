@@ -68,7 +68,7 @@ export default function Checkbox({
       <Input type="checkbox" className={className} />
       <Checkmark />
     </Wrapper>
-  )
+  );
 }
 
 Checkbox.propTypes = {

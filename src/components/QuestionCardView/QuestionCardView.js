@@ -9,7 +9,7 @@ const Box = styled.div`
   height: 270px;
   border-radius: 10px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid  ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')}
+  border: solid  ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')};
   background-color: #ffffff;
   box-sizing: content-box;
   user-select: none;
