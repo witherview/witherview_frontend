@@ -6,6 +6,17 @@ import styled from 'styled-components';
 import Button from '../../components/Button';
 import Icon from '../../components/Icon';
 
+const CloseButton = styled.button`
+  position: absolute;
+  right: 7%;
+  border: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const Background = styled.div`
   background-color: #eef0ff;
   padding: 66px 97px 112px;
@@ -13,9 +24,11 @@ const Background = styled.div`
 `;
 
 const EndingTitle = styled.span`
+  display: block;
   color: #000000;
   font-family: AppleSDGothicNeoEB00;
   font-size: 36px;
+  margin-top: 90px;
 `;
 
 const Content = styled.div`
@@ -36,12 +49,11 @@ const RightContent = styled.div`
 
 const Video = styled.figure`
   width: 470px;
-  border: 10px solid #ffffff;
-  border-radius: 20px;
   margin: 0;
 
   & video {
     width: 100%;
+    border-radius: 20px;
   }
 
   & .controls, .controls > * {
@@ -51,10 +63,14 @@ const Video = styled.figure`
 
   .controls {
     overflow:hidden;
-    background:transparent;
+    background-color:#ffffff;
     width:100%;
     height:8.0971659919028340080971659919028%;
     position:relative;
+    border-radius:10px;
+    margin-top:10px;
+    padding:10px;
+    box-sizing:border-box;
   }
   .controls[data-state=hidden] {
     display:none;
@@ -64,7 +80,6 @@ const Video = styled.figure`
   }
   .controls > * {
     float:left;
-    width:11.2%;
     height:100%;
     margin-left:5%;
     display:block;
@@ -73,7 +88,6 @@ const Video = styled.figure`
     margin-left:0;
   }
   .controls .progress {
-    cursor:pointer;
     width:80%;
   }
   .controls button {
@@ -104,6 +118,7 @@ const Video = styled.figure`
     -webkit-border-radius:2px;
     border-radius:2px;
     color:#6e6eff;
+    cursor:pointer;
   }
   .controls progress[data-state="fake"] {
     background:#d3d3d3;
@@ -124,6 +139,15 @@ const Video = styled.figure`
   }
   .controls progress::-webkit-progress-bar {
     background-color: #d3d3d3;
+  }
+  .controls progress + .checkPoint {
+    position: relative;
+    background: transparent;
+  }
+
+  .checkPoint > div {
+    position: absolute;
+    cursor: pointer;
   }
 `;
 
@@ -261,6 +285,9 @@ export default function AloneQuestionCheckList({ src }) {
 
   return (
     <Background>
+      <CloseButton type="button">
+        <Icon type="cancel_circle" alt="close" />
+      </CloseButton>
       <EndingTitle>면접이 종료 되었습니다. 체크리스트를 통해 스스로 평가를 해보세요.</EndingTitle>
       <Content>
         <LeftContent>
@@ -277,6 +304,15 @@ export default function AloneQuestionCheckList({ src }) {
                 <progress id="progress" value="0" min="0" onClick={onProgressClck}>
                   <span id="progress-bar" />
                 </progress>
+                <div className="checkPoint" value="0" min="0">
+                  {[25, 50, 75].map(
+                    (item) => (
+                      <div style={{ left: `calc(${item}% - 9px)` }} key={`${item}point`}>
+                        <Icon type="arrow_up_blue" alt="section" func={onProgressClck} />
+                      </div>
+                    ),
+                  )}
+                </div>
               </div>
             </div>
           </Video>
