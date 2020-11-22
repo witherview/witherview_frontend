@@ -30,10 +30,10 @@ const Circle = styled.div`
 `;
 
 export default function RecLabel() {
-    return (
-        <Wrapper>
-            <Circle />
-            REC
-        </ Wrapper>
-    );
+  return (
+    <Wrapper>
+      <Circle />
+      REC
+    </Wrapper>
+  );
 }

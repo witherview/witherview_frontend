@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,6 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-
 const WrapVideo = styled.video`
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
@@ -26,60 +25,74 @@ const WrapVideo = styled.video`
   z-index: -1;
 `;
 
-export default function CamView({ oneOnOne, peerRef, width, height, name, status, mediaBlobUrl }) {
+export default function CamView({
+  oneOnOne,
+  peerRef,
+  width,
+  height,
+  name,
+  status,
+  mediaBlobUrl,
+}) {
   const videoRef = useRef(null);
 
   const setupStream = () => {
     if (!oneOnOne && peerRef) {
-      videoRef = peerRef
+      videoRef.current = peerRef;
     }
-    navigator.mediaDevices.
-      getUserMedia({ video: true, audio: true })
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         videoRef.current.srcObject = stream;
       })
-      .catch(error => {/* TODO: Handle error */ });
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
-    setupStream()
-  }, [peerRef])
+    setupStream();
+  }, [peerRef]);
 
   // TODO: 해당 useEffect는 잘 녹화되었는지 테스트 목적 - 실제 서비스에선 제거되어야 함
   useEffect(() => {
-    if (status === "stopped") {
+    if (status === 'stopped') {
       videoRef.current.srcObject = undefined;
     }
-    if (status === "recording") {
-      setupStream()
+    if (status === 'recording') {
+      setupStream();
     }
-  }, [status])
+  }, [status]);
 
   return (
     <Wrapper width={width} height={height}>
-      {
-        name ?
-          <NameLabel name={name} /> : <></>
-      }
-      {
-        status === "recording" ?
-          <RecLabel /> : <></>
-      }
-      {/* TODO: src property의 mediaBolbUrl은 잘 녹화되었는지 테스트 목적 - 실제 서비스에선 제거되어야 함*/}
-      <WrapVideo src={mediaBlobUrl} ref={videoRef} width={width} height={height} alt="image_view" controls autoPlay loop muted />
+      {name ? <NameLabel name={name} /> : <></>}
+      {status === 'recording' ? <RecLabel /> : <></>}
+      {/* TODO: src property의 mediaBolbUrl은 잘 녹화되었는지 테스트 목적 - 실제 서비스에선 제거되어야 함 */}
+      <WrapVideo
+        src={mediaBlobUrl}
+        ref={videoRef}
+        width={width}
+        height={height}
+        alt="image_view"
+        controls
+        autoPlay
+        loop
+        muted
+      />
       {oneOnOne ? <SmallCamView peerRef={peerRef} /> : <></>}
     </Wrapper>
   );
 }
 
 CamView.propTypes = {
-  oneOnOne: PropTypes.boolean,
+  oneOnOne: PropTypes.bool,
   peerRef: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   status: PropTypes.string.isRequired,
-  mediaBlobUrl: PropTypes.bool.isRequired,
+  mediaBlobUrl: PropTypes.string,
 };
 
 CamView.defaultProps = {
@@ -87,4 +100,6 @@ CamView.defaultProps = {
   peerRef: undefined,
   width: 1167,
   height: 590,
+  name: undefined,
+  mediaBlobUrl: undefined,
 };
