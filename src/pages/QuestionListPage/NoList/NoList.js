@@ -6,8 +6,10 @@ import Icon from '../../../components/Icon'
 const Image = styled.img`
     width: 327px;
     height: 197px;
+    margin-top: 171px;
 `;
 const Text = styled.div`
+    margin-top: 30px;
     font-family: AppleSDGothicNeoM00;
     font-size: 24px;
     font-weight: normal;
@@ -21,13 +23,14 @@ const Button = styled.div`
     display: flex;
     width: 356px;
     height: 82px;
-    margin: 100px 0 0;
+    margin: 100px 0 0 0;
     border-radius: 10px;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     justify-content: center;
     align-items: center;
 `
 const ButtonText = styled.span`
+    height: 30px;
     margin-left: 30px;
     font-family: AppleSDGothicNeoB00;
     font-size: 24px;

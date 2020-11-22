@@ -4,14 +4,19 @@ import { useSelector } from 'react-redux';
 import { getQuestionListAPI } from '../../repository/questionListRepository';
 import NoList from './NoList/NoList';
 import { get } from '../../utils/snippet'; 
+import ProfileMenuContiner from '../../components/ProfileMenuContainer';
 
+const ProfileWrapper = styled.div`
+    float: right;
+    margin: 53px 105px 0 0;
+`;
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
-    height: 100vh;
+    height: 100vh-137px;
+    margin-top: 137px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 `;
 
 const Title = styled.div`
@@ -26,6 +31,7 @@ const Title = styled.div`
 `;
 
 const Select = styled.div`
+    margin-top: 20px;
     font-family: AppleSDGothicNeoM00;
     font-size: 24px;
     font-weight: normal;
@@ -47,6 +53,9 @@ export default function QuestionListPage() {
 
     return (
         <>  
+            <ProfileWrapper>
+                <ProfileMenuContiner name={authSelector.name} />
+            </ProfileWrapper>
             <Wrapper>
                 <Title>{authSelector.name}님이 등록한 질문 리스트입니다.</Title>
                 <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
