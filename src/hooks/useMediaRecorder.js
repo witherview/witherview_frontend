@@ -124,18 +124,22 @@ export default function useReactMediaRecorder({
   };
 
   const onRecordingStop = () => {
-    mediaChunks.current.push(mediaChunkEach.current);
+    mediaChunks.current.push(...mediaChunkEach.current);
+
     const [chunk] = mediaChunks.current;
     const blobProperty = {
       type: chunk.type,
       ...blobPropertyBag
         || (video || screen ? { type: 'video/mp4' } : { type: 'audio/wav' }),
     };
-    const blob = new Blob(mediaChunks.current[0], blobProperty);
+    const blob = new Blob(mediaChunks.current, blobProperty);
     const url = URL.createObjectURL(blob);
     setStatus('stopped');
     setMediaBlobUrl(url);
     onStop(url, blob);
+
+    mediaChunks.current = [];
+    mediaChunkEach.current = [];
   };
 
   const startRecording = async () => {
@@ -191,8 +195,6 @@ export default function useReactMediaRecorder({
         if (mediaStream.current) {
           mediaStream.current.getTracks().forEach((track) => track.stop());
         }
-        mediaChunks.current = [];
-        mediaChunkEach.current = [];
       }
     }
   };
