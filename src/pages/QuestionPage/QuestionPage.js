@@ -6,13 +6,14 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Button from '../../components/Button';
 import ProfileMenuContiner from '../../components/ProfileMenuContainer';
-import { getQuestionItemAPI, postQuestionListAPI } from '../../repository/questionListRepository';
+import { getQuestionItemAPI, postQuestionItemAPI, patchQuestionItemAPI } from '../../repository/questionListRepository';
 import { get } from '../../utils/snippet';
 import Icon from '../../components/Icon';
-import Sidebar from '../../components/Sidebar';
 import QuestionList from '../../components/Question/QuestionList';
 import Modal from '../../components/Modal/Modal';
 import { showModal } from '../../store/Modal/modal';
+import { AddQuestions } from '../../store/Question/question';
+import { MODALS } from '../../utils/constant';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -109,34 +110,65 @@ const ButtonWrapper = styled.div`
 export default function QuestionPage({ match }) {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
-  const [questions, setQuestions] = useState([]);
-  const [oldQ, setOldQ] = useState([]);
-  const [newQ, setNewQ] = useState([]);
+  const qeustionSelector = useSelector(get('question'));
+  const [questionList, setQuestionList] = useState([]);
+  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const { id } = match.params;
   const fetch = async () => {
     if (id !== 'new') {
       getQuestionItemAPI(id).then((response) => {
-        setQuestions(response.data);
+        setQuestionList(response.data);
       });
     }
   };
   useEffect(() => {
     fetch();
     setLoading(true);
+    console.log(`questions:  ${questionList}`);
   }, []);
 
-  const handleMakeQuestion = () => {
+  const handleQuestionMake = () => {
+    // TODO: 비동기 처리 해야함. dispatch후에 아래의 과정 처리해야함.
+    dispatch(AddQuestions({ questions: questionList }));
     if (id === 'new') {
-      dispatch(showModal('questionListSaveModal'));
+      dispatch(showModal(MODALS.QUESTIONLIST_SAVE_MODAL));
+    } else {
+      console.log(qeustionSelector);
+      const storedQuestions = qeustionSelector.questions;
+      const Old = storedQuestions.filter((val) => val.id !== undefined).map((elem) => ({
+        id: elem.id,
+        answer: elem.answer,
+        order: elem.order,
+        question: elem.question,
+      }));
+      const New = storedQuestions.filter((val) => val.id === undefined);
+      if (New.length !== 0) {
+        postQuestionItemAPI({ listId: id, questions: New }).then(() => {
+          // TODO: 혼자연습하기로 가기
+        });
+      }
+      patchQuestionItemAPI(Old).then(() => {
+        // TODO: 혼자연습하기로 가기
+      });
+      dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
     }
+  };
+
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleQuestionAdd = () => {
+    setQuestionList([...questionList, { question: title, order: questionList.length, answer: '' }]);
+    setTitle('');
   };
 
   return (
     <>
       <PageWrapper>
-        <Sidebar />
-        <Modal modalName="questionListSaveModal" />
+        <Modal modalName={MODALS.QUESTIONLIST_SAVE_MODAL} />
+        <Modal modalName={MODALS.SELF_TRAIN_START_MODAL} />
         <ContentWrapper>
           <ProfileWrapper>
             <ProfileMenuContiner name={authSelector.name} />
@@ -146,16 +178,16 @@ export default function QuestionPage({ match }) {
               면접 질문 작성 및 수정하기
             </Title>
             <Input>
-              <InputQuestion placeholder="질문을 입력하세요." />
+              <InputQuestion placeholder="질문을 입력하세요." value={title} onChange={handleTitle} />
               <IconWrapper>
-                <Icon type="check_rec" />
+                <Icon type="check_rec" func={handleQuestionAdd} />
               </IconWrapper>
             </Input>
           </Wrapper>
           {loading
             && (
               <>
-                {questions && questions.length === 0
+                {questionList && questionList.length === 0
                   ? (
                     <Text>
                       등록된 질문이 없습니다.
@@ -165,12 +197,12 @@ export default function QuestionPage({ match }) {
                     <ListWrapper>
                       <Scroll>
                         <DndProvider backend={HTML5Backend}>
-                          <QuestionList questions={questions} setQuestions={setQuestions} />
+                          <QuestionList questions={questionList} setQuestions={setQuestionList} />
                         </DndProvider>
                       </Scroll>
                     </ListWrapper>
                   )}
-                <ButtonWrapper onClick={handleMakeQuestion}>
+                <ButtonWrapper onClick={handleQuestionMake}>
                   <Button text={id === 'new' ? '저장' : '완료'} theme="blue" />
                 </ButtonWrapper>
               </>

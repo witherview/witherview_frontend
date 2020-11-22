@@ -1,49 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { hideModal } from '../../../store/Modal/modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { hideModal, showModal } from '../../../store/Modal/modal';
 import InputBar from '../../InputBar';
 import Button from '../../Button';
-
-const Background = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
-  z-index: 1;
-`;
+import { postQuestionListAPI, postQuestionItemAPI } from '../../../repository/questionListRepository';
+import { get } from '../../../utils/snippet';
+import { MODALS } from '../../../utils/constant';
 
 const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: auto;
-  outline: none;
-  z-index: 2;
-`;
-
-const Content = styled.div`
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 660px;
-  height: 876px;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.04);
-  background-color: #ffffff;
-  margin: 0 auto;
-  outline: none;
-`;
-
-const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 660px;
+  height: 876px;
 `;
 
 const Text = styled.div`
@@ -81,43 +51,54 @@ const ButtonWrapper = styled.div`
 
 const QuestionListSaveModal = () => {
   const dispatch = useDispatch();
-  const handleCloseModal = (e) => {
-    if (e.target === e.currentTarget) {
-      dispatch(hideModal('questionListSaveModal'));
-    }
+  const qeustionSelector = useSelector(get('question'));
+  const [title, setTitle] = useState();
+  const [enterprise, setEnterprise] = useState();
+  const [job, setJob] = useState();
+
+  const handleListMake = () => {
+    postQuestionListAPI({ title, enterprise, job }).then((response) => {
+      postQuestionItemAPI({
+        listId: response.data.id,
+        questions: qeustionSelector.questions,
+      }).then(() => {
+        dispatch(hideModal(MODALS.QUESTIONLIST_SAVE_MODAL));
+        dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+      });
+    });
   };
+
+  const handleInputChange = (e, setState) => {
+    setState(e.target.value);
+  };
+
   return (
     <>
-      <Background />
-      <Wrapper tabIndex="-1" onClick={handleCloseModal}>
-        <Content tabIndex="0">
-          <ModalWrapper>
-            <Text>
-              질문 리스트 저장
-            </Text>
-            <InputWrapper>
-              <InputText>
-                질문 리스트 제목
-              </InputText>
-              <InputBar />
-            </InputWrapper>
-            <InputWrapper>
-              <InputText>
-                기업 이름
-              </InputText>
-              <InputBar />
-            </InputWrapper>
-            <InputWrapper>
-              <InputText>
-                직무 이름
-              </InputText>
-              <InputBar />
-            </InputWrapper>
-            <ButtonWrapper>
-              <Button text="확인" theme="blue" />
-            </ButtonWrapper>
-          </ModalWrapper>
-        </Content>
+      <Wrapper>
+        <Text>
+          질문 리스트 저장
+        </Text>
+        <InputWrapper>
+          <InputText>
+            질문 리스트 제목
+          </InputText>
+          <InputBar placeholder="제목을 입력해주세요." value={title} onchange={(e) => handleInputChange(e, setTitle)} />
+        </InputWrapper>
+        <InputWrapper>
+          <InputText>
+            기업 이름
+          </InputText>
+          <InputBar placeholder="기업명을 입력해주세요." value={enterprise} onchange={(e) => handleInputChange(e, setEnterprise)} />
+        </InputWrapper>
+        <InputWrapper>
+          <InputText>
+            직무 이름
+          </InputText>
+          <InputBar placeholder="직무명을 입력해주세요." value={job} onchange={(e) => handleInputChange(e, setJob)} />
+        </InputWrapper>
+        <ButtonWrapper onClick={handleListMake}>
+          <Button text="저장" theme="blue" />
+        </ButtonWrapper>
       </Wrapper>
     </>
   );

@@ -17,3 +17,15 @@ export const postQuestionListAPI = async (param) => await api({
   type: 'post',
   param,
 });
+
+export const postQuestionItemAPI = async (param) => await api({
+  url: '/api/self/question',
+  type: 'post',
+  param,
+});
+
+export const patchQuestionItemAPI = async (param) => await api({
+  url: '/api/self/question',
+  type: 'patch',
+  param,
+});

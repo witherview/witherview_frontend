@@ -8,7 +8,6 @@ import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
 import { get } from '../../utils/snippet';
 import ProfileMenuContiner from '../../components/ProfileMenuContainer';
-import Sidebar from '../../components/Sidebar';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -73,7 +72,6 @@ export default function QuestionListPage() {
       {loading
         && (
         <PageWrapper>
-          <Sidebar />
           <ContentWrapper>
             <ProfileWrapper>
               <ProfileMenuContiner name={authSelector.name} />

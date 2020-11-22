@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MODALS } from '@utils/constant';
 import QuestionListSaveModal from './QuestionListSaveModal';
+import { MODALS } from '../../utils/constant';
+import SelfTrainStartModal from './SelfTrainStartModal';
+import ModalWrapper from './ModalWrapper';
 
 export default function Modal({
   modalName,
@@ -10,10 +13,16 @@ export default function Modal({
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: <QuestionListSaveModal />,
+    [MODALS.SELF_TRAIN_START_MODAL]: <SelfTrainStartModal />,
   };
   return (
     <>
-      { isShow && modalList[modalName] }
+      { isShow
+      && (
+      <ModalWrapper modalName={modalName}>
+        {modalList[modalName]}
+      </ModalWrapper>
+      )}
     </>
   );
 }

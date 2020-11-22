@@ -64,9 +64,10 @@ const AnswerBox = styled.div`
   transform: translateY(-20px);
 `;
 
-const ContenText = styled.div`
+const ContenText = styled.textarea`
   width: 963px;
-  margin: 70px 96px;
+  height: 124px;
+  margin: 40px 96px;
   outline: none;
   resize: none;
   border: none;
@@ -83,7 +84,7 @@ const ContenText = styled.div`
 `;
 
 export default function QuestionItem({
-  id, title, text, index, moveCard,
+  id, title, text, index, moveCard, handleQuestion,
 }) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef(null);
@@ -135,7 +136,7 @@ export default function QuestionItem({
           </IconWrapper>
         </QuestionCard>
         <AnswerBox clicked={clicked}>
-          <ContenText contentEditable="true">{text}</ContenText>
+          <ContenText onChange={(e) => handleQuestion(e, title)} value={text} />
         </AnswerBox>
       </div>
     </>
@@ -148,6 +149,7 @@ QuestionItem.propTypes = {
   text: PropTypes.string,
   index: PropTypes.number.isRequired,
   moveCard: PropTypes.func.isRequired,
+  handleQuestion: PropTypes.func,
 };
 
 QuestionItem.defaultProp = {
