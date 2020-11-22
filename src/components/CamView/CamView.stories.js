@@ -3,6 +3,7 @@ import React from 'react';
 import useReactMediaRecorder from '../../hooks/useMediaRecorder';
 
 import CamView from './CamView';
+import ButtonGroup from './ButtonGroup';
 
 export default {
   title: 'CamView',
@@ -45,3 +46,5 @@ export const ScriptCamView = () => (
 export const OneOnOneCamView = () => (
   <CamView oneOnOne width={800} height={590} />
 );
+
+export const ButtonGroupDefault = () => <ButtonGroup />;
