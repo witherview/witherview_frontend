@@ -26,7 +26,8 @@ module.exports = {
     'react/jsx-filename-extension': [0],
     'react/require-default-props': 0,
     'no-nested-ternary': 0,
-    'react/jsx-props-no-spreading': 'off'
+    'no-param-reassign': 0,
+    'react/jsx-props-no-spreading': 'off',
     'linebreak-style': 0,
     'react/forbid-prop-types': 0,
   },

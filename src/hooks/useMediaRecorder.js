@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 
-export function useReactMediaRecorder({
+export default function useReactMediaRecorder({
   audio = true,
   video = false,
   onStop = () => null,
@@ -10,23 +12,42 @@ export function useReactMediaRecorder({
 }) {
   const mediaRecorder = useRef(null);
   const mediaChunks = useRef([]);
+  const mediaChunkEach = useRef([]);
   const mediaStream = useRef(null);
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState('idle');
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
-  const [error, setError] = useState("NONE");
+  const [error, setError] = useState('NONE');
+
+  useEffect(() => {
+    if (status === 'recording') {
+      setInterval(() => {
+        mediaRecorder.current.requestData();
+
+        const blobProperty = { type: 'application/octet-stream' };
+
+        const blobEach = new Blob([mediaChunkEach.current.slice(-1)[0]], blobProperty);
+
+        // TODO: console.log 지우고 서버(kafka)에 업로드하는 코드 추가해야 함
+        console.log(blobEach);
+      }, 1000);
+    } else {
+      for (let i = 1; i < 99999; i += 1) window.clearInterval(i);
+    }
+  }, [status]);
 
   const getMediaStream = useCallback(async () => {
-    setStatus("acquiring_media");
+    setStatus('acquiring_media');
     const requiredMedia = {
-      audio: typeof audio === "boolean" ? !!audio : audio,
-      video: typeof video === "boolean" ? !!video : video,
+      audio: typeof audio === 'boolean' ? !!audio : audio,
+      video: typeof video === 'boolean' ? !!video : video,
     };
     try {
       if (screen) {
-        const stream = (await window.navigator.mediaDevices.getDisplayMedia({
-          video: video || true, audio: true
-        }));
+        const stream = await window.navigator.mediaDevices.getDisplayMedia({
+          video: video || true,
+          audio: true,
+        });
         if (audio) {
           const audioStream = await window.navigator.mediaDevices.getUserMedia({
             audio,
@@ -39,20 +60,20 @@ export function useReactMediaRecorder({
         mediaStream.current = stream;
       } else {
         const stream = await window.navigator.mediaDevices.getUserMedia(
-          requiredMedia
+          requiredMedia,
         );
         mediaStream.current = stream;
       }
-      setStatus("idle");
-    } catch (error) {
-      setError(error.name);
-      setStatus("idle");
+      setStatus('idle');
+    } catch (err) {
+      setError(err.name);
+      setStatus('idle');
     }
   }, [audio, video, screen]);
 
   useEffect(() => {
     if (!window.MediaRecorder) {
-      throw new Error("Unsupported Browser");
+      throw new Error('Unsupported Browser');
     }
 
     if (screen) {
@@ -64,30 +85,29 @@ export function useReactMediaRecorder({
     const checkConstraints = (mediaType) => {
       const supportedMediaConstraints = navigator.mediaDevices.getSupportedConstraints();
       const unSupportedConstraints = Object.keys(mediaType).filter(
-        (constraint) =>
-          !(supportedMediaConstraints)[constraint]
+        (constraint) => !supportedMediaConstraints[constraint],
       );
 
       if (unSupportedConstraints.length > 0) {
         console.error(
           `The constraints ${unSupportedConstraints.join(
-            ","
-          )} doesn't support on this browser. Please check your ReactMediaRecorder component.`
+            ',',
+          )} doesn't support on this browser. Please check your ReactMediaRecorder component.`,
         );
       }
     };
 
-    if (typeof audio === "object") {
+    if (typeof audio === 'object') {
       checkConstraints(audio);
     }
-    if (typeof video === "object") {
+    if (typeof video === 'object') {
       checkConstraints(video);
     }
 
     if (mediaRecorderOptions && mediaRecorderOptions.mimeType) {
       if (!MediaRecorder.isTypeSupported(mediaRecorderOptions.mimeType)) {
         console.error(
-          `The specified MIME type you supplied for MediaRecorder doesn't support this browser`
+          'The specified MIME type you supplied for MediaRecorder doesn\'t support this browser',
         );
       }
     }
@@ -99,15 +119,34 @@ export function useReactMediaRecorder({
 
   // Media Recorder Handlers
 
+  const onRecordingActive = ({ data }) => {
+    mediaChunkEach.current.push(data);
+  };
+
+  const onRecordingStop = () => {
+    mediaChunks.current.push(mediaChunkEach.current);
+    const [chunk] = mediaChunks.current;
+    const blobProperty = {
+      type: chunk.type,
+      ...blobPropertyBag
+        || (video || screen ? { type: 'video/mp4' } : { type: 'audio/wav' }),
+    };
+    const blob = new Blob(mediaChunks.current[0], blobProperty);
+    const url = URL.createObjectURL(blob);
+    setStatus('stopped');
+    setMediaBlobUrl(url);
+    onStop(url, blob);
+  };
+
   const startRecording = async () => {
-    setError("NONE");
+    setError('NONE');
     if (!mediaStream.current) {
       await getMediaStream();
     }
     if (mediaStream.current) {
       const isStreamEnded = mediaStream.current
         .getTracks()
-        .some((track) => track.readyState === "ended");
+        .some((track) => track.readyState === 'ended');
       if (isStreamEnded) {
         await getMediaStream();
       }
@@ -115,29 +154,12 @@ export function useReactMediaRecorder({
       mediaRecorder.current.ondataavailable = onRecordingActive;
       mediaRecorder.current.onstop = onRecordingStop;
       mediaRecorder.current.onerror = () => {
-        setError("NO_RECORDER");
-        setStatus("idle");
+        setError('NO_RECORDER');
+        setStatus('idle');
       };
       mediaRecorder.current.start();
-      setStatus("recording");
+      setStatus('recording');
     }
-  };
-
-  const onRecordingActive = ({ data }) => {
-    mediaChunks.current.push(data);
-  };
-
-  const onRecordingStop = () => {
-    const [chunk] = mediaChunks.current;
-    const blobProperty = Object.assign(
-      { type: chunk.type },
-      blobPropertyBag || (video ? { type: "video/mp4" } : { type: "audio/wav" })
-    );
-    const blob = new Blob(mediaChunks.current, blobProperty);
-    const url = URL.createObjectURL(blob);
-    setStatus("stopped");
-    setMediaBlobUrl(url);
-    onStop(url, blob);
   };
 
   const muteAudio = (mute) => {
@@ -145,29 +167,32 @@ export function useReactMediaRecorder({
     if (mediaStream.current) {
       mediaStream.current
         .getAudioTracks()
+        // eslint-disable-next-line no-return-assign
         .forEach((audioTrack) => (audioTrack.enabled = !mute));
     }
   };
 
   const pauseRecording = () => {
-    if (mediaRecorder.current && mediaRecorder.current.state === "recording") {
+    if (mediaRecorder.current && mediaRecorder.current.state === 'recording') {
       mediaRecorder.current.pause();
     }
   };
   const resumeRecording = () => {
-    if (mediaRecorder.current && mediaRecorder.current.state === "paused") {
+    if (mediaRecorder.current && mediaRecorder.current.state === 'paused') {
       mediaRecorder.current.resume();
     }
   };
 
   const stopRecording = () => {
     if (mediaRecorder.current) {
-      if (mediaRecorder.current.state !== "inactive") {
-        setStatus("stopping");
+      if (mediaRecorder.current.state !== 'inactive') {
+        setStatus('stopping');
         mediaRecorder.current.stop();
-        mediaStream.current &&
+        if (mediaStream.current) {
           mediaStream.current.getTracks().forEach((track) => track.stop());
+        }
         mediaChunks.current = [];
+        mediaChunkEach.current = [];
       }
     }
   };
