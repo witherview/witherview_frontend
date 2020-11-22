@@ -21,10 +21,10 @@ const Wrapper = styled.input`
 `;
 
 export default function InputBar({
-  className,
+  className, placeholder, value, onchange,
 }) {
   return (
-    <Wrapper className={className} type="text" placeholder="기업명을 입력해주세요" />
+    <Wrapper className={className} type="text" placeholder={placeholder} value={value} onChange={onchange} />
   );
 }
 

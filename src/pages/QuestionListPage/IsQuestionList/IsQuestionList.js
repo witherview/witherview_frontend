@@ -9,6 +9,8 @@ import Icon from '../../../components/Icon';
 const Wrapper = styled.div`
   display: flex;
   width: 1102px;
+  height: 630px;
+  overflow: scroll;
   flex-wrap: wrap;
   margin-top: 71px;
 `;

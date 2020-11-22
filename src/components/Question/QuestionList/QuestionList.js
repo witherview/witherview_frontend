@@ -13,6 +13,23 @@ export default function QuestionList({ questions, setQuestions }) {
       ],
     }));
   }, [questions]);
+
+  const handleQuestion = (e, title) => {
+    const newQestion = questions.map((val) => {
+      if (val.question === title) {
+        return {
+          id: val.id,
+          question: val.question,
+          answer: e.target.value,
+          order: val.order,
+          modifiedAt: val.modifiedAt,
+        };
+      }
+      return val;
+    });
+    setQuestions(newQestion);
+  };
+
   const renderCard = (card, index) => (
     <QuestionItem
       key={card.id}
@@ -21,6 +38,7 @@ export default function QuestionList({ questions, setQuestions }) {
       title={card.question}
       text={card.answer}
       moveCard={moveCard}
+      handleQuestion={handleQuestion}
     />
   );
   return (
