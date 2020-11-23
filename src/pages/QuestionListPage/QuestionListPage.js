@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getQuestionListAPI } from '../../repository/questionListRepository';
-import NoList from './NoList/NoList';
+import NoList from './NoList';
+import IsQuestionList from './IsQuestionList';
 import { get } from '../../utils/snippet'; 
 import ProfileMenuContiner from '../../components/ProfileMenuContainer';
 
@@ -47,22 +48,21 @@ export default function QuestionListPage() {
     const [questionList, setQuestionList] = useState();
     useEffect(() => {
         getQuestionListAPI().then((response) => {
-            setQuestionList(JSON.stringify(response.data));
+            setQuestionList(JSON.parse(response.data));
         })
-    })
+    },[questionList])
 
     return (
         <>  
+            {questionList}
             <ProfileWrapper>
                 <ProfileMenuContiner name={authSelector.name} />
             </ProfileWrapper>
             <Wrapper>
                 <Title>{authSelector.name}님이 등록한 질문 리스트입니다.</Title>
                 <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
-                <NoList />
+                {/* {questionList && questionList.length === 0 ? <NoList /> : <IsQuestionList questionList={questionList} />} */}
             </Wrapper>
-            {/* { questionList.length === 0 ? 
-                <NoList/> : <IsQuestionList />} */}
         </>
     )
 }

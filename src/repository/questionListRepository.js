@@ -7,3 +7,9 @@ export const getQuestionListAPI = async (param) => await api({
   param,
 });
 
+export const getQuestionItemAPI = async (param) => await api({
+  url: '/api/self/question',
+  type: 'get',
+  param,
+});
+
