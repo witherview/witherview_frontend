@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import NoListImage from '../../../assets/images/illust_4.png'
-import Icon from '../../../components/Icon'
+import NoListImage from '../../../assets/images/illust_4.png';
+import Icon from '../../../components/Icon';
+
 const Image = styled.img`
     width: 327px;
     height: 197px;
@@ -28,7 +29,7 @@ const Button = styled.div`
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     justify-content: center;
     align-items: center;
-`
+`;
 const ButtonText = styled.span`
     height: 30px;
     margin-left: 30px;
@@ -43,16 +44,16 @@ const ButtonText = styled.span`
 `;
 
 export default function NoList() {
-    return (
-        <>
-            <Image src={NoListImage}/>
-            <Text>등록된 질문 리스트가 없습니다.</Text>
-            <Button>
-                <Icon type="add_white" alt=""/>
-                <ButtonText>
-                    질문 리스트 등록하기
-                </ButtonText>
-            </Button>
-        </>
-    )
+  return (
+    <>
+      <Image src={NoListImage} />
+      <Text>등록된 질문 리스트가 없습니다.</Text>
+      <Button>
+        <Icon type="add_white" alt="" />
+        <ButtonText>
+          질문 리스트 등록하기
+        </ButtonText>
+      </Button>
+    </>
+  );
 }

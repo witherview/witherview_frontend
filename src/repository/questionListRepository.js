@@ -12,4 +12,3 @@ export const getQuestionItemAPI = async (param) => await api({
   type: 'get',
   param,
 });
-

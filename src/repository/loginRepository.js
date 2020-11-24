@@ -6,4 +6,3 @@ export const LoginApi = async (param) => await api({
   type: 'post',
   param,
 });
-

@@ -6,7 +6,7 @@ import ConferenceButton from './components/ConferenceButton';
 import ConferenceRoom from './pages/ConferenceRoom';
 import NotFound from './pages/404';
 import LoginPage from './pages/LoginPage';
-import QuestionListPage from './pages/QuestionListPage'
+import QuestionListPage from './pages/QuestionListPage';
 
 export default function App() {
   return (
@@ -14,7 +14,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
-        <AuthRoute path="/questionlist" component={QuestionListPage} />
+        <Route path="/questionlist" component={QuestionListPage} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
         <Route component={NotFound} />
       </Switch>

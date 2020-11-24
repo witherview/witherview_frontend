@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import { getQuestionListAPI } from '../../repository/questionListRepository';
 import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
-import { get } from '../../utils/snippet'; 
+import { get } from '../../utils/snippet';
 import ProfileMenuContiner from '../../components/ProfileMenuContainer';
+import { QuestionListMock } from '../../mocks/QuestionListMock';
 
 const ProfileWrapper = styled.div`
     float: right;
@@ -44,25 +45,29 @@ const Select = styled.div`
 `;
 
 export default function QuestionListPage() {
-    const authSelector = useSelector(get('auth'));
-    const [questionList, setQuestionList] = useState();
-    useEffect(() => {
-        getQuestionListAPI().then((response) => {
-            setQuestionList(JSON.parse(response.data));
-        })
-    },[questionList])
+  const authSelector = useSelector(get('auth'));
+  const [questionList, setQuestionList] = useState(QuestionListMock);
+//   useEffect(() => {
+//     getQuestionListAPI().then((response) => {
+//       setQuestionList(JSON.parse(response.data));
+//     });
+//   }, [questionList]);
 
-    return (
-        <>  
-            {questionList}
-            <ProfileWrapper>
-                <ProfileMenuContiner name={authSelector.name} />
-            </ProfileWrapper>
-            <Wrapper>
-                <Title>{authSelector.name}님이 등록한 질문 리스트입니다.</Title>
-                <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
-                {/* {questionList && questionList.length === 0 ? <NoList /> : <IsQuestionList questionList={questionList} />} */}
-            </Wrapper>
-        </>
-    )
+  return (
+    <>
+      <ProfileWrapper>
+        <ProfileMenuContiner name={authSelector.name} />
+      </ProfileWrapper>
+      <Wrapper>
+        <Title>
+          {authSelector.name}
+          님이 등록한 질문 리스트입니다.
+        </Title>
+        <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
+        {questionList && questionList.length === 0
+          ? <NoList />
+          : <IsQuestionList questionList={questionList} />}
+      </Wrapper>
+    </>
+  );
 }

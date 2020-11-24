@@ -12,8 +12,8 @@ const authReducer = createSlice({
       return {
         ...state,
         isLogin: true,
-        email: email,
-        name: name,
+        email,
+        name,
       };
     },
     setLogout(state) {

@@ -35,7 +35,7 @@ export default function LoginPage() {
       console.log(response.data);
       const email = JSON.stringify(response.data.email).replace(/\"/g, '');
       const name = JSON.stringify(response.data.name).replace(/\"/g, '');
-      dispatch(setLogin({ email: email, name: name}));
+      dispatch(setLogin({ email, name }));
     }).catch(() => {
       alert('로그인 실패');
     });
