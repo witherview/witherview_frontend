@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useCallback,
+  useState, useEffect, useCallback, useRef,
 } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -47,7 +47,7 @@ const RightContent = styled.div`
   margin-left: 55px;
 `;
 
-const Video = styled.figure`
+const VideoContainer = styled.figure`
   width: 470px;
   margin: 0;
 
@@ -119,16 +119,6 @@ const Video = styled.figure`
     border-radius:2px;
     color:#6e6eff;
     cursor:pointer;
-  }
-  .controls progress[data-state="fake"] {
-    background:#d3d3d3;
-    height:65%;
-  }
-  .controls progress span {
-    width:0%;
-    height:100%;
-    display:inline-block;
-    background-color:#6e6eff;
   }
   
   .controls progress::-moz-progress-bar {
@@ -210,6 +200,10 @@ const CheckListContainer = styled.div`
   }
 `;
 
+const CheckPoint = styled.div`
+  left: calc(${({ point }) => `${point}% - 9px`});
+`;
+
 const ListBox = styled.div`
   display: inline-block;
   vertical-align: top;
@@ -223,57 +217,53 @@ const ListBox = styled.div`
 `;
 
 export default function AloneQuestionCheckList({ src }) {
-  const [clickedBtn, setClickedBtn] = useState(1);
+  const [nextActionBtn, setNextActionBtn] = useState(1);
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
   const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
-  let video = null;
-  let videoControls = null;
-  let playpause = null;
-  let progress = null;
-  let progressBar = null;
+  const video = useRef();
+  const videoControls = useRef();
+  const playpause = useRef();
+  const progress = useRef();
   useEffect(() => {
-    video = document.getElementById('video');
-    videoControls = document.getElementById('video-controls');
-    playpause = document.getElementById('playpause');
-    progress = document.getElementById('progress');
-    progressBar = document.getElementById('progress-bar');
-    video.controls = false;
-    videoControls.setAttribute('data-state', 'visible');
-  }, [clickedBtn, playPauseBtn, checkListArray]);
+    video.current.controls = false;
+    videoControls.current.setAttribute('data-state', 'visible');
+  }, []);
 
-  const loadVideoMetaData = useCallback(() => progress.setAttribute('max', video.duration), []);
+  const loadVideoMetaData = useCallback(() => progress.current.setAttribute('max', video.current.duration), []);
   const changeButtonState = useCallback(() => {
-    if (video.paused || video.ended) {
-      playpause.setAttribute('data-state', 'play');
+    if (video.current.paused || video.current.ended) {
+      playpause.current.setAttribute('data-state', 'play');
     } else {
-      playpause.setAttribute('data-state', 'pause');
+      playpause.current.setAttribute('data-state', 'pause');
     }
   }, []);
 
   const onPlay = useCallback(() => changeButtonState(), []);
   const onPause = useCallback(() => changeButtonState(), []);
   const onPlayPause = useCallback(() => {
-    if (video.paused || video.ended) {
-      video.play();
+    if (video.current.paused || video.current.ended) {
+      video.current.play();
     } else {
-      video.pause();
+      video.current.pause();
     }
     setPlayPauseBtn(!playPauseBtn);
   }, [playPauseBtn]);
 
   const onTimeUpdate = useCallback(() => {
-    if (!progress?.getAttribute('max')) {
-      progress.setAttribute('max', video.duration);
+    if (!progress.current.getAttribute('max')) {
+      progress.current.setAttribute('max', video.current.duration);
     }
-    progress.value = video.currentTime;
-    progressBar.style.width = `${Math.floor((video.currentTime / video.duration) * 100)}%`;
+    progress.current.value = video.current.currentTime;
+    if (progress.current.max === progress.current.value) {
+      setPlayPauseBtn(true);
+    }
   }, []);
 
   const onProgressClck = useCallback((evt) => {
     const pos = (
-      evt.pageX - (progress.offsetLeft + progress.offsetParent.offsetLeft)
-    ) / progress.offsetWidth;
-    video.currentTime = pos * video.duration;
+      evt.pageX - (progress.current.offsetLeft + progress.current.offsetParent.offsetLeft)
+    ) / progress.current.offsetWidth;
+    video.current.currentTime = pos * video.current.duration;
   }, []);
 
   const onCheck = useCallback((evt) => {
@@ -291,36 +281,34 @@ export default function AloneQuestionCheckList({ src }) {
       <EndingTitle>면접이 종료 되었습니다. 체크리스트를 통해 스스로 평가를 해보세요.</EndingTitle>
       <Content>
         <LeftContent>
-          <Video>
-            <video id="video" controls preload="metadata" onLoadedMetadata={loadVideoMetaData} onPlay={onPlay} onPause={onPause} onTimeUpdate={onTimeUpdate}>
+          <VideoContainer>
+            <video ref={video} controls preload="metadata" onLoadedMetadata={loadVideoMetaData} onPlay={onPlay} onPause={onPause} onTimeUpdate={onTimeUpdate}>
               <track src="" kind="captions" srcLang="ko" label="korean_captions" />
               <source src={src} type="video/webm" />
             </video>
-            <div id="video-controls" className="controls" data-state="hidden">
-              <button id="playpause" type="button" data-state="play" onClick={onPlayPause}>
+            <div ref={videoControls} className="controls" data-state="hidden">
+              <button ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
                 <Icon type={playPauseBtn ? 'play_blue' : 'pause'} alt="play/button" />
               </button>
               <div className="progress">
-                <progress id="progress" value="0" min="0" onClick={onProgressClck}>
-                  <span id="progress-bar" />
-                </progress>
+                <progress ref={progress} value="0" min="0" onClick={onProgressClck} />
                 <div className="checkPoint" value="0" min="0">
                   {[25, 50, 75].map(
                     (item) => (
-                      <div style={{ left: `calc(${item}% - 9px)` }} key={`${item}point`}>
+                      <CheckPoint point={item} key={`${item}point`}>
                         <Icon type="arrow_up_blue" alt="section" func={onProgressClck} />
-                      </div>
+                      </CheckPoint>
                     ),
                   )}
                 </div>
               </div>
             </div>
-          </Video>
+          </VideoContainer>
           <ButtonsWrapper>
-            <Button text="다시 연습하기" theme={clickedBtn === 1 ? 'blue' : 'white'} func={() => setClickedBtn(1)} />
-            <Button text="연습 영상 저장" theme={clickedBtn === 2 ? 'blue' : 'white'} func={() => setClickedBtn(2)} />
-            <Button text="체크리스트 초기화" theme={clickedBtn === 3 ? 'blue' : 'white'} func={() => setClickedBtn(3)} />
-            <Button text="체크리스트 저장" theme={clickedBtn === 4 ? 'blue' : 'white'} func={() => setClickedBtn(4)} />
+            <Button text="다시 연습하기" theme={nextActionBtn === 1 ? 'blue' : 'white'} func={() => setNextActionBtn(1)} />
+            <Button text="연습 영상 저장" theme={nextActionBtn === 2 ? 'blue' : 'white'} func={() => setNextActionBtn(2)} />
+            <Button text="체크리스트 초기화" theme={nextActionBtn === 3 ? 'blue' : 'white'} func={() => setNextActionBtn(3)} />
+            <Button text="체크리스트 저장" theme={nextActionBtn === 4 ? 'blue' : 'white'} func={() => setNextActionBtn(4)} />
           </ButtonsWrapper>
         </LeftContent>
         <RightContent>
