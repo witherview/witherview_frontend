@@ -46,7 +46,6 @@ const AddText = styled.div`
 `;
 
 export default function IsQuestionList({ questionList }) {
-  const [count, setCount] = useState(QuestionItemMock.length);
   return (
     <>
       <Wrapper>
@@ -60,12 +59,11 @@ export default function IsQuestionList({ questionList }) {
             </AddText>
           </AddQuestionList>
         </ItemWrapper>
-        {questionList.map((val) => {
-          // getQuestionItemAPI(JSON.stringify(val.id).replace(/\\"/g, '')).then((response) => {
-          //   const arr = JSON.parse(JSON.stringify(response.data));
-          //   setCount(arr.length);
-          // });
-          console.log(val);
+        {questionList?.map((val) => {
+          const [count, setCount] = useState(0);
+          getQuestionItemAPI(val.id).then((response) => {
+            setCount(response.data.length);
+          });
           return (
             <ItemWrapper>
               <QuestionCardView

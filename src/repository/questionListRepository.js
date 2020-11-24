@@ -8,7 +8,6 @@ export const getQuestionListAPI = async (param) => await api({
 });
 
 export const getQuestionItemAPI = async (param) => await api({
-  url: '/api/self/question',
+  url: `/api/self/question?listId=${param}`,
   type: 'get',
-  param,
 });
