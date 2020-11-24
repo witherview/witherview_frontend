@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../../components/Button';
 import Icon from '../../components/Icon';
+import EvaluationListMock from '../../mocks/EvaluationListMock';
 
 const CloseButton = styled.button`
   position: absolute;
   right: 7%;
   border: none;
   cursor: pointer;
-
+  background-color: transparent;
   &:focus {
     outline: none;
   }
@@ -204,7 +205,7 @@ const CheckPoint = styled.div`
   left: calc(${({ point }) => `${point}% - 9px`});
 `;
 
-const ListBox = styled.div`
+const SmallCheckList = styled.div`
   display: inline-block;
   vertical-align: top;
 
@@ -276,7 +277,7 @@ export default function AloneQuestionCheckList({ src }) {
   return (
     <Background>
       <CloseButton type="button">
-        <Icon type="cancel_circle" alt="close" />
+        <Icon type="cancel_circle" isCircle alt="close" />
       </CloseButton>
       <EndingTitle>면접이 종료 되었습니다. 체크리스트를 통해 스스로 평가를 해보세요.</EndingTitle>
       <Content>
@@ -288,7 +289,7 @@ export default function AloneQuestionCheckList({ src }) {
             </video>
             <div ref={videoControls} className="controls" data-state="hidden">
               <button ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
-                <Icon type={playPauseBtn ? 'play_blue' : 'pause'} alt="play/button" />
+                <Icon type={playPauseBtn ? 'play_blue' : 'pause'} isCircle alt="play/button" />
               </button>
               <div className="progress">
                 <progress ref={progress} value="0" min="0" onClick={onProgressClck} />
@@ -315,76 +316,38 @@ export default function AloneQuestionCheckList({ src }) {
           <CheckListContainer>
             <h2>태도 및 비언어</h2>
             <ul>
-              <li id={0}>
-                <Icon type={checkListArray[0] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>목소리가 작지 않았다.</span>
-              </li>
-              <li id={1}>
-                <Icon type={checkListArray[1] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>복장이 단정하며 청결하였다.</span>
-              </li>
-              <li id={2}>
-                <Icon type={checkListArray[2] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>말하는 태도와 표정의 관리가 일관적이었다.</span>
-              </li>
-              <li id={3}>
-                <Icon type={checkListArray[3] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>눈빛의 흔들림이 없었다.</span>
-              </li>
-              <li id={4}>
-                <Icon type={checkListArray[4] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>카메라 혹은 화면을 제대로 응시했다.</span>
-              </li>
-              <li id={5}>
-                <Icon type={checkListArray[5] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>불필요한 추임새를 하지 않았다.</span>
-              </li>
-              <li id={6}>
-                <Icon type={checkListArray[6] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>고개를 흔들거리거나 몸을 좌우로 흔들지 않았다.</span>
-              </li>
-              <li id={7}>
-                <Icon type={checkListArray[7] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                <span>처음부터 끝까지 일관된 톤으로만 대답하지 않았다.</span>
-              </li>
+              {EvaluationListMock.evaluationList1.map(({ id, text }) => (
+                <li id={id} key={id}>
+                  <Icon type={checkListArray[id] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
+                  <span>{text}</span>
+                </li>
+              ))}
             </ul>
           </CheckListContainer>
-          <ListBox>
+          <SmallCheckList>
             <CheckListContainer>
               <h2>답변 내용</h2>
               <ul>
-                <li id={8}>
-                  <Icon type={checkListArray[8] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                  <span>똑같은 단어, 문장을 반복하지 않았다.</span>
-                </li>
-                <li id={9}>
-                  <Icon type={checkListArray[9] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                  <span>구체적인 예화, 사례, 근거를 통해 설명했다.</span>
-                </li>
-                <li id={10}>
-                  <Icon type={checkListArray[10] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                  <span>두괄식으로 처음부터 하고자 하는 말을 요약해서 전달했다.</span>
-                </li>
+                {EvaluationListMock.evaluationList2.map(({ id, text }) => (
+                  <li id={id} key={id}>
+                    <Icon type={checkListArray[id] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
+                    <span>{text}</span>
+                  </li>
+                ))}
               </ul>
             </CheckListContainer>
             <CheckListContainer>
               <h2>영상 환경 체크</h2>
               <ul>
-                <li id={11}>
-                  <Icon type={checkListArray[11] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                  <span>화면안에 얼굴이 다 들어간다.</span>
-                </li>
-                <li id={12}>
-                  <Icon type={checkListArray[12] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                  <span>조명이 어둡지않고 이목구비가 잘 보인다.</span>
-                </li>
-                <li id={13}>
-                  <Icon type={checkListArray[13] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
-                  <span>목소리가 잘 들리며 주변의 소음이 크지 않다.</span>
-                </li>
+                {EvaluationListMock.evaluationList3.map(({ id, text }) => (
+                  <li id={id} key={id}>
+                    <Icon type={checkListArray[id] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
+                    <span>{text}</span>
+                  </li>
+                ))}
               </ul>
             </CheckListContainer>
-          </ListBox>
+          </SmallCheckList>
         </RightContent>
       </Content>
     </Background>
