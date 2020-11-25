@@ -12,6 +12,19 @@ const I = styled.i`
   display: inline-block;
   background-image: url(${iconImage});
   background-size: 1173px 876px;
+  border-radius: ${({ circle, size }) => (circle ? (size === 'xsm' ? '14px'
+                        : size === 'sm' ? '21px'
+                        : size === 'md' ? '28px'
+                        : size === 'xmd' ? '32px'
+                        : size === 'flat' ? '28px'
+                        : size === 'thin' ? '15px'
+                        : size === 'lg' ? '38px'
+                        : size === 'xlg' ? '42px'
+                        : size === 'mlg' ? '51px'
+                        : size === 'slg' ? '63px'
+                        : size === 'mxlg' ? '75px'
+                        : size === 'slg' ? '63px'
+                        : size === 'xxlg' ? '96px' : '1173px') : 0)};
   width: ${({ size }) => (size === 'xsm' ? '14px'
                         : size === 'sm' ? '21px'
                         : size === 'md' ? '28px'
@@ -24,7 +37,7 @@ const I = styled.i`
                         : size === 'slg' ? '63px'
                         : size === 'mxlg' ? '75px'
                         : size === 'slg' ? '63px'
-                        : size === 'xxlg' ? '96px' : '1173px')};  
+                        : size === 'xxlg' ? '96px' : '1173px')};
   height: ${({ size }) => (size === 'xsm' ? '14px'
                          : size === 'sm' ? '20px'
                          : size === 'md' ? '32px'
@@ -36,7 +49,7 @@ const I = styled.i`
                          : size === 'mlg' ? '51px'
                          : size === 'slg' ? '63px'
                          : size === 'mxlg' ? '75px'
-                         : size === 'xxlg' ? '96px' : '876px')};  
+                         : size === 'xxlg' ? '96px' : '876px')};
 background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
                                     : type === 'bubble_black' ? '-160px -36px'
                                     : type === 'arrow_down_blue' ? '-284px -45px'
@@ -98,7 +111,7 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
 `;
 
 export default function Icon({
-  type, alt, style, src,
+  type, alt, style, src, isCircle,
 }) {
   const [size, setSize] = useState('md');
   useEffect(() => {
@@ -152,6 +165,7 @@ export default function Icon({
       type={type}
       size={size}
       title={alt}
+      circle={isCircle}
     />
   );
 }
@@ -220,8 +234,10 @@ Icon.propTypes = {
   alt: PropTypes.string.isRequired,
   src: PropTypes.string,
   style: PropTypes.string,
+  isCircle: PropTypes.bool,
 };
 Icon.defaultProp = {
   type: 'test',
   alt: '',
+  isCircle: false,
 };
