@@ -66,7 +66,6 @@ const VideoContainer = styled.figure`
     overflow:hidden;
     background-color:#ffffff;
     width:100%;
-    height:8.0971659919028340080971659919028%;
     position:relative;
     border-radius:10px;
     margin-top:10px;
@@ -187,9 +186,9 @@ const CheckListContainer = styled.div`
       margin-bottom: 20px;
 
       i {
-        float: left;
         margin-right: 25px;
         cursor: pointer;
+        vertical-align: middle;
       }
 
       span {
@@ -274,6 +273,11 @@ export default function AloneQuestionCheckList({ src }) {
     setCheckListArray(newCheckList);
   }, [checkListArray]);
 
+  const initCheckList = useCallback(() => {
+    setNextActionBtn(3);
+    setCheckListArray(Array(14).fill(false));
+  }, [nextActionBtn]);
+
   return (
     <Background>
       <CloseButton type="button">
@@ -308,7 +312,7 @@ export default function AloneQuestionCheckList({ src }) {
           <ButtonsWrapper>
             <Button text="다시 연습하기" theme={nextActionBtn === 1 ? 'blue' : 'white'} func={() => setNextActionBtn(1)} />
             <Button text="연습 영상 저장" theme={nextActionBtn === 2 ? 'blue' : 'white'} func={() => setNextActionBtn(2)} />
-            <Button text="체크리스트 초기화" theme={nextActionBtn === 3 ? 'blue' : 'white'} func={() => setNextActionBtn(3)} />
+            <Button text="체크리스트 초기화" theme={nextActionBtn === 3 ? 'blue' : 'white'} func={initCheckList} />
             <Button text="체크리스트 저장" theme={nextActionBtn === 4 ? 'blue' : 'white'} func={() => setNextActionBtn(4)} />
           </ButtonsWrapper>
         </LeftContent>
