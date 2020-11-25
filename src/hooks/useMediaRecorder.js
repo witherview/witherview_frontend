@@ -15,13 +15,15 @@ export default function useReactMediaRecorder({
   const mediaChunkEach = useRef([]);
   const mediaStream = useRef(null);
   const [status, setStatus] = useState('idle');
+  const [intervals, setIntervals] = useState([]);
+
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
   const [error, setError] = useState('NONE');
 
   useEffect(() => {
     if (status === 'recording') {
-      setInterval(() => {
+      const interval = setInterval(() => {
         mediaRecorder.current.requestData();
 
         const blobProperty = { type: 'application/octet-stream' };
@@ -31,8 +33,10 @@ export default function useReactMediaRecorder({
         // TODO: console.log 지우고 서버(kafka)에 업로드하는 코드 추가해야 함
         console.log(blobEach);
       }, 1000);
+      setIntervals([...intervals, interval]);
     } else {
-      for (let i = 1; i < 99999; i += 1) window.clearInterval(i);
+      intervals.forEach(clearInterval);
+      setIntervals([]);
     }
   }, [status]);
 
