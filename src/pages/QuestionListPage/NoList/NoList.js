@@ -29,6 +29,7 @@ const Button = styled.div`
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `;
 const ButtonText = styled.span`
     height: 30px;
@@ -48,12 +49,14 @@ export default function NoList() {
     <>
       <Image src={NoListImage} />
       <Text>등록된 질문 리스트가 없습니다.</Text>
-      <Button>
-        <Icon type="add_white" alt="" />
-        <ButtonText>
-          질문 리스트 등록하기
-        </ButtonText>
-      </Button>
+      <Link to="/question/new" style={{ textDecoration: 'none' }}>
+        <Button>
+          <Icon type="add_white" alt="" />
+          <ButtonText>
+            질문 리스트 등록하기
+          </ButtonText>
+        </Button>
+      </Link>
     </>
   );
 }

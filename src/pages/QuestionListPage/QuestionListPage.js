@@ -46,12 +46,12 @@ const Select = styled.div`
 
 export default function QuestionListPage() {
   const authSelector = useSelector(get('auth'));
-  const [questionList, setQuestionList] = useState();
+  const [questionList, setQuestionList] = useState([]);
   const fetch = async () => {
     getQuestionListAPI().then((response) => {
       setQuestionList(response.data);
     });
-  }
+  };
   useEffect(() => {
     fetch();
   }, []);

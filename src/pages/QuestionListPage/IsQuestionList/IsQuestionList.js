@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import QuestionCardView from '../../../components/QuestionCardView';
 import { getQuestionItemAPI } from '../../../repository/questionListRepository';
 import { QuestionItemMock } from '../../../mocks/QuestionItemMock';
@@ -50,14 +51,16 @@ export default function IsQuestionList({ questionList }) {
     <>
       <Wrapper>
         <ItemWrapper>
-          <AddQuestionList>
-            <IconWrapper>
-              <Icon type="add_black" alt="icon" />
-            </IconWrapper>
-            <AddText>
-              질문 리스트 추가
-            </AddText>
-          </AddQuestionList>
+          <Link to="/question/new" style={{ textDecoration: 'none' }}>
+            <AddQuestionList>
+              <IconWrapper>
+                <Icon type="add_black" alt="icon" />
+              </IconWrapper>
+              <AddText>
+                질문 리스트 추가
+              </AddText>
+            </AddQuestionList>
+          </Link>
         </ItemWrapper>
         {questionList?.map((val) => {
           const [count, setCount] = useState(0);
@@ -66,11 +69,13 @@ export default function IsQuestionList({ questionList }) {
           });
           return (
             <ItemWrapper>
-              <QuestionCardView
-                number={count}
-                title={val.title}
-                description={val.enterprise}
-              />
+              <Link to={`/question/${val.id}`} style={{ textDecoration: 'none' }}>
+                <QuestionCardView
+                  number={count}
+                  title={val.title}
+                  description={val.enterprise}
+                />
+              </Link>
             </ItemWrapper>
           );
         })}
