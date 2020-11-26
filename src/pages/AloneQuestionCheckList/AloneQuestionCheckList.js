@@ -56,26 +56,22 @@ const VideoContainer = styled.figure`
     width: 100%;
     border-radius: 20px;
   }
+`;
 
-  & .controls {
-    padding:0;
-    margin:0;
-  }
+const ControlWrapper = styled.div`
+  overflow:hidden;
+  background-color:#ffffff;
+  width:100%;
+  position:relative;
+  border-radius:10px;
+  margin-top:10px;
+  padding:10px;
+  box-sizing:border-box;
 
-  .controls {
-    overflow:hidden;
-    background-color:#ffffff;
-    width:100%;
-    position:relative;
-    border-radius:10px;
-    margin-top:10px;
-    padding:10px;
-    box-sizing:border-box;
-  }
-  .controls[data-state=hidden] {
+  &[data-state=hidden] {
     display:none;
   }
-  .controls[data-state=visible] {
+  &[data-state=visible] {
     display:block;
   }
 `;
@@ -290,7 +286,7 @@ export default function AloneQuestionCheckList({ src }) {
               <track src="" kind="captions" srcLang="ko" label="korean_captions" />
               <source src={src} type="video/webm" />
             </video>
-            <div ref={videoControls} className="controls" data-state="hidden">
+            <ControlWrapper ref={videoControls} data-state="hidden">
               <ButtonWrapper ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
                 <Icon type={playPauseBtn ? 'play_blue' : 'pause'} isCircle alt="play/button" />
               </ButtonWrapper>
@@ -306,7 +302,7 @@ export default function AloneQuestionCheckList({ src }) {
                   )}
                 </CheckPointWrapper>
               </ProgressWrapper>
-            </div>
+            </ControlWrapper>
           </VideoContainer>
           <ButtonsWrapper>
             <Button text="다시 연습하기" theme={nextActionBtn === 1 ? 'blue' : 'white'} func={() => setNextActionBtn(1)} />
