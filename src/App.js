@@ -15,7 +15,7 @@ export default function App() {
         <Route exact path="/" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
-        <Route path="/self-training" component={SelfTrainPage} />
+        <Route exact path="/self-training" component={SelfTrainPage} />
         <Route component={NotFound} />
       </Switch>
     </>
