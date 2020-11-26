@@ -6,6 +6,7 @@ import ConferenceButton from './components/ConferenceButton';
 import ConferenceRoom from './pages/ConferenceRoom';
 import NotFound from './pages/404';
 import LoginPage from './pages/LoginPage';
+import SelfTrainPage from './pages/SelfTrainPage';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route exact path="/" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
+        <Route path="/self-training" component={SelfTrainPage} />
         <Route component={NotFound} />
       </Switch>
     </>
