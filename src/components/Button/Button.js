@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Box = styled.div`
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
   width: 296px;
   height: 60px;
@@ -23,13 +23,10 @@ const Text = styled.p`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.4;
   letter-spacing: normal;
-  text-align: left;
   color: ${({ theme }) => (theme === 'blue' ? '#ffffff;'
                         : theme === 'gray' ? '#3d3d3d;'
                         : theme === 'white' ? '#6e6eff;' : '#3d3d3d;')};
-  line-height: 0.9;
 `;
 
 export default function Button({ text, theme, func }) {
