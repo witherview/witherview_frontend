@@ -87,9 +87,6 @@ const VideoContainer = styled.figure`
   .controls > *:first-child {
     margin-left:0;
   }
-  .controls .progress {
-    width:80%;
-  }
   .controls button {
     border:none;
     text-align:center;
@@ -130,6 +127,15 @@ const VideoContainer = styled.figure`
   .controls progress::-webkit-progress-bar {
     background-color: #d3d3d3;
   }
+`;
+
+const ProgressWrapper = styled.div`
+  display: block;
+  width: 80%;
+  height: 100%;
+  float: left;
+  margin-left: 5%;
+  padding: 0;
 `;
 
 const CheckPointWrapper = styled.div`
@@ -296,7 +302,7 @@ export default function AloneQuestionCheckList({ src }) {
               <button ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
                 <Icon type={playPauseBtn ? 'play_blue' : 'pause'} isCircle alt="play/button" />
               </button>
-              <div className="progress">
+              <ProgressWrapper>
                 <progress ref={progress} value="0" min="0" onClick={onProgressClck} />
                 <CheckPointWrapper>
                   {[25, 50, 75].map(
@@ -307,7 +313,7 @@ export default function AloneQuestionCheckList({ src }) {
                     ),
                   )}
                 </CheckPointWrapper>
-              </div>
+              </ProgressWrapper>
             </div>
           </VideoContainer>
           <ButtonsWrapper>
