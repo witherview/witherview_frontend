@@ -57,7 +57,7 @@ const VideoContainer = styled.figure`
     border-radius: 20px;
   }
 
-  & .controls, .controls > * {
+  & .controls {
     padding:0;
     margin:0;
   }
@@ -78,33 +78,23 @@ const VideoContainer = styled.figure`
   .controls[data-state=visible] {
     display:block;
   }
-  .controls > * {
-    float:left;
-    height:100%;
-    margin-left:5%;
-    display:block;
-  }
-  .controls > *:first-child {
-    margin-left:0;
-  }
-  .controls button {
-    border:none;
-    text-align:center;
-    overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
-    cursor:pointer;
-    background:transparent;
-    background-size:contain;
-    background-repeat:no-repeat;
+`;
 
-    &:focus {
-      outline: none;
-    }
-
-    &:hover {
-      opacity:0.5;  
-    }
+const ButtonWrapper = styled.button`
+  display:block;
+  height:100%;
+  float:left;
+  border:none;
+  cursor:pointer;
+  background:transparent;
+  margin:0;
+  padding:0;
+  
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    opacity:0.5;  
   }
 `;
 
@@ -301,9 +291,9 @@ export default function AloneQuestionCheckList({ src }) {
               <source src={src} type="video/webm" />
             </video>
             <div ref={videoControls} className="controls" data-state="hidden">
-              <button ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
+              <ButtonWrapper ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
                 <Icon type={playPauseBtn ? 'play_blue' : 'pause'} isCircle alt="play/button" />
-              </button>
+              </ButtonWrapper>
               <ProgressWrapper>
                 <progress ref={progress} value="0" min="0" onClick={onProgressClck} />
                 <CheckPointWrapper>
