@@ -101,31 +101,10 @@ const VideoContainer = styled.figure`
     &:focus {
       outline: none;
     }
-  }
-  .controls button:hover {
-    opacity:0.5;
-  }
-  .controls progress {
-    display:block;
-    width:100%;
-    margin-top:1.125rem;
-    border:none;
-    overflow:hidden;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px;
-    border-radius:2px;
-    color:#6e6eff;
-    cursor:pointer;
-  }
-  
-  .controls progress::-moz-progress-bar {
-    background-color:#6e6eff;
-  }
-  .controls progress::-webkit-progress-value {
-    background-color:#6e6eff;
-  }
-  .controls progress::-webkit-progress-bar {
-    background-color: #d3d3d3;
+
+    &:hover {
+      opacity:0.5;  
+    }
   }
 `;
 
@@ -136,6 +115,29 @@ const ProgressWrapper = styled.div`
   float: left;
   margin-left: 5%;
   padding: 0;
+
+  & progress {
+    display:block;
+    width:100%;
+    margin-top:1.125rem;
+    border:none;
+    overflow:hidden;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    color:#6e6eff;
+    cursor:pointer;
+
+    &::-moz-progress-bar {
+      background-color:#6e6eff;
+    }
+    &::-webkit-progress-value {
+      background-color:#6e6eff;
+    }
+    &::-webkit-progress-bar {
+      background-color: #d3d3d3;
+    }
+  }
 `;
 
 const CheckPointWrapper = styled.div`
