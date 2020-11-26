@@ -130,12 +130,13 @@ const VideoContainer = styled.figure`
   .controls progress::-webkit-progress-bar {
     background-color: #d3d3d3;
   }
-  .controls progress + .checkPoint {
-    position: relative;
-    background: transparent;
-  }
+`;
 
-  .checkPoint > div {
+const CheckPointWrapper = styled.div`
+  position: relative;
+  background: transparent;
+
+  & > div {
     position: absolute;
     cursor: pointer;
   }
@@ -297,7 +298,7 @@ export default function AloneQuestionCheckList({ src }) {
               </button>
               <div className="progress">
                 <progress ref={progress} value="0" min="0" onClick={onProgressClck} />
-                <div className="checkPoint" value="0" min="0">
+                <CheckPointWrapper>
                   {[25, 50, 75].map(
                     (item) => (
                       <CheckPoint point={item} key={`${item}point`}>
@@ -305,7 +306,7 @@ export default function AloneQuestionCheckList({ src }) {
                       </CheckPoint>
                     ),
                   )}
-                </div>
+                </CheckPointWrapper>
               </div>
             </div>
           </VideoContainer>
