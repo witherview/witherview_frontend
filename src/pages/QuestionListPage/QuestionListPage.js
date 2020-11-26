@@ -6,7 +6,6 @@ import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
 import { get } from '../../utils/snippet';
 import ProfileMenuContiner from '../../components/ProfileMenuContainer';
-import { QuestionListMock } from '../../mocks/QuestionListMock';
 
 const ProfileWrapper = styled.div`
     float: right;
@@ -47,9 +46,11 @@ const Select = styled.div`
 export default function QuestionListPage() {
   const authSelector = useSelector(get('auth'));
   const [questionList, setQuestionList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const fetch = async () => {
     getQuestionListAPI().then((response) => {
       setQuestionList(response.data);
+      setLoading(true);
     });
   };
   useEffect(() => {
@@ -58,19 +59,24 @@ export default function QuestionListPage() {
 
   return (
     <>
-      <ProfileWrapper>
-        <ProfileMenuContiner name={authSelector.name} />
-      </ProfileWrapper>
-      <Wrapper>
-        <Title>
-          {authSelector.name}
-          님이 등록한 질문 리스트입니다.
-        </Title>
-        <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
-        {questionList && questionList.length === 0
-          ? <NoList />
-          : <IsQuestionList questionList={questionList} />}
-      </Wrapper>
+      {loading
+        && (
+        <>
+          <ProfileWrapper>
+            <ProfileMenuContiner name={authSelector.name} />
+          </ProfileWrapper>
+          <Wrapper>
+            <Title>
+              {authSelector.name}
+              님이 등록한 질문 리스트입니다.
+            </Title>
+            <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
+            {questionList && questionList.length === 0
+              ? <NoList />
+              : <IsQuestionList questionList={questionList} />}
+          </Wrapper>
+        </>
+        )}
     </>
   );
 }
