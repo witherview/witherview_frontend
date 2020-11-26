@@ -75,7 +75,6 @@ export default function CamView({
         width={width}
         height={height}
         alt="image_view"
-        controls
         autoPlay
         loop
         muted
