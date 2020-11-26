@@ -5,7 +5,7 @@ import Sidebar from '../../components/Sidebar';
 import ProfileMenuContainer from '../../components/ProfileMenuContainer';
 import CamView from '../../components/CamView';
 
-import TextBox from './TextBox';
+import TextBox from '../../components/TextBox';
 import Button from '../../components/Button';
 import Icon from '../../components/Icon';
 
