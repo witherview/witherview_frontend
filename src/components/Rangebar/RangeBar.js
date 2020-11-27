@@ -105,7 +105,7 @@ export default function RangeBar({
       parseInt(inputLeftRange.value), parseInt(inputRight.current.value) - 1,
     );
     const percent = ((inputLeftRange.value - min) / (max - min)) * 100;
-    thumbLeft.current.style.left = `${percent}%`
+    thumbLeft.current.style.left = `${percent}%`;
     range.current.style.left = `${percent}%`;
   };
 
@@ -117,7 +117,7 @@ export default function RangeBar({
       parseInt(inputRightRange.value), parseInt(inputLeft.current.value) + 1,
     );
     const percent = ((inputRightRange.value - min) / (max - min)) * 100;
-    thumbRight.current.style.right = `${100 - percent}%`
+    thumbRight.current.style.right = `${100 - percent}%`;
     range.current.style.right = `${100 - percent}%`;
   };
 

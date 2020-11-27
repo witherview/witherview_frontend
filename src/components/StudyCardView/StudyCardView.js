@@ -27,13 +27,13 @@ const Content = styled.div`
     border-radius: 20px;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-    & > div, & > div > span {
+    &>div, &>div>span {
       color: #ffffff;
     }
-    & > div > div {
+    &>div>div {
       color: #0c0c59;
     }
-    & : nth-child(4) {
+    &:nth-child(4) {
       background: #fcfcfc;
     }
   }

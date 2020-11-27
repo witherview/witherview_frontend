@@ -6,6 +6,8 @@ import ConferenceButton from './components/ConferenceButton';
 import ConferenceRoom from './pages/ConferenceRoom';
 import NotFound from './pages/404';
 import LoginPage from './pages/LoginPage';
+import QuestionListPage from './pages/QuestionListPage';
+import QuestionPage from './pages/QuestionPage';
 import SelfTrainPage from './pages/SelfTrainPage';
 
 export default function App() {
@@ -14,6 +16,8 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
+        <Route path="/questionlist" component={QuestionListPage} />
+        <Route path="/question/:id" component={QuestionPage} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
         <Route exact path="/self-training" component={SelfTrainPage} />
         <Route component={NotFound} />
