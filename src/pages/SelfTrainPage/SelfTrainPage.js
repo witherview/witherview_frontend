@@ -181,7 +181,10 @@ export default function SelfTrainPage() {
             />
             {/* TODO: Server API(DATE) 반영되면 적용 */}
             {step === TOGGLE_SCRIPT && (
-              <AnswerBox answer={questionList[qnaStep].answer} />
+              <AnswerBox
+                answer={questionList[qnaStep].answer}
+                height={width / 3}
+              />
             )}
           </S.WrapCamView>
           <S.WrapBottom width={width / 1.5}>
