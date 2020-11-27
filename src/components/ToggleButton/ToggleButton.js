@@ -27,8 +27,8 @@ const Slider = styled.span`
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.04);
   background-color: #f6f6f6;
   border-radius: 23px;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   &::before {
     position: absolute;
     content: "";
@@ -38,8 +38,8 @@ const Slider = styled.span`
     bottom: 4px;
     background-color: #d3d3d3;
     border-radius: 50%;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
   input:checked + & {
     background-color: #eef0ff;
@@ -52,12 +52,17 @@ const Slider = styled.span`
   }
 `;
 
-export default function ToggleButton({
-  className,
-}) {
+export default function ToggleButton({ className, funcActive, funcDeactive }) {
+  const handleFunction = (e) => {
+    if (e.target.checked) {
+      return funcActive();
+    }
+    return funcDeactive();
+  };
+
   return (
     <Switch>
-      <Input type="checkbox" className={className} />
+      <Input type="checkbox" className={className} onChange={handleFunction} />
       <Slider />
     </Switch>
   );
@@ -65,8 +70,12 @@ export default function ToggleButton({
 
 ToggleButton.propTypes = {
   className: PropTypes.string,
+  funcActive: PropTypes.func,
+  funcDeactive: PropTypes.func,
 };
 
 ToggleButton.defaultProps = {
   className: '',
+  funcActive: () => {},
+  funcDeactive: () => {},
 };
