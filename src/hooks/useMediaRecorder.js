@@ -14,16 +14,16 @@ export default function useReactMediaRecorder({
   const mediaChunks = useRef([]);
   const mediaChunkEach = useRef([]);
   const mediaStream = useRef(null);
-  const [status, setStatus] = useState('idle');
-  const [intervals, setIntervals] = useState([]);
+  const intervalId = useRef();
 
+  const [status, setStatus] = useState('idle');
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
   const [error, setError] = useState('NONE');
 
   useEffect(() => {
     if (status === 'recording') {
-      const interval = setInterval(() => {
+      intervalId.current = setInterval(() => {
         mediaRecorder.current.requestData();
 
         const blobProperty = { type: 'application/octet-stream' };
@@ -33,10 +33,8 @@ export default function useReactMediaRecorder({
         // TODO: console.log 지우고 서버(kafka)에 업로드하는 코드 추가해야 함
         console.log(blobEach);
       }, 1000);
-      setIntervals([...intervals, interval]);
     } else {
-      intervals.forEach(clearInterval);
-      setIntervals([]);
+      clearInterval(intervalId.current);
     }
   }, [status]);
 
@@ -138,6 +136,10 @@ export default function useReactMediaRecorder({
     };
     const blob = new Blob(mediaChunks.current, blobProperty);
     const url = URL.createObjectURL(blob);
+
+    // TODO: 혼자연습하기 체크리스트에서 재생할 수 있도록 해야 함
+    console.log(blob);
+
     setStatus('stopped');
     setMediaBlobUrl(url);
     onStop(url, blob);
