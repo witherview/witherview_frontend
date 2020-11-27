@@ -4,9 +4,7 @@ import React, {
 
 import { useSelector } from 'react-redux';
 import { get } from '../../utils/snippet';
-import {
-  getQuestionItemAPI,
-} from '../../repository/questionListRepository';
+import { getQuestionItemAPI } from '../../repository/questionListRepository';
 
 import Sidebar from '../../components/Sidebar';
 import ProfileMenuContainer from '../../components/ProfileMenuContainer';
@@ -144,7 +142,7 @@ export default function SelfTrainPage() {
 
   return (
     <S.Wrapper>
-      {step === STEP_FIRST ? <Sidebar /> : <></>}
+      {step === STEP_FIRST && <Sidebar />}
       <S.WrapContainer height={height}>
         <S.WrapAbsolute>
           {step === STEP_FIRST ? (
@@ -182,34 +180,26 @@ export default function SelfTrainPage() {
               width={step === TOGGLE_SCRIPT ? width / 1.5 - 553 : width / 1.5}
             />
             {/* TODO: Server API(DATE) 반영되면 적용 */}
-            {step === TOGGLE_SCRIPT ? (
+            {step === TOGGLE_SCRIPT && (
               <AnswerBox answer={questionList[qnaStep].answer} />
-            ) : (
-              <></>
             )}
           </S.WrapCamView>
           <S.WrapBottom width={width / 1.5}>
             <S.WrapBottomSide>
-              {step === STEP_START
-              || step === STEP_ING
-              || step === TOGGLE_SCRIPT ? (
-                <RemainTime time={time} />
-                ) : (
-                  <></>
-                )}
+              {(step === STEP_START
+                || step === STEP_ING
+                || step === TOGGLE_SCRIPT) && <RemainTime time={time} />}
             </S.WrapBottomSide>
             {/* STEP_ING의 경우 버튼 누를 때 구간 저장하는 로직 추가 필요 */}
-            {Fixture[step].button ? (
+            {Fixture[step].button && (
               <Button
                 theme="blue"
                 text={Fixture[step].button}
                 func={handleNext}
               />
-            ) : (
-              <></>
             )}
             <S.WrapBottomSide right>
-              {step === STEP_ING || step === TOGGLE_SCRIPT ? (
+              {(step === STEP_ING || step === TOGGLE_SCRIPT) && (
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
                   <ToggleButton
@@ -217,8 +207,6 @@ export default function SelfTrainPage() {
                     funcDeactive={() => setStep(STEP_ING)}
                   />
                 </>
-              ) : (
-                <></>
               )}
             </S.WrapBottomSide>
           </S.WrapBottom>
