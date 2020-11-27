@@ -38,7 +38,7 @@ export default function QuestionTextBox({ order, question, width }) {
 QuestionTextBox.propTypes = {
   order: PropTypes.number.isRequired,
   question: PropTypes.string.isRequired,
-  width: PropTypes.string,
+  width: PropTypes.number,
 };
 
 QuestionTextBox.defaultProps = {
