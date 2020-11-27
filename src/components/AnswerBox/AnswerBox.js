@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 
 const WrapContent = styled.div`
   position: relative;
+  height: ${({ height }) => height - 100}px;
   padding: 37px 51px 37px 51px;
   flex: 1;
 `;
@@ -49,7 +50,7 @@ const WrapAnswer = styled.textarea`
 
 const WrapOveray = styled.div`
   position: absolute;
-  bottom: 30px;
+  bottom: 0px;
   height: 61px;
   width: 413px;
   background-image: linear-gradient(
@@ -68,24 +69,27 @@ const WrapPoint = styled.div`
   background-color: #6e6eff;
 `;
 
-export default function Answerbox({ height, answer }) {
+export default function AnswerBox({ height, answer, date }) {
   return (
     <Wrapper height={height}>
       <WrapPoint />
-      <WrapContent>
+      <WrapContent height={height}>
         <WrapTitleText>질문과 관련된 답변입니다.</WrapTitleText>
-        {/* TODO: API 반영되면 적용 */}
-        <WrapDate>2020.10.05 최종 수정</WrapDate>
-        <WrapAnswer readonly disabled height={height}>
-          {answer}
-        </WrapAnswer>
+        {/* TODO: API에 날짜까지 반영되면 적용 */}
+        <WrapDate>{date}</WrapDate>
+        <WrapAnswer readonly disabled height={height} value={answer} />
         <WrapOveray />
       </WrapContent>
     </Wrapper>
   );
 }
 
-Answerbox.propTypes = {
+AnswerBox.propTypes = {
   height: PropTypes.number.isRequired,
   answer: PropTypes.string.isRequired,
+  date: PropTypes.string,
+};
+
+AnswerBox.defaultProps = {
+  date: '2020.10.05 최종 수정',
 };
