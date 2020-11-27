@@ -2,6 +2,12 @@ import React, {
   useState, useEffect, useCallback, useRef,
 } from 'react';
 
+import { useSelector } from 'react-redux';
+import { get } from '../../utils/snippet';
+import {
+  getQuestionItemAPI,
+} from '../../repository/questionListRepository';
+
 import Sidebar from '../../components/Sidebar';
 import ProfileMenuContainer from '../../components/ProfileMenuContainer';
 import CamView from '../../components/CamView';
@@ -17,6 +23,7 @@ import QuestionTextBox from '../../components/QuestionTextBox';
 import useWindowSize from '../../hooks/useWindowSize';
 
 import Fixture from './transitionFixture';
+import QNA_LIST from './qnaListFixture';
 import S from './SelfTrainPage.style';
 
 const STEP_FIRST = 0;
@@ -28,23 +35,8 @@ const TOGGLE_SCRIPT = 5;
 
 // TODO: 앞 페이지 완성하면 거기서 상태를 들고오도록 수정
 const TIME = 45;
-const NAME = '홍길동';
-const COMPANY = '카카오 서비스 기획';
-
-const QNA_LIST = [
-  {
-    id: 6,
-    question: '질문입니다.',
-    answer: '답변입니다.',
-    order: 0,
-  },
-  {
-    id: 8,
-    question: 'string',
-    answer: 'string',
-    order: 1,
-  },
-];
+const COMPANY = '카카오';
+const JOB = '서비스 기획';
 
 export default function SelfTrainPage() {
   const { height, width } = useWindowSize();
@@ -54,6 +46,27 @@ export default function SelfTrainPage() {
   const [time, setTime] = useState(180);
 
   const [qnaStep, setQnaStep] = useState(0);
+
+  const authSelector = useSelector(get('auth'));
+  const [questionList, setQuestionList] = useState();
+
+  const fetch = async (id) => {
+    try {
+      await getQuestionItemAPI(id).then((response) => {
+        setQuestionList(response.data);
+        console.log(response.data);
+      });
+    } catch (err) {
+      setQuestionList(QNA_LIST);
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    // TODO: id 개인화 해서 적용해야 함 <- redux 사용
+    fetch(3);
+    console.log(authSelector);
+  }, []);
 
   const init = () => {
     clearTimeout(resetId.current);
@@ -67,19 +80,22 @@ export default function SelfTrainPage() {
     init();
   };
 
-  const handleCountTimer = useCallback((initTime) => {
-    setTime(initTime);
-    let i = 0;
-    resetId.current = setInterval(() => {
-      setTime(initTime - i);
-      i += 1;
-    }, 1000);
-  }, [resetId, time]);
+  const handleCountTimer = useCallback(
+    (initTime) => {
+      setTime(initTime);
+      let i = 0;
+      resetId.current = setInterval(() => {
+        setTime(initTime - i);
+        i += 1;
+      }, 1000);
+    },
+    [resetId, time],
+  );
 
   const handleStepQuestion = () => {
     init();
     handleCountTimer(TIME);
-    if (qnaStep === QNA_LIST.length) {
+    if (qnaStep === questionList.length) {
       // TODO: 다음 페이지로 넘어가는 로직 추가해야 함
       return () => {};
     }
@@ -132,7 +148,7 @@ export default function SelfTrainPage() {
       <S.WrapContainer height={height}>
         <S.WrapAbsolute>
           {step === STEP_FIRST ? (
-            <ProfileMenuContainer />
+            <ProfileMenuContainer name={authSelector.name} />
           ) : (
             <Icon
               isCircle
@@ -146,15 +162,16 @@ export default function SelfTrainPage() {
           {step <= STEP_START ? (
             <TextBox
               topText={
-                (step === STEP_LOADING_2 ? `${NAME}님은 ${COMPANY} ` : '')
-                + Fixture[step].top
+                (step === STEP_LOADING_2
+                  ? `${authSelector.name}님은 ${COMPANY} ${JOB}`
+                  : '') + Fixture[step].top
               }
               bottomText={Fixture[step].bottom}
             />
           ) : (
             <QuestionTextBox
-              question={QNA_LIST[qnaStep].question}
-              order={QNA_LIST[qnaStep].order + 1}
+              question={questionList[qnaStep].question}
+              order={questionList[qnaStep].order + 1}
               width={width / 1.5}
             />
           )}
@@ -166,7 +183,7 @@ export default function SelfTrainPage() {
             />
             {/* TODO: Server API(DATE) 반영되면 적용 */}
             {step === TOGGLE_SCRIPT ? (
-              <AnswerBox answer={QNA_LIST[qnaStep].answer} />
+              <AnswerBox answer={questionList[qnaStep].answer} />
             ) : (
               <></>
             )}

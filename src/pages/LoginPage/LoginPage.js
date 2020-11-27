@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   return (
     <Wrapper>
-      {authSelector.isLogin && <Redirect to="/questionlist" />}
+      {authSelector.isLogin && <Redirect to="/self-training" />}
       <div>
         <h3>아이디</h3>
         <input
