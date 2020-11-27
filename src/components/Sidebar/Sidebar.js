@@ -7,7 +7,9 @@ import SidebarButton from './SidebarButton';
 import Logo from '../../assets/images/Witherview.png';
 
 const Wrapper = styled.div`
+  width: 159px;
   min-width: 159px;
+  max-width: 159px;
   height: 100vh;
   min-height: 200px;
   border: none;
