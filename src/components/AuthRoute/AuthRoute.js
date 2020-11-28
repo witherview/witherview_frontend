@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { get } from '@utils/snippet';
+import { get } from '../../utils/snippet';
+import { setLogin } from '../../store/Auth/auth';
 
 export default function AuthRoute({ component: Component, render, ...rest }) {
+  const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
+  useEffect(() => {
+    const name = sessionStorage.getItem('name');
+    const email = sessionStorage.getItem('email');
+    if (name !== authSelector.name) {
+      dispatch(setLogin({ email, name }));
+    }
+  }, []);
   return (
     <Route
       {...rest}

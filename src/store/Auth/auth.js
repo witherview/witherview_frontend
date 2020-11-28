@@ -10,6 +10,8 @@ const authReducer = createSlice({
   },
   reducers: {
     setLogin(state, { payload: { email, name } }) {
+      sessionStorage.setItem('name', name);
+      sessionStorage.setItem('email', email);
       return {
         ...state,
         isLogin: true,
