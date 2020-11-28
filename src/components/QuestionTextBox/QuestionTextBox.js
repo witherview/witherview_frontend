@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   height: 88px;
+  padding: 6px;
   width: ${({ width }) => width}px;
   border-radius: 20px;
   background-color: #eef0ff;

@@ -1,5 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { useSelector } from 'react-redux';
+import { get } from './utils/snippet';
 
 import AuthRoute from './components/AuthRoute';
 import ConferenceButton from './components/ConferenceButton';
@@ -10,16 +14,31 @@ import QuestionListPage from './pages/QuestionListPage';
 import QuestionPage from './pages/QuestionPage';
 import SelfTrainPage from './pages/SelfTrainPage';
 
+import Sidebar from './components/Sidebar';
+import ProfileMenuContainer from './components/ProfileMenuContainer';
+
+const Wrapper = styled.div`
+  display: flex;
+`;
+
 export default function App() {
+  const { name } = useSelector(get('auth'));
+  const { toggleTrain } = useSelector(get('time'));
+
   return (
     <>
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
-        <Route path="/questionlist" component={QuestionListPage} />
+        <AuthRoute path="/questionlist" component={QuestionListPage} />
         <Route path="/question/:id" component={QuestionPage} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
-        <Route exact path="/self-training" component={SelfTrainPage} />
+        <Wrapper>
+          {!toggleTrain && <Sidebar />}
+          {!toggleTrain && <ProfileMenuContainer name={name} />}
+          <AuthRoute exact path="/self-training" component={SelfTrainPage} />
+        </Wrapper>
+
         <Route component={NotFound} />
       </Switch>
     </>

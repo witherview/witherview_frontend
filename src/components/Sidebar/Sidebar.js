@@ -14,8 +14,6 @@ const Wrapper = styled.div`
   min-height: 200px;
   border: none;
   background-color: #0c0c59;
-  display: flex;
-  flex-direction: column;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;

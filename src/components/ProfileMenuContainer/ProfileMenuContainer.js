@@ -6,10 +6,16 @@ import styled from 'styled-components';
 
 import Icon from '../Icon';
 import ProfileIcon from '../ProfileIcon';
-
 import profileExample from '../../assets/images/profile_example.png';
 
 const Wrapper = styled.div`
+  @media only screen and (max-width: 480px) {
+    display: none;
+  }
+
+  position: absolute;
+  top: 53px;
+  right: 105px;
   height: 73px;
   display: flex;
   flex-direction: row;
@@ -29,7 +35,7 @@ export default function ProfileMenuContainer({ name, src }) {
   return (
     <Wrapper>
       <ProfileIcon src={src} />
-      <Name>{name}</Name>
+      <Name>{name || 'Unknown'}</Name>
       <Icon type="arrow_down_grey" alt="arrow_down_grey" />
     </Wrapper>
   );

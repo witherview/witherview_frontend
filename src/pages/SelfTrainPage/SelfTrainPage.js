@@ -1,13 +1,18 @@
-import React, {
-  useState, useEffect, useCallback, useRef,
-} from 'react';
+import React, { useState, useEffect } from 'react';
+import Timeout from 'await-timeout';
 
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  startTime,
+  handleReset,
+  handleNextButton,
+  setStep,
+  handleStepQuestion,
+} from '../../store/Time/time';
 import { get } from '../../utils/snippet';
 import { getQuestionItemAPI } from '../../repository/questionListRepository';
 
-import Sidebar from '../../components/Sidebar';
-import ProfileMenuContainer from '../../components/ProfileMenuContainer';
 import CamView from '../../components/CamView';
 
 import TextBox from '../../components/TextBox';
@@ -32,29 +37,31 @@ const STEP_ING = 4;
 const TOGGLE_SCRIPT = 5;
 
 // TODO: 앞 페이지 완성하면 거기서 상태를 들고오도록 수정
-const TIME = 45;
 const COMPANY = '카카오';
 const JOB = '서비스 기획';
 
 export default function SelfTrainPage() {
+  const transition = new Timeout();
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const { height, width } = useWindowSize();
-  const resetId = useRef();
+  const { name } = useSelector(get('auth'));
+  const { time, qnaStep, step } = useSelector(get('time'));
 
-  const [step, setStep] = useState(STEP_FIRST);
-  const [time, setTime] = useState(180);
-
-  const [qnaStep, setQnaStep] = useState(0);
-
-  const authSelector = useSelector(get('auth'));
-  const [questionList, setQuestionList] = useState();
+  const [questionList, setQuestionList] = useState(QNA_LIST);
 
   const fetch = async (id) => {
     try {
       await getQuestionItemAPI(id).then((response) => {
         setQuestionList(response.data);
-        console.log(response.data);
+        console.log(response);
       });
     } catch (err) {
+      if (err?.response?.status === 401) {
+        history.push('/');
+      }
       setQuestionList(QNA_LIST);
       console.error(err);
     }
@@ -63,95 +70,49 @@ export default function SelfTrainPage() {
   useEffect(() => {
     // TODO: id 개인화 해서 적용해야 함 <- redux 사용
     fetch(3);
-    console.log(authSelector);
   }, []);
 
-  const init = () => {
-    clearTimeout(resetId.current);
-    clearInterval(resetId.current);
-  };
-
   const handleCancel = () => {
-    setStep(STEP_FIRST);
-    setTime(0);
-    setQnaStep(0);
-    init();
+    transition.clear();
+    dispatch(handleReset());
   };
 
-  const handleCountTimer = useCallback(
-    (initTime) => {
-      setTime(initTime);
-      let i = 0;
-      resetId.current = setInterval(() => {
-        setTime(initTime - i);
-        i += 1;
-      }, 1000);
-    },
-    [resetId, time],
-  );
-
-  const handleStepQuestion = () => {
-    init();
-    handleCountTimer(TIME);
-    if (qnaStep === questionList.length) {
-      // TODO: 다음 페이지로 넘어가는 로직 추가해야 함
-      return () => {};
-    }
-    return setQnaStep(qnaStep + 1);
-  };
-
-  const handleNext = useCallback(() => {
-    if (step === STEP_FIRST) {
-      setStep(STEP_LOADING_1);
-    }
-    if (step === STEP_START) {
-      setStep(STEP_ING);
-      init();
-      handleCountTimer(TIME);
-    }
-    if (step === STEP_ING || step === TOGGLE_SCRIPT) {
-      handleStepQuestion();
-    }
-  }, [step]);
-
   useEffect(() => {
-    if (step === STEP_LOADING_1 || step === STEP_LOADING_2) {
-      resetId.current = setTimeout(() => {
-        setStep(step + 1);
-      }, 3000);
+    if (!time && step === STEP_START) {
+      dispatch(setStep({ step: STEP_ING }));
     }
 
-    if (step === STEP_START) {
-      handleCountTimer(180);
-    }
-  }, [step]);
-
-  useEffect(() => {
-    if (time === 0) {
-      init();
-      if (step === STEP_START) {
-        setStep(STEP_ING);
-        setTime(60);
-      }
-
-      if (step === STEP_ING || step === TOGGLE_SCRIPT) {
-        handleStepQuestion();
-      }
+    if (!time && (step === STEP_ING || step === TOGGLE_SCRIPT)) {
+      dispatch(handleStepQuestion());
     }
   }, [time]);
 
+  useEffect(() => {
+    if (step === STEP_LOADING_1 || step === STEP_LOADING_2) {
+      transition.set(3000).then(() => dispatch(setStep({ step: step + 1 })));
+    }
+
+    if (step === STEP_START) {
+      dispatch(startTime({ count: 180 }));
+    }
+  }, [step]);
+
+  useEffect(() => {
+    if (qnaStep === questionList?.length) {
+      // TODO: 다음 페이지로 넘어가는 로직 추가해야 함
+      handleCancel();
+    }
+  }, [qnaStep]);
+
   return (
     <S.Wrapper>
-      {step === STEP_FIRST && <Sidebar />}
       <S.WrapContainer height={height}>
         <S.WrapAbsolute>
-          {step === STEP_FIRST ? (
-            <ProfileMenuContainer name={authSelector.name} />
-          ) : (
+          {step !== STEP_FIRST && (
             <Icon
               isCircle
               type="cancel_circle"
-              func={handleCancel}
+              func={() => handleCancel()}
               alt="cancel"
             />
           )}
@@ -161,15 +122,15 @@ export default function SelfTrainPage() {
             <TextBox
               topText={
                 (step === STEP_LOADING_2
-                  ? `${authSelector.name}님은 ${COMPANY} ${JOB}`
+                  ? `${name}님은 ${COMPANY} ${JOB}`
                   : '') + Fixture[step].top
               }
               bottomText={Fixture[step].bottom}
             />
           ) : (
             <QuestionTextBox
-              question={questionList[qnaStep].question}
-              order={questionList[qnaStep].order + 1}
+              question={questionList[qnaStep]?.question || ''}
+              order={questionList[qnaStep]?.order + 1 || 0}
               width={width / 1.5}
             />
           )}
@@ -198,7 +159,7 @@ export default function SelfTrainPage() {
               <Button
                 theme="blue"
                 text={Fixture[step].button}
-                func={handleNext}
+                func={() => dispatch(handleNextButton())}
               />
             )}
             <S.WrapBottomSide right>
@@ -206,8 +167,8 @@ export default function SelfTrainPage() {
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
                   <ToggleButton
-                    funcActive={() => setStep(TOGGLE_SCRIPT)}
-                    funcDeactive={() => setStep(STEP_ING)}
+                    funcActive={() => dispatch(setStep({ step: TOGGLE_SCRIPT }))}
+                    funcDeactive={() => dispatch(setStep({ step: STEP_ING }))}
                   />
                 </>
               )}
