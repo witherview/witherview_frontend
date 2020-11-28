@@ -15,7 +15,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
-        <Route path="/questionlist" component={QuestionListPage} />
+        <AuthRoute path="/questionlist" component={QuestionListPage} />
         <Route path="/question/:id" component={QuestionPage} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
         <Route component={NotFound} />
