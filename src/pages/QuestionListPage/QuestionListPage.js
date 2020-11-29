@@ -6,6 +6,16 @@ import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
 import { get } from '../../utils/snippet';
 import ProfileMenuContiner from '../../components/ProfileMenuContainer';
+import Sidebar from '../../components/Sidebar';
+
+const PageWrapper = styled.div`
+  
+  display: flex;
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+`;
 
 const ProfileWrapper = styled.div`
     float: right;
@@ -61,21 +71,24 @@ export default function QuestionListPage() {
     <>
       {loading
         && (
-        <>
-          <ProfileWrapper>
-            <ProfileMenuContiner name={authSelector.name} />
-          </ProfileWrapper>
-          <Wrapper>
-            <Title>
-              {authSelector.name}
-              님이 등록한 질문 리스트입니다.
-            </Title>
-            <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
-            {questionList && questionList.length === 0
-              ? <NoList />
-              : <IsQuestionList questionList={questionList} />}
-          </Wrapper>
-        </>
+        <PageWrapper>
+          <Sidebar />
+          <ContentWrapper>
+            <ProfileWrapper>
+              <ProfileMenuContiner name={authSelector.name} />
+            </ProfileWrapper>
+            <Wrapper>
+              <Title>
+                {authSelector.name}
+                님이 등록한 질문 리스트입니다.
+              </Title>
+              <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
+              {questionList && questionList.length === 0
+                ? <NoList />
+                : <IsQuestionList questionList={questionList} />}
+            </Wrapper>
+          </ContentWrapper>
+        </PageWrapper>
         )}
     </>
   );
