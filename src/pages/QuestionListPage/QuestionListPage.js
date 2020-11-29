@@ -9,7 +9,6 @@ import ProfileMenuContiner from '../../components/ProfileMenuContainer';
 import Sidebar from '../../components/Sidebar';
 
 const PageWrapper = styled.div`
-  
   display: flex;
 `;
 

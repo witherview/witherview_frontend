@@ -1,11 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import update from 'immutability-helper';
+import PropTypes from 'prop-types';
 import QuestionItem from '../QuestionItem';
-import { QuestionMock } from '../../../mocks/QuestionMock';
 
-export default function QuestionList() {
-  /* 추후 api를 통해 받아올 list */
-  const [cards, setCards] = useState(QuestionMock);
+export default function QuestionList({ questions }) {
+  const [cards, setCards] = useState([]);
+  useEffect(() => {
+    setCards(questions);
+  }, []);
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     const dragCard = cards[dragIndex];
     setCards(update(cards, {
@@ -20,8 +22,8 @@ export default function QuestionList() {
       key={card.id}
       index={index}
       id={card.id}
-      title={card.title}
-      text={card.text}
+      title={card.question}
+      text={card.answer}
       moveCard={moveCard}
     />
   );
@@ -31,3 +33,11 @@ export default function QuestionList() {
     </>
   );
 }
+
+QuestionList.propTypes = {
+  questions: PropTypes.array,
+};
+
+QuestionList.defaultProp = {
+  questions: [],
+};
