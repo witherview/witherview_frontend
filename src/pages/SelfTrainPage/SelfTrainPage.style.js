@@ -6,7 +6,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-height:  100vh;
+  height: 100vh;
 `;
 
 const WrapAbsolute = styled.div`

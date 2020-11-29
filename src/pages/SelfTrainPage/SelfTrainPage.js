@@ -3,6 +3,7 @@ import Timeout from 'await-timeout';
 
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { setLogout } from '../../store/Auth/auth';
 import {
   startTime,
   handleReset,
@@ -59,8 +60,8 @@ export default function SelfTrainPage() {
         console.log(response);
       });
     } catch (err) {
-      if (err?.response?.status === 401) {
-        history.push('/');
+      if (err.response?.status === 401) {
+        dispatch(setLogout({}));
       }
       setQuestionList(QNA_LIST);
       console.error(err);
@@ -69,6 +70,7 @@ export default function SelfTrainPage() {
 
   useEffect(() => {
     // TODO: id 개인화 해서 적용해야 함 <- redux 사용
+    dispatch(handleReset());
     fetch(3);
   }, []);
 
@@ -99,14 +101,14 @@ export default function SelfTrainPage() {
 
   useEffect(() => {
     if (qnaStep === questionList?.length) {
-      // TODO: 다음 페이지로 넘어가는 로직 추가해야 함
-      handleCancel();
+      dispatch(handleReset(true));
+      history.push('/self-checklist');
     }
   }, [qnaStep]);
 
   return (
     <S.Wrapper>
-      <S.WrapContainer height={height}>
+      <S.WrapContainer>
         <S.WrapAbsolute>
           {step !== STEP_FIRST && (
             <Icon

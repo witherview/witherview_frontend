@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage';
 import QuestionListPage from './pages/QuestionListPage';
 import QuestionPage from './pages/QuestionPage';
 import SelfTrainPage from './pages/SelfTrainPage';
+import AloneQuestionCheckList from './pages/AloneQuestionCheckList';
 
 import Sidebar from './components/Sidebar';
 import ProfileMenuContainer from './components/ProfileMenuContainer';
@@ -37,8 +38,8 @@ export default function App() {
           {!toggleTrain && <Sidebar />}
           {!toggleTrain && <ProfileMenuContainer name={name} />}
           <AuthRoute exact path="/self-training" component={SelfTrainPage} />
+          <AuthRoute exact path="/self-checklist" component={AloneQuestionCheckList} />
         </Wrapper>
-
         <Route component={NotFound} />
       </Switch>
     </>

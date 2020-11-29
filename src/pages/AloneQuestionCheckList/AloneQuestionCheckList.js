@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import Button from '../../components/Button';
 import Icon from '../../components/Icon';
 import EvaluationListMock from '../../mocks/EvaluationListMock';
@@ -212,6 +213,7 @@ const SmallCheckList = styled.div`
 `;
 
 export default function AloneQuestionCheckList({ src }) {
+  const history = useHistory();
   const [nextActionBtn, setNextActionBtn] = useState(1);
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
   const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
@@ -276,7 +278,7 @@ export default function AloneQuestionCheckList({ src }) {
   return (
     <Background>
       <CloseButton type="button">
-        <Icon type="cancel_circle" isCircle alt="close" />
+        <Icon type="cancel_circle" isCircle alt="close" func={() => history.push('/self-training')} />
       </CloseButton>
       <EndingTitle>면접이 종료 되었습니다. 체크리스트를 통해 스스로 평가를 해보세요.</EndingTitle>
       <Content>

@@ -87,11 +87,11 @@ const STEP_START = 3;
 const STEP_ING = 4;
 const TOGGLE_SCRIPT = 5;
 
-export const handleReset = () => (dispatch) => {
+export const handleReset = (keepTrain) => (dispatch) => {
   dispatch(setStep({ step: STEP_FIRST }));
   dispatch(resetTime());
   dispatch(setQnaStep({ qnaStep: 0 }));
-  dispatch(setToggleTrain({ toggleTrain: false }));
+  if (!keepTrain) dispatch(setToggleTrain({ toggleTrain: false }));
 };
 
 export const handleStepQuestion = () => (dispatch, getState) => {
