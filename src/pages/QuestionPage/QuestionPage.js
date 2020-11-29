@@ -61,7 +61,7 @@ const InputQuestion = styled.input`
   width: 1070px;
   height: 26px;
   font-size: 24px;
-  padding: 17px 30px 17px 5px;
+  padding: 17px 30px 17px 17px;
   border: none;
   outline: none;
   border-radius: 10px;
@@ -72,7 +72,7 @@ const InputQuestion = styled.input`
 const IconWrapper = styled.span`
   width: 63px;
   height: 63px;
-  transform:translate(-12px, -2px);
+  transform:translate(-17px, -2px);
 `;
 
 const Text = styled.div`
@@ -165,13 +165,13 @@ export default function QuestionPage({ match }) {
                     <ListWrapper>
                       <Scroll>
                         <DndProvider backend={HTML5Backend}>
-                          <QuestionList questions={questions} />
+                          <QuestionList questions={questions} setQuestions={setQuestions} />
                         </DndProvider>
                       </Scroll>
                     </ListWrapper>
                   )}
                 <ButtonWrapper onClick={handleMakeQuestion}>
-                  <Button text="완료" theme="blue" />
+                  <Button text={id === 'new' ? '저장' : '완료'} theme="blue" />
                 </ButtonWrapper>
               </>
             )}

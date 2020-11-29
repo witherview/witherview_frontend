@@ -1,22 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import update from 'immutability-helper';
 import PropTypes from 'prop-types';
 import QuestionItem from '../QuestionItem';
 
-export default function QuestionList({ questions }) {
-  const [cards, setCards] = useState([]);
-  useEffect(() => {
-    setCards(questions);
-  }, []);
+export default function QuestionList({ questions, setQuestions }) {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
-    const dragCard = cards[dragIndex];
-    setCards(update(cards, {
+    const dragCard = questions[dragIndex];
+    setQuestions(update(questions, {
       $splice: [
         [dragIndex, 1],
         [hoverIndex, 0, dragCard],
       ],
     }));
-  }, [cards]);
+  }, [questions]);
   const renderCard = (card, index) => (
     <QuestionItem
       key={card.id}
@@ -29,13 +25,14 @@ export default function QuestionList({ questions }) {
   );
   return (
     <>
-      <div>{cards.map((card, i) => renderCard(card, i))}</div>
+      <div>{questions.map((card, i) => renderCard(card, i))}</div>
     </>
   );
 }
 
 QuestionList.propTypes = {
   questions: PropTypes.array,
+  setQuestions: PropTypes.func,
 };
 
 QuestionList.defaultProp = {
