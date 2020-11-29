@@ -1,12 +1,26 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import Button from '@components/Button';
-import ProfileMenuContiner from '@components/ProfileMenuContainer';
-import { getQuestionItemAPI } from '@repository/questionListRepository';
-import { get } from '@utils/snippet';
-import Icon from '@components/Icon';
+import { useSelector, useDispatch } from 'react-redux';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import Button from '../../components/Button';
+import ProfileMenuContiner from '../../components/ProfileMenuContainer';
+import { getQuestionItemAPI, postQuestionListAPI } from '../../repository/questionListRepository';
+import { get } from '../../utils/snippet';
+import Icon from '../../components/Icon';
+import Sidebar from '../../components/Sidebar';
+import QuestionList from '../../components/Question/QuestionList';
+import Modal from '../../components/Modal/Modal';
+import { showModal } from '../../store/Modal/modal';
+
+const PageWrapper = styled.div`
+  display: flex;
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+`;
 
 const ProfileWrapper = styled.div`
     float: right;
@@ -44,10 +58,10 @@ const Title = styled.div`
 const InputQuestion = styled.input`
   display: flex;
   align-self: center;
-  width: 1027px;
+  width: 1070px;
   height: 26px;
   font-size: 24px;
-  padding: 17px;
+  padding: 17px 30px 17px 5px;
   border: none;
   outline: none;
   border-radius: 10px;
@@ -63,6 +77,7 @@ const IconWrapper = styled.span`
 
 const Text = styled.div`
   margin-top: 262px;
+  margin-bottom: 220px;
   font-family: AppleSDGothicNeoM00;
   font-size: 24px;
   font-weight: normal;
@@ -74,57 +89,94 @@ const Text = styled.div`
   color: #000000;
 `;
 
+const ListWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 73px;
+`;
+
+const Scroll = styled.div`
+  height: 400px;
+  overflow: scroll;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 261px;
+  margin-top: 67px;
 `;
 
 export default function QuestionPage({ match }) {
+  const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
   const [questions, setQuestions] = useState([]);
+  const [oldQ, setOldQ] = useState([]);
+  const [newQ, setNewQ] = useState([]);
   const [loading, setLoading] = useState(false);
   const { id } = match.params;
   const fetch = async () => {
-    getQuestionItemAPI(id).then((response) => {
-      // setQuestions(response.data);
-    });
+    if (id !== 'new') {
+      getQuestionItemAPI(id).then((response) => {
+        setQuestions(response.data);
+      });
+    }
   };
   useEffect(() => {
     fetch();
     setLoading(true);
   }, []);
+
+  const handleMakeQuestion = () => {
+    if (id === 'new') {
+      dispatch(showModal('questionListSaveModal'));
+    }
+  };
+
   return (
     <>
-      <ProfileWrapper>
-        <ProfileMenuContiner name={authSelector.name} />
-      </ProfileWrapper>
-      <Wrapper>
-        <Title>
-          면접 질문 작성 및 수정하기
-        </Title>
-        <Input>
-          <InputQuestion placeholder="여기에 글자를 입력해주세요." />
-          <IconWrapper>
-            <Icon type="check_rec" />
-          </IconWrapper>
-        </Input>
-      </Wrapper>
-      {loading
-        && (
-          <>
-            {questions && questions.length === 0
-              ? (
-                <Text>
-                  등록된 질문이 없습니다.
-                </Text>
-              )
-              : ''}
-            <ButtonWrapper>
-              <Button text="완료" theme="blue" />
-            </ButtonWrapper>
-          </>
-        )}
+      <PageWrapper>
+        <Sidebar />
+        <Modal modalName="questionListSaveModal" />
+        <ContentWrapper>
+          <ProfileWrapper>
+            <ProfileMenuContiner name={authSelector.name} />
+          </ProfileWrapper>
+          <Wrapper>
+            <Title>
+              면접 질문 작성 및 수정하기
+            </Title>
+            <Input>
+              <InputQuestion placeholder="질문을 입력하세요." />
+              <IconWrapper>
+                <Icon type="check_rec" />
+              </IconWrapper>
+            </Input>
+          </Wrapper>
+          {loading
+            && (
+              <>
+                {questions && questions.length === 0
+                  ? (
+                    <Text>
+                      등록된 질문이 없습니다.
+                    </Text>
+                  )
+                  : (
+                    <ListWrapper>
+                      <Scroll>
+                        <DndProvider backend={HTML5Backend}>
+                          <QuestionList questions={questions} />
+                        </DndProvider>
+                      </Scroll>
+                    </ListWrapper>
+                  )}
+                <ButtonWrapper onClick={handleMakeQuestion}>
+                  <Button text="완료" theme="blue" />
+                </ButtonWrapper>
+              </>
+            )}
+        </ContentWrapper>
+      </PageWrapper>
     </>
   );
 }

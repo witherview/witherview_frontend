@@ -20,4 +20,19 @@ export const QuestionMock = [
     title: '4번제목',
     text: '4번내용',
   },
+  {
+    id: 5,
+    title: '4번제목',
+    text: '4번내용',
+  },
+  {
+    id: 6,
+    title: '4번제목',
+    text: '4번내용',
+  },
+  {
+    id: 7,
+    title: '4번제목',
+    text: '4번내용',
+  },
 ];

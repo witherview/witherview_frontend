@@ -45,8 +45,11 @@ const TitleText = styled.span`
 `;
 
 const IconWrapper = styled.span`
+  display: flex;
+  align-items: center;
   margin-left: auto;
   margin-right: 46px;
+  ${({ clicked }) => (clicked && 'transform: rotate(180deg)')}
 `;
 
 const AnswerBox = styled.div`
@@ -127,8 +130,8 @@ export default function QuestionItem({
         <QuestionCard onClick={handleTitleClick} clicked={clicked}>
           <QusetionSymbol clicked={clicked}>Q</QusetionSymbol>
           <TitleText clicked={clicked}>{title}</TitleText>
-          <IconWrapper>
-            <Icon type={clicked ? 'arrow_up' : 'arrow_down'} alt="" />
+          <IconWrapper clicked={clicked}>
+            <Icon type={clicked ? 'drop_up' : 'drop_down'} alt="" />
           </IconWrapper>
         </QuestionCard>
         <AnswerBox clicked={clicked}>
