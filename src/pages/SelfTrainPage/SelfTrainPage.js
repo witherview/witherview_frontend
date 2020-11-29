@@ -30,6 +30,8 @@ import Fixture from './transitionFixture';
 import QNA_LIST from './qnaListFixture';
 import S from './SelfTrainPage.style';
 
+import StudyBackground from '../../../public/assets/images/study_background.png';
+
 const STEP_FIRST = 0;
 const STEP_LOADING_1 = 1;
 const STEP_LOADING_2 = 2;
@@ -104,6 +106,7 @@ export default function SelfTrainPage() {
 
   const isStepFirst = step === STEP_FIRST;
   const isLoading = step <= STEP_START;
+  const isBackground = step > STEP_FIRST && step < STEP_ING;
   const isShowTimer = step >= STEP_START;
   const isShowToggle = step > STEP_START;
   const isShowAnswer = step === TOGGLE_SCRIPT;
@@ -127,7 +130,7 @@ export default function SelfTrainPage() {
   );
 
   return (
-    <S.Wrapper>
+    <S.Wrapper source={isBackground && StudyBackground}>
       <S.WrapContainer>
         <S.WrapAbsolute>
           {!isStepFirst && (

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   flex: 1;
   flex-direction: column;
+  background-image: url(${({ source }) => source});
+  background-size: cover;
 `;
 
 const WrapContainer = styled.div`
