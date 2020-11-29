@@ -30,8 +30,11 @@ const WrapMenu = styled.div`
   position: relative;
   text-align: center;
   z-index: 101;
-  fill: ${({ isOpen }) => isOpen && '#0b3895'};
-  transform: ${({ isOpen }) => isOpen && 'scale(1)'};
+  ${({ isOpen }) => isOpen
+    && `
+    fill: #0b3895;
+    transform: scale(1);
+  `}
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -48,8 +51,7 @@ const Name = styled.div`
 
 const List = styled.ul`
   width: 143px;
-  padding-top: 18.5px;
-  padding-bottom: 18.5px;
+  padding: 18.5px 0px 18.5px 0px;
   position: absolute;
   top: 70px;
   right: 0px;
