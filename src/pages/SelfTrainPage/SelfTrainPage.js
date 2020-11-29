@@ -47,7 +47,7 @@ export default function SelfTrainPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { height, width } = useWindowSize();
+  const { width } = useWindowSize();
   const { name } = useSelector(get('auth'));
   const { time, qnaStep, step } = useSelector(get('time'));
 
@@ -57,26 +57,29 @@ export default function SelfTrainPage() {
     try {
       await getQuestionItemAPI(id).then((response) => {
         setQuestionList(response.data);
-        console.log(response);
       });
     } catch (err) {
-      if (err.response?.status === 401) {
-        dispatch(setLogout({}));
+      if (err.response.status === 401) {
+        dispatch(setLogout());
       }
       setQuestionList(QNA_LIST);
-      console.error(err);
     }
   };
 
   useEffect(() => {
     // TODO: id 개인화 해서 적용해야 함 <- redux 사용
-    dispatch(handleReset());
+    dispatch(handleReset({ keepTrain: false }));
     fetch(3);
   }, []);
 
   const handleCancel = () => {
     transition.clear();
-    dispatch(handleReset());
+    dispatch(handleReset({ keepTrain: false }));
+  };
+
+  const handleChecklistPage = () => {
+    history.push('/self-checklist');
+    dispatch(handleReset({ keepTrain: true }));
   };
 
   useEffect(() => {
@@ -99,18 +102,35 @@ export default function SelfTrainPage() {
     }
   }, [step]);
 
-  useEffect(() => {
-    if (qnaStep === questionList?.length) {
-      dispatch(handleReset(true));
-      history.push('/self-checklist');
-    }
-  }, [qnaStep]);
+  const isStepFirst = step === STEP_FIRST;
+  const isLoading = step <= STEP_START;
+  const isShowTimer = step >= STEP_START;
+  const isShowToggle = step > STEP_START;
+  const isShowAnswer = step === TOGGLE_SCRIPT;
+
+  const textBox = (
+    <TextBox
+      topText={
+        (step === STEP_LOADING_2 ? `${name}님은 ${COMPANY} ${JOB}` : '')
+        + Fixture[step]?.top
+      }
+      bottomText={Fixture[step]?.bottom || ''}
+    />
+  );
+
+  const questionTextBox = (
+    <QuestionTextBox
+      question={questionList[qnaStep]?.question || ''}
+      order={questionList[qnaStep]?.order + 1 || 0}
+      width={width / 1.5}
+    />
+  );
 
   return (
     <S.Wrapper>
       <S.WrapContainer>
         <S.WrapAbsolute>
-          {step !== STEP_FIRST && (
+          {!isStepFirst && (
             <Icon
               isCircle
               type="cancel_circle"
@@ -120,30 +140,14 @@ export default function SelfTrainPage() {
           )}
         </S.WrapAbsolute>
         <S.WrapContent>
-          {step <= STEP_START ? (
-            <TextBox
-              topText={
-                (step === STEP_LOADING_2
-                  ? `${name}님은 ${COMPANY} ${JOB}`
-                  : '') + Fixture[step].top
-              }
-              bottomText={Fixture[step].bottom}
-            />
-          ) : (
-            <QuestionTextBox
-              question={questionList[qnaStep]?.question || ''}
-              order={questionList[qnaStep]?.order + 1 || 0}
-              width={width / 1.5}
-            />
-          )}
-
+          {(isLoading ? textBox : questionTextBox)}
           <S.WrapCamView width={width / 1.5}>
             <CamView
               height={width / 3}
-              width={step === TOGGLE_SCRIPT ? width / 1.5 - 553 : width / 1.5}
+              width={isShowAnswer ? width / 1.5 - 553 : width / 1.5}
             />
             {/* TODO: Server API(DATE) 반영되면 적용 */}
-            {step === TOGGLE_SCRIPT && (
+            {isShowAnswer && (
               <AnswerBox
                 answer={questionList[qnaStep].answer}
                 height={width / 3}
@@ -152,20 +156,22 @@ export default function SelfTrainPage() {
           </S.WrapCamView>
           <S.WrapBottom width={width / 1.5}>
             <S.WrapBottomSide>
-              {(step === STEP_START
-                || step === STEP_ING
-                || step === TOGGLE_SCRIPT) && <RemainTime time={time} />}
+              {isShowTimer && <RemainTime time={time} />}
             </S.WrapBottomSide>
             {/* STEP_ING의 경우 버튼 누를 때 구간 저장하는 로직 추가 필요 */}
-            {Fixture[step].button && (
+            {Fixture[step]?.button && (
               <Button
                 theme="blue"
                 text={Fixture[step].button}
-                func={() => dispatch(handleNextButton())}
+                func={
+                  qnaStep === questionList.length - 1
+                    ? () => handleChecklistPage()
+                    : () => dispatch(handleNextButton())
+                }
               />
             )}
             <S.WrapBottomSide right>
-              {(step === STEP_ING || step === TOGGLE_SCRIPT) && (
+              {isShowToggle && (
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
                   <ToggleButton
