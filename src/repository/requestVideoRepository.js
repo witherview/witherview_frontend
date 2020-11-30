@@ -8,3 +8,9 @@ export const postVideoApi = async (param) => await api({
   param,
   contentType: 'multipart/form-data',
 });
+
+export const getVideoApi = async (param) => await api({
+  url: '/api/self/history',
+  type: 'get',
+  param,
+});
