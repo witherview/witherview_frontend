@@ -14,6 +14,8 @@ import {
 import { get } from '../../utils/snippet';
 import { getQuestionItemAPI } from '../../repository/questionListRepository';
 
+import useReactMediaRecorder from '../../hooks/useMediaRecorder';
+
 import CamView from '../../components/CamView';
 
 import TextBox from '../../components/TextBox';
@@ -50,8 +52,19 @@ export default function SelfTrainPage() {
   const dispatch = useDispatch();
 
   const { width } = useWindowSize();
+  const {
+    status,
+    startRecording,
+    stopRecording,
+    mediaBlobUrl,
+  } = useReactMediaRecorder({
+    screen: true,
+  });
+
   const { name } = useSelector(get('auth'));
-  const { time, qnaStep, step } = useSelector(get('time'));
+  const {
+    time, qnaStep, step,
+  } = useSelector(get('time'));
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
@@ -74,12 +87,14 @@ export default function SelfTrainPage() {
     fetch(3);
   }, []);
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
+    await stopRecording();
     transition.clear();
     dispatch(handleReset({ keepTrain: false }));
   };
 
-  const handleChecklistPage = () => {
+  const handleChecklistPage = async () => {
+    await stopRecording();
     history.push('/self-checklist');
     dispatch(handleReset({ keepTrain: true }));
   };
@@ -87,10 +102,12 @@ export default function SelfTrainPage() {
   useEffect(() => {
     if (!time && step === STEP_START) {
       dispatch(setStep({ step: STEP_ING }));
+      startRecording();
     }
 
     if (!time && (step === STEP_ING || step === TOGGLE_SCRIPT)) {
-      dispatch(handleStepQuestion());
+      if (qnaStep === questionList.length - 1) handleChecklistPage();
+      else dispatch(handleStepQuestion());
     }
   }, [time]);
 
@@ -143,11 +160,13 @@ export default function SelfTrainPage() {
           )}
         </S.WrapAbsolute>
         <S.WrapContent>
-          {(isLoading ? textBox : questionTextBox)}
+          {isLoading ? textBox : questionTextBox}
           <S.WrapCamView width={width / 1.5}>
             <CamView
               height={width / 3}
               width={isShowAnswer ? width / 1.5 - 553 : width / 1.5}
+              status={status}
+              mediaBlobUrl={mediaBlobUrl}
             />
             {/* TODO: Server API(DATE) 반영되면 적용 */}
             {isShowAnswer && (
@@ -169,7 +188,10 @@ export default function SelfTrainPage() {
                 func={
                   qnaStep === questionList.length - 1
                     ? () => handleChecklistPage()
-                    : () => dispatch(handleNextButton())
+                    : () => {
+                      if (step === STEP_START) startRecording();
+                      dispatch(handleNextButton());
+                    }
                 }
               />
             )}

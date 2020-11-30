@@ -2,6 +2,10 @@ import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { setMediaUrl } from '../store/Time/time';
+import { postVideoApi } from '../repository/postVideoRepository';
+
 export default function useReactMediaRecorder({
   audio = true,
   video = false,
@@ -10,6 +14,7 @@ export default function useReactMediaRecorder({
   screen = false,
   mediaRecorderOptions = null,
 }) {
+  const dispatch = useDispatch();
   const mediaRecorder = useRef(null);
   const mediaChunks = useRef([]);
   const mediaChunkEach = useRef([]);
@@ -28,7 +33,10 @@ export default function useReactMediaRecorder({
 
         const blobProperty = { type: 'application/octet-stream' };
 
-        const blobEach = new Blob([mediaChunkEach.current.slice(-1)[0]], blobProperty);
+        const blobEach = new Blob(
+          [mediaChunkEach.current.slice(-1)[0]],
+          blobProperty,
+        );
 
         // TODO: console.log 지우고 서버(kafka)에 업로드하는 코드 추가해야 함
         console.log(blobEach);
@@ -109,7 +117,7 @@ export default function useReactMediaRecorder({
     if (mediaRecorderOptions && mediaRecorderOptions.mimeType) {
       if (!MediaRecorder.isTypeSupported(mediaRecorderOptions.mimeType)) {
         console.error(
-          'The specified MIME type you supplied for MediaRecorder doesn\'t support this browser',
+          "The specified MIME type you supplied for MediaRecorder doesn't support this browser",
         );
       }
     }
@@ -131,17 +139,37 @@ export default function useReactMediaRecorder({
     const [chunk] = mediaChunks.current;
     const blobProperty = {
       type: chunk.type,
-      ...blobPropertyBag
-        || (video || screen ? { type: 'video/mp4' } : { type: 'audio/wav' }),
+      ...(blobPropertyBag
+        || (video || screen ? { type: 'video/mp4' } : { type: 'audio/wav' })),
     };
     const blob = new Blob(mediaChunks.current, blobProperty);
     const url = URL.createObjectURL(blob);
-
+    console.log(url);
     // TODO: 혼자연습하기 체크리스트에서 재생할 수 있도록 해야 함
-    console.log(blob);
+
+    const blobData = new Blob(mediaChunks.current, {
+      type: 'video/webm;codecs=vp8,opus',
+    });
+    const formData = new FormData();
+    formData.append('videoFile', blobData);
+    console.log(formData.entries(), blobData);
+    postVideoApi(formData).then((response) => {
+      console.log(response.data);
+      alert(response.data);
+    }).catch((err) => {
+      alert(err);
+    });
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('POST', 'https://api.witherview.com/api/self/history', true);
+    // xhr.withCredentials = true;
+    // xhr.enctype = 'multipart/form-data';
+    // xhr.onreadystatechange = function () {};
+    // xhr.send(formData);
 
     setStatus('stopped');
     setMediaBlobUrl(url);
+    dispatch(setMediaUrl({ mediaUrl: url }));
+
     onStop(url, blob);
 
     mediaChunks.current = [];
