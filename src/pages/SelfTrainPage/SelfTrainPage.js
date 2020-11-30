@@ -56,12 +56,11 @@ export default function SelfTrainPage() {
     status,
     startRecording,
     stopRecording,
-    mediaBlobUrl,
   } = useReactMediaRecorder({
-    screen: true,
+    video: true,
   });
 
-  const { name } = useSelector(get('auth'));
+  const { name, selectedQnaId } = useSelector(get('auth'));
   const {
     time, qnaStep, step,
   } = useSelector(get('time'));
@@ -82,9 +81,8 @@ export default function SelfTrainPage() {
   };
 
   useEffect(() => {
-    // TODO: id 개인화 해서 적용해야 함 <- redux 사용
     dispatch(handleReset({ keepTrain: false }));
-    fetch(3);
+    fetch(selectedQnaId);
   }, []);
 
   const handleCancel = async () => {
@@ -166,7 +164,6 @@ export default function SelfTrainPage() {
               height={width / 3}
               width={isShowAnswer ? width / 1.5 - 553 : width / 1.5}
               status={status}
-              mediaBlobUrl={mediaBlobUrl}
             />
             {/* TODO: Server API(DATE) 반영되면 적용 */}
             {isShowAnswer && (

@@ -2,9 +2,15 @@ import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 
-import { useDispatch } from 'react-redux';
-import { setMediaUrl } from '../store/Time/time';
-import { postVideoApi } from '../repository/postVideoRepository';
+import { useDispatch, useSelector } from 'react-redux';
+import { get } from '../utils/snippet';
+
+import { setLocalBlob, setUploadedLocation } from '../store/Train/train';
+
+import {
+  postVideoApi,
+  getVideoApi,
+} from '../repository/requestVideoRepository';
 
 export default function useReactMediaRecorder({
   audio = true,
@@ -15,36 +21,16 @@ export default function useReactMediaRecorder({
   mediaRecorderOptions = null,
 }) {
   const dispatch = useDispatch();
+  const { selectedQnaId } = useSelector(get('auth'));
   const mediaRecorder = useRef(null);
   const mediaChunks = useRef([]);
   const mediaChunkEach = useRef([]);
   const mediaStream = useRef(null);
-  const intervalId = useRef();
 
   const [status, setStatus] = useState('idle');
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
   const [error, setError] = useState('NONE');
-
-  useEffect(() => {
-    if (status === 'recording') {
-      intervalId.current = setInterval(() => {
-        mediaRecorder.current.requestData();
-
-        const blobProperty = { type: 'application/octet-stream' };
-
-        const blobEach = new Blob(
-          [mediaChunkEach.current.slice(-1)[0]],
-          blobProperty,
-        );
-
-        // TODO: console.log 지우고 서버(kafka)에 업로드하는 코드 추가해야 함
-        console.log(blobEach);
-      }, 1000);
-    } else {
-      clearInterval(intervalId.current);
-    }
-  }, [status]);
 
   const getMediaStream = useCallback(async () => {
     setStatus('acquiring_media');
@@ -133,7 +119,7 @@ export default function useReactMediaRecorder({
     mediaChunkEach.current.push(data);
   };
 
-  const onRecordingStop = () => {
+  const onRecordingStop = async () => {
     mediaChunks.current.push(...mediaChunkEach.current);
 
     const [chunk] = mediaChunks.current;
@@ -144,33 +130,34 @@ export default function useReactMediaRecorder({
     };
     const blob = new Blob(mediaChunks.current, blobProperty);
     const url = URL.createObjectURL(blob);
-    console.log(url);
-    // TODO: 혼자연습하기 체크리스트에서 재생할 수 있도록 해야 함
 
+    setStatus('stopped');
+    setMediaBlobUrl(url);
+    dispatch(setLocalBlob({ localBlob: url }));
+
+    onStop(url, blob);
+
+    // TODO: 혼자연습하기 체크리스트에서 재생할 수 있도록 해야 함
     const blobData = new Blob(mediaChunks.current, {
       type: 'video/webm;codecs=vp8,opus',
     });
     const formData = new FormData();
     formData.append('videoFile', blobData);
-    console.log(formData.entries(), blobData);
-    postVideoApi(formData).then((response) => {
-      console.log(response.data);
-      alert(response.data);
-    }).catch((err) => {
-      alert(err);
-    });
-    // const xhr = new XMLHttpRequest();
-    // xhr.open('POST', 'https://api.witherview.com/api/self/history', true);
-    // xhr.withCredentials = true;
-    // xhr.enctype = 'multipart/form-data';
-    // xhr.onreadystatechange = function () {};
-    // xhr.send(formData);
+    formData.append('questionListId', selectedQnaId);
 
-    setStatus('stopped');
-    setMediaBlobUrl(url);
-    dispatch(setMediaUrl({ mediaUrl: url }));
-
-    onStop(url, blob);
+    // TODO: 서버의 Response를 기다리는 로딩 상황임을 알려주는 Progress Bar 혹은 Spinner가 렌더링 되게끔 하는 상태를 추가해야 함
+    await postVideoApi(formData)
+      .then((response) => {
+        const { id } = response.data;
+        getVideoApi().then((res) => {
+          const { savedLocation } = res.data.find((elem) => elem.id === id);
+          const uploadedLocation = `${savedLocation.substring(0, 27)}videos/${savedLocation.substring(27)}`;
+          dispatch(setUploadedLocation({ uploadedLocation }));
+        });
+      })
+      .catch((err) => {
+        alert(err);
+      });
 
     mediaChunks.current = [];
     mediaChunkEach.current = [];

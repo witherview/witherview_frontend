@@ -216,7 +216,7 @@ const SmallCheckList = styled.div`
 
 export default function AloneQuestionCheckList({ src }) {
   const history = useHistory();
-  const { mediaUrl } = useSelector(get('time'));
+  const { localBlob } = useSelector(get('train'));
   const [nextActionBtn, setNextActionBtn] = useState(1);
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
   const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
@@ -228,10 +228,6 @@ export default function AloneQuestionCheckList({ src }) {
     video.current.controls = false;
     videoControls.current.setAttribute('data-state', 'visible');
   }, []);
-
-  useEffect(() => {
-    console.log(mediaUrl);
-  }, [mediaUrl]);
 
   const loadVideoMetaData = useCallback(() => progress.current.setAttribute('max', video.current.duration), []);
   const changeButtonState = useCallback(() => {
@@ -295,7 +291,8 @@ export default function AloneQuestionCheckList({ src }) {
           <VideoContainer>
             <video ref={video} controls preload="metadata" onLoadedMetadata={loadVideoMetaData} onPlay={onPlay} onPause={onPause} onTimeUpdate={onTimeUpdate}>
               <track src="" kind="captions" srcLang="ko" label="korean_captions" />
-              <source src={mediaUrl} type="video/webm" />
+              {/* TODO: 지금은 로컬 blob을 보여주고 있으나 이부분 서버 HLS url을 적용하는 방식으로 처리해야 함 */}
+              <source src={localBlob} type="video/mp4" />
             </video>
             <ControlWrapper ref={videoControls} data-state="hidden">
               <ButtonWrapper ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
