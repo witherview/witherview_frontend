@@ -8,7 +8,6 @@ const timeReducer = createSlice({
     timerId: '',
     step: 0,
     qnaStep: 0,
-    mediaUrl: '',
   },
   reducers: {
     setTime(state, { payload: { time } }) {
@@ -41,12 +40,6 @@ const timeReducer = createSlice({
         qnaStep,
       };
     },
-    setMediaUrl(state, { payload: { mediaUrl } }) {
-      return {
-        ...state,
-        mediaUrl,
-      };
-    },
   },
 });
 
@@ -57,7 +50,6 @@ export const {
   setTimerId,
   setStep,
   setQnaStep,
-  setMediaUrl,
 } = timeReducer.actions;
 
 export const resetTime = () => (dispatch, getState) => {
