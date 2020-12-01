@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.input`
-  width: 533px;
+  width: ${({ width }) => width}px;
   border: none;
   border-bottom: 2px solid #9e9e9e;
   font-size: 20px;
@@ -20,18 +20,23 @@ const Wrapper = styled.input`
   }
 `;
 
-export default function InputBar({
-  className,
-}) {
+export default function InputBar({ className, width }) {
   return (
-    <Wrapper className={className} type="text" placeholder="기업명을 입력해주세요" />
+    <Wrapper
+      className={className}
+      type="text"
+      placeholder="기업명을 입력해주세요"
+      width={width}
+    />
   );
 }
 
 InputBar.propTypes = {
   className: PropTypes.string,
+  width: PropTypes.number,
 };
 
 InputBar.defaultProps = {
   className: '',
+  width: '553',
 };
