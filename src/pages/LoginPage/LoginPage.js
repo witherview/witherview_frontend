@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { get } from '../../utils/snippet';
 import { setLogin } from '../../store/Auth/auth';
-import LoginApi from '../../repository/loginRepository';
+import { LoginApi } from '../../repository/loginRepository';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -32,8 +32,10 @@ export default function LoginPage() {
   };
   const handleLogin = () => {
     LoginApi(JSON.stringify(loginForm)).then((response) => {
-      const user = JSON.stringify(response.data.email).replace(/\"/g, '');
-      dispatch(setLogin({ user }));
+      console.log(response.data);
+      const email = JSON.stringify(response.data.email).replace(/\"/g, '');
+      const name = JSON.stringify(response.data.name).replace(/\"/g, '');
+      dispatch(setLogin({ email, name }));
     }).catch(() => {
       alert('로그인 실패');
     });
@@ -41,7 +43,7 @@ export default function LoginPage() {
 
   return (
     <Wrapper>
-      {authSelector.isLogin && <Redirect to="/conference" />}
+      {authSelector.isLogin && <Redirect to="/self-training" />}
       <div>
         <h3>아이디</h3>
         <input

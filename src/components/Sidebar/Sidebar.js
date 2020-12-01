@@ -8,12 +8,12 @@ import Logo from '../../assets/images/Witherview.png';
 
 const Wrapper = styled.div`
   width: 159px;
+  min-width: 159px;
+  max-width: 159px;
   height: 100vh;
   min-height: 200px;
   border: none;
   background-color: #0c0c59;
-  display: flex;
-  flex-direction: column;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
