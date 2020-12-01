@@ -46,8 +46,7 @@ const WrapText = styled.div`
   font-family: AppleSDGothicNeoB00;
   font-size: 24px;
   color: #6e6eff;
-  ${({ padding }) => padding && 'padding-bottom: 20px'};
-  ${({ padding }) => !padding && 'padding-right: 25px'};
+  ${({ padding }) => (padding ? 'padding-bottom: 20px' : 'padding-right: 25px')};
 `;
 
 export default function SelfTrainSettingPage() {
