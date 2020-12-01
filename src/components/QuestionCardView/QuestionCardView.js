@@ -13,6 +13,7 @@ const Box = styled.div`
   background-color: #ffffff;
   box-sizing: content-box;
   user-select: none;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
@@ -28,7 +29,6 @@ const Number = styled.div`
 `;
 
 const NumberText = styled.div`
-  display: inline-block;
   float: left;
   font-family: TitilliumWeb;
   font-size: 55px;

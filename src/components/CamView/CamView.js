@@ -75,7 +75,6 @@ export default function CamView({
         width={width}
         height={height}
         alt="image_view"
-        controls
         autoPlay
         loop
         muted
@@ -91,7 +90,7 @@ CamView.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   name: PropTypes.string,
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
   mediaBlobUrl: PropTypes.string,
 };
 
@@ -101,5 +100,6 @@ CamView.defaultProps = {
   width: 1167,
   height: 590,
   name: undefined,
+  status: 'stopped',
   mediaBlobUrl: undefined,
 };

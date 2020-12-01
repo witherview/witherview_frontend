@@ -22,6 +22,7 @@ const Wrapper = styled.div`
 const Minutes = styled.div`
   width: 75px;
   height: 72px;
+  font-family: TitilliumWebBold;
   border-radius: 10px;
   box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
   background-color: ${({ highlight }) => (highlight ? '#fff3ef' : '#f6f6f6')};
@@ -33,6 +34,7 @@ const Minutes = styled.div`
 const Seconds = styled.div`
   width: 75px;
   height: 72px;
+  font-family: TitilliumWebBold;
   border-radius: 10px;
   box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
   background-color: ${({ highlight }) => (highlight ? '#fff3ef' : '#f6f6f6')};

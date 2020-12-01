@@ -2,7 +2,7 @@ import React from 'react';
 import AloneQuestionCheckList from './AloneQuestionCheckList';
 
 export default {
-  title: 'AloneQuestionCheckList',
+  title: 'Page/AloneQuestionCheckList',
   component: AloneQuestionCheckList,
 };
 
