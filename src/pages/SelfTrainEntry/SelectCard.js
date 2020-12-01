@@ -52,6 +52,9 @@ const WrapBottomText = styled.div`
   font-size: 20px;
   color: #3d3d3d;
   padding: 3px;
+  white-space: pre;
+  text-align: center;
+  line-height: 1.5;
 `;
 
 const GUIDE_IMAGE = 1;
@@ -74,11 +77,8 @@ export default function SelectCard({ kind, clicked, func }) {
         </WrapMiddleText>
         <WrapBottomText>
           {kind === GUIDE_IMAGE
-            ? '기존에 있는 질문으로 면접을'
-            : '면접 질문 리스트를 설정하고'}
-        </WrapBottomText>
-        <WrapBottomText>
-          {kind === GUIDE_IMAGE ? '연습해보세요.' : '연습할 수 있어요.'}
+            ? '기존에 있는 질문으로 면접을\n연습해보세요.'
+            : '면접 질문 리스트를 설정하고\n연습할 수 있어요.'}
         </WrapBottomText>
       </WrapContainer>
     </Wrapper>
