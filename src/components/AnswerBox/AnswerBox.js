@@ -75,8 +75,7 @@ export default function AnswerBox({ height, answer, date }) {
       <WrapPoint />
       <WrapContent height={height}>
         <WrapTitleText>질문과 관련된 답변입니다.</WrapTitleText>
-        {/* TODO: API에 날짜까지 반영되면 적용 */}
-        <WrapDate>{date}</WrapDate>
+        <WrapDate>{date || '2020.10.05 최종 수정'}</WrapDate>
         <WrapAnswer readonly disabled height={height} value={answer} />
         <WrapOveray />
       </WrapContent>

@@ -165,11 +165,11 @@ export default function SelfTrainPage() {
               width={isShowAnswer ? width / 1.5 - 553 : width / 1.5}
               status={status}
             />
-            {/* TODO: Server API(DATE) 반영되면 적용 */}
             {isShowAnswer && (
               <AnswerBox
                 answer={questionList[qnaStep].answer}
                 height={width / 3}
+                date={questionList[qnaStep].modifiedAt}
               />
             )}
           </S.WrapCamView>
