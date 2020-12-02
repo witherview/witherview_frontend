@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const path = require('path');
 
 const port = process.env.PORT || 3000;
@@ -67,14 +68,21 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', {
-                targets: {
-                  browsers: ['last 2 chrome versions'],
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    browsers: ['last 2 chrome versions'],
+                  },
+                  debug: true,
                 },
-                debug: true,
-              }],
-              '@babel/preset-react'],
-            plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-proposal-optional-chaining'],
+              ],
+              '@babel/preset-react',
+            ],
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-proposal-optional-chaining',
+            ],
           },
         },
       },
@@ -94,6 +102,20 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      // '@atom': path.resolve(__dirname, 'src/components/atom'),
+      // '@molecule': path.resolve(__dirname, 'src/components/molecule'),
+      // '@organism': path.resolve(__dirname, 'src/components/organism'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      // '@templates': path.resolve(__dirname, 'src/pages/template'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
+      '@mocks': path.resolve(__dirname, 'src/mocks'),
+      '@repository': path.resolve(__dirname, 'src/repository'),
+      '@store': path.resolve(__dirname, 'src/store'),
+      '@utils': path.resolve(__dirname, 'src/utils'),
+    },
   },
 
   plugins: [
