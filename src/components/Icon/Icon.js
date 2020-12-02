@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import iconImage from '../../../public/assets/images/icons.png';
+import iconImage from '@assets/images/icons.png';
 
 const I = styled.i`
   margin: 2px;

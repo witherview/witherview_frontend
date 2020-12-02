@@ -2,9 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import profileExample from '@assets/images/profile_example.png';
 import ProfileIcon from './index';
-
-import profileExample from '../../../public/assets/images/profile_example.png';
 
 function renderProfileIcon(src = profileExample, size) {
   return render(<ProfileIcon src={src} size={size} />);

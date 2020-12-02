@@ -3,36 +3,35 @@ import Timeout from 'await-timeout';
 
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLogout } from '../../store/Auth/auth';
+import StudyBackground from '@assets/images/study_background.png';
+import { setLogout } from '@store/Auth/auth';
 import {
   startTime,
   handleReset,
   handleNextButton,
   setStep,
   handleStepQuestion,
-} from '../../store/Time/time';
-import { get } from '../../utils/snippet';
-import { getQuestionItemAPI } from '../../repository/questionListRepository';
+} from '@store/Time/time';
+import { get } from '@utils/snippet';
+import { getQuestionItemAPI } from '@repository/questionListRepository';
 
-import useReactMediaRecorder from '../../hooks/useMediaRecorder';
+import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
-import CamView from '../../components/CamView';
+import CamView from '@components/CamView';
 
-import TextBox from '../../components/TextBox';
-import Button from '../../components/Button';
-import Icon from '../../components/Icon';
+import TextBox from '@components/TextBox';
+import Button from '@components/Button';
+import Icon from '@components/Icon';
 
-import RemainTime from '../../components/RemainTime';
-import ToggleButton from '../../components/ToggleButton';
-import AnswerBox from '../../components/AnswerBox';
-import QuestionTextBox from '../../components/QuestionTextBox';
-import useWindowSize from '../../hooks/useWindowSize';
+import RemainTime from '@components/RemainTime';
+import ToggleButton from '@components/ToggleButton';
+import AnswerBox from '@components/AnswerBox';
+import QuestionTextBox from '@components/QuestionTextBox';
+import useWindowSize from '@hooks/useWindowSize';
 
 import Fixture from './transitionFixture';
 import QNA_LIST from './qnaListFixture';
 import S from './SelfTrainPage.style';
-
-import StudyBackground from '../../../public/assets/images/study_background.png';
 
 const STEP_FIRST = 0;
 const STEP_LOADING_1 = 1;

@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import QuestionCardView from '../../../components/QuestionCardView';
-import { getQuestionItemAPI } from '../../../repository/questionListRepository';
-import Icon from '../../../components/Icon';
+import QuestionCardView from '@components/QuestionCardView';
+import { getQuestionItemAPI } from '@repository/questionListRepository';
+import Icon from '@components/Icon';
 
 const Wrapper = styled.div`
   display: flex;

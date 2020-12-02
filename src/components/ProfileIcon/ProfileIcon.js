@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import profileExample from '../../../public/assets/images/profile_example.png';
+import profileExample from '@assets/images/profile_example.png';
 
 const Wrapper = styled.div`
   width: ${({ isSmall }) => (isSmall ? 60 : 73)}px;

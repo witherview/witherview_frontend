@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import update from 'immutability-helper';
+import { QuestionMock } from '@mocks/QuestionMock';
 import QuestionItem from '../QuestionItem';
-import { QuestionMock } from '../../../mocks/QuestionMock';
 
 export default function QuestionList() {
   /* 추후 api를 통해 받아올 list */

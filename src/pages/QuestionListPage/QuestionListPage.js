@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getQuestionListAPI } from '../../repository/questionListRepository';
+import { getQuestionListAPI } from '@repository/questionListRepository';
+import { get } from '@utils/snippet';
+import ProfileMenuContiner from '@components/ProfileMenuContainer';
 import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
-import { get } from '../../utils/snippet';
-import ProfileMenuContiner from '../../components/ProfileMenuContainer';
 
 const ProfileWrapper = styled.div`
     float: right;

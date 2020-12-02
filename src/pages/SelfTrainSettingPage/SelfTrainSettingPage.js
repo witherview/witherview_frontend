@@ -2,11 +2,11 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import TextBox from '../../components/TextBox';
-import Button from '../../components/Button';
-import TimeButton from '../../components/TimeButton';
-import ToggleButton from '../../components/ToggleButton';
-import InputBar from '../../components/InputBar';
+import TextBox from '@components/TextBox';
+import Button from '@components/Button';
+import TimeButton from '@components/TimeButton';
+import ToggleButton from '@components/ToggleButton';
+import InputBar from '@components/InputBar';
 
 const Wrapper = styled.div`
   flex: 1;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import { numberPad } from '../../utils/snippet';
+import { numberPad } from '@utils/snippet';
 
 const Wrapper = styled.div`
   width: 189px;
