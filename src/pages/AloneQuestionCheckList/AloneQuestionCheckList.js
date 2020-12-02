@@ -198,6 +198,11 @@ const CheckListContainer = styled.div`
   }
 `;
 
+const CheckListTitle = styled.h2`
+  font-size: 1.5em;
+  margin-bottom: 30px;
+`;
+
 const CheckPoint = styled.div`
   left: calc(${({ point }) => `${point}% - 9px`});
 `;
@@ -321,7 +326,7 @@ export default function AloneQuestionCheckList({ src }) {
         </LeftContent>
         <RightContent>
           <CheckListContainer>
-            <h2>태도 및 비언어</h2>
+            <CheckListTitle>답변내용 및 목소리 체크!</CheckListTitle>
             <ul>
               {EvaluationListMock.evaluationList1.map(({ id, text }) => (
                 <li id={id} key={id}>
@@ -333,7 +338,7 @@ export default function AloneQuestionCheckList({ src }) {
           </CheckListContainer>
           <SmallCheckList>
             <CheckListContainer>
-              <h2>답변 내용</h2>
+              <CheckListTitle>비언어 내용 체크!</CheckListTitle>
               <ul>
                 {EvaluationListMock.evaluationList2.map(({ id, text }) => (
                   <li id={id} key={id}>
@@ -344,7 +349,7 @@ export default function AloneQuestionCheckList({ src }) {
               </ul>
             </CheckListContainer>
             <CheckListContainer>
-              <h2>영상 환경 체크</h2>
+              <CheckListTitle>영상 환경 체크!</CheckListTitle>
               <ul>
                 {EvaluationListMock.evaluationList3.map(({ id, text }) => (
                   <li id={id} key={id}>
