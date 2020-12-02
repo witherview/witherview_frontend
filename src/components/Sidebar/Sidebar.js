@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
+import LogoWithTitle from '@assets/images/witherview_logo_title.png';
+import Logo from '@assets/images/witherview_logo.png';
 import SidebarButton from './SidebarButton';
-
-import Logo from '../../assets/images/Witherview.png';
 
 const Wrapper = styled.div`
   width: 159px;

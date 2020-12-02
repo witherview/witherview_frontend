@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import NoListImage from '../../../assets/images/illust_4.png';
-import Icon from '../../../components/Icon';
+import NoListImage from '@assets/images/illust_4.png';
+import Icon from '@components/Icon';
 
 const Image = styled.img`
     width: 327px;

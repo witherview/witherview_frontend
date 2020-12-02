@@ -3,9 +3,9 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { v1 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { showModal, hideModal } from '../../store/Modal/modal';
+import { showModal, hideModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
 import Modal from '../Modal/Modal';
-import { MODALS } from '../../utils/constant';
 
 export default function ConferenceButton({ history }) {
   const dispatch = useDispatch();

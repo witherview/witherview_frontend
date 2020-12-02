@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
+import profileExample from '@assets/images/profile_example.png';
 import ProfileIcon from '../ProfileIcon';
-
-import profileExample from '../../assets/images/profile_example.png';
 
 const Wrapper = styled.div`
   height: 73px;
