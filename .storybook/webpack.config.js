@@ -1,11 +1,11 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = async ({ config }) => {
   // styles
   config.module.rules.push({
     test: /\.(sass|scss)$/,
-    use: ['resolve-url-loader'],
-    include: path.resolve(__dirname, '../')
+    use: ["resolve-url-loader"],
+    include: path.resolve(__dirname, "../"),
   });
 
   // fonts
@@ -13,14 +13,29 @@ module.exports = async ({ config }) => {
     test: /\.(woff|woff2|eot|ttf|svg)$/,
     use: [
       {
-        loader: 'file-loader',
+        loader: "file-loader",
         query: {
-          name: '[name].[ext]'
-        }
-      }
-     ],
-    include: path.resolve(__dirname, '../')
+          name: "[name].[ext]",
+        },
+      },
+    ],
+    include: path.resolve(__dirname, "../"),
   });
+
+  config.resolve.alias = {
+    // '@atom': path.resolve(__dirname, 'src/components/atom'),
+    // '@molecule': path.resolve(__dirname, 'src/components/molecule'),
+    // '@organism': path.resolve(__dirname, 'src/components/organism'),
+    "@components": path.resolve(__dirname, "../src/components"),
+    // '@templates': path.resolve(__dirname, 'src/pages/template'),
+    "@pages": path.resolve(__dirname, "../src/pages"),
+    "@assets": path.resolve(__dirname, "../src/assets"),
+    "@hooks": path.resolve(__dirname, "../src/hooks"),
+    "@mocks": path.resolve(__dirname, "../src/mocks"),
+    "@repository": path.resolve(__dirname, "../src/repository"),
+    "@store": path.resolve(__dirname, "../src/store"),
+    "@utils": path.resolve(__dirname, "../src/utils"),
+  };
 
   // don't forget to return.
   return config;
