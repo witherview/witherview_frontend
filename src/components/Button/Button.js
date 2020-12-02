@@ -11,12 +11,18 @@ const Box = styled.div`
   height: 60px;
   border-radius: 10px;
   user-select: none;
-  &: hover {
+  ${({ theme }) => theme === 'blue'
+    && `&: hover {
     opacity: 70%;
-  }
-  ${({ theme }) => (theme === 'blue' ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
-                  : theme === 'gray' ? 'background-color: #f6f6f6;'
-                  : theme === 'white' ? 'background-color: #ffffff;' : '')};
+  }`};
+
+  ${({ theme }) => (theme === 'blue'
+      ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
+      : theme === 'gray'
+      ? 'background-color: #f6f6f6; pointer-events: none;'
+      : theme === 'white'
+      ? 'background-color: #ffffff;'
+      : '')};
 `;
 
 const Text = styled.p`
@@ -27,9 +33,13 @@ const Text = styled.p`
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  color: ${({ theme }) => (theme === 'blue' ? '#ffffff;'
-                        : theme === 'gray' ? '#3d3d3d;'
-                        : theme === 'white' ? '#6e6eff;' : '#3d3d3d;')};
+  color: ${({ theme }) => (theme === 'blue'
+      ? '#ffffff;'
+      : theme === 'gray'
+      ? '#3d3d3d;'
+      : theme === 'white'
+      ? '#6e6eff;'
+      : '#3d3d3d;')};
 `;
 
 export default function Button({ text, theme, func }) {
