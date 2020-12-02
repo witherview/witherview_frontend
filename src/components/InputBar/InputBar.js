@@ -23,7 +23,7 @@ const Wrapper = styled.input`
 
 export default function InputBar({
   className,
-  palceholder,
+  placeholder,
   onChange,
   name,
   type,
@@ -33,7 +33,7 @@ export default function InputBar({
       className={className}
       type={type}
       name={name}
-      placeholder={palceholder}
+      placeholder={placeholder}
       onChange={onChange}
     />
   );
@@ -41,7 +41,7 @@ export default function InputBar({
 
 InputBar.propTypes = {
   className: PropTypes.string,
-  palceholder: PropTypes.string,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
   type: PropTypes.string,
@@ -49,7 +49,7 @@ InputBar.propTypes = {
 
 InputBar.defaultProps = {
   className: '',
-  palceholder: '',
+  placeholder: '',
   onChange: () => {},
   name: '',
   type: '',

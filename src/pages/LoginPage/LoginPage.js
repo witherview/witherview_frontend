@@ -153,7 +153,7 @@ export default function LoginPage() {
           <div>
             <WrapText>이메일 주소</WrapText>
             <InputBar
-              palceholder="이메일 주소를 입력해주세요."
+              placeholder="이메일 주소를 입력해주세요."
               onChange={handleInput}
               name="email"
             />
@@ -162,7 +162,7 @@ export default function LoginPage() {
           <WrapContianer>
             <WrapText>비밀번호</WrapText>
             <InputBar
-              palceholder="비밀번호를 입력해주세요."
+              placeholder="비밀번호를 입력해주세요."
               onChange={handleInput}
               name="password"
               type="password"
