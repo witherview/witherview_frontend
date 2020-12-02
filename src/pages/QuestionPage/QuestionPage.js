@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import Button from '../../components/Button';
-import ProfileMenuContiner from '../../components/ProfileMenuContainer';
-import { getQuestionItemAPI } from '../../repository/questionListRepository';
-import { get } from '../../utils/snippet';
-import Icon from '../../components/Icon';
+import Button from '@components/Button';
+import ProfileMenuContiner from '@components/ProfileMenuContainer';
+import { getQuestionItemAPI } from '@repository/questionListRepository';
+import { get } from '@utils/snippet';
+import Icon from '@components/Icon';
 
 const ProfileWrapper = styled.div`
     float: right;
@@ -87,7 +87,7 @@ export default function QuestionPage({ match }) {
   const { id } = match.params;
   const fetch = async () => {
     getQuestionItemAPI(id).then((response) => {
-      //setQuestions(response.data);
+      // setQuestions(response.data);
     });
   };
   useEffect(() => {

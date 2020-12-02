@@ -3,14 +3,14 @@ import {
 } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { get } from '../utils/snippet';
+import { get } from '@utils/snippet';
 
-import { setLocalBlob, setUploadedLocation } from '../store/Train/train';
+import { setLocalBlob, setUploadedLocation } from '@store/Train/train';
 
 import {
   postVideoApi,
   getVideoApi,
-} from '../repository/requestVideoRepository';
+} from '@repository/requestVideoRepository';
 
 export default function useReactMediaRecorder({
   audio = true,

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { setTime } from '../../store/Time/time';
-import { get } from '../../utils/snippet';
+import { setTime } from '@store/Time/time';
+import { get } from '@utils/snippet';
 
 const Box = styled.div`
   width: 201px;

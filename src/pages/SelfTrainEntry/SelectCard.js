@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Icon from '../../components/Icon';
-
-import guideImage from '../../assets/images/illust_3.png';
-import addQuestionImage from '../../assets/images/illust_2.png';
+import addQuestionImage from '@assets/images/illust_2.png';
+import guideImage from '@assets/images/illust_3.png';
+import Icon from '@components/Icon';
 
 const Wrapper = styled.div`
   user-select: none;

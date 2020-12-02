@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
+import profileExample from '@assets/images/profile_example.png';
 import ProfileIcon from './ProfileIcon';
-
-import profileExample from '../../../public/assets/images/profile_example.png';
 
 export default {
   title: 'Profile Icon',

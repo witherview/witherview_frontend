@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useReactMediaRecorder from '../../hooks/useMediaRecorder';
+import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
 import CamView from './CamView';
 import ButtonGroup from './ButtonGroup';

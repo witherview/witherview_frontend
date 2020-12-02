@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import TextBox from '../../components/TextBox';
+import TextBox from '@components/TextBox';
+import Button from '@components/Button';
 import SelectCard from './SelectCard';
-import Button from '../../components/Button';
 
 const Wrapper = styled.div`
   flex: 1;

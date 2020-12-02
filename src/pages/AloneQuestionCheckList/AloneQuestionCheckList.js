@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { get } from '../../utils/snippet';
-import Button from '../../components/Button';
-import Icon from '../../components/Icon';
-import EvaluationListMock from '../../mocks/EvaluationListMock';
+import { get } from '@utils/snippet';
+import Button from '@components/Button';
+import Icon from '@components/Icon';
+import EvaluationListMock from '@mocks/EvaluationListMock';
 
 const CloseButton = styled.button`
   position: absolute;

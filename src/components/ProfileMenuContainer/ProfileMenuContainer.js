@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { useDispatch } from 'react-redux';
-import { setLogout } from '../../store/Auth/auth';
+import profileExample from '@assets/images/profile_example.png';
+import { setLogout } from '@store/Auth/auth';
 
 import Icon from '../Icon';
 import ProfileIcon from '../ProfileIcon';
-import profileExample from '../../assets/images/profile_example.png';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 480px) {
