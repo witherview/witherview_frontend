@@ -7,9 +7,8 @@ import PropTypes from 'prop-types';
 const Wrapper = styled.label`
   display: block;
   position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
   cursor: pointer;
+  margin-right: 44px;
   font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -27,8 +26,8 @@ const Input = styled.input`
 
 const Checkmark = styled.span`
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -18px;
+  left: 0px;
   height: 36px;
   width: 36px;
   background-color: #ffffff;
