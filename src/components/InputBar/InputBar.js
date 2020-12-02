@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.input`
-  width: 533px;
   height: 50px;
+  width: ${({ width }) => width}px;
   border: none;
   border-bottom: 2px solid #9e9e9e;
   font-size: 20px;
@@ -27,6 +27,7 @@ export default function InputBar({
   onChange,
   name,
   type,
+  width
 }) {
   return (
     <Wrapper
@@ -35,6 +36,7 @@ export default function InputBar({
       name={name}
       placeholder={placeholder}
       onChange={onChange}
+      width={width}
     />
   );
 }
@@ -45,6 +47,7 @@ InputBar.propTypes = {
   onChange: PropTypes.func,
   name: PropTypes.string,
   type: PropTypes.string,
+  width: PropTypes.number,
 };
 
 InputBar.defaultProps = {
@@ -53,4 +56,5 @@ InputBar.defaultProps = {
   onChange: () => {},
   name: '',
   type: '',
+  width: '553',
 };
