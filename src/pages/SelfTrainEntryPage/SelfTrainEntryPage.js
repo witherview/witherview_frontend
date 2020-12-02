@@ -30,7 +30,7 @@ const SELECT_NOTHING = 0;
 const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
-export default function SelfTrainEntry() {
+export default function SelfTrainEntryPage() {
   const [clicked, setClicked] = useState(SELECT_NOTHING);
 
   const handleToggle = (select) => {
