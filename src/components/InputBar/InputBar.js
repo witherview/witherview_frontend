@@ -16,7 +16,7 @@ const Wrapper = styled.input`
   color: #9e9e9e;
   &:focus {
     outline: none;
-    border-bottom: 3px solid #5f5fd9;
+    border-bottom: 2px solid #5f5fd9;
     color: #3d3d3d;
   }
 `;
@@ -27,7 +27,7 @@ export default function InputBar({
   onChange,
   name,
   type,
-  width
+  width,
 }) {
   return (
     <Wrapper
@@ -56,5 +56,5 @@ InputBar.defaultProps = {
   onChange: () => {},
   name: '',
   type: '',
-  width: '553',
+  width: 553,
 };
