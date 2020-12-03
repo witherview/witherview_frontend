@@ -6,6 +6,7 @@ import LandingHeader from './LandingHeader';
 import LandingTop from './LandingTop';
 import LandingMiddleOne from './LandingMiddleOne';
 import LandingBottom from './LandingBottom';
+import LandingFooter from './LandingFooter';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -35,6 +36,7 @@ export default function LandingPage() {
         <LandingTop myRef={topRef} />
         <LandingMiddleOne myRef={middleOneRef} />
         <LandingBottom />
+        <LandingFooter />
       </WrapContent>
     </Wrapper>
   );
