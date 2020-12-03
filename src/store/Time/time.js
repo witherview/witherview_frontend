@@ -3,13 +3,21 @@ import { createSlice } from '@reduxjs/toolkit';
 const timeReducer = createSlice({
   name: 'time',
   initialState: {
+    standardTime: 0,
     time: 0,
     toggleTrain: false,
     timerId: '',
+    // 아래 두개 train 리듀서로 옮기는 작업 추가
     step: 0,
     qnaStep: 0,
   },
   reducers: {
+    setStandardTime(state, { payload: { standardTime } }) {
+      return {
+        ...state,
+        standardTime,
+      };
+    },
     setTime(state, { payload: { time } }) {
       return {
         ...state,
@@ -44,6 +52,7 @@ const timeReducer = createSlice({
 });
 
 export const {
+  setStandardTime,
   setTime,
   setTickTime,
   setToggleTrain,
@@ -78,8 +87,6 @@ export const startTime = ({ count }) => (dispatch, getState) => {
   dispatch(setTimerId({ timerId }));
 };
 
-const TIME = 45;
-
 const STEP_FIRST = 0;
 const STEP_LOADING_1 = 1;
 // const STEP_LOADING_2 = 2;
@@ -96,16 +103,16 @@ export const handleReset = ({ keepTrain = false }) => (dispatch) => {
 
 export const handleStepQuestion = () => (dispatch, getState) => {
   const {
-    time: { qnaStep },
+    time: { standardTime, qnaStep },
   } = getState();
   // TODO: 앞에서 설정한 TIME으로 변경해야 함
-  dispatch(startTime({ count: TIME }));
+  dispatch(startTime({ count: standardTime }));
   dispatch(setQnaStep({ qnaStep: qnaStep + 1 }));
 };
 
 export const handleNextButton = () => (dispatch, getState) => {
   const {
-    time: { step },
+    time: { standardTime, step },
   } = getState();
   if (step === STEP_FIRST) {
     dispatch(setStep({ step: STEP_LOADING_1 }));
@@ -114,7 +121,8 @@ export const handleNextButton = () => (dispatch, getState) => {
   if (step === STEP_START) {
     dispatch(setStep({ step: STEP_ING }));
     // TODO: 앞에서 설정한 TIME으로 변경해야 함
-    dispatch(startTime({ count: TIME }));
+    console.log(standardTime);
+    dispatch(startTime({ count: standardTime }));
   }
   if (step === STEP_ING || step === TOGGLE_SCRIPT) {
     dispatch(handleStepQuestion());

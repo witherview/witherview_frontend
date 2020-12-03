@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { setTime } from '@store/Time/time';
+import { setStandardTime } from '@store/Time/time';
 import { get } from '@utils/snippet';
 
 const Box = styled.div`
@@ -49,22 +49,24 @@ const Unit = styled.span`
 `;
 
 export default function TimeButton({ time }) {
-  const [isClicked, setIsClicked] = useState(false);
+  // TODO: Atomic Desgin Pattern에 따르면 컴포넌트는 상태를 들고 있는게 좋지 않다고 함 - 추후 리펙토링 예정
   const dispatch = useDispatch();
+  const [isClicked, setIsClicked] = useState(false);
 
-  const timeSelector = useSelector(get('time'));
+  const { standardTime } = useSelector(get('time'));
 
   useEffect(() => {
-    if (timeSelector.time === time) {
+    if (standardTime === time) {
       setIsClicked(true);
     } else {
       setIsClicked(false);
     }
-  }, [timeSelector]);
+  }, [standardTime]);
 
   const timeSet = () => {
-    dispatch(setTime({ time }));
+    dispatch(setStandardTime({ standardTime: time }));
   };
+
   return (
     <div>
       <Box onClick={timeSet} isClicked={isClicked}>

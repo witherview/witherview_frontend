@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
+import { useHistory } from 'react-router-dom';
+
 import TextBox from '@components/TextBox';
 import Button from '@components/Button';
 import SelectCard from './SelectCard';
@@ -31,12 +33,15 @@ const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
 export default function SelfTrainEntryPage() {
+  const history = useHistory();
   const [clicked, setClicked] = useState(SELECT_NOTHING);
 
   const handleToggle = (select) => {
     if (select === clicked) return setClicked(SELECT_NOTHING);
     return setClicked(select);
   };
+
+  const isGuide = clicked === GUIDE_BUTTON;
 
   return (
     <Wrapper>
@@ -57,7 +62,11 @@ export default function SelfTrainEntryPage() {
             func={() => handleToggle(ADD_QUESTION_BUTTON)}
           />
         </WrapCardSection>
-        <Button theme="blue" text="다음" />
+        <Button
+          func={isGuide ? () => history.push('/self/setting') : () => {}}
+          theme={clicked ? 'blue' : 'gray'}
+          text="다음"
+        />
       </WrapContent>
     </Wrapper>
   );

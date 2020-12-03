@@ -1,13 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const { actions, reducer } = createSlice({
-  name: 'application',
+  name: 'train',
   initialState: {
+    company: '',
+    job: '',
+    viewAnswer: false,
+    selectedQnaId: 3,
     uploadedLocation: '',
     localBlob: '',
-
   },
   reducers: {
+    setCompany(state, { payload: { company } }) {
+      return {
+        ...state,
+        company,
+      };
+    },
+    setJob(state, { payload: { job } }) {
+      return {
+        ...state,
+        job,
+      };
+    },
+    setViewAnswer(state, { payload: { viewAnswer } }) {
+      return {
+        ...state,
+        viewAnswer,
+      };
+    },
+    setSelectedQnaId(state, { payload: { selectedQnaId } }) {
+      return {
+        ...state,
+        selectedQnaId,
+      };
+    },
     setUploadedLocation(state, { payload: { uploadedLocation } }) {
       return {
         ...state,
@@ -23,6 +50,13 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { setUploadedLocation, setLocalBlob } = actions;
+export const {
+  setCompany,
+  setJob,
+  setViewAnswer,
+  setSelectedQnaId,
+  setUploadedLocation,
+  setLocalBlob,
+} = actions;
 
 export default reducer;

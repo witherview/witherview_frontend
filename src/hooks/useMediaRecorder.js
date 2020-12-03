@@ -21,7 +21,7 @@ export default function useReactMediaRecorder({
   mediaRecorderOptions = null,
 }) {
   const dispatch = useDispatch();
-  const { selectedQnaId } = useSelector(get('auth'));
+  const { selectedQnaId } = useSelector(get('train'));
   const mediaRecorder = useRef(null);
   const mediaChunks = useRef([]);
   const mediaChunkEach = useRef([]);
