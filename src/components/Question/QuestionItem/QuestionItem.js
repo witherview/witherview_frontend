@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import Icon from '@components/Icon';
 import { deleteQuestionItemAPI } from '@repository/questionListRepository';
 
-
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -134,16 +133,16 @@ export default function QuestionItem({
   };
 
   const handleDelete = () => {
-    deleteQuestionItemAPI(id).then(()=>{
+    deleteQuestionItemAPI(id).then(() => {
       window.location.reload(false);
-    })
-  }
+    });
+  };
 
   return (
     <>
       <div ref={ref} isDragging={isDragging}>
         <Wrapper>
-          <Icon type="remove" alt="" func={handleDelete}/>
+          <Icon type="remove" alt="" func={handleDelete} />
           <QuestionCard onClick={handleTitleClick} clicked={clicked}>
             <QusetionSymbol clicked={clicked}>Q</QusetionSymbol>
             <TitleText clicked={clicked}>{title}</TitleText>

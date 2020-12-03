@@ -13,18 +13,18 @@ const questionReducer = createSlice({
         questions,
       };
     },
-    resetQuestions() {
+    resetQuestions(state) {
       return {
         ...state,
         questions: [],
       };
     },
-    setReload(state){
-      return{
+    setReload(state) {
+      return {
         ...state,
         reload: !state.reload,
-      }
-    }
+      };
+    },
   },
 });
 

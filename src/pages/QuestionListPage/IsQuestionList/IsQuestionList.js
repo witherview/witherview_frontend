@@ -70,14 +70,14 @@ export default function IsQuestionList({ questionList, handleDelete }) {
           });
           return (
             <ItemWrapper>
-                <QuestionCardView
-                  id={val.id}
-                  number={count}
-                  title={val.title}
-                  description={val.enterprise}
-                  questionList={questionList}
-                  handleDelete={handleDelete}
-                />
+              <QuestionCardView
+                id={val.id}
+                number={count}
+                title={val.title}
+                description={val.enterprise}
+                questionList={questionList}
+                handleDelete={handleDelete}
+              />
             </ItemWrapper>
           );
         })}

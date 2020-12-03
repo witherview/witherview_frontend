@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icon from '@components/Icon';
-import { deleteQuestionListAPI, getQuestionListAPI } from '@repository/questionListRepository';
-import { SetReload } from '@store/Question/question';
+
 const Box = styled.div`
   position: relative;
   width: 334px;
@@ -120,13 +118,6 @@ const SubTitle = styled.div`
   color: #000000;
 `;
 
-const StyledIcon = styled.div`
-  display: inline-block;
-  position: absolute;
-  top: -18px;
-  left: -18px;
-`;
-
 const Delete = styled.div`
   display: flex;
   align-items: center;
@@ -154,8 +145,9 @@ const DeleteText = styled.div`
   color: #f2886b;
 `;
 
-export default function QuestionCardView({ id, number, title, description, handleDelete }) {
-  const dispatch = useDispatch();
+export default function QuestionCardView({
+  id, number, title, description, handleDelete,
+}) {
   const [clicked, setClicked] = useState(false);
   const history = useHistory();
   const handleClick = (e) => {
@@ -166,27 +158,22 @@ export default function QuestionCardView({ id, number, title, description, handl
 
   const handleMove = (e) => {
     if (e.target === e.currentTarget) {
-      console.log("bye");
       history.push(`/question/${id}`);
     }
-  }
-
- 
+  };
 
   return (
     <>
       <Box onClick={handleMove}>
-      <IconBox onClick={handleClick} />
+        <IconBox onClick={handleClick} />
         <Content onClick={handleMove}>
           { clicked && (
-              <Delete onClick={(e)=>handleDelete(e, id)}>
-                <DeleteText>
-                  삭제
-                </DeleteText>
-              </Delete>
+          <Delete onClick={(e) => handleDelete(e, id)}>
+            <DeleteText>
+              삭제
+            </DeleteText>
+          </Delete>
           )}
-          
-          {/* <Icon type="check_on" alt="" /> */}
           <Number>
             <NumberText>{number}</NumberText>
             <SubText>
@@ -212,13 +199,17 @@ export default function QuestionCardView({ id, number, title, description, handl
 }
 
 QuestionCardView.propTypes = {
+  id: PropTypes.number.isRequired,
   number: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  handleDelete: PropTypes.func,
 };
 
 QuestionCardView.defaultProp = {
+  id: 0,
   number: 1,
   title: '예시 제목입니다.',
   description: '예시 내용입니다.',
+  handleDelete: () => {},
 };

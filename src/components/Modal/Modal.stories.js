@@ -2,8 +2,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit';
-import Modal from './Modal';
 import { MODALS } from '@utils/constant';
+import Modal from './Modal';
 
 const modalReducer = createSlice({
   name: 'modal',

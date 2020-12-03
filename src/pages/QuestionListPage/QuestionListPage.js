@@ -50,10 +50,8 @@ const Select = styled.div`
 
 export default function QuestionListPage() {
   const authSelector = useSelector(get('auth'));
-  const questionSelector = useSelector(get('question'));
   const [questionList, setQuestionList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [flag, setFlag] = useState(0);
   const fetch = async () => {
     getQuestionListAPI().then((response) => {
       setQuestionList(response.data);
@@ -61,28 +59,19 @@ export default function QuestionListPage() {
     });
   };
   useEffect(() => {
-    console.log("render new!");
     fetch();
   }, []);
 
   const handleDelete = (e, id) => {
     if (e.target === e.currentTarget) {
-      deleteQuestionListAPI(id)
+      deleteQuestionListAPI(id).then(() => {
+        window.location.reload(false);
+      });
     }
-    setFlag(id);
-  }
-  useEffect(()=>{
-    console.log(flag);
-    let newArr = questionList.filter(val=>{
-      return val["id"] !== flag;
-    })
-    console.log(newArr);
-    setQuestionList(newArr);
-  },[flag])
+  };
 
   return (
     <>
-      {JSON.stringify(questionList)}
       {loading
         && (
         <PageWrapper>
@@ -95,7 +84,7 @@ export default function QuestionListPage() {
               <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
               {questionList && questionList.length === 0
                 ? <NoList />
-                : <IsQuestionList questionList={questionList} handleDelete={handleDelete}/>}
+                : <IsQuestionList questionList={questionList} handleDelete={handleDelete} />}
             </Wrapper>
           </ContentWrapper>
         </PageWrapper>
