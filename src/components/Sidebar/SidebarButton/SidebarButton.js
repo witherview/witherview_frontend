@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import PropTypes from 'prop-types';
 
-import Icon from '../../Icon';
+import Icon from '@components/Icon';
 
 const Wrapper = styled.button`
   width: ${({ hover }) => (hover ? 296 : 159)}px;

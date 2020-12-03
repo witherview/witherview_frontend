@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getQuestionListAPI } from '@repository/questionListRepository';
+import { getQuestionListAPI, deleteQuestionListAPI } from '@repository/questionListRepository';
 import { get } from '@utils/snippet';
-import ProfileMenuContiner from '@components/ProfileMenuContainer';
 import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
 
-const ProfileWrapper = styled.div`
-    float: right;
-    margin: 53px 105px 0 0;
+const PageWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 `;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+`;
+
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
@@ -57,25 +62,32 @@ export default function QuestionListPage() {
     fetch();
   }, []);
 
+  const handleDelete = (e, id) => {
+    if (e.target === e.currentTarget) {
+      deleteQuestionListAPI(id).then(() => {
+        window.location.reload(false);
+      });
+    }
+  };
+
   return (
     <>
       {loading
         && (
-        <>
-          <ProfileWrapper>
-            <ProfileMenuContiner name={authSelector.name} />
-          </ProfileWrapper>
-          <Wrapper>
-            <Title>
-              {authSelector.name}
-              님이 등록한 질문 리스트입니다.
-            </Title>
-            <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
-            {questionList && questionList.length === 0
-              ? <NoList />
-              : <IsQuestionList questionList={questionList} />}
-          </Wrapper>
-        </>
+        <PageWrapper>
+          <ContentWrapper>
+            <Wrapper>
+              <Title>
+                {authSelector.name}
+                님이 등록한 질문 리스트입니다.
+              </Title>
+              <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
+              {questionList && questionList.length === 0
+                ? <NoList />
+                : <IsQuestionList questionList={questionList} handleDelete={handleDelete} />}
+            </Wrapper>
+          </ContentWrapper>
+        </PageWrapper>
         )}
     </>
   );

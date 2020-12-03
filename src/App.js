@@ -3,7 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { get } from '@utils/snippet';
+
+import LandingPage from '@pages/LandingPage';
 
 import AuthRoute from '@components/AuthRoute';
 import ConferenceButton from '@components/ConferenceButton';
@@ -18,9 +19,11 @@ import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
 
 import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
+import MyPage from '@pages/MyPage';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
+import { get } from './utils/snippet';
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,14 +36,15 @@ export default function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
-        <AuthRoute path="/questionlist" component={QuestionListPage} />
-        <Route path="/question/:id" component={QuestionPage} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
         <Wrapper>
           {!toggleTrain && <Sidebar />}
           {!toggleTrain && <ProfileMenuContainer name={name} />}
+          <AuthRoute exact path="/questionlist" component={QuestionListPage} />
+          <AuthRoute path="/question/:id" component={QuestionPage} />
           <AuthRoute exact path="/self" component={SelfTrainEntryPage} />
           <AuthRoute path="/self/setting" component={SelfTrainSettingPage} />
           <AuthRoute path="/self-train/:id" component={SelfTrainPage} />
@@ -49,6 +53,7 @@ export default function App() {
             path="/self-checklist"
             component={AloneQuestionCheckList}
           />
+          <AuthRoute exact path="/mypage" component={MyPage} />
         </Wrapper>
         <Route component={NotFound} />
       </Switch>

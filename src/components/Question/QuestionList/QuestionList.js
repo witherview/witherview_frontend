@@ -1,33 +1,58 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import update from 'immutability-helper';
-import { QuestionMock } from '@mocks/QuestionMock';
-import QuestionItem from '../QuestionItem';
+import PropTypes from 'prop-types';
+import QuestionItem from '@components/Question/QuestionItem';
 
-export default function QuestionList() {
-  /* 추후 api를 통해 받아올 list */
-  const [cards, setCards] = useState(QuestionMock);
+export default function QuestionList({ questions, setQuestions }) {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
-    const dragCard = cards[dragIndex];
-    setCards(update(cards, {
+    const dragCard = questions[dragIndex];
+    setQuestions(update(questions, {
       $splice: [
         [dragIndex, 1],
         [hoverIndex, 0, dragCard],
       ],
     }));
-  }, [cards]);
+  }, [questions]);
+
+  const handleQuestion = (e, title) => {
+    const newQestion = questions.map((val) => {
+      if (val.question === title) {
+        return {
+          id: val.id,
+          question: val.question,
+          answer: e.target.value,
+          order: val.order,
+          modifiedAt: val.modifiedAt,
+        };
+      }
+      return val;
+    });
+    setQuestions(newQestion);
+  };
+
   const renderCard = (card, index) => (
     <QuestionItem
       key={card.id}
       index={index}
       id={card.id}
-      title={card.title}
-      text={card.text}
+      title={card.question}
+      text={card.answer}
       moveCard={moveCard}
+      handleQuestion={handleQuestion}
     />
   );
   return (
     <>
-      <div>{cards.map((card, i) => renderCard(card, i))}</div>
+      <div>{questions.map((card, i) => renderCard(card, i))}</div>
     </>
   );
 }
+
+QuestionList.propTypes = {
+  questions: PropTypes.array,
+  setQuestions: PropTypes.func,
+};
+
+QuestionList.defaultProp = {
+  questions: [],
+};
