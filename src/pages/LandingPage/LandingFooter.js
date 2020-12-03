@@ -1,8 +1,6 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 
 import C from '@components';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
@@ -30,7 +28,7 @@ const WrapContainer = styled.div`
 
 const WrapRightInner = styled.div`
   width: 50%;
-  min-width: 500px;
+  max-width: 600px;
   display: flex;
   align-items: center;
   justify-content: space-between;

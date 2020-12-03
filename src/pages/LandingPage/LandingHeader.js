@@ -27,14 +27,15 @@ const WrapLeft = styled.img`
 `;
 
 const WrapContainer = styled.div`
-  width: 90%;
+  width: 80%;
+  max-width: 1680px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const WrapTextButton = styled.div`
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 1280px) {
     display: none;
   }
   width: 60%;
@@ -53,7 +54,12 @@ const WrapRightInner = styled.div`
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 140);
 
-export default function LandingHeader({ topRef, middleOneRef }) {
+export default function LandingHeader({
+  topRef,
+  middleOneRef,
+  aloneRef,
+  studyRef,
+}) {
   const history = useHistory();
   const executeScroll = (ref) => scrollToRef(ref);
 
@@ -71,8 +77,14 @@ export default function LandingHeader({ topRef, middleOneRef }) {
               onClick={() => executeScroll(middleOneRef)}
               text="위더뷰란?"
             />
-            <C.TextButtonProps text="혼자연습" />
-            <C.TextButtonProps text="면접스터디" />
+            <C.TextButtonProps
+              onClick={() => executeScroll(aloneRef)}
+              text="혼자연습"
+            />
+            <C.TextButtonProps
+              onClick={() => executeScroll(studyRef)}
+              text="면접스터디"
+            />
           </WrapTextButton>
           <C.Button
             id="menu_btn"
@@ -90,4 +102,6 @@ export default function LandingHeader({ topRef, middleOneRef }) {
 LandingHeader.propTypes = {
   topRef: PropTypes.object.isRequired,
   middleOneRef: PropTypes.object.isRequired,
+  aloneRef: PropTypes.object.isRequired,
+  studyRef: PropTypes.object.isRequired,
 };
