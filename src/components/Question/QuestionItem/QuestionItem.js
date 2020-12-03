@@ -3,12 +3,19 @@ import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '../../Icon';
+import Icon from '@components/Icon';
+import { deleteQuestionItemAPI } from '@repository/questionListRepository';
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 1158px;
+`;
 
 const QuestionCard = styled.div`
   position: relative;
   display: flex;
-  width: 1158px;
+  width: 1118px;
   height: 60px;
   margin: 5px;
   border-radius: 10px;
@@ -45,13 +52,16 @@ const TitleText = styled.span`
 `;
 
 const IconWrapper = styled.span`
+  display: flex;
+  align-items: center;
   margin-left: auto;
   margin-right: 46px;
+  ${({ clicked }) => (clicked && 'transform: rotate(180deg)')}
 `;
 
 const AnswerBox = styled.div`
-  width: 1153px;
-  margin: 5px;
+  width: 1110px;
+  margin: 5px 5px 5px 40px;
   display: ${({ clicked }) => (clicked ? 'block' : 'none')};
   overflow: hidden;
   box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
@@ -61,9 +71,10 @@ const AnswerBox = styled.div`
   transform: translateY(-20px);
 `;
 
-const ContenText = styled.div`
+const ContenText = styled.textarea`
   width: 963px;
-  margin: 70px 96px;
+  height: 124px;
+  margin: 40px 96px;
   outline: none;
   resize: none;
   border: none;
@@ -80,7 +91,7 @@ const ContenText = styled.div`
 `;
 
 export default function QuestionItem({
-  id, title, text, index, moveCard,
+  id, title, text, index, moveCard, handleQuestion,
 }) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef(null);
@@ -121,18 +132,27 @@ export default function QuestionItem({
     setClicked(!clicked);
   };
 
+  const handleDelete = () => {
+    deleteQuestionItemAPI(id).then(() => {
+      window.location.reload(false);
+    });
+  };
+
   return (
     <>
       <div ref={ref} isDragging={isDragging}>
-        <QuestionCard onClick={handleTitleClick} clicked={clicked}>
-          <QusetionSymbol clicked={clicked}>Q</QusetionSymbol>
-          <TitleText clicked={clicked}>{title}</TitleText>
-          <IconWrapper>
-            <Icon type={clicked ? 'arrow_up' : 'arrow_down'} alt="" />
-          </IconWrapper>
-        </QuestionCard>
+        <Wrapper>
+          <Icon type="remove" alt="" func={handleDelete} />
+          <QuestionCard onClick={handleTitleClick} clicked={clicked}>
+            <QusetionSymbol clicked={clicked}>Q</QusetionSymbol>
+            <TitleText clicked={clicked}>{title}</TitleText>
+            <IconWrapper clicked={clicked}>
+              <Icon type={clicked ? 'drop_up' : 'drop_down'} alt="" />
+            </IconWrapper>
+          </QuestionCard>
+        </Wrapper>
         <AnswerBox clicked={clicked}>
-          <ContenText contentEditable="true">{text}</ContenText>
+          <ContenText onChange={(e) => handleQuestion(e, title)} value={text} />
         </AnswerBox>
       </div>
     </>
@@ -145,6 +165,7 @@ QuestionItem.propTypes = {
   text: PropTypes.string,
   index: PropTypes.number.isRequired,
   moveCard: PropTypes.func.isRequired,
+  handleQuestion: PropTypes.func,
 };
 
 QuestionItem.defaultProp = {

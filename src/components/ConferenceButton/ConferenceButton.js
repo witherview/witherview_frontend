@@ -5,7 +5,7 @@ import { v1 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { showModal, hideModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
-import Modal from '../Modal/Modal';
+import Modal from '@components/Modal/Modal';
 
 export default function ConferenceButton({ history }) {
   const dispatch = useDispatch();

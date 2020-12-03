@@ -142,7 +142,7 @@ export default function LoginPage() {
 
   return (
     <Wrapper>
-      {authSelector.isLogin && <Redirect to="/self-training" />}
+      {authSelector.isLogin && <Redirect to="/questionlist" />}
       <WrapContent>
         <img src={witherviewLogo} alt="logo" />
         <WrapSubTitle>
