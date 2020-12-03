@@ -82,19 +82,19 @@ const QuestionListSaveModal = () => {
           <InputText>
             질문 리스트 제목
           </InputText>
-          <InputBar placeholder="제목을 입력해주세요." value={title} onchange={(e) => handleInputChange(e, setTitle)} />
+          <InputBar placeholder="제목을 입력해주세요." value={title} onChange={(e) => handleInputChange(e, setTitle)} />
         </InputWrapper>
         <InputWrapper>
           <InputText>
             기업 이름
           </InputText>
-          <InputBar placeholder="기업명을 입력해주세요." value={enterprise} onchange={(e) => handleInputChange(e, setEnterprise)} />
+          <InputBar placeholder="기업명을 입력해주세요." value={enterprise} onChange={(e) => handleInputChange(e, setEnterprise)} />
         </InputWrapper>
         <InputWrapper>
           <InputText>
             직무 이름
           </InputText>
-          <InputBar placeholder="직무명을 입력해주세요." value={job} onchange={(e) => handleInputChange(e, setJob)} />
+          <InputBar placeholder="직무명을 입력해주세요." value={job} onChange={(e) => handleInputChange(e, setJob)} />
         </InputWrapper>
         <ButtonWrapper onClick={handleListMake}>
           <Button text="저장" theme="blue" />
