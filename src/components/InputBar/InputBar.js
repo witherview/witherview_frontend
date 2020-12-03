@@ -27,7 +27,7 @@ export default function InputBar({
   onChange,
   name,
   type,
-  width
+  width,
 }) {
   return (
     <Wrapper
@@ -56,5 +56,5 @@ InputBar.defaultProps = {
   onChange: () => {},
   name: '',
   type: '',
-  width: '553',
+  width: 553,
 };
