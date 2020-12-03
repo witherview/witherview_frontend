@@ -23,15 +23,25 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
+  @media only screen and (max-width: 1820px) {
+    width: 80%;
+    justify-content: center;
+  }
+
   display: flex;
   justify-content: space-around;
 `;
 
 const WrapContent = styled.div`
   @media only screen and (max-width: 1820px) {
+<<<<<<< HEAD
+=======
+    width: 100%;
+  }
+  @media only screen and (max-width: 1500px) {
+>>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
     padding-top: 0px;
   }
-
   padding-top: 100px;
   display: flex;
   flex-direction: column;
@@ -39,8 +49,19 @@ const WrapContent = styled.div`
 
 const WrapImage = styled.img`
   @media only screen and (max-width: 1820px) {
-    display: none;
+<<<<<<< HEAD
+=======
+    height: 600px;
   }
+
+  @media only screen and (max-width: 1500px) {
+>>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
+    display: none;
+    position: relative;
+    bottom: auto;
+    height: 0px;
+  }
+
   height: 818px;
 `;
 

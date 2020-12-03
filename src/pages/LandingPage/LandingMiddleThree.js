@@ -25,8 +25,12 @@ const Wrapper = styled.div`
 
 const WrapContainer = styled.div`
   @media only screen and (max-width: 1870px) {
+<<<<<<< HEAD
+=======
+    width: 80%;
+>>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
     min-height: 600px;
-    justify-content: center;
+    justify-content: flex-start;
   }
   position: relative;
   min-height: 1000px;
