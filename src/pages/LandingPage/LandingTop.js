@@ -5,32 +5,45 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import C from '@components';
+import LandingTopImage from '@assets/images/landing_top.png';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
+  @media only screen and (max-width: 1500px) {
+    height: 600px;
+  }
   width: 100%;
   user-select: none;
   height: 950px;
   background-color: #f9f9ff;
   padding-top: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const WrapContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-around;
 `;
 
 const WrapContent = styled.div`
+  @media only screen and (max-width: 1500px) {
+    padding-top: 0px;
+  }
+
+  padding-top: 100px;
   display: flex;
   flex-direction: column;
 `;
 
 const WrapImage = styled.img`
+  @media only screen and (max-width: 1500px) {
+    display: none;
+  }
   height: 818px;
 `;
 
-const DUMMY = '';
 export default function LandingTop({ myRef }) {
   const history = useHistory();
   return (
@@ -53,8 +66,7 @@ export default function LandingTop({ myRef }) {
             text="시작하기"
           />
         </WrapContent>
-        {/* TODO: 이미지로 교체 */}
-        <WrapImage src={DUMMY} />
+        <WrapImage src={LandingTopImage} />
       </WrapContainer>
     </Wrapper>
   );

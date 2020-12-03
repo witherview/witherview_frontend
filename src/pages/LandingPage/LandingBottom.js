@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import C from '@components';
+import LandingBottomImage from '@assets/images/landing_bottom.png';
 import TextBoxB from './components/TextBoxB';
 
 const Wrapper = styled.div`
   user-select: none;
-  height: 950px;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 150px;
 `;
 
 const WrapContainer = styled.div`
@@ -26,14 +28,12 @@ const WrapImage = styled.img`
   height: 267px;
 `;
 
-const DUMMY = '';
 export default function LandingBottom() {
   const history = useHistory();
   return (
     <Wrapper>
       <WrapContainer>
-        {/* TODO: 이미지로 교체 */}
-        <WrapImage src={DUMMY} />
+        <WrapImage src={LandingBottomImage} />
         <TextBoxB
           height={250}
           header="GET STARTED NOW"

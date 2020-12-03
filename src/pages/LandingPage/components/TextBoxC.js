@@ -14,15 +14,13 @@ const Wrapper = styled.div`
   margin: 50px;
 `;
 
-const WrapIcon = styled.div`
+const WrapIcon = styled.img`
   z-index: 1;
   position: absolute;
   top: 0;
-  left: 64px;
-  background-color: #eef0ff;
+  left: 50px;
   width: 105px;
   height: 105px;
-  border-radius: 20px;
 `;
 
 const WrapContent = styled.div`
@@ -38,7 +36,7 @@ const WrapContent = styled.div`
 `;
 
 const WrapInnerContent = styled.div`
-  height: 117px;
+  height: 140px;
   width: 360px;
 `;
 
@@ -53,10 +51,10 @@ const WrapPadding = styled.div`
   padding: ${({ padding }) => padding && '30px 0 30px 0'};
 `;
 
-export default function TextBoxC({ header, summary }) {
+export default function TextBoxC({ header, summary, icon }) {
   return (
     <Wrapper>
-      <WrapIcon />
+      <WrapIcon src={icon} />
       <WrapContent>
         <WrapInnerContent>
           <WrapPadding padding>
@@ -85,6 +83,7 @@ export default function TextBoxC({ header, summary }) {
 TextBoxC.propTypes = {
   header: PropTypes.string,
   summary: PropTypes.array,
+  icon: PropTypes.string.isRequired,
 };
 
 TextBoxC.defaultProps = {
