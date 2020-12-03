@@ -3,20 +3,22 @@ import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
+import LandingPage from '@pages/LandingPage';
 import { get } from './utils/snippet';
 
-import AuthRoute from './components/AuthRoute';
-import ConferenceButton from './components/ConferenceButton';
-import ConferenceRoom from './pages/ConferenceRoom';
-import NotFound from './pages/404';
-import LoginPage from './pages/LoginPage';
-import QuestionListPage from './pages/QuestionListPage';
-import QuestionPage from './pages/QuestionPage';
-import SelfTrainPage from './pages/SelfTrainPage';
-import AloneQuestionCheckList from './pages/AloneQuestionCheckList';
+import AuthRoute from '@components/AuthRoute';
+import ConferenceButton from '@components/ConferenceButton';
+import ConferenceRoom from '@pages/ConferenceRoom';
+import NotFound from '@pages/404';
+import LoginPage from '@pages/LoginPage';
+import QuestionListPage from '@pages/QuestionListPage';
+import QuestionPage from '@pages/QuestionPage';
+import SelfTrainPage from '@pages/SelfTrainPage';
+import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
+import MyPage from '@pages/MyPage';
 
-import Sidebar from './components/Sidebar';
-import ProfileMenuContainer from './components/ProfileMenuContainer';
+import Sidebar from '@components/Sidebar';
+import ProfileMenuContainer from '@components/ProfileMenuContainer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,7 +31,8 @@ export default function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
         <Wrapper>
@@ -39,6 +42,7 @@ export default function App() {
           <AuthRoute path="/question/:id" component={QuestionPage} />
           <AuthRoute path="/self-training" component={SelfTrainPage} />
           <AuthRoute path="/self-checklist" component={AloneQuestionCheckList} />
+          <AuthRoute exact path="/mypage" component={MyPage} />
         </Wrapper>
         <Route component={NotFound} />
       </Switch>
