@@ -27,7 +27,7 @@ export default function InputBar({
   onChange,
   name,
   type,
-  width
+  width,
 }) {
   return (
     <Wrapper

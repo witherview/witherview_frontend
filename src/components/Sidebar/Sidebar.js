@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import LogoWithTitle from '@assets/images/witherview_logo_title.png';
@@ -56,11 +56,13 @@ const WrapBottomButton = styled.div`
 `;
 
 export default function Sidebar() {
+  const history = useHistory();
   const [click, setClick] = useState(0);
   const [hover, setHover] = useState(false);
 
   const handleClick = (value) => {
     setClick(value);
+    history.push('/mypage');
   };
 
   function hoverActive() {
