@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
+import LandingPage from '@pages/LandingPage';
 import { get } from './utils/snippet';
 
 import AuthRoute from './components/AuthRoute';
@@ -29,7 +30,8 @@ export default function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
         <AuthRoute path="/questionlist" component={QuestionListPage} />
         <Route path="/question/:id" component={QuestionPage} />
@@ -38,7 +40,11 @@ export default function App() {
           {!toggleTrain && <Sidebar />}
           {!toggleTrain && <ProfileMenuContainer name={name} />}
           <AuthRoute exact path="/self-training" component={SelfTrainPage} />
-          <AuthRoute exact path="/self-checklist" component={AloneQuestionCheckList} />
+          <AuthRoute
+            exact
+            path="/self-checklist"
+            component={AloneQuestionCheckList}
+          />
         </Wrapper>
         <Route component={NotFound} />
       </Switch>
