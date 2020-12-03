@@ -22,6 +22,7 @@ const WrapContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  margin-top: 50px;
 `;
 
 const WrapBottomContent = styled.div`

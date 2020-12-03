@@ -45,7 +45,7 @@ export default function TextBoxA({
         {summary.map((each, key) => (
           <WrapText
             key={`${key}summary`}
-            lineHeight={false}
+            lineHeight="130%"
             size={20}
             color="black"
           >

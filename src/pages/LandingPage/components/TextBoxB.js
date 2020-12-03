@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapText = styled.div`
+  text-align: center;
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
   font-size: ${({ size }) => size}px;
   ${({ bold }) => bold && 'font-family: AppleSDGothicNeoEB00;'}
@@ -37,7 +38,7 @@ export default function TextBoxB({
         {summary.map((each, key) => (
           <WrapText
             key={`${key}-summary-B`}
-            lineHeight={false}
+            lineHeight="130%"
             size={20}
             color="black"
           >
