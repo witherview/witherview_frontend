@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
 export default function App() {
   const { name } = useSelector(get('auth'));
-  const { toggleTrain } = useSelector(get('time'));
+  const { toggleTrain } = useSelector(get('train'));
 
   return (
     <>

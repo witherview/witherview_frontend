@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
 import { useHistory } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { handleReset } from '@store/Time/time';
 import TextBox from '@components/TextBox';
 import Button from '@components/Button';
 import SelectCard from './SelectCard';
@@ -33,8 +34,13 @@ const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
 export default function SelfTrainEntryPage() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [clicked, setClicked] = useState(SELECT_NOTHING);
+
+  useEffect(() => {
+    dispatch(handleReset({ keepTrain: false }));
+  }, []);
 
   const handleToggle = (select) => {
     if (select === clicked) return setClicked(SELECT_NOTHING);

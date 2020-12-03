@@ -281,7 +281,7 @@ export default function AloneQuestionCheckList({ src }) {
   return (
     <Background>
       <CloseButton type="button">
-        <Icon type="cancel_circle" isCircle alt="close" func={() => history.push('/self-training')} />
+        <Icon type="cancel_circle" isCircle alt="close" func={() => history.push('/self')} />
       </CloseButton>
       <EndingTitle>
         면접이 종료 되었습니다. 체크리스트를 통해 스스로 평가를 해보세요.

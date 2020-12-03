@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { setStandardTime } from '@store/Time/time';
+import { setStandardTime } from '@store/Train/train';
 import { get } from '@utils/snippet';
 
 const Box = styled.div`
@@ -53,7 +53,7 @@ export default function TimeButton({ time }) {
   const dispatch = useDispatch();
   const [isClicked, setIsClicked] = useState(false);
 
-  const { standardTime } = useSelector(get('time'));
+  const { standardTime } = useSelector(get('train'));
 
   useEffect(() => {
     if (standardTime === time) {

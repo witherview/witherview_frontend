@@ -9,9 +9,11 @@ import {
   startTime,
   handleReset,
   handleNextButton,
-  setStep,
   handleStepQuestion,
 } from '@store/Time/time';
+import {
+  setStep,
+} from '@store/Train/train';
 import { get } from '@utils/snippet';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
 
@@ -51,10 +53,10 @@ export default function SelfTrainPage() {
     video: true,
   });
   const { name } = useSelector(get('auth'));
+  const { time } = useSelector(get('time'));
   const {
-    company, job, viewAnswer, selectedQnaId,
+    company, job, viewAnswer, selectedQnaId, qnaStep, step,
   } = useSelector(get('train'));
-  const { time, qnaStep, step } = useSelector(get('time'));
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
@@ -72,13 +74,13 @@ export default function SelfTrainPage() {
   };
 
   useEffect(() => {
-    dispatch(handleReset({ keepTrain: false }));
     fetch(selectedQnaId);
   }, []);
 
   const handleCancel = async () => {
     await stopRecording();
     transition.clear();
+    history.push('/self');
     dispatch(handleReset({ keepTrain: false }));
   };
 

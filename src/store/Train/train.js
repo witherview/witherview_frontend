@@ -3,18 +3,34 @@ import { createSlice } from '@reduxjs/toolkit';
 const { actions, reducer } = createSlice({
   name: 'train',
   initialState: {
+    toggleTrain: false,
     company: '',
     job: '',
+    standardTime: 0,
     viewAnswer: false,
     selectedQnaId: 3,
     uploadedLocation: '',
     localBlob: '',
+    step: 0,
+    qnaStep: 0,
   },
   reducers: {
+    setToggleTrain(state, { payload: { toggleTrain } }) {
+      return {
+        ...state,
+        toggleTrain,
+      };
+    },
     setCompany(state, { payload: { company } }) {
       return {
         ...state,
         company,
+      };
+    },
+    setStandardTime(state, { payload: { standardTime } }) {
+      return {
+        ...state,
+        standardTime,
       };
     },
     setJob(state, { payload: { job } }) {
@@ -47,16 +63,32 @@ const { actions, reducer } = createSlice({
         localBlob,
       };
     },
+    setStep(state, { payload: { step } }) {
+      return {
+        ...state,
+        step,
+      };
+    },
+    setQnaStep(state, { payload: { qnaStep } }) {
+      return {
+        ...state,
+        qnaStep,
+      };
+    },
   },
 });
 
 export const {
+  setToggleTrain,
   setCompany,
   setJob,
+  setStandardTime,
   setViewAnswer,
   setSelectedQnaId,
   setUploadedLocation,
   setLocalBlob,
+  setStep,
+  setQnaStep,
 } = actions;
 
 export default reducer;

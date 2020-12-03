@@ -1,65 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  setToggleTrain,
+  setCompany,
+  setJob,
+  setStandardTime,
+  setStep,
+  setQnaStep,
+} from '@store/Train/train';
 
 const timeReducer = createSlice({
   name: 'time',
   initialState: {
-    standardTime: 0,
     time: 0,
-    toggleTrain: false,
     timerId: '',
-    // 아래 두개 train 리듀서로 옮기는 작업 추가
-    step: 0,
-    qnaStep: 0,
   },
   reducers: {
-    setStandardTime(state, { payload: { standardTime } }) {
-      return {
-        ...state,
-        standardTime,
-      };
-    },
     setTime(state, { payload: { time } }) {
       return {
         ...state,
         time,
       };
     },
-    setToggleTrain(state, { payload: { toggleTrain } }) {
-      return {
-        ...state,
-        toggleTrain,
-      };
-    },
+
     setTimerId(state, { payload: { timerId } }) {
       return {
         ...state,
         timerId,
       };
     },
-    setStep(state, { payload: { step } }) {
-      return {
-        ...state,
-        step,
-      };
-    },
-    setQnaStep(state, { payload: { qnaStep } }) {
-      return {
-        ...state,
-        qnaStep,
-      };
-    },
   },
 });
 
-export const {
-  setStandardTime,
-  setTime,
-  setTickTime,
-  setToggleTrain,
-  setTimerId,
-  setStep,
-  setQnaStep,
-} = timeReducer.actions;
+export const { setTime, setTimerId } = timeReducer.actions;
 
 export const resetTime = () => (dispatch, getState) => {
   const {
@@ -98,21 +70,23 @@ export const handleReset = ({ keepTrain = false }) => (dispatch) => {
   dispatch(setStep({ step: STEP_FIRST }));
   dispatch(resetTime());
   dispatch(setQnaStep({ qnaStep: 0 }));
+  dispatch(setStandardTime({ standardTime: 0 }));
+  dispatch(setJob({ job: '' }));
+  dispatch(setCompany({ company: '' }));
   if (!keepTrain) dispatch(setToggleTrain({ toggleTrain: false }));
 };
 
 export const handleStepQuestion = () => (dispatch, getState) => {
   const {
-    time: { standardTime, qnaStep },
+    train: { standardTime, qnaStep },
   } = getState();
-  // TODO: 앞에서 설정한 TIME으로 변경해야 함
   dispatch(startTime({ count: standardTime }));
   dispatch(setQnaStep({ qnaStep: qnaStep + 1 }));
 };
 
 export const handleNextButton = () => (dispatch, getState) => {
   const {
-    time: { standardTime, step },
+    train: { standardTime, step },
   } = getState();
   if (step === STEP_FIRST) {
     dispatch(setStep({ step: STEP_LOADING_1 }));
@@ -120,8 +94,6 @@ export const handleNextButton = () => (dispatch, getState) => {
   }
   if (step === STEP_START) {
     dispatch(setStep({ step: STEP_ING }));
-    // TODO: 앞에서 설정한 TIME으로 변경해야 함
-    console.log(standardTime);
     dispatch(startTime({ count: standardTime }));
   }
   if (step === STEP_ING || step === TOGGLE_SCRIPT) {
