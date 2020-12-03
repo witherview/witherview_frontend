@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MODALS } from '@utils/constant';
 import QuestionListSaveModal from './QuestionListSaveModal';
-import { MODALS } from '../../utils/constant';
 import SelfTrainStartModal from './SelfTrainStartModal';
 import ModalWrapper from './ModalWrapper';
 

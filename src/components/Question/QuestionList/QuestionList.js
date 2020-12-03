@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import update from 'immutability-helper';
 import PropTypes from 'prop-types';
-import QuestionItem from '../QuestionItem';
+import QuestionItem from '@components/Question/QuestionItem';
 
 export default function QuestionList({ questions, setQuestions }) {
   const moveCard = useCallback((dragIndex, hoverIndex) => {

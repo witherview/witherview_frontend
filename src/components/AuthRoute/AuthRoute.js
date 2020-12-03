@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { get } from '../../utils/snippet';
-import { setLogin } from '../../store/Auth/auth';
+import { get } from '@utils/snippet';
+import { setLogin } from '@store/Auth/auth';
 
 export default function AuthRoute({ component: Component, render, ...rest }) {
   const dispatch = useDispatch();

@@ -31,14 +31,14 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
-        <AuthRoute path="/questionlist" component={QuestionListPage} />
-        <Route path="/question/:id" component={QuestionPage} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
         <Wrapper>
           {!toggleTrain && <Sidebar />}
           {!toggleTrain && <ProfileMenuContainer name={name} />}
-          <AuthRoute exact path="/self-training" component={SelfTrainPage} />
-          <AuthRoute exact path="/self-checklist" component={AloneQuestionCheckList} />
+          <AuthRoute exact path="/questionlist" component={QuestionListPage} />
+          <AuthRoute path="/question/:id" component={QuestionPage} />
+          <AuthRoute path="/self-training" component={SelfTrainPage} />
+          <AuthRoute path="/self-checklist" component={AloneQuestionCheckList} />
         </Wrapper>
         <Route component={NotFound} />
       </Switch>

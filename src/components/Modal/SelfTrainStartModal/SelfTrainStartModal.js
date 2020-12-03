@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import Button from '../../Button';
-import Icon from '../../Icon';
-import { hideModal } from '../../../store/Modal/modal';
-import { MODALS } from '../../../utils/constant';
-import { ResetQuestions } from '../../../store/Question/question';
+import Button from '@components/Button';
+import Icon from '@components/Icon';
+import { hideModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
+import { ResetQuestions } from '@store/Question/question';
 
 const Wrapper = styled.div`
     display: flex;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideModal, showModal } from '../../../store/Modal/modal';
-import InputBar from '../../InputBar';
-import Button from '../../Button';
-import { postQuestionListAPI, postQuestionItemAPI } from '../../../repository/questionListRepository';
-import { get } from '../../../utils/snippet';
-import { MODALS } from '../../../utils/constant';
+import { hideModal, showModal } from '@store/Modal/modal';
+import InputBar from '@components/InputBar';
+import Button from '@components/Button';
+import { postQuestionListAPI, postQuestionItemAPI } from '@repository/questionListRepository';
+import { get } from '@utils/snippet';
+import { MODALS } from '@utils/constant';
 
 const Wrapper = styled.div`
   display: flex;

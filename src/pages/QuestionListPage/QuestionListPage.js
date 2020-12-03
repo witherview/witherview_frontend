@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getQuestionListAPI } from '@repository/questionListRepository';
+import { getQuestionListAPI, deleteQuestionListAPI } from '@repository/questionListRepository';
 import { get } from '@utils/snippet';
-import ProfileMenuContiner from '@components/ProfileMenuContainer';
 import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
-import { get } from '../../utils/snippet';
-import ProfileMenuContiner from '../../components/ProfileMenuContainer';
 
 const PageWrapper = styled.div`
   display: flex;
+  flex: 1;
+  flex-direction: column;
 `;
 
 const ContentWrapper = styled.div`
   width: 100%;
 `;
 
-const ProfileWrapper = styled.div`
-    float: right;
-    margin: 53px 105px 0 0;
-`;
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
@@ -55,8 +50,10 @@ const Select = styled.div`
 
 export default function QuestionListPage() {
   const authSelector = useSelector(get('auth'));
+  const questionSelector = useSelector(get('question'));
   const [questionList, setQuestionList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [flag, setFlag] = useState(0);
   const fetch = async () => {
     getQuestionListAPI().then((response) => {
       setQuestionList(response.data);
@@ -64,18 +61,32 @@ export default function QuestionListPage() {
     });
   };
   useEffect(() => {
+    console.log("render new!");
     fetch();
   }, []);
 
+  const handleDelete = (e, id) => {
+    if (e.target === e.currentTarget) {
+      deleteQuestionListAPI(id)
+    }
+    setFlag(id);
+  }
+  useEffect(()=>{
+    console.log(flag);
+    let newArr = questionList.filter(val=>{
+      return val["id"] !== flag;
+    })
+    console.log(newArr);
+    setQuestionList(newArr);
+  },[flag])
+
   return (
     <>
+      {JSON.stringify(questionList)}
       {loading
         && (
         <PageWrapper>
           <ContentWrapper>
-            <ProfileWrapper>
-              <ProfileMenuContiner name={authSelector.name} />
-            </ProfileWrapper>
             <Wrapper>
               <Title>
                 {authSelector.name}
@@ -84,7 +95,7 @@ export default function QuestionListPage() {
               <Select>연습하고 싶은 질문 리스트를 선택해주세요.</Select>
               {questionList && questionList.length === 0
                 ? <NoList />
-                : <IsQuestionList questionList={questionList} />}
+                : <IsQuestionList questionList={questionList} handleDelete={handleDelete}/>}
             </Wrapper>
           </ContentWrapper>
         </PageWrapper>

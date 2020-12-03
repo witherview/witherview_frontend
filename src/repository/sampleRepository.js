@@ -1,4 +1,4 @@
-import api from '../context/serverContext';
+import api from '@context/serverContext';
 
 const ApiGetSampleData = async (param) => {
   await api({

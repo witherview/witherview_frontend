@@ -4,19 +4,21 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import Button from '../../components/Button';
-import ProfileMenuContiner from '../../components/ProfileMenuContainer';
-import { getQuestionItemAPI, postQuestionItemAPI, patchQuestionItemAPI } from '../../repository/questionListRepository';
-import { get } from '../../utils/snippet';
-import Icon from '../../components/Icon';
-import QuestionList from '../../components/Question/QuestionList';
-import Modal from '../../components/Modal/Modal';
-import { showModal } from '../../store/Modal/modal';
-import { AddQuestions } from '../../store/Question/question';
-import { MODALS } from '../../utils/constant';
+import Button from '@components/Button';
+import ProfileMenuContiner from '@components/ProfileMenuContainer';
+import { getQuestionItemAPI, postQuestionItemAPI, patchQuestionItemAPI } from '@repository/questionListRepository';
+import { get } from '@utils/snippet';
+import Icon from '@components/Icon';
+import QuestionList from '@components/Question/QuestionList';
+import Modal from '@components/Modal/Modal';
+import { showModal } from '@store/Modal/modal';
+import { AddQuestions } from '@store/Question/question';
+import { MODALS } from '@utils/constant';
 
 const PageWrapper = styled.div`
   display: flex;
+  flex: 1;
+  flex-direction: column;
 `;
 
 const ContentWrapper = styled.div`
@@ -125,7 +127,6 @@ export default function QuestionPage({ match }) {
   useEffect(() => {
     fetch();
     setLoading(true);
-    console.log(`questions:  ${questionList}`);
   }, []);
 
   const handleQuestionMake = () => {

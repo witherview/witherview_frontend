@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const questionReducer = createSlice({
   name: 'question',
   initialState: {
+    reload: false,
     questions: [],
   },
   reducers: {
@@ -13,19 +14,32 @@ const questionReducer = createSlice({
       };
     },
     resetQuestions() {
-      return [];
+      return {
+        ...state,
+        questions: [],
+      };
     },
+    setReload(state){
+      return{
+        ...state,
+        reload: !state.reload,
+      }
+    }
   },
 });
 
-const { addQuestions, resetQuestions } = questionReducer.actions;
+const { addQuestions, resetQuestions, setReload } = questionReducer.actions;
 
-export const AddQuestions = ({ questions }) => (dispatch) => {
+export const AddQuestions = ({ questions }) => async (dispatch) => {
   dispatch(addQuestions({ questions }));
 };
 
 export const ResetQuestions = () => (dispatch) => {
   dispatch(resetQuestions());
+};
+
+export const SetReload = () => (dispatch) => {
+  dispatch(setReload());
 };
 
 export default questionReducer.reducer;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '../../../store/Modal/modal';
+import { hideModal } from '@store/Modal/modal';
 
 const Background = styled.div`
   position: fixed;

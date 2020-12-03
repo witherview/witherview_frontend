@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux';
 import profileExample from '@assets/images/profile_example.png';
 import { setLogout } from '@store/Auth/auth';
 
-import Icon from '../Icon';
-import ProfileIcon from '../ProfileIcon';
+import Icon from '@components/Icon';
+import ProfileIcon from '@components/ProfileIcon';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 480px) {

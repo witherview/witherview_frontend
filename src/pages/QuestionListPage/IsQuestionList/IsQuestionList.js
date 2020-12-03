@@ -47,7 +47,7 @@ const AddText = styled.div`
   color: #0c0c59;
 `;
 
-export default function IsQuestionList({ questionList }) {
+export default function IsQuestionList({ questionList, handleDelete }) {
   return (
     <>
       <Wrapper>
@@ -70,13 +70,14 @@ export default function IsQuestionList({ questionList }) {
           });
           return (
             <ItemWrapper>
-              <Link to={`/question/${val.id}`} style={{ textDecoration: 'none' }}>
                 <QuestionCardView
+                  id={val.id}
                   number={count}
                   title={val.title}
                   description={val.enterprise}
+                  questionList={questionList}
+                  handleDelete={handleDelete}
                 />
-              </Link>
             </ItemWrapper>
           );
         })}
