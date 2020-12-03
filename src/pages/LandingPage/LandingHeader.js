@@ -33,15 +33,22 @@ const WrapContainer = styled.div`
   justify-content: space-between;
 `;
 
-const WrapRightInner = styled.div`
+const WrapTextButton = styled.div`
   @media only screen and (max-width: 1024px) {
     display: none;
   }
-  width: 50%;
-  min-width: 700px;
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-right: 110px;
+`;
+
+const WrapRightInner = styled.div`
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 140);
@@ -55,14 +62,20 @@ export default function LandingHeader({ topRef, middleOneRef }) {
       <WrapContainer>
         <WrapLeft src={Logo} />
         <WrapRightInner>
-          <C.TextButtonProps onClick={() => executeScroll(topRef)} text="홈" />
-          <C.TextButtonProps
-            onClick={() => executeScroll(middleOneRef)}
-            text="위더뷰란?"
-          />
-          <C.TextButtonProps text="혼자연습" />
-          <C.TextButtonProps text="면접스터디" />
+          <WrapTextButton>
+            <C.TextButtonProps
+              onClick={() => executeScroll(topRef)}
+              text="홈"
+            />
+            <C.TextButtonProps
+              onClick={() => executeScroll(middleOneRef)}
+              text="위더뷰란?"
+            />
+            <C.TextButtonProps text="혼자연습" />
+            <C.TextButtonProps text="면접스터디" />
+          </WrapTextButton>
           <C.Button
+            id="menu_btn"
             theme="outline"
             width={230}
             text="LOG IN"
