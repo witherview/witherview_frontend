@@ -68,7 +68,7 @@ export default function TextBoxC({ header, summary }) {
             {summary.map((each, key) => (
               <WrapText
                 key={`${key}-summary-C`}
-                size={20}
+                size={19}
                 lineHeight="130%"
                 color="#3d3d3d"
               >
