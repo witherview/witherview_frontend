@@ -29,7 +29,7 @@ const WrapContainer = styled.div`
 `;
 
 const WrapBottomContent = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

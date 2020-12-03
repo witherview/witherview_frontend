@@ -7,7 +7,7 @@ import AloneImage from '@assets/images/middle_first.png';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 1870px) {
     min-height: 400px;
   }
   width: 100%;
@@ -20,9 +20,10 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 1870px) {
+    width: 80%;
     min-height: 400px;
-    justify-content: center;
+    justify-content: flex-end;
   }
   position: relative;
   min-height: 600px;
@@ -35,14 +36,19 @@ const WrapContainer = styled.div`
 `;
 
 const WrapPadding = styled.div`
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 1870px) {
     padding-top: 0px;
   }
   padding-top: 100px;
 `;
 
 const WrapImage = styled.img`
-  @media only screen and (max-width: 1920px) {
+  @media only screen and (max-width: 1870px) {
+    height: 550px;
+    bottom: -90px;
+  }
+
+  @media only screen and (max-width: 1280px) {
     display: none;
     position: relative;
     bottom: auto;
@@ -63,6 +69,7 @@ export default function LandingMiddleTwo({ myRefAlone }) {
         <div />
         <WrapPadding>
           <TextBoxA
+            isRight
             height={350}
             header="PRACTICE ALONE"
             content={['혼자서도 쉽게', '화상 면접 진행을!']}

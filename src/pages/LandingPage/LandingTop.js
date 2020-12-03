@@ -9,7 +9,7 @@ import LandingTopImage from '@assets/images/landing_top.png';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1820px) {
     height: 600px;
   }
   width: 100%;
@@ -23,24 +23,39 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
+  @media only screen and (max-width: 1820px) {
+    width: 80%;
+    justify-content: center;
+  }
+
   display: flex;
   justify-content: space-around;
 `;
 
 const WrapContent = styled.div`
+  @media only screen and (max-width: 1820px) {
+    width: 100%;
+  }
   @media only screen and (max-width: 1500px) {
     padding-top: 0px;
   }
-
   padding-top: 100px;
   display: flex;
   flex-direction: column;
 `;
 
 const WrapImage = styled.img`
+  @media only screen and (max-width: 1820px) {
+    height: 600px;
+  }
+
   @media only screen and (max-width: 1500px) {
     display: none;
+    position: relative;
+    bottom: auto;
+    height: 0px;
   }
+
   height: 818px;
 `;
 

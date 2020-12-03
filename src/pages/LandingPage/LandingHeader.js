@@ -28,7 +28,7 @@ const WrapLeft = styled.img`
 
 const WrapContainer = styled.div`
   width: 80%;
-  max-width: 1680px;
+  max-width: 1820px;
   display: flex;
   align-items: center;
   justify-content: space-between;
