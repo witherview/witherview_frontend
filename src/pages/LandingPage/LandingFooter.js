@@ -20,7 +20,8 @@ const WrapLeft = styled.img`
 `;
 
 const WrapContainer = styled.div`
-  width: 90%;
+  max-width: 1680px;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
