@@ -7,7 +7,7 @@ import AloneImage from '@assets/images/middle_first.png';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 1820px) {
     min-height: 400px;
   }
   width: 100%;
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 1820px) {
     min-height: 400px;
     justify-content: center;
   }
@@ -35,14 +35,14 @@ const WrapContainer = styled.div`
 `;
 
 const WrapPadding = styled.div`
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 1820px) {
     padding-top: 0px;
   }
   padding-top: 100px;
 `;
 
 const WrapImage = styled.img`
-  @media only screen and (max-width: 1920px) {
+  @media only screen and (max-width: 1820px) {
     display: none;
     position: relative;
     bottom: auto;

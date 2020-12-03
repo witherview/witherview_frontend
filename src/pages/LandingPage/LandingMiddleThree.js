@@ -11,7 +11,7 @@ import TextBoxA from './components/TextBoxA';
 import CircleButton from './components/CircleButton';
 
 const Wrapper = styled.div`
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1870px) {
     min-height: 600px;
   }
   width: 100%;
@@ -24,13 +24,13 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1870px) {
     min-height: 600px;
     justify-content: center;
   }
   position: relative;
   min-height: 1000px;
-  max-width: 1600px;
+  max-width: 1800px;
   width: 80%;
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@ const WrapContainer = styled.div`
 `;
 
 const WrapImage = styled.img`
-  @media only screen and (max-width: 1920px) {
+  @media only screen and (max-width: 1870px) {
     display: none;
     position: relative;
     bottom: auto;
@@ -51,14 +51,14 @@ const WrapImage = styled.img`
 `;
 
 const WrapPadding = styled.div`
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1870px) {
     padding-top: 0px;
   }
   padding-bottom: 100px;
 `;
 
 const WrapStaticImage = styled.img`
-  @media only screen and (max-width: 1920px) {
+  @media only screen and (max-width: 1870px) {
     display: none;
     position: relative;
     bottom: auto;
@@ -71,7 +71,11 @@ const WrapStaticImage = styled.img`
   top: 50px;
   right: 0px;
 `;
+
 const WrapCarousel = styled.div`
+  @media only screen and (max-width: 1870px) {
+    bottom: 100px;
+  }
   position: absolute;
   display: flex;
   justify-content: space-between;

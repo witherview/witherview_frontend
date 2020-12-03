@@ -9,7 +9,7 @@ import LandingTopImage from '@assets/images/landing_top.png';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1820px) {
     height: 600px;
   }
   width: 100%;
@@ -28,7 +28,7 @@ const WrapContainer = styled.div`
 `;
 
 const WrapContent = styled.div`
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1820px) {
     padding-top: 0px;
   }
 
@@ -38,7 +38,7 @@ const WrapContent = styled.div`
 `;
 
 const WrapImage = styled.img`
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1820px) {
     display: none;
   }
   height: 818px;

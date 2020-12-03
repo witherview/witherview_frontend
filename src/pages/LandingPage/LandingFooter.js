@@ -20,16 +20,17 @@ const WrapLeft = styled.img`
 `;
 
 const WrapContainer = styled.div`
-  max-width: 1680px;
+  max-width: 1820px;
   width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const WrapRightInner = styled.div`
+const WrapLeftInner = styled.div`
   width: 50%;
   max-width: 600px;
+  min-width: 420px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,11 +48,11 @@ export default function LandingFooter() {
   return (
     <Wrapper>
       <WrapContainer>
-        <WrapRightInner>
+        <WrapLeftInner>
           <WrapLeft src={Logo} />
           <C.TextButtonProps text="이용약관" />
           <C.TextButtonProps text="개인정보처리방침" />
-        </WrapRightInner>
+        </WrapLeftInner>
         <WrapText>Copyrightⓒ WITHERVIEW All Rights Reserved.</WrapText>
       </WrapContainer>
     </Wrapper>
