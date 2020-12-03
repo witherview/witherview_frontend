@@ -69,7 +69,11 @@ export default function SelfTrainEntryPage() {
           />
         </WrapCardSection>
         <Button
-          func={isGuide ? () => history.push('/self/setting') : () => {}}
+          func={
+            isGuide
+              ? () => history.push('/self/setting')
+              : () => history.push('/questionlist')
+          }
           theme={clicked ? 'blue' : 'gray'}
           text="다음"
         />
