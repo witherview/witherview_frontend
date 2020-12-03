@@ -3,7 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { get } from '@utils/snippet';
+import LandingPage from '@pages/LandingPage';
+import { get } from './utils/snippet';
 
 import AuthRoute from '@components/AuthRoute';
 import ConferenceButton from '@components/ConferenceButton';
@@ -30,7 +31,8 @@ export default function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
         <AuthRoute path="/questionlist" component={QuestionListPage} />
         <Route path="/question/:id" component={QuestionPage} />

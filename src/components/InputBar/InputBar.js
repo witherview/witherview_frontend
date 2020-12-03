@@ -56,5 +56,5 @@ InputBar.defaultProps = {
   onChange: () => {},
   name: '',
   type: '',
-  width: '553',
+  width: 553,
 };
