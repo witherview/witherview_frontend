@@ -111,7 +111,11 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
 `;
 
 export default function Icon({
+<<<<<<< HEAD
   type, alt, style, src, isCircle, func,
+=======
+  type, alt, style, src, func,
+>>>>>>> 36cc98b1628a92bc7e7794c3fe2bc527ec556a4e
 }) {
   const [size, setSize] = useState('md');
   useEffect(() => {
@@ -167,7 +171,10 @@ export default function Icon({
       size={size}
       title={alt}
       onClick={func}
+<<<<<<< HEAD
       circle={isCircle}
+=======
+>>>>>>> 36cc98b1628a92bc7e7794c3fe2bc527ec556a4e
     />
   );
 }
