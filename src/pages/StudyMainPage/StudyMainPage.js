@@ -24,6 +24,7 @@ export default function StudyMainPage() {
       setLoading(true);
     })
   };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -84,6 +85,12 @@ export default function StudyMainPage() {
             <S.partiText>
               참여도 높은 유저
             </S.partiText>
+            <ProfileInfoContainer />
+            <ProfileInfoContainer />
+            <ProfileInfoContainer />
+            <ProfileInfoContainer />
+            <ProfileInfoContainer />
+            <ProfileInfoContainer />
             <ProfileInfoContainer />
           </S.PartiWrapper>
         </S.BoxWrapper>
