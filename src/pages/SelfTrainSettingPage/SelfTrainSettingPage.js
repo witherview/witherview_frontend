@@ -57,6 +57,8 @@ const WrapText = styled.div`
 export default function SelfTrainSettingPage() {
   const dispatch = useDispatch();
   const { selectedQnaId, job, company } = useSelector(get('train'));
+  const { standardTime } = useSelector(get('train'));
+
   const history = useHistory();
 
   return (
@@ -83,6 +85,7 @@ export default function SelfTrainSettingPage() {
           <div>
             <WrapText padding>기업 이름</WrapText>
             <InputBar
+              value={company}
               onChange={(e) => dispatch(setCompany({ company: e.target.value }))}
               width={967}
             />
@@ -90,13 +93,14 @@ export default function SelfTrainSettingPage() {
           <div>
             <WrapText padding>직무 이름</WrapText>
             <InputBar
+              value={job}
               onChange={(e) => dispatch(setJob({ job: e.target.value }))}
               width={967}
             />
           </div>
         </WrapContainer>
         <Button
-          theme={company && job ? 'blue' : 'gray'}
+          theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
           text="다음"
           func={() => history.push(`/self-train/${selectedQnaId}`)}
         />
