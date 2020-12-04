@@ -11,7 +11,7 @@ const I = styled.i`
   margin: 2px;
   display: inline-block;
   background-image: url(${iconImage});
-  background-size: 1173px 876px;
+  background-size: 1237px 876px;
   border-radius: ${({ circle, size }) => (circle ? (size === 'xsm' ? '14px'
                         : size === 'sm' ? '21px'
                         : size === 'md' ? '28px'
@@ -31,6 +31,7 @@ const I = styled.i`
                         : size === 'xmd' ? '32px'
                         : size === 'flat' ? '28px'
                         : size === 'thin' ? '15px'
+                        : size === 'dif' ? '36px'
                         : size === 'lg' ? '38px'
                         : size === 'xlg' ? '42px'
                         : size === 'mlg' ? '51px'
@@ -44,6 +45,7 @@ const I = styled.i`
                          : size === 'xmd' ? '32px'
                          : size === 'flat' ? '20px'
                          : size === 'thin' ? '32px'
+                         : size === 'dif' ? '15px'
                          : size === 'lg' ? '38px'
                          : size === 'xlg' ? '42px'
                          : size === 'mlg' ? '51px'
@@ -67,6 +69,7 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
                                     : type === 'calendar_black' ? '-740px -139.5px'
                                     : type === 'clock_gray' ? '-856px -139.5px'
                                     : type === 'clock_black' ? '-972px -139.5px'
+                                    : type === 'profile_blue' ? '-1088px -139.5px'
                                     : type === 'profile_white' ? '-43.5px -246px'
                                     : type === 'profile_black' ? '-160px -246px'
                                     : type === 'drop_up' ? '-276px -251px'
@@ -76,6 +79,7 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
                                     : type === 'check_on' ? '-735px -243px'
                                     : type === 'remove' ? '-851px -243px'
                                     : type === 'check_circle_white' ? '-965.5px -241px'
+                                    : type === 'dots' ? '-1080px -253px'
                                     : type === 'check_circle_blue' ? '-37px -342px'
                                     : type === 'next_white' ? '-155.5px -348px'
                                     : type === 'previous' ? '-260px -348px'
@@ -107,7 +111,8 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
                                     : type === 'memo_big' ? '-429px -712px'
                                     : type === 'star_big' ? '-608px -712px'
                                     : type === 'thumb_up_big' ? '-787px -712px'
-                                    : type === 'thumb_down_big' ? '-966px -712px' : '0 0')};
+                                    : type === 'thumb_down_big' ? '-966px -712px' 
+                                    : type === 'profile_big' ? '-1125px -712px': '0 0')};
 `;
 
 export default function Icon({
@@ -118,7 +123,6 @@ export default function Icon({
     if (type === 'arrow_down_blue' || type === 'arrow_down_grey' || type === 'arrow_up_blue' || type === 'drawer' || type === 'check_off' || type === 'check_on') {
       setSize('xsm');
     }
-
     if (type === 'cancel_white' || type === 'add_orange' || type === 'add_blue' || type === 'check' || type === 'check_off' || type === 'check_on') {
       setSize('sm');
     }
@@ -146,11 +150,14 @@ export default function Icon({
     if (type === 'thumb_up_white' || type === 'thumb_down_white') {
       setSize('mxlg');
     }
-    if (type === 'sound_big' || type === 'bubble_big' || type === 'memo_big' || type === 'star_big' || type === 'thumb_up_big' || type === 'thumb_down_big') {
+    if (type === 'sound_big' || type === 'bubble_big' || type === 'memo_big' || type === 'star_big' || type === 'thumb_up_big' || type === 'thumb_down_big' || type === 'profile_big') {
       setSize('xxlg');
     }
     if (type === 'check_square') {
       setSize('lg');
+    }
+    if (type === 'dots') {
+      setSize('dif');
     }
   }, [type]);
 
@@ -191,6 +198,7 @@ Icon.propTypes = {
     'calendar_black',
     'clock_gray',
     'clock_black',
+    'profile_blue',
     'profile_white',
     'profile_black',
     'drop_up',
@@ -200,6 +208,7 @@ Icon.propTypes = {
     'check_on',
     'remove',
     'check_circle_white',
+    'dots',
     'check_circle_blue',
     'next_white',
     'previous',
@@ -232,6 +241,7 @@ Icon.propTypes = {
     'star_big',
     'thumb_up_big',
     'thumb_down_big',
+    'profile_big',
   ]).isRequired,
   alt: PropTypes.string.isRequired,
   src: PropTypes.string,

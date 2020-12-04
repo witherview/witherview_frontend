@@ -12,25 +12,27 @@ import CircleButton from './components/CircleButton';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 1870px) {
-    min-height: 600px;
+    min-height: 400px;
   }
   width: 100%;
   user-select: none;
-  min-height: 1000px;
+  min-height: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 const WrapContainer = styled.div`
   @media only screen and (max-width: 1870px) {
+    width: 80%;
     min-height: 600px;
-    justify-content: center;
+    justify-content: flex-start;
   }
   position: relative;
   min-height: 1000px;
-  max-width: 1800px;
+  max-width: 1400px;
   width: 80%;
   display: flex;
   align-items: center;
@@ -39,13 +41,18 @@ const WrapContainer = styled.div`
 
 const WrapImage = styled.img`
   @media only screen and (max-width: 1870px) {
+    height: 480px;
+    bottom: 100px;
+    right: -70px;
+  }
+  @media only screen and (max-width: 1400px) {
     display: none;
     position: relative;
     bottom: auto;
     height: 0px;
   }
   position: absolute;
-  right: 115px;
+  right: -100px;
   height: 680px;
   bottom: 170px;
 `;
@@ -53,23 +60,24 @@ const WrapImage = styled.img`
 const WrapPadding = styled.div`
   @media only screen and (max-width: 1870px) {
     padding-top: 0px;
+    padding-left: 0px;
   }
   padding-bottom: 100px;
 `;
 
 const WrapStaticImage = styled.img`
   @media only screen and (max-width: 1870px) {
-    display: none;
-    position: relative;
-    bottom: auto;
-    height: 0px;
+    height: 480px;
+    right: -260px;
+    top: 0px;
   }
-  z-index: -1;
 
+  z-index: -2;
+  overflow: auto;
   height: 700px;
   position: absolute;
   top: 50px;
-  right: 0px;
+  right: -450px;
 `;
 
 const WrapCarousel = styled.div`

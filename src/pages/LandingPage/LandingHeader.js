@@ -27,8 +27,8 @@ const WrapLeft = styled.img`
 `;
 
 const WrapContainer = styled.div`
-  width: 80%;
-  max-width: 1820px;
+  width: 90%;
+  max-width: 1700px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,13 +46,13 @@ const WrapTextButton = styled.div`
 `;
 
 const WrapRightInner = styled.div`
-  width: 60%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 `;
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 140);
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 130);
 
 export default function LandingHeader({
   topRef,

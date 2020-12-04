@@ -19,17 +19,27 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
+  @media only screen and (max-width: 1870px) {
+    margin-bottom: 0px;
+  }
+
   min-height: 600px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin-top: 50px;
+  margin-top: 75px;
+  margin-bottom: 50px;
 `;
 
 const WrapBottomContent = styled.div`
-  width: 90%;
+  @media only screen and (max-width: 1870px) {
+    min-height: 400px;
+    justify-content: center;
+  }
+
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
