@@ -198,6 +198,11 @@ const CheckListContainer = styled.div`
   }
 `;
 
+const CheckListTitle = styled.h2`
+  font-size: 1.5em;
+  margin-bottom: 30px;
+`;
+
 const CheckPoint = styled.div`
   left: calc(${({ point }) => `${point}% - 9px`});
 `;
@@ -273,9 +278,24 @@ export default function AloneQuestionCheckList({ src }) {
     setCheckListArray(newCheckList);
   }, [checkListArray]);
 
+  const selfTraingAgain = useCallback(() => {
+    setNextActionBtn(1);
+    history.push('/question/:id');
+  }, [nextActionBtn]);
+
   const initCheckList = useCallback(() => {
     setNextActionBtn(3);
     setCheckListArray(Array(14).fill(false));
+  }, [nextActionBtn]);
+
+  const saveInterviewVideo = useCallback(() => {
+    setNextActionBtn(2);
+    history.push('/questionlist');
+  }, [nextActionBtn]);
+
+  const saveCheckList = useCallback(() => {
+    setNextActionBtn(4);
+    history.push('/questionlist');
   }, [nextActionBtn]);
 
   return (
@@ -313,15 +333,15 @@ export default function AloneQuestionCheckList({ src }) {
             </ControlWrapper>
           </VideoContainer>
           <ButtonsWrapper>
-            <Button text="다시 연습하기" theme={nextActionBtn === 1 ? 'blue' : 'white'} func={() => setNextActionBtn(1)} />
-            <Button text="연습 영상 저장" theme={nextActionBtn === 2 ? 'blue' : 'white'} func={() => setNextActionBtn(2)} />
+            <Button text="다시 연습하기" theme={nextActionBtn === 1 ? 'blue' : 'white'} func={selfTraingAgain} />
+            <Button text="연습 영상 저장" theme={nextActionBtn === 2 ? 'blue' : 'white'} func={saveInterviewVideo} />
             <Button text="체크리스트 초기화" theme={nextActionBtn === 3 ? 'blue' : 'white'} func={initCheckList} />
-            <Button text="체크리스트 저장" theme={nextActionBtn === 4 ? 'blue' : 'white'} func={() => setNextActionBtn(4)} />
+            <Button text="체크리스트 저장" theme={nextActionBtn === 4 ? 'blue' : 'white'} func={saveCheckList} />
           </ButtonsWrapper>
         </LeftContent>
         <RightContent>
           <CheckListContainer>
-            <h2>태도 및 비언어</h2>
+            <CheckListTitle>답변내용 및 목소리 체크!</CheckListTitle>
             <ul>
               {EvaluationListMock.evaluationList1.map(({ id, text }) => (
                 <li id={id} key={id}>
@@ -333,7 +353,7 @@ export default function AloneQuestionCheckList({ src }) {
           </CheckListContainer>
           <SmallCheckList>
             <CheckListContainer>
-              <h2>답변 내용</h2>
+              <CheckListTitle>비언어 내용 체크!</CheckListTitle>
               <ul>
                 {EvaluationListMock.evaluationList2.map(({ id, text }) => (
                   <li id={id} key={id}>
@@ -344,7 +364,7 @@ export default function AloneQuestionCheckList({ src }) {
               </ul>
             </CheckListContainer>
             <CheckListContainer>
-              <h2>영상 환경 체크</h2>
+              <CheckListTitle>영상 환경 체크!</CheckListTitle>
               <ul>
                 {EvaluationListMock.evaluationList3.map(({ id, text }) => (
                   <li id={id} key={id}>
