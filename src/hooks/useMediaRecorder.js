@@ -2,15 +2,9 @@ import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { get } from '@utils/snippet';
+import { useDispatch } from 'react-redux';
 
-import { setLocalBlob, setUploadedLocation } from '@store/Train/train';
-
-import {
-  postVideoApi,
-  getVideoApi,
-} from '@repository/requestVideoRepository';
+import { setLocalBlob } from '@store/Train/train';
 
 export default function useReactMediaRecorder({
   audio = true,
@@ -21,7 +15,6 @@ export default function useReactMediaRecorder({
   mediaRecorderOptions = null,
 }) {
   const dispatch = useDispatch();
-  const { selectedQnaId } = useSelector(get('train'));
   const mediaRecorder = useRef(null);
   const mediaChunks = useRef([]);
   const mediaChunkEach = useRef([]);
@@ -126,9 +119,10 @@ export default function useReactMediaRecorder({
     const blobProperty = {
       type: chunk.type,
       ...(blobPropertyBag
-        || (video || screen ? { type: 'video/mp4' } : { type: 'audio/wav' })),
+        || (video || screen ? { type: 'video/webm;codecs=vp8,opus' } : { type: 'audio/wav' })),
     };
     const blob = new Blob(mediaChunks.current, blobProperty);
+    console.log(blob);
     const url = URL.createObjectURL(blob);
 
     setStatus('stopped');
@@ -136,28 +130,6 @@ export default function useReactMediaRecorder({
     dispatch(setLocalBlob({ localBlob: url }));
 
     onStop(url, blob);
-
-    // TODO: 혼자연습하기 체크리스트에서 재생할 수 있도록 해야 함
-    const blobData = new Blob(mediaChunks.current, {
-      type: 'video/webm;codecs=vp8,opus',
-    });
-    const formData = new FormData();
-    formData.append('videoFile', blobData);
-    formData.append('questionListId', selectedQnaId);
-
-    // TODO: 서버의 Response를 기다리는 로딩 상황임을 알려주는 Progress Bar 혹은 Spinner가 렌더링 되게끔 하는 상태를 추가해야 함
-    await postVideoApi(formData)
-      .then((response) => {
-        const { id } = response.data;
-        getVideoApi().then((res) => {
-          const { savedLocation } = res.data.find((elem) => elem.id === id);
-          const uploadedLocation = `${savedLocation.substring(0, 27)}videos/${savedLocation.substring(27)}`;
-          dispatch(setUploadedLocation({ uploadedLocation }));
-        });
-      })
-      .catch((err) => {
-        alert(err);
-      });
 
     mediaChunks.current = [];
     mediaChunkEach.current = [];
