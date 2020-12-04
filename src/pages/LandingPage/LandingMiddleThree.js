@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -26,10 +26,7 @@ const Wrapper = styled.div`
 
 const WrapContainer = styled.div`
   @media only screen and (max-width: 1870px) {
-<<<<<<< HEAD
-=======
     width: 80%;
->>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
     min-height: 600px;
     justify-content: flex-start;
   }
@@ -125,7 +122,6 @@ const THIRD_TEXT = {
 };
 
 export default function LandingMiddleThree({ myRefStudy }) {
-  const intervalId = useRef(null);
   const [state, setState] = useState(FIRST_STEP);
 
   const handleClick = (val) => setState(val);
@@ -143,10 +139,10 @@ export default function LandingMiddleThree({ myRefStudy }) {
   };
 
   useEffect(() => {
-    intervalId.current = setInterval(() => {
+    const interval = setInterval(() => {
       setState((stat) => (stat + 1) % 3);
     }, 6000);
-    return clearInterval(intervalId);
+    return () => clearInterval(interval);
   }, []);
 
   return (
