@@ -7,13 +7,10 @@ import AloneImage from '@assets/images/middle_first.png';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
-<<<<<<< HEAD
-  @media only screen and (max-width: 1820px) {
-=======
   @media only screen and (max-width: 1870px) {
->>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
     min-height: 400px;
   }
+
   width: 100%;
   user-select: none;
   min-height: 700px;
@@ -24,18 +21,15 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-<<<<<<< HEAD
-  @media only screen and (max-width: 1820px) {
-=======
   @media only screen and (max-width: 1870px) {
     width: 80%;
->>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
     min-height: 400px;
     justify-content: flex-end;
   }
+
   position: relative;
   min-height: 600px;
-  max-width: 1600px;
+  max-width: 1400px;
   width: 80%;
   display: flex;
   align-items: center;
@@ -44,27 +38,20 @@ const WrapContainer = styled.div`
 `;
 
 const WrapPadding = styled.div`
-<<<<<<< HEAD
-  @media only screen and (max-width: 1820px) {
-=======
   @media only screen and (max-width: 1870px) {
->>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
     padding-top: 0px;
   }
   padding-top: 100px;
 `;
 
 const WrapImage = styled.img`
-<<<<<<< HEAD
-  @media only screen and (max-width: 1820px) {
-=======
   @media only screen and (max-width: 1870px) {
     height: 550px;
+    left: -105px;
     bottom: -90px;
   }
 
-  @media only screen and (max-width: 1280px) {
->>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
+  @media only screen and (max-width: 1400px) {
     display: none;
     position: relative;
     bottom: auto;

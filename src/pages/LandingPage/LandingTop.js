@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   }
   width: 100%;
   user-select: none;
-  height: 950px;
+  height: 940px;
   background-color: #f9f9ff;
   padding-top: 140px;
   display: flex;
@@ -34,13 +34,11 @@ const WrapContainer = styled.div`
 
 const WrapContent = styled.div`
   @media only screen and (max-width: 1820px) {
-<<<<<<< HEAD
-=======
+    justify-content: center;
+    padding-top: 0px;
     width: 100%;
   }
-  @media only screen and (max-width: 1500px) {
->>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
-    padding-top: 0px;
+  @media only screen and (max-width: 1400px) {
   }
   padding-top: 100px;
   display: flex;
@@ -49,14 +47,10 @@ const WrapContent = styled.div`
 
 const WrapImage = styled.img`
   @media only screen and (max-width: 1820px) {
-<<<<<<< HEAD
-=======
-    height: 600px;
+    height: 500px;
   }
 
-  @media only screen and (max-width: 1500px) {
->>>>>>> 9edf3b6fd3aa72bc0c0371c44cc9378eaa0bb966
-    display: none;
+  @media only screen and (max-width: 1400px) {
     position: relative;
     bottom: auto;
     height: 0px;
