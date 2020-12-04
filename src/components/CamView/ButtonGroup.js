@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import Icon from '../Icon';
+import Icon from '@components/Icon';
 
 const Wrapper = styled.div`
   width: 219px;

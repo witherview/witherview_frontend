@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '../Icon/Icon';
+import Icon from '@components/Icon';
 
 const Box = styled.div`
   width: 374px;

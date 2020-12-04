@@ -30,6 +30,17 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'linebreak-style': 0,
     'react/forbid-prop-types': 0,
+    'react/no-array-index-key': 0,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+      webpack: {
+        config: 'webpack.config.js',
+      },
+    },
   },
   settings: {
     'import/resolver': {

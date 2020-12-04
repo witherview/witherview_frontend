@@ -5,6 +5,7 @@ const modalReducer = createSlice({
   name: 'modal',
   initialState: {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: false,
+    [MODALS.SELF_TRAIN_START_MODAL]: false,
   },
   reducers: {
     displayModal(state, { payload: { modalName } }) {

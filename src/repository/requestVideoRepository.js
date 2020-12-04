@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-return-await */
-import api from '../context/serverContext';
+import api from '@context/serverContext';
 
 export const postVideoApi = async (param) => await api({
   url: '/api/self/history',

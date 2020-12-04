@@ -9,6 +9,8 @@ import Icon from '@components/Icon';
 const Wrapper = styled.div`
   display: flex;
   width: 1102px;
+  height: 630px;
+  overflow: scroll;
   flex-wrap: wrap;
   margin-top: 71px;
 `;
@@ -45,7 +47,7 @@ const AddText = styled.div`
   color: #0c0c59;
 `;
 
-export default function IsQuestionList({ questionList }) {
+export default function IsQuestionList({ questionList, handleDelete }) {
   return (
     <>
       <Wrapper>
@@ -68,13 +70,14 @@ export default function IsQuestionList({ questionList }) {
           });
           return (
             <ItemWrapper>
-              <Link to={`/question/${val.id}`} style={{ textDecoration: 'none' }}>
-                <QuestionCardView
-                  number={count}
-                  title={val.title}
-                  description={val.enterprise}
-                />
-              </Link>
+              <QuestionCardView
+                id={val.id}
+                number={count}
+                title={val.title}
+                description={val.enterprise}
+                questionList={questionList}
+                handleDelete={handleDelete}
+              />
             </ItemWrapper>
           );
         })}
