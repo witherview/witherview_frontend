@@ -22,6 +22,9 @@ const Wrapper = styled.input`
 `;
 
 export default function InputBar({
+  disabled,
+  autoFocus,
+  value,
   className,
   placeholder,
   onChange,
@@ -31,6 +34,9 @@ export default function InputBar({
 }) {
   return (
     <Wrapper
+      disabled={disabled}
+      autoFocus={autoFocus}
+      value={value}
       className={className}
       type={type}
       name={name}
@@ -42,6 +48,9 @@ export default function InputBar({
 }
 
 InputBar.propTypes = {
+  disabled: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+  value: PropTypes.string,
   className: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
@@ -51,6 +60,9 @@ InputBar.propTypes = {
 };
 
 InputBar.defaultProps = {
+  disabled: false,
+  autoFocus: false,
+  value: '',
   className: '',
   placeholder: '',
   onChange: () => {},
