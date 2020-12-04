@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 import LandingPage from '@pages/LandingPage';
-import { get } from './utils/snippet';
 
 import AuthRoute from '@components/AuthRoute';
 import ConferenceButton from '@components/ConferenceButton';
@@ -19,6 +18,7 @@ import MyPage from '@pages/MyPage';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
+import { get } from './utils/snippet';
 
 const Wrapper = styled.div`
   display: flex;
