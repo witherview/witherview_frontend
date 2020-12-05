@@ -150,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function StudyStartModal() {
+export default function StudyStartModal({ func }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [title, setTitle] = useState();
@@ -168,6 +168,7 @@ export default function StudyStartModal() {
   const [time, setTime] = useState(
     moment(new Date()).format('HH:mm'),
   );
+
   const industryList = [
     '경영/사무',
     '마케팅/MD',
@@ -224,6 +225,7 @@ export default function StudyStartModal() {
       date,
       time
     }).then(()=>{
+      func();
       dispatch(hideModal(MODALS.STUDY_MAKE_MODAL));
     })
   }

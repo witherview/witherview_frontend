@@ -20,13 +20,18 @@ export default function StudyMainPage() {
   const [loading, setLoading] = useState(false);
   const fetch = async (page) => {
     getGroupListApi(page).then((res) => {
-      const unit = res.data.length === 0 ? 0 : 1;
+      const resLength = res.data.length;
+      //const unit = resLength === 6 ? 1 : 0;
+      const unit = resLength === 1 ? 0 : 1;
       res.data.map((val) => {
         getGroupMemberApi(val.id).then((response) => {
           console.log(`id ${val.id} member: ${response.data.length}`);
           setMember((member) => [...member, { id: val.id, member: response.data.length }]);
         });
       });
+      // let length = groupList.length%6 === 0 ? groupList.length+resLength : groupList.length+resLength - (resLength%6);
+      // if(length === 0) length = 6;
+      //setGroupList((groupList)=>[...groupList, ...res.data].slice(0, length));
       setGroupList((groupList)=>[...groupList, ...res.data]);
       setLoading(true);
       setPage(page+unit);
@@ -37,14 +42,23 @@ export default function StudyMainPage() {
     dispatch(showModal(MODALS.STUDY_MAKE_MODAL));
   }
 
+  const handleReload = () => {
+    setGroupList([]);
+    setMember([]);
+    for(let i = 0; i<page; i++){
+      fetch(i);
+    }
+  }
+
   useEffect(() => {
     fetch(page);
   }, []);
 
   useEffect(()=>{
     if (!isPageBottom) return;
+    console.log("bottom");
     fetch(page);
-  }, [isPageBottom])
+  }, [isPageBottom]);
 
   const ButtonList = [
     '이공계_사기업',
@@ -56,7 +70,12 @@ export default function StudyMainPage() {
   
   return (
     <S.Wrapper>
-      <Modal modalName={MODALS.STUDY_MAKE_MODAL}/>
+      {page} 
+      <br />
+      {groupList.length}
+      <br />
+      {JSON.stringify(groupList)}
+      <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload}/>
       <S.SearchWrapper>
         <S.IconWrapper>
           <Icon type="search" alt="" />
@@ -92,6 +111,7 @@ export default function StudyMainPage() {
                 const count = member.filter((elem) => elem.id === val.id)[0];
                 return (
                   <StudyCardView
+                    id={val.id}
                     title={val.title}
                     description={val.description}
                     time={val.time}

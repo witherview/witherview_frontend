@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icon from '@components/Icon';
@@ -126,8 +127,9 @@ const ButtonText = styled.div`
 `;
 
 export default function StudyCardView({
-  title, description, time, member,
+  id, title, description, time, member,
 }) {
+  const history = useHistory();
   const [type, setType] = useState('clock_black');
   const [profile, setProfile] = useState('profile_blue');
   const hoverIn = () => {
@@ -162,7 +164,7 @@ export default function StudyCardView({
               /2
             </Text>
           </MemberWrapper>
-          <Button>
+          <Button onClick={()=>history.push(`/study-room/${id}`)}>
             <ButtonText>
               입장하기
             </ButtonText>

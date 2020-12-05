@@ -8,13 +8,13 @@ import SelfTrainStartModal from './SelfTrainStartModal';
 import StudyMakeModal from './StudyMakeModal';
 
 export default function Modal({
-  modalName,
+  modalName, func
 }) {
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: <QuestionListSaveModal />,
     [MODALS.SELF_TRAIN_START_MODAL]: <SelfTrainStartModal />,
-    [MODALS.STUDY_MAKE_MODAL]: <StudyMakeModal />,
+    [MODALS.STUDY_MAKE_MODAL]: <StudyMakeModal func={func} />,
   };
   return (
     <>
