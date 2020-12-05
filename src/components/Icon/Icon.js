@@ -12,6 +12,7 @@ const I = styled.i`
   display: inline-block;
   background-image: url(${iconImage});
   background-size: 1237px 876px;
+  background-color: transparent;
   border-radius: ${({ circle, size }) => (circle ? (size === 'xsm' ? '14px'
                         : size === 'sm' ? '21px'
                         : size === 'md' ? '28px'
@@ -104,8 +105,8 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
                                     : type === 'exit_blue' ? '-215px -594px'
                                     : type === 'check_large' ? '-369.5px -581px'
                                     : type === 'check_rec' ? '-541px -581px'
-                                    : type === 'thumb_up_white' ? '-707px -575px'
-                                    : type === 'thumb_down_white' ? '-878.5px -575px'
+                                    : type === 'thumb_up_white' ? '-695px -564px'
+                                    : type === 'thumb_down_white' ? '-871px -564px'
                                     : type === 'sound_big' ? '-71px -712px'
                                     : type === 'bubble_big' ? '-250px -712px'
                                     : type === 'memo_big' ? '-429px -712px'
@@ -144,13 +145,10 @@ export default function Icon({
     if (type === 'play_pupple' || type === 'cancel_circle' || type === 'pause' || type === 'play_blue' || type === 'cam' || type === 'audio' || type === 'capture') {
       setSize('mlg');
     }
-    if (type === 'check_large' || type === 'check_rec' || type === 'thumb_up_white' || type === 'thumb_down_white') {
+    if (type === 'check_large' || type === 'check_rec') {
       setSize('slg');
     }
-    if (type === 'thumb_up_white' || type === 'thumb_down_white') {
-      setSize('mxlg');
-    }
-    if (type === 'sound_big' || type === 'bubble_big' || type === 'memo_big' || type === 'star_big' || type === 'thumb_up_big' || type === 'thumb_down_big' || type === 'profile_big') {
+    if (type === 'sound_big' || type === 'bubble_big' || type === 'memo_big' || type === 'star_big' || type === 'thumb_up_big' || type === 'thumb_down_big' || type === 'profile_big' || type === 'thumb_up_white' || type === 'thumb_down_white') {
       setSize('xxlg');
     }
     if (type === 'check_square') {
