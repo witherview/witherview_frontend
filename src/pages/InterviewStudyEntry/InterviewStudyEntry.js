@@ -1,21 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@components/Button/Button';
 import ProfileIcon from '@components/ProfileIcon/ProfileIcon';
 import ToggleButton from '@components/ToggleButton/ToggleButton';
 
+import { getInterviewStudyRoomAPI } from '@repository/interviewStudyRepository';
 import S from './InterviewStudy.style';
 
-export default function InterviewStudyEntry() {
+export default function InterviewStudyEntry({ id }) {
+  const DEFAULT_ID = 421;
+  const [roomTitle, setRoomTitle] = useState();
+  const [dateInfoText, setDateInfoText] = useState();
+  const [description, setDescription] = useState();
+
+  const createDateInfo = (date, time) => {
+    let filteredDate = date.split('-').map((el, idx) => {
+      if (idx === 0) {
+        el = `${el}년 `;
+      } else if (idx === 1) {
+        el = `${el}월 `;
+      } else if (idx === 2) {
+        el = `${el}일 `;
+      }
+      return el;
+    }).join('');
+    if (time) {
+      filteredDate += `시간 ${time}`;
+    } else {
+      filteredDate += '시간 미정';
+    }
+    return filteredDate;
+  };
+
+  const fetchRoomInfo = async () => {
+    const { data } = await getInterviewStudyRoomAPI(DEFAULT_ID);
+    setRoomTitle(data.title);
+    const dateText = createDateInfo(data.date, data.time);
+    setDateInfoText(dateText);
+    setDescription(data.description);
+  };
+
+  useEffect(() => {
+    fetchRoomInfo();
+  }, []);
+
   return (
     <S.Wrapper>
       <S.WrapperContent>
         <S.InterviewRoomSection>
           <S.InterviewRoomInfo>
             <S.TextWrapper>
-              <S.RoomTitle>삼성전자 데이터분석 합격자만</S.RoomTitle>
-              <S.DateInfo>2020년 10월 3일 시간 미정</S.DateInfo>
-              <S.Description>삼성전자 GSAT 합격자만 오세요. 10월 19일 면접 대비하려고 합니다.</S.Description>
+              <S.RoomTitle>{roomTitle}</S.RoomTitle>
+              <S.DateInfo>{dateInfoText}</S.DateInfo>
+              <S.Description>{description}</S.Description>
             </S.TextWrapper>
             <S.BoxWrapper>
               <Button text="방 나가기" theme="gray" />
