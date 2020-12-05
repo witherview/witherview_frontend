@@ -1,12 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from '@components/Icon';
 import ProfileEdit from '@components/ProfileEdit';
+import { getUserApi } from '@repository/loginRepository';
 import S from './MyPage.style';
 import Box from './Box';
 
 export default function MyPage() {
   const name = sessionStorage.getItem('name');
   const email = sessionStorage.getItem('email');
+  const [info, setInfo] = useState([]);
+  const fetch = async () => {
+    getUserApi().then((response) => {
+      const data = response.data;
+      setInfo([
+        {
+          "type": "sound_big",
+          "title": "면접스터디 횟수",
+          "count": data?.groupStudyCnt,
+        },
+        {
+          "type": "bubble_big",
+          "title": "혼자연습 횟수",
+          "count": data?.selfPracticeCnt,
+        },
+        {
+          "type": "memo_big",
+          "title": "질문 리스트 갯수",
+          "count": data?.questionListCnt,
+        },
+        {
+          "type": "star_big",
+          "title": "면접 평균 점수",
+          "count": data?.interviewScore,
+        },
+        {
+          "type": "thumb_up_big",
+          "title": "합격 횟수",
+          "count": data?.passCnt,
+        },
+        {
+          "type": "thumb_down_big",
+          "title": "불합격 횟수",
+          "count": data?.failCnt,
+        },
+      ]);
+    });
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <>
       <S.Wrapper>
@@ -27,8 +70,8 @@ export default function MyPage() {
                 신뢰도
               </S.Reliability>
               <S.BarWrapper>
-                <S.Bar value="82" max="100" />
-                <S.BarText>82%</S.BarText>
+                <S.Bar value="96" max="100" />
+                <S.BarText>96%</S.BarText>
               </S.BarWrapper>
             </S.ProfileInfo>
           </S.Profile>
@@ -74,12 +117,9 @@ export default function MyPage() {
           </S.InfoWrapper>
         </S.ProfileWrapper>
         <S.BoxWrapper>
-          <Box type="sound_big" title="면접스터디 횟수" count={15} />
-          <Box type="bubble_big" title="혼자연습 횟수" count={6} />
-          <Box type="memo_big" title="질문 리스트 갯수" count={4} />
-          <Box type="star_big" title="면접 평균 점수" count={7.8} />
-          <Box type="thumb_up_big" title="합격 횟수" count={5} />
-          <Box type="thumb_down_big" title="불합격 횟수" count={2} />
+          {info?.map(val=>{
+            return  <Box type={val.type} title={val.title} count={val.count !== null ? val.count : 0} />
+          })}
         </S.BoxWrapper>
       </S.Wrapper>
     </>
