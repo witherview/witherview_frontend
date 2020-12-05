@@ -38,8 +38,6 @@ const WrapContent = styled.div`
     padding-top: 0px;
     width: 100%;
   }
-  @media only screen and (max-width: 1400px) {
-  }
   padding-top: 100px;
   display: flex;
   flex-direction: column;
