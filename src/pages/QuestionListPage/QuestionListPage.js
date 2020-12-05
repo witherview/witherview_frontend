@@ -69,12 +69,10 @@ export default function QuestionListPage() {
   }, []);
 
   const handleDelete = async (e, id) => {
-    if (e.target === e.currentTarget) {
-      await deleteQuestionListAPI(id).then(async () => {
-        setLoading(false);
-        await fetch();
-      });
-    }
+    await deleteQuestionListAPI(id).then(async () => {
+      setLoading(false);
+      await fetch();
+    });
   };
 
   return (
