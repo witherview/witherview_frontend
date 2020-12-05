@@ -11,10 +11,8 @@ import {
   handleNextButton,
   handleStepQuestion,
 } from '@store/Time/time';
-import {
-  setStep,
-} from '@store/Train/train';
-import { get } from '@utils/snippet';
+import { setStep } from '@store/Train/train';
+import { sortObjectByOrder, get } from '@utils/snippet';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
 
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
@@ -55,7 +53,12 @@ export default function SelfTrainPage() {
   const { name } = useSelector(get('auth'));
   const { time } = useSelector(get('time'));
   const {
-    company, job, viewAnswer, selectedQnaId, qnaStep, step,
+    company,
+    job,
+    viewAnswer,
+    selectedQnaId,
+    qnaStep,
+    step,
   } = useSelector(get('train'));
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
@@ -63,7 +66,7 @@ export default function SelfTrainPage() {
   const fetch = async (id) => {
     try {
       await getQuestionItemAPI(id).then((response) => {
-        setQuestionList(response.data);
+        setQuestionList(sortObjectByOrder(response.data));
       });
     } catch (err) {
       if (err.response.status === 401) {
@@ -111,6 +114,11 @@ export default function SelfTrainPage() {
       dispatch(startTime({ count: 180 }));
     }
   }, [step]);
+
+  // TODO: questionList의 원소가 1개일 경우에 처리하는 로직인데 바꿔야함;; 더 좋은 방법이 있을듯
+  useEffect(() => {
+    if (qnaStep === 1 && questionList.length === 1) { handleChecklistPage(); }
+  }, [qnaStep]);
 
   const isStepFirst = step === STEP_FIRST;
   const isLoading = step <= STEP_START;
@@ -176,7 +184,9 @@ export default function SelfTrainPage() {
                 theme="blue"
                 text={Fixture[step].button}
                 func={
+                  // TODO: 리펙토링 필요
                   qnaStep === questionList.length - 1
+                  && questionList.length !== 1
                     ? () => handleChecklistPage()
                     : () => {
                       if (step === STEP_START) startRecording();
