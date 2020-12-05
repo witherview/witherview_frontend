@@ -15,6 +15,7 @@ import QuestionPage from '@pages/QuestionPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
 import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
 import MyPage from '@pages/MyPage';
+import StudyMainPage from '@pages/StudyMainPage';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
@@ -42,7 +43,8 @@ export default function App() {
           <AuthRoute path="/question/:id" component={QuestionPage} />
           <AuthRoute path="/self-training" component={SelfTrainPage} />
           <AuthRoute path="/self-checklist" component={AloneQuestionCheckList} />
-          <AuthRoute exact path="/mypage" component={MyPage} />
+          <AuthRoute path="/mypage" component={MyPage} />
+          <AuthRoute path="/group-study" component={StudyMainPage} />
         </Wrapper>
         <Route component={NotFound} />
       </Switch>

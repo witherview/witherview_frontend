@@ -4,7 +4,7 @@ const Wrapper = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
-    margin-bottom: 50px;
+    margin: 53px 0 50px 245px;
 `;
 
 const SearchWrapper = styled.div`

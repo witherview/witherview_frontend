@@ -1,33 +1,51 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { getGroupListApi, getGroupMemberApi } from '@repository/groupRepository';
 import Icon from '@components/Icon';
 import TextButton from '@components/TextButton';
 import ProfileInfoContainer from '@components/ProfileInfoContainer/ProfileInfoContainer';
 import StudyCardView from '@components/StudyCardView';
 import S from './StudyMainPage.style';
-
-import StudyMainList from './StudyMainList.js';
+import { showModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
+import Modal from '@components/Modal/Modal';
+import usePageBottom from '@hooks/usePageBottom';
 
 export default function StudyMainPage() {
+  const dispatch = useDispatch();
+  const isPageBottom = usePageBottom();
   const [groupList, setGroupList] = useState([]);
   const [member, setMember] = useState([]);
+  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const fetch = async () => {
-    getGroupListApi().then((res) => {
+  const fetch = async (page) => {
+    getGroupListApi(page).then((res) => {
+      const unit = res.data.length === 0 ? 0 : 1;
       res.data.map((val) => {
         getGroupMemberApi(val.id).then((response) => {
           console.log(`id ${val.id} member: ${response.data.length}`);
           setMember((member) => [...member, { id: val.id, member: response.data.length }]);
         });
       });
-      setGroupList(res.data);
+      setGroupList((groupList)=>[...groupList, ...res.data]);
       setLoading(true);
+      setPage(page+unit);
     });
   };
 
+  const handleStudyAddModal = () => {
+    dispatch(showModal(MODALS.STUDY_MAKE_MODAL));
+  }
+
   useEffect(() => {
-    fetch();
+    fetch(page);
   }, []);
+
+  useEffect(()=>{
+    if (!isPageBottom) return;
+    fetch(page);
+  }, [isPageBottom])
+
   const ButtonList = [
     '이공계_사기업',
     '이공계_공기업',
@@ -35,8 +53,10 @@ export default function StudyMainPage() {
     '인문계_공기업',
     '자유_기타',
   ];
+  
   return (
     <S.Wrapper>
+      <Modal modalName={MODALS.STUDY_MAKE_MODAL}/>
       <S.SearchWrapper>
         <S.IconWrapper>
           <Icon type="search" alt="" />
@@ -60,7 +80,7 @@ export default function StudyMainPage() {
               </S.FilterWrapper>
             </S.ButtonWrapper>
             <S.StudyListWrapper>
-              <S.Wrap>
+              <S.Wrap onClick={handleStudyAddModal}>
                 <S.AddStudy>
                   <Icon type="add_black" />
                   <S.AddText>

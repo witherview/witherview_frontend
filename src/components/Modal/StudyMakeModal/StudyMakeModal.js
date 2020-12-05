@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { hideModal, showModal } from '@store/Modal/modal';
+import { hideModal } from '@store/Modal/modal';
 import Icon from '@components/Icon';
 import InputBar from '@components/InputBar';
 import Button from '@components/Button';
-// import { postQuestionListAPI, postQuestionItemAPI } from '@repository/groupRepository';
-import { get } from '@utils/snippet';
+import { postStudyApi } from '@repository/groupRepository';
 import { MODALS } from '@utils/constant';
 
 const Wrapper = styled.div`
@@ -154,13 +153,12 @@ const useStyles = makeStyles((theme) => ({
 export default function StudyStartModal() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const qeustionSelector = useSelector(get('question'));
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
-  const [enterprise, setEnterprise] = useState('산업을 선택해주세요.');
+  const [industry, setIndustry] = useState('산업을 선택해주세요.');
   const [job, setJob] = useState('직무를 선택해주세요.');
   const [select, setSelect] = useState({
-    enterprise: false,
+    industry: false,
     job: false,
   });
   const [date, setDate] = useState(
@@ -170,7 +168,7 @@ export default function StudyStartModal() {
   const [time, setTime] = useState(
     moment(new Date()).format('HH:mm'),
   );
-  const enterpriseList = [
+  const industryList = [
     '경영/사무',
     '마케팅/MD',
     '영업',
@@ -213,6 +211,23 @@ export default function StudyStartModal() {
     setTime(e.target.value);
   };
 
+  const handleMakeStudy = () => {
+    if(title === '' || description === '' || jobList.indexOf(job) === -1 || industryList.indexOf(industry) === -1) {
+      alert("입력값을 확인해 주세요.");
+      return;
+    }
+    postStudyApi({
+      title,
+      description,
+      job,
+      industry,
+      date,
+      time
+    }).then(()=>{
+      dispatch(hideModal(MODALS.STUDY_MAKE_MODAL));
+    })
+  }
+
   return (
     <>
       <Wrapper>
@@ -234,18 +249,18 @@ export default function StudyStartModal() {
               산업
             </InputText>
             <SelectList>
-              <Select onClick={() => handleToggle('enterprise')}>
+              <Select onClick={() => handleToggle('industry')}>
                 <SelectText>
-                  {enterprise}
+                  {industry}
                 </SelectText>
                 <Icon type="arrow_down_blue" alt="" />
               </Select>
-              {select.enterprise && (
+              {select.industry && (
               <SelectItemListWrapper>
                 <SelectItemList>
-                  {enterpriseList.map((val) => (
+                  {industryList.map((val) => (
                     <SelectItem>
-                      <SelectText onClick={() => handleSelect(setEnterprise, val, 'enterprise')}>
+                      <SelectText onClick={() => handleSelect(setIndustry, val, 'industry')}>
                         {val}
                       </SelectText>
                     </SelectItem>
@@ -258,7 +273,7 @@ export default function StudyStartModal() {
               진행 날짜
             </InputText>
             <PickerWrapper>
-              {select.enterprise || (
+              {select.industry || (
               <TextField
                 id="date"
                 type="date"
@@ -317,7 +332,7 @@ export default function StudyStartModal() {
           </RightWrapper>
         </SelectWrapper>
         <ButtonWrapper>
-          <Button text="방 개설" theme="blue" />
+          <Button text="방 개설" theme="blue" func={handleMakeStudy} />
         </ButtonWrapper>
       </Wrapper>
     </>
