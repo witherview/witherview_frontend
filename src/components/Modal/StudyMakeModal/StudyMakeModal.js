@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 import { hideModal, showModal } from '@store/Modal/modal';
+import Icon from '@components/Icon';
 import InputBar from '@components/InputBar';
 import Button from '@components/Button';
 // import { postQuestionListAPI, postQuestionItemAPI } from '@repository/groupRepository';
@@ -18,7 +22,7 @@ const Wrapper = styled.div`
 
 const InputWrapper = styled.div`
   width: 600px;
-  margin-top: ${({first})=> first ? '100px' : '45px'};
+  margin-top: ${({ first }) => (first ? '100px' : '45px')};
 `;
 
 const InputText = styled.div`
@@ -53,22 +57,166 @@ const RightWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 40px;
+  margin-top: 82px;
 `;
 
+const SelectList = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 45px;
+`;
+
+const Select = styled.div`
+  display: flex;
+  align-items: center;
+  width: 270px;
+  height: 60px;
+  box-sizing: border-box;
+  margin-top: 16px;
+  border-radius: 10px;
+  border: solid 1px #9e9e9e;
+  background-color: #ffffff;
+  z-index: 1000;
+`;
+
+const SelectItemListWrapper = styled.div`
+  position: absolute;
+  width: 270px;
+  height: 250px;
+  transform:translateY(56px);
+  overflow-y:auto; 
+  overflow-x:hidden; 
+  border-radius: 10px;
+  box-shadow: 0 12px 36px 0 rgba(4, 4, 161, 0.15);
+  background-color: #ffffff;
+`;
+
+const SelectItemList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow:visible;
+  z-index: 10;
+`;
+
+const SelectItem = styled.div`
+  display: flex;
+  width: 100%;
+  height: 52px;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  &:first-child {
+    margin-top: 20px;
+  }
+  &:hover {
+    background-color: #eef0ff;
+    &>div {
+      color: #0c0c59;
+    }
+  }
+`;
+
+const SelectText = styled.div`
+  width: 210px;
+  margin-left: 22px;
+  font-family: AppleSDGothicNeoM00;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: normal;
+  text-align: left;
+  color: #9e9e9e;
+`;
+
+const PickerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 270px;
+  height: 60px;
+  box-sizing: border-box;
+  margin-top: 16px;
+  border-radius: 10px;
+  border: solid 1px #9e9e9e;
+  background-color: #ffffff;
+`;
+
+const useStyles = makeStyles((theme) => ({
+  textField: {
+    width: '230px',
+    marginLeft: '21px',
+    color: '#9e9e9e',
+  },
+}));
+
 export default function StudyStartModal() {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const qeustionSelector = useSelector(get('question'));
   const [title, setTitle] = useState();
-  const [enterprise, setEnterprise] = useState();
-  const [job, setJob] = useState();
+  const [description, setDescription] = useState();
+  const [enterprise, setEnterprise] = useState('산업을 선택해주세요.');
+  const [job, setJob] = useState('직무를 선택해주세요.');
+  const [select, setSelect] = useState({
+    enterprise: false,
+    job: false,
+  });
+  const [date, setDate] = useState(
+    moment(new Date()).format('YYYY-MM-DD'),
+  );
+
+  const [time, setTime] = useState(
+    moment(new Date()).format('HH:mm'),
+  );
+  const enterpriseList = [
+    '경영/사무',
+    '마케팅/MD',
+    '영업',
+    'IT/인터넷',
+    '연구개발/설계',
+    '생산/품질',
+    '디자인',
+    '기타',
+  ];
+
+  const jobList = [
+    '금융/은행',
+    'IT',
+    '서비스/교육',
+    '보건/의약/바이오',
+    '제조',
+    '건설',
+    '예술/문화',
+    '기타',
+  ];
+
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
   };
+
+  const handleSelect = (set, value, type) => {
+    set(value);
+    setSelect({ ...select, [type]: !select[type] });
+  };
+
+  const handleToggle = (type) => {
+    setSelect({ ...select, [type]: !select[type] });
+  };
+
+  const handleChangeDate = (e) => {
+    setDate(e.target.value);
+  };
+
+  const handleChangeTime = (e) => {
+    setTime(e.target.value);
+  };
+
   return (
     <>
       <Wrapper>
-        <InputWrapper first={true}>
+        <InputWrapper first>
           <InputText>
             방 제목
           </InputText>
@@ -78,30 +226,100 @@ export default function StudyStartModal() {
           <InputText>
             방 설명
           </InputText>
-          <InputBar placeholder="설명을 입력해주세요." value={enterprise} onChange={(e) => handleInputChange(e, setEnterprise)} />
+          <InputBar placeholder="설명을 입력해주세요." value={description} onChange={(e) => handleInputChange(e, setDescription)} />
         </InputWrapper>
         <SelectWrapper>
-            <LeftWrapper>
-                <InputText>
-                    산업
-                </InputText>
-                <InputText>
-                    진행 날짜
-                </InputText>
-            </LeftWrapper>
-            <RightWrapper>
-                <InputText>
-                    직무
-                </InputText>
-                <InputText>
-                    진행 시간
-                </InputText>
-            </RightWrapper>
+          <LeftWrapper>
+            <InputText>
+              산업
+            </InputText>
+            <SelectList>
+              <Select onClick={() => handleToggle('enterprise')}>
+                <SelectText>
+                  {enterprise}
+                </SelectText>
+                <Icon type="arrow_down_blue" alt="" />
+              </Select>
+              {select.enterprise && (
+              <SelectItemListWrapper>
+                <SelectItemList>
+                  {enterpriseList.map((val) => (
+                    <SelectItem>
+                      <SelectText onClick={() => handleSelect(setEnterprise, val, 'enterprise')}>
+                        {val}
+                      </SelectText>
+                    </SelectItem>
+                  ))}
+                </SelectItemList>
+              </SelectItemListWrapper>
+              )}
+            </SelectList>
+            <InputText>
+              진행 날짜
+            </InputText>
+            <PickerWrapper>
+              {select.enterprise || (
+              <TextField
+                id="date"
+                type="date"
+                value={date}
+                className={classes.textField}
+                onChange={handleChangeDate}
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+              )}
+            </PickerWrapper>
+          </LeftWrapper>
+          <RightWrapper>
+            <InputText>
+              직무
+            </InputText>
+            <SelectList>
+              <Select onClick={() => handleToggle('job')}>
+                <SelectText>
+                  {job}
+                </SelectText>
+                <Icon type="arrow_down_blue" alt="" />
+              </Select>
+              {select.job && (
+              <SelectItemListWrapper>
+                <SelectItemList>
+                  {jobList.map((val) => (
+                    <SelectItem>
+                      <SelectText onClick={() => handleSelect(setJob, val, 'job')}>
+                        {val}
+                      </SelectText>
+                    </SelectItem>
+                  ))}
+                </SelectItemList>
+              </SelectItemListWrapper>
+              )}
+            </SelectList>
+            <InputText>
+              진행 시간
+            </InputText>
+            <PickerWrapper>
+              {select.job || (
+              <TextField
+                id="time"
+                type="time"
+                value={time}
+                className={classes.textField}
+                onChange={handleChangeTime}
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+              )}
+            </PickerWrapper>
+          </RightWrapper>
         </SelectWrapper>
         <ButtonWrapper>
-          <Button text="저장" theme="blue" />
+          <Button text="방 개설" theme="blue" />
         </ButtonWrapper>
       </Wrapper>
     </>
   );
-};
+}

@@ -14,15 +14,15 @@ export default function StudyMainPage() {
   const [loading, setLoading] = useState(false);
   const fetch = async () => {
     getGroupListApi().then((res) => {
-        res.data.map(val=>{
-            getGroupMemberApi(val.id).then((response) => {
-                console.log("id "+val.id+ " member: "+response.data.length);
-                setMember(member => [...member, {"id":val.id, "member": response.data.length}]);
-            });
+      res.data.map((val) => {
+        getGroupMemberApi(val.id).then((response) => {
+          console.log(`id ${val.id} member: ${response.data.length}`);
+          setMember((member) => [...member, { id: val.id, member: response.data.length }]);
         });
+      });
       setGroupList(res.data);
       setLoading(true);
-    })
+    });
   };
 
   useEffect(() => {
@@ -69,13 +69,13 @@ export default function StudyMainPage() {
                 </S.AddStudy>
               </S.Wrap>
               {groupList?.map((val) => {
-                const count = member.filter(elem=>elem['id'] === val.id)[0];
+                const count = member.filter((elem) => elem.id === val.id)[0];
                 return (
                   <StudyCardView
                     title={val.title}
                     description={val.description}
                     time={val.time}
-                    member={count && count['member']}
+                    member={count && count.member}
                   />
                 );
               })}
