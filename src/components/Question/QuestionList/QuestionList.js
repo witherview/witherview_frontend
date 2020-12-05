@@ -1,18 +1,28 @@
 import React, { useCallback } from 'react';
+
 import update from 'immutability-helper';
 import PropTypes from 'prop-types';
 import QuestionItem from '@components/Question/QuestionItem';
 
-export default function QuestionList({ questions, setQuestions }) {
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
-    const dragCard = questions[dragIndex];
-    setQuestions(update(questions, {
-      $splice: [
-        [dragIndex, 1],
-        [hoverIndex, 0, dragCard],
-      ],
-    }));
-  }, [questions]);
+export default function QuestionList({
+  questions,
+  setQuestions,
+  setDeletedItems,
+}) {
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = questions[dragIndex];
+      setQuestions(
+        update(questions, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard],
+          ],
+        }),
+      );
+    },
+    [questions],
+  );
 
   const handleQuestion = (e, title) => {
     const newQestion = questions.map((val) => {
@@ -32,13 +42,17 @@ export default function QuestionList({ questions, setQuestions }) {
 
   const renderCard = (card, index) => (
     <QuestionItem
-      key={card.id}
+      key={card.id || card.tempId}
       index={index}
       id={card.id}
       title={card.question}
       text={card.answer}
       moveCard={moveCard}
       handleQuestion={handleQuestion}
+      setQuestions={setQuestions}
+      tempId={card.tempId}
+      questions={questions}
+      setDeletedItems={setDeletedItems}
     />
   );
   return (
@@ -51,8 +65,10 @@ export default function QuestionList({ questions, setQuestions }) {
 QuestionList.propTypes = {
   questions: PropTypes.array,
   setQuestions: PropTypes.func,
+  setDeletedItems: () => {},
 };
 
 QuestionList.defaultProp = {
   questions: [],
+  setDeletedItems: () => {},
 };

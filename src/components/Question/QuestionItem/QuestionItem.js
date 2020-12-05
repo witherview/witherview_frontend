@@ -4,7 +4,6 @@ import { useDrag, useDrop } from 'react-dnd';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icon from '@components/Icon';
-import { deleteQuestionItemAPI } from '@repository/questionListRepository';
 
 const Wrapper = styled.div`
   display: flex;
@@ -56,7 +55,7 @@ const IconWrapper = styled.span`
   align-items: center;
   margin-left: auto;
   margin-right: 46px;
-  ${({ clicked }) => (clicked && 'transform: rotate(180deg)')}
+  ${({ clicked }) => clicked && 'transform: rotate(180deg)'}
 `;
 
 const AnswerBox = styled.div`
@@ -91,7 +90,16 @@ const ContenText = styled.textarea`
 `;
 
 export default function QuestionItem({
-  id, title, text, index, moveCard, handleQuestion,
+  id,
+  title,
+  text,
+  index,
+  moveCard,
+  handleQuestion,
+  setQuestions,
+  questions,
+  setDeletedItems,
+  tempId,
 }) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef(null);
@@ -133,9 +141,21 @@ export default function QuestionItem({
   };
 
   const handleDelete = () => {
-    deleteQuestionItemAPI(id).then(() => {
-      window.location.reload(false);
+    const processQuestions = questions.filter((val) => {
+      if (val.id !== id || val.tempId !== tempId) {
+        return val;
+      }
+      return undefined;
     });
+
+    if (id) {
+      setDeletedItems((items) => {
+        const temp = [...items, id];
+        return temp;
+      });
+    }
+
+    setQuestions(processQuestions);
   };
 
   return (
@@ -160,18 +180,27 @@ export default function QuestionItem({
 }
 
 QuestionItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   title: PropTypes.string,
   text: PropTypes.string,
   index: PropTypes.number.isRequired,
   moveCard: PropTypes.func.isRequired,
   handleQuestion: PropTypes.func,
+  setQuestions: PropTypes.func,
+  questions: PropTypes.array,
+  setDeletedItems: PropTypes.func,
+  tempId: PropTypes.number,
 };
 
 QuestionItem.defaultProp = {
-  id: 1,
+  id: undefined,
   title: 'Sample Title',
   text: 'Sample Question',
   index: 1,
   moveCard: () => {},
+  handleQuestion: () => {},
+  setQuestions: '',
+  questions: [],
+  setDeletedItems: () => {},
+  tempId: undefined,
 };
