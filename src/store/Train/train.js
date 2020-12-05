@@ -11,6 +11,7 @@ const { actions, reducer } = createSlice({
     selectedQnaId: 3,
     uploadedLocation: '',
     localBlob: '',
+    historyId: 0,
     isLoading: false,
     step: 0,
     qnaStep: 0,
@@ -64,6 +65,12 @@ const { actions, reducer } = createSlice({
         localBlob,
       };
     },
+    setHistoryId(state, { payload: { historyId } }) {
+      return {
+        ...state,
+        historyId,
+      };
+    },
     setIsLoading(state, { payload: { isLoading } }) {
       return {
         ...state,
@@ -94,6 +101,7 @@ export const {
   setSelectedQnaId,
   setUploadedLocation,
   setLocalBlob,
+  setHistoryId,
   setIsLoading,
   setStep,
   setQnaStep,

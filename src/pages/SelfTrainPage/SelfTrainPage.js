@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Timeout from 'await-timeout';
 
@@ -11,10 +12,10 @@ import {
   handleNextButton,
   handleStepQuestion,
 } from '@store/Time/time';
-import { setStep } from '@store/Train/train';
+import { setStep, setHistoryId } from '@store/Train/train';
 import { sortObjectByOrder, get } from '@utils/snippet';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
-
+import { postPreVideoApi } from '@repository/requestVideoRepository';
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
 import CamView from '@components/CamView';
@@ -40,7 +41,8 @@ const STEP_START = 3;
 const STEP_ING = 4;
 const TOGGLE_SCRIPT = 5;
 
-export default function SelfTrainPage() {
+export default function SelfTrainPage({ match }) {
+  const { id } = match.params;
   const transition = new Timeout();
 
   const history = useHistory();
@@ -53,19 +55,16 @@ export default function SelfTrainPage() {
   const { name } = useSelector(get('auth'));
   const { time } = useSelector(get('time'));
   const {
-    company,
-    job,
-    viewAnswer,
-    selectedQnaId,
-    qnaStep,
-    step,
-  } = useSelector(get('train'));
+    company, job, viewAnswer, qnaStep, step,
+  } = useSelector(
+    get('train'),
+  );
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
-  const fetch = async (id) => {
+  const fetch = async (requestId) => {
     try {
-      await getQuestionItemAPI(id).then((response) => {
+      await getQuestionItemAPI(requestId).then((response) => {
         setQuestionList(sortObjectByOrder(response.data));
       });
     } catch (err) {
@@ -77,7 +76,7 @@ export default function SelfTrainPage() {
   };
 
   useEffect(() => {
-    fetch(selectedQnaId);
+    fetch(id);
   }, []);
 
   const handleCancel = async () => {
@@ -87,10 +86,13 @@ export default function SelfTrainPage() {
     dispatch(handleReset({ keepTrain: false }));
   };
 
-  const handleChecklistPage = async () => {
-    await stopRecording();
-    history.push('/self-checklist');
-    dispatch(handleReset({ keepTrain: true }));
+  const handleChecklistPage = () => {
+    postPreVideoApi({ questionListId: id }).then((response) => {
+      dispatch(setHistoryId({ historyId: response.data.id }));
+      stopRecording();
+      history.push(`/self-checklist/${id}`);
+      dispatch(handleReset({ keepTrain: true }));
+    });
   };
 
   useEffect(() => {
@@ -117,7 +119,9 @@ export default function SelfTrainPage() {
 
   // TODO: questionList의 원소가 1개일 경우에 처리하는 로직인데 바꿔야함;; 더 좋은 방법이 있을듯
   useEffect(() => {
-    if (qnaStep === 1 && questionList.length === 1) { handleChecklistPage(); }
+    if (qnaStep === 1 && questionList.length === 1) {
+      handleChecklistPage();
+    }
   }, [qnaStep]);
 
   const isStepFirst = step === STEP_FIRST;

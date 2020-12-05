@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {
   useState, useEffect, useCallback, useRef,
 } from 'react';
@@ -8,7 +9,11 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { postVideoApi, getVideoApi } from '@repository/requestVideoRepository';
-import { setUploadedLocation, setToggleTrain, setIsLoading } from '@store/Train/train';
+import {
+  setUploadedLocation,
+  setToggleTrain,
+  setIsLoading,
+} from '@store/Train/train';
 
 import { get } from '@utils/snippet';
 import Button from '@components/Button';
@@ -224,10 +229,11 @@ const SmallCheckList = styled.div`
   }
 `;
 
-export default function AloneQuestionCheckList() {
+export default function AloneQuestionCheckList({ match }) {
+  const { id } = match.params;
   const dispatch = useDispatch();
   const history = useHistory();
-  const { localBlob, selectedQnaId } = useSelector(get('train'));
+  const { localBlob, historyId } = useSelector(get('train'));
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
   const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
   const video = useRef();
@@ -296,8 +302,8 @@ export default function AloneQuestionCheckList() {
   );
 
   const selfTraingAgain = useCallback(() => {
-    history.push(`/question/${selectedQnaId}`);
-  }, [selectedQnaId]);
+    history.push(`/question/${id}`);
+  }, [id]);
 
   const initCheckList = useCallback(() => {
     setCheckListArray(Array(14).fill(false));
@@ -315,14 +321,14 @@ export default function AloneQuestionCheckList() {
       const blob = responseFirst.data;
 
       formData.append('videoFile', blob);
-      // TODO: 이부분 앞페이지에서 넘어올 때 response 받는 historyId로 변경해야 함 <- 백엔드 배포 후 적용
-      formData.append('questionListId', selectedQnaId);
+      formData.append('historyId', historyId);
       postVideoApi(formData)
         .then((responseSecond) => {
-          const { id } = responseSecond.data;
           getVideoApi().then((resp) => {
             dispatch(setIsLoading({ isLoading: false }));
-            const { savedLocation } = resp.data.find((elem) => elem.id === id);
+            const { savedLocation } = resp.data.find(
+              (elem) => elem.id === responseSecond.data.id,
+            );
             dispatch(setUploadedLocation({ savedLocation }));
             // TODO: 모달로 바꾸기?
             alert('저장 완료!');
@@ -405,11 +411,7 @@ export default function AloneQuestionCheckList() {
             </ControlWrapper>
           </VideoContainer>
           <ButtonsWrapper>
-            <Button
-              text="다시 연습하기"
-              theme="blue"
-              func={selfTraingAgain}
-            />
+            <Button text="다시 연습하기" theme="blue" func={selfTraingAgain} />
             <Button
               text="연습 영상 저장"
               theme="white"
