@@ -67,9 +67,8 @@ export default function QuestionListPage() {
 
   const handleDelete = async (e, id) => {
     if (e.target === e.currentTarget) {
-      await deleteQuestionListAPI(id).then((response) => {
-        console.log(response);
-      });
+      // TOOD: 500 Error 발생
+      await deleteQuestionListAPI(id).then(() => {});
     }
   };
 

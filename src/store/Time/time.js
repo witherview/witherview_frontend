@@ -21,7 +21,6 @@ const timeReducer = createSlice({
         time,
       };
     },
-
     setTimerId(state, { payload: { timerId } }) {
       return {
         ...state,

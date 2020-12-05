@@ -10,7 +10,7 @@ const Box = styled.div`
   height: 270px;
   border-radius: 10px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid  ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')};
+  border: solid ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')};
   background-color: #ffffff;
   box-sizing: content-box;
   user-select: none;
@@ -104,7 +104,7 @@ const SubTitle = styled.div`
   max-width: 250px;
   max-height: 30px;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
   word-wrap: normal;
   font-family: AppleSDGothicNeoB00;
@@ -146,7 +146,11 @@ const DeleteText = styled.div`
 `;
 
 export default function QuestionCardView({
-  id, number, title, description, handleDelete,
+  id,
+  number,
+  title,
+  description,
+  handleDelete,
 }) {
   const [clicked, setClicked] = useState(false);
   const history = useHistory();
@@ -167,12 +171,11 @@ export default function QuestionCardView({
       <Box onClick={handleMove}>
         <IconBox onClick={handleClick} />
         <Content onClick={handleMove}>
-          { clicked && (
-          <Delete onClick={(e) => handleDelete(e, id)}>
-            <DeleteText>
-              삭제
-            </DeleteText>
-          </Delete>
+          {/* TOOD: 500 Error 발생 */}
+          {clicked && (
+            <Delete onClick={(e) => handleDelete(e, id)}>
+              <DeleteText>삭제</DeleteText>
+            </Delete>
           )}
           <Number>
             <NumberText>{number}</NumberText>
@@ -184,16 +187,12 @@ export default function QuestionCardView({
           </Number>
           <Line />
           <Title>
-            <TitleText>
-              {title}
-            </TitleText>
+            <TitleText>{title}</TitleText>
             <Icon type="post" alt="" />
           </Title>
           <SubTitle>{description}</SubTitle>
         </Content>
-
       </Box>
-
     </>
   );
 }
