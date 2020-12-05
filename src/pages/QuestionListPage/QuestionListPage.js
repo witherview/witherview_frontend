@@ -55,20 +55,25 @@ export default function QuestionListPage() {
   const authSelector = useSelector(get('auth'));
   const [questionList, setQuestionList] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const fetch = async () => {
     getQuestionListAPI().then((response) => {
+      console.log(response.data);
       setQuestionList(response.data);
       setLoading(true);
     });
   };
+
   useEffect(() => {
     fetch();
   }, []);
 
   const handleDelete = async (e, id) => {
     if (e.target === e.currentTarget) {
-      // TOOD: 500 Error 발생
-      await deleteQuestionListAPI(id).then(() => {});
+      await deleteQuestionListAPI(id).then(async () => {
+        setLoading(false);
+        await fetch();
+      });
     }
   };
 
