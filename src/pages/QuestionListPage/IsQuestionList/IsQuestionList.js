@@ -21,7 +21,7 @@ const ItemWrapper = styled.div`
 `;
 
 const AddQuestionList = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   width: 334px;
   height: 270px;
@@ -35,7 +35,7 @@ const IconWrapper = styled.div`
 `;
 
 const AddText = styled.div`
-  margin-top:30px;
+  margin-top: 30px;
   font-family: AppleSDGothicNeoB00;
   font-size: 24px;
   font-weight: normal;
@@ -57,19 +57,17 @@ export default function IsQuestionList({ questionList, handleDelete }) {
               <IconWrapper>
                 <Icon type="add_black" alt="icon" />
               </IconWrapper>
-              <AddText>
-                질문 리스트 추가
-              </AddText>
+              <AddText>질문 리스트 추가</AddText>
             </AddQuestionList>
           </Link>
         </ItemWrapper>
-        {questionList?.map((val) => {
+        {questionList?.map((val, index) => {
           const [count, setCount] = useState(0);
           getQuestionItemAPI(val.id).then((response) => {
             setCount(response.data.length);
           });
           return (
-            <ItemWrapper>
+            <ItemWrapper key={`itemQ-${index}`}>
               <QuestionCardView
                 id={val.id}
                 number={count}

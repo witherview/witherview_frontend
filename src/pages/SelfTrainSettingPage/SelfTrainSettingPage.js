@@ -1,7 +1,13 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect } from 'react';
 
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setCompany, setJob, setViewAnswer } from '@store/Train/train';
+import { get } from '@utils/snippet';
+import { getQuestionListAPI } from '@repository/questionListRepository';
 import TextBox from '@components/TextBox';
 import Button from '@components/Button';
 import TimeButton from '@components/TimeButton';
@@ -49,7 +55,28 @@ const WrapText = styled.div`
   ${({ padding }) => (padding ? 'padding-bottom: 20px' : 'padding-right: 25px')};
 `;
 
-export default function SelfTrainSettingPage() {
+export default function SelfTrainSettingPage({ match }) {
+  const { id } = match.params;
+  const dispatch = useDispatch();
+  const { selectedQnaId, job, company } = useSelector(get('train'));
+  const { standardTime } = useSelector(get('train'));
+
+  const history = useHistory();
+
+  const fetch = async () => {
+    getQuestionListAPI().then((response) => {
+      const exactData = response.data.filter(
+        (each) => each.id === Number(id),
+      )[0];
+      dispatch(setCompany({ company: exactData.title }));
+      dispatch(setJob({ job: exactData.job }));
+    });
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <Wrapper>
       <WrapContent>
@@ -66,18 +93,33 @@ export default function SelfTrainSettingPage() {
           </WrapSubContainer>
           <WrapToggle>
             <WrapText>답변 보기 허용</WrapText>
-            <ToggleButton />
+            <ToggleButton
+              funcActive={() => dispatch(setViewAnswer({ viewAnswer: true }))}
+              funcDecative={() => dispatch(setViewAnswer({ viewAnswer: false }))}
+            />
           </WrapToggle>
           <div>
             <WrapText padding>기업 이름</WrapText>
-            <InputBar width={967} />
+            <InputBar
+              value={company}
+              onChange={(e) => dispatch(setCompany({ company: e.target.value }))}
+              width={967}
+            />
           </div>
           <div>
             <WrapText padding>직무 이름</WrapText>
-            <InputBar width={967} />
+            <InputBar
+              value={job}
+              onChange={(e) => dispatch(setJob({ job: e.target.value }))}
+              width={967}
+            />
           </div>
         </WrapContainer>
-        <Button theme="blue" text="다음" />
+        <Button
+          theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
+          text="다음"
+          func={() => history.push(`/self-train/${selectedQnaId}`)}
+        />
       </WrapContent>
     </Wrapper>
   );

@@ -11,13 +11,14 @@ const Box = styled.div`
   height: 60px;
   border-radius: 10px;
   user-select: none;
-  &: hover {
+  ${({ theme }) => theme === 'blue'
+    && `&: hover {
     opacity: 70%;
-  }
+    }`}
   ${({ theme }) => (theme === 'blue'
       ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
       : theme === 'gray'
-      ? 'background-color: #f6f6f6;'
+      ? 'background-color: #f6f6f6; pointer-events: none;'
       : theme === 'outline'
       ? 'background-color: white; border: solid 2px #6e6eff;'
       : theme === 'white'

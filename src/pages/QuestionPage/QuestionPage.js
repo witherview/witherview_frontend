@@ -4,15 +4,23 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { sortObjectByOrder, get } from '@utils/snippet';
+import {
+  deleteQuestionItemAPI,
+  getQuestionItemAPI,
+  postQuestionItemAPI,
+  patchQuestionItemAPI,
+} from '@repository/questionListRepository';
+
 import Button from '@components/Button';
 import ProfileMenuContiner from '@components/ProfileMenuContainer';
-import { getQuestionItemAPI, postQuestionItemAPI, patchQuestionItemAPI } from '@repository/questionListRepository';
-import { get } from '@utils/snippet';
+import { setSelectedQnaId } from '@store/Train/train';
+import { AddQuestions, ResetQuestions } from '@store/Question/question';
+
 import Icon from '@components/Icon';
 import QuestionList from '@components/Question/QuestionList';
 import Modal from '@components/Modal/Modal';
 import { showModal } from '@store/Modal/modal';
-import { AddQuestions } from '@store/Question/question';
 import { MODALS } from '@utils/constant';
 
 const PageWrapper = styled.div`
@@ -26,17 +34,17 @@ const ContentWrapper = styled.div`
 `;
 
 const ProfileWrapper = styled.div`
-    float: right;
-    margin: 53px 105px 0 0;
+  float: right;
+  margin: 53px 105px 0 0;
 `;
 
 const Wrapper = styled.div`
-    display: flex;
-    width: 100%;
-    height: 100vh-137px;
-    margin-top: 137px;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  height: 100vh-137px;
+  margin-top: 137px;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Input = styled.div`
@@ -48,14 +56,14 @@ const Input = styled.div`
 `;
 
 const Title = styled.div`
-    font-family: AppleSDGothicNeoEB00;
-    font-size: 36px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.44;
-    letter-spacing: normal;
-    color: #000000;
+  font-family: AppleSDGothicNeoEB00;
+  font-size: 36px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: normal;
+  color: #000000;
 `;
 
 const InputQuestion = styled.input`
@@ -75,7 +83,7 @@ const InputQuestion = styled.input`
 const IconWrapper = styled.span`
   width: 63px;
   height: 63px;
-  transform:translate(-17px, -2px);
+  transform: translate(-17px, -2px);
 `;
 
 const Text = styled.div`
@@ -112,46 +120,69 @@ const ButtonWrapper = styled.div`
 export default function QuestionPage({ match }) {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
-  const qeustionSelector = useSelector(get('question'));
   const [questionList, setQuestionList] = useState([]);
+  const [deletedItems, setDeletedItems] = useState([]);
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const { id } = match.params;
   const fetch = async () => {
     if (id !== 'new') {
       getQuestionItemAPI(id).then((response) => {
-        setQuestionList(response.data);
+        setQuestionList(sortObjectByOrder(response.data));
       });
     }
   };
+
   useEffect(() => {
     fetch();
     setLoading(true);
+    return () => dispatch(ResetQuestions());
   }, []);
 
-  const handleQuestionMake = () => {
-    // TODO: 비동기 처리 해야함. dispatch후에 아래의 과정 처리해야함.
-    dispatch(AddQuestions({ questions: questionList }));
+  const handleQuestionMake = async () => {
+    if (deletedItems) {
+      await deletedItems.map((eachId) => deleteQuestionItemAPI(eachId).then(() => {}));
+    }
+
+    const questionListAsc = questionList.map((question, index) => ({
+      ...question,
+      order: index,
+    }));
+
     if (id === 'new') {
+      dispatch(AddQuestions({ questions: questionListAsc }));
       dispatch(showModal(MODALS.QUESTIONLIST_SAVE_MODAL));
     } else {
-      console.log(qeustionSelector);
-      const storedQuestions = qeustionSelector.questions;
-      const Old = storedQuestions.filter((val) => val.id !== undefined).map((elem) => ({
-        id: elem.id,
-        answer: elem.answer,
-        order: elem.order,
-        question: elem.question,
-      }));
-      const New = storedQuestions.filter((val) => val.id === undefined);
+      const Old = questionListAsc
+        .filter((val) => val.id !== undefined && val.tempId === undefined)
+        .map((elem) => ({
+          id: elem.id,
+          answer: elem.answer,
+          order: elem.order,
+          question: elem.question,
+        }));
+
+      const New = questionListAsc
+        .filter((val) => val.id === undefined && val.tempId !== undefined)
+        .map((elem) => ({
+          ...elem,
+          id: elem.tempId,
+        }));
+
       if (New.length !== 0) {
-        postQuestionItemAPI({ listId: id, questions: New }).then(() => {
-          // TODO: 혼자연습하기로 가기
+        await postQuestionItemAPI({
+          listId: id,
+          questions: New,
+        }).then(() => {
+          dispatch(setSelectedQnaId({ selectedQnaId: id }));
         });
       }
-      patchQuestionItemAPI(Old).then(() => {
-        // TODO: 혼자연습하기로 가기
-      });
+
+      if (Old.length !== 0) {
+        await patchQuestionItemAPI(Old).then(() => {
+          dispatch(setSelectedQnaId({ selectedQnaId: id }));
+        });
+      }
       dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
     }
   };
@@ -160,11 +191,29 @@ export default function QuestionPage({ match }) {
     setTitle(e.target.value);
   };
 
+  const getIdWithoutInfinity = () => {
+    const elementId = Math.max(...questionList.map((o) => o.id || o.tempId));
+    if (elementId === -Infinity) {
+      return 0;
+    }
+    return elementId + 1;
+  };
+
   const handleQuestionAdd = () => {
-    setQuestionList([...questionList, { question: title, order: questionList.length, answer: '' }]);
+    const elementId = getIdWithoutInfinity();
+    setQuestionList([
+      ...questionList,
+      {
+        question: title,
+        order: questionList.length + 1,
+        tempId: elementId,
+        answer: '',
+      },
+    ]);
     setTitle('');
   };
 
+  const isListEmpty = questionList.length < 1;
   return (
     <>
       <PageWrapper>
@@ -175,39 +224,48 @@ export default function QuestionPage({ match }) {
             <ProfileMenuContiner name={authSelector.name} />
           </ProfileWrapper>
           <Wrapper>
-            <Title>
-              면접 질문 작성 및 수정하기
-            </Title>
+            <Title>면접 질문 작성 및 수정하기</Title>
             <Input>
-              <InputQuestion placeholder="질문을 입력하세요." value={title} onChange={handleTitle} />
+              <InputQuestion
+                placeholder="질문을 입력하세요."
+                value={title}
+                onChange={handleTitle}
+              />
               <IconWrapper>
-                <Icon type="check_rec" func={handleQuestionAdd} />
+                <Icon
+                  type="check_rec"
+                  func={handleQuestionAdd}
+                  alt="check rec"
+                />
               </IconWrapper>
             </Input>
           </Wrapper>
-          {loading
-            && (
-              <>
-                {questionList && questionList.length === 0
-                  ? (
-                    <Text>
-                      등록된 질문이 없습니다.
-                    </Text>
-                  )
-                  : (
-                    <ListWrapper>
-                      <Scroll>
-                        <DndProvider backend={HTML5Backend}>
-                          <QuestionList questions={questionList} setQuestions={setQuestionList} />
-                        </DndProvider>
-                      </Scroll>
-                    </ListWrapper>
-                  )}
-                <ButtonWrapper onClick={handleQuestionMake}>
-                  <Button text={id === 'new' ? '저장' : '완료'} theme="blue" />
-                </ButtonWrapper>
-              </>
-            )}
+          {loading && (
+            <>
+              {questionList && questionList.length === 0 ? (
+                <Text>등록된 질문이 없습니다.</Text>
+              ) : (
+                <ListWrapper>
+                  <Scroll>
+                    <DndProvider backend={HTML5Backend}>
+                      <QuestionList
+                        questions={questionList}
+                        setQuestions={setQuestionList}
+                        setDeletedItems={setDeletedItems}
+                      />
+                    </DndProvider>
+                  </Scroll>
+                </ListWrapper>
+              )}
+              <ButtonWrapper>
+                <Button
+                  func={handleQuestionMake}
+                  text={id === 'new' ? '저장' : '완료'}
+                  theme={isListEmpty ? 'gray' : 'blue'}
+                />
+              </ButtonWrapper>
+            </>
+          )}
         </ContentWrapper>
       </PageWrapper>
     </>

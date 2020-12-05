@@ -1,10 +1,15 @@
 import React, {
   useState, useEffect, useCallback, useRef,
 } from 'react';
-import PropTypes from 'prop-types';
+
+import axios from 'axios';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { postVideoApi, getVideoApi } from '@repository/requestVideoRepository';
+import { setUploadedLocation, setToggleTrain, setIsLoading } from '@store/Train/train';
+
 import { get } from '@utils/snippet';
 import Button from '@components/Button';
 import Icon from '@components/Icon';
@@ -62,38 +67,38 @@ const VideoContainer = styled.figure`
 `;
 
 const ControlWrapper = styled.div`
-  overflow:hidden;
-  background-color:#ffffff;
-  width:100%;
-  position:relative;
-  border-radius:10px;
-  margin-top:10px;
-  padding:10px;
-  box-sizing:border-box;
+  overflow: hidden;
+  background-color: #ffffff;
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  box-sizing: border-box;
 
-  &[data-state=hidden] {
-    display:none;
+  &[data-state="hidden"] {
+    display: none;
   }
-  &[data-state=visible] {
-    display:block;
+  &[data-state="visible"] {
+    display: block;
   }
 `;
 
 const ButtonWrapper = styled.button`
-  display:block;
-  height:100%;
-  float:left;
-  border:none;
-  cursor:pointer;
-  background:transparent;
-  margin:0;
-  padding:0;
-  
+  display: block;
+  height: 100%;
+  float: left;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+
   &:focus {
     outline: none;
   }
   &:hover {
-    opacity:0.5;  
+    opacity: 0.5;
   }
 `;
 
@@ -106,22 +111,22 @@ const ProgressWrapper = styled.div`
   padding: 0;
 
   & progress {
-    display:block;
-    width:100%;
-    margin-top:1.125rem;
-    border:none;
-    overflow:hidden;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px;
-    border-radius:2px;
-    color:#6e6eff;
-    cursor:pointer;
+    display: block;
+    width: 100%;
+    margin-top: 1.125rem;
+    border: none;
+    overflow: hidden;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: #6e6eff;
+    cursor: pointer;
 
     &::-moz-progress-bar {
-      background-color:#6e6eff;
+      background-color: #6e6eff;
     }
     &::-webkit-progress-value {
-      background-color:#6e6eff;
+      background-color: #6e6eff;
     }
     &::-webkit-progress-bar {
       background-color: #d3d3d3;
@@ -219,22 +224,30 @@ const SmallCheckList = styled.div`
   }
 `;
 
-export default function AloneQuestionCheckList({ src }) {
+export default function AloneQuestionCheckList() {
+  const dispatch = useDispatch();
   const history = useHistory();
-  const { localBlob } = useSelector(get('train'));
-  const [nextActionBtn, setNextActionBtn] = useState(1);
+  const { localBlob, selectedQnaId } = useSelector(get('train'));
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
   const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
   const video = useRef();
   const videoControls = useRef();
   const playpause = useRef();
   const progress = useRef();
+
   useEffect(() => {
+    dispatch(setToggleTrain({ toggleTrain: true }));
     video.current.controls = false;
     videoControls.current.setAttribute('data-state', 'visible');
+
+    return () => dispatch(setToggleTrain({ toggleTrain: false }));
   }, []);
 
-  const loadVideoMetaData = useCallback(() => progress.current.setAttribute('max', video.current.duration), []);
+  const loadVideoMetaData = useCallback(
+    () => progress.current.setAttribute('max', video.current.duration),
+    [],
+  );
+
   const changeButtonState = useCallback(() => {
     if (video.current.paused || video.current.ended) {
       playpause.current.setAttribute('data-state', 'play');
@@ -244,7 +257,9 @@ export default function AloneQuestionCheckList({ src }) {
   }, []);
 
   const onPlay = useCallback(() => changeButtonState(), []);
+
   const onPause = useCallback(() => changeButtonState(), []);
+
   const onPlayPause = useCallback(() => {
     if (video.current.paused || video.current.ended) {
       video.current.play();
@@ -265,43 +280,70 @@ export default function AloneQuestionCheckList({ src }) {
   }, []);
 
   const onProgressClck = useCallback((evt) => {
-    const pos = (
-      evt.pageX - (progress.current.offsetLeft + progress.current.offsetParent.offsetLeft)
-    ) / progress.current.offsetWidth;
+    const pos = (evt.pageX
+        - (progress.current.offsetLeft
+          + progress.current.offsetParent.offsetLeft))
+      / progress.current.offsetWidth;
     video.current.currentTime = pos * video.current.duration;
   }, []);
 
-  const onCheck = useCallback((evt) => {
-    const newCheckList = checkListArray.map(
-      (item, idx) => (idx === parseInt(evt.target.parentNode.id, 10) ? !item : item),
-    );
-    setCheckListArray(newCheckList);
-  }, [checkListArray]);
+  const onCheck = useCallback(
+    (evt) => {
+      const newCheckList = checkListArray.map((item, idx) => (idx === parseInt(evt.target.parentNode.id, 10) ? !item : item));
+      setCheckListArray(newCheckList);
+    },
+    [checkListArray],
+  );
 
   const selfTraingAgain = useCallback(() => {
-    setNextActionBtn(1);
-    history.push('/question/:id');
-  }, [nextActionBtn]);
+    history.push(`/question/${selectedQnaId}`);
+  }, [selectedQnaId]);
 
   const initCheckList = useCallback(() => {
-    setNextActionBtn(3);
     setCheckListArray(Array(14).fill(false));
-  }, [nextActionBtn]);
+  }, []);
 
   const saveInterviewVideo = useCallback(() => {
-    setNextActionBtn(2);
-    history.push('/questionlist');
-  }, [nextActionBtn]);
+    const formData = new FormData();
+    // TODO: Repository 만들기
+    axios({
+      method: 'get',
+      responseType: 'blob',
+      url: localBlob,
+    }).then((responseFirst) => {
+      dispatch(setIsLoading({ isLoading: true }));
+      const blob = responseFirst.data;
 
-  const saveCheckList = useCallback(() => {
-    setNextActionBtn(4);
-    history.push('/questionlist');
-  }, [nextActionBtn]);
+      formData.append('videoFile', blob);
+      // TODO: 이부분 앞페이지에서 넘어올 때 response 받는 historyId로 변경해야 함 <- 백엔드 배포 후 적용
+      formData.append('questionListId', selectedQnaId);
+      postVideoApi(formData)
+        .then((responseSecond) => {
+          const { id } = responseSecond.data;
+          getVideoApi().then((resp) => {
+            dispatch(setIsLoading({ isLoading: false }));
+            const { savedLocation } = resp.data.find((elem) => elem.id === id);
+            dispatch(setUploadedLocation({ savedLocation }));
+            // TODO: 모달로 바꾸기?
+            alert('저장 완료!');
+          });
+        })
+        .catch((err) => {
+          dispatch(setIsLoading({ isLoading: false }));
+          alert(err);
+        });
+    });
+  }, [localBlob]);
 
   return (
     <Background>
       <CloseButton type="button">
-        <Icon type="cancel_circle" isCircle alt="close" func={() => history.push('/self-training')} />
+        <Icon
+          type="cancel_circle"
+          isCircle
+          alt="close"
+          func={() => history.push('/self')}
+        />
       </CloseButton>
       <EndingTitle>
         면접이 종료 되었습니다. 체크리스트를 통해 스스로 평가를 해보세요.
@@ -309,34 +351,82 @@ export default function AloneQuestionCheckList({ src }) {
       <Content>
         <LeftContent>
           <VideoContainer>
-            <video ref={video} controls preload="metadata" onLoadedMetadata={loadVideoMetaData} onPlay={onPlay} onPause={onPause} onTimeUpdate={onTimeUpdate}>
-              <track src="" kind="captions" srcLang="ko" label="korean_captions" />
+            <video
+              src={localBlob}
+              ref={video}
+              controls
+              preload="metadata"
+              onLoadedMetadata={loadVideoMetaData}
+              onPlay={onPlay}
+              onPause={onPause}
+              onTimeUpdate={onTimeUpdate}
+            >
+              <track
+                src=""
+                kind="captions"
+                srcLang="ko"
+                label="korean_captions"
+              />
               {/* TODO: 지금은 로컬 blob을 보여주고 있으나 이부분 서버 HLS url을 적용하는 방식으로 처리해야 함 */}
-              <source src={localBlob} type="video/mp4" />
+              <source type="video/mp4" />
             </video>
             <ControlWrapper ref={videoControls} data-state="hidden">
-              <ButtonWrapper ref={playpause} type="button" data-state="play" onClick={onPlayPause}>
-                <Icon type={playPauseBtn ? 'play_blue' : 'pause'} isCircle alt="play/button" />
+              <ButtonWrapper
+                ref={playpause}
+                type="button"
+                data-state="play"
+                onClick={onPlayPause}
+              >
+                <Icon
+                  type={playPauseBtn ? 'play_blue' : 'pause'}
+                  isCircle
+                  alt="play/button"
+                />
               </ButtonWrapper>
               <ProgressWrapper>
-                <progress ref={progress} value="0" min="0" onClick={onProgressClck} />
+                <progress
+                  ref={progress}
+                  value="0"
+                  min="0"
+                  onClick={onProgressClck}
+                />
                 <CheckPointWrapper>
-                  {[25, 50, 75].map(
-                    (item) => (
-                      <CheckPoint point={item} key={`${item}point`}>
-                        <Icon type="arrow_up_blue" alt="section" func={onProgressClck} />
-                      </CheckPoint>
-                    ),
-                  )}
+                  {[25, 50, 75].map((item) => (
+                    <CheckPoint point={item} key={`${item}point`}>
+                      <Icon
+                        type="arrow_up_blue"
+                        alt="section"
+                        func={onProgressClck}
+                      />
+                    </CheckPoint>
+                  ))}
                 </CheckPointWrapper>
               </ProgressWrapper>
             </ControlWrapper>
           </VideoContainer>
           <ButtonsWrapper>
-            <Button text="다시 연습하기" theme={nextActionBtn === 1 ? 'blue' : 'white'} func={selfTraingAgain} />
-            <Button text="연습 영상 저장" theme={nextActionBtn === 2 ? 'blue' : 'white'} func={saveInterviewVideo} />
-            <Button text="체크리스트 초기화" theme={nextActionBtn === 3 ? 'blue' : 'white'} func={initCheckList} />
-            <Button text="체크리스트 저장" theme={nextActionBtn === 4 ? 'blue' : 'white'} func={saveCheckList} />
+            <Button
+              text="다시 연습하기"
+              theme="blue"
+              func={selfTraingAgain}
+            />
+            <Button
+              text="연습 영상 저장"
+              theme="white"
+              func={saveInterviewVideo}
+            />
+            <Button
+              text="체크리스트 초기화"
+              theme="white"
+              func={initCheckList}
+            />
+            <Button
+              disabled
+              text="체크리스트 저장"
+              theme="white"
+              // TODO: 이부분 추후 API 완성되면 추가해야 함
+              func={() => alert('아직 구현되지 않았습니다.')}
+            />
           </ButtonsWrapper>
         </LeftContent>
         <RightContent>
@@ -345,7 +435,11 @@ export default function AloneQuestionCheckList({ src }) {
             <ul>
               {EvaluationListMock.evaluationList1.map(({ id, text }) => (
                 <li id={id} key={id}>
-                  <Icon type={checkListArray[id] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
+                  <Icon
+                    type={checkListArray[id] ? 'check_on' : 'check_off'}
+                    alt="checkbox"
+                    func={onCheck}
+                  />
                   <span>{text}</span>
                 </li>
               ))}
@@ -357,7 +451,11 @@ export default function AloneQuestionCheckList({ src }) {
               <ul>
                 {EvaluationListMock.evaluationList2.map(({ id, text }) => (
                   <li id={id} key={id}>
-                    <Icon type={checkListArray[id] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
+                    <Icon
+                      type={checkListArray[id] ? 'check_on' : 'check_off'}
+                      alt="checkbox"
+                      func={onCheck}
+                    />
                     <span>{text}</span>
                   </li>
                 ))}
@@ -368,7 +466,11 @@ export default function AloneQuestionCheckList({ src }) {
               <ul>
                 {EvaluationListMock.evaluationList3.map(({ id, text }) => (
                   <li id={id} key={id}>
-                    <Icon type={checkListArray[id] ? 'check_on' : 'check_off'} alt="checkbox" func={onCheck} />
+                    <Icon
+                      type={checkListArray[id] ? 'check_on' : 'check_off'}
+                      alt="checkbox"
+                      func={onCheck}
+                    />
                     <span>{text}</span>
                   </li>
                 ))}
@@ -380,11 +482,3 @@ export default function AloneQuestionCheckList({ src }) {
     </Background>
   );
 }
-
-AloneQuestionCheckList.propTypes = {
-  src: PropTypes.string,
-};
-
-AloneQuestionCheckList.defaultProps = {
-  src: 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.webm',
-};

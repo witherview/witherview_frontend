@@ -113,21 +113,31 @@ const WrapAnker = styled.span`
   }
 `;
 
+const EMPTY_FORM = {
+  email: '',
+  password: '',
+};
+
+const TEST_FORM = {
+  email: 'test@test.com',
+  password: '123456',
+};
+
 export default function LoginPage() {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
 
-  const [loginForm, setLoginForm] = useState({
-    email: '',
-    password: '',
-  });
+  const [loginForm, setLoginForm] = useState(EMPTY_FORM);
+  const [toggleCheck, setToggleCheck] = useState(false);
 
   const handleInput = (e) => {
+    setLoginForm({});
     setLoginForm({
       ...loginForm,
       [e.target.name]: e.target.value,
     });
   };
+
   const handleLogin = () => {
     LoginApi(JSON.stringify(loginForm))
       .then((response) => {
@@ -141,9 +151,18 @@ export default function LoginPage() {
       });
   };
 
+  const handleCheck = (e) => {
+    const isChecked = e.target.checked;
+    setToggleCheck(isChecked);
+    if (isChecked) {
+      return setLoginForm(TEST_FORM);
+    }
+    return setLoginForm(EMPTY_FORM);
+  };
+
   return (
     <Wrapper>
-      {authSelector.isLogin && <Redirect to="/questionlist" />}
+      {authSelector.isLogin && <Redirect to="/self" />}
       <WrapContent>
         <img src={witherviewLogo} alt="logo" />
         <WrapSubTitle>
@@ -153,6 +172,9 @@ export default function LoginPage() {
           <div>
             <WrapText>이메일 주소</WrapText>
             <InputBar
+              disabled={toggleCheck}
+              autoFocus
+              value={loginForm.email}
               placeholder="이메일 주소를 입력해주세요."
               onChange={handleInput}
               name="email"
@@ -162,6 +184,8 @@ export default function LoginPage() {
           <WrapContianer>
             <WrapText>비밀번호</WrapText>
             <InputBar
+              disabled={toggleCheck}
+              value={loginForm.password}
               placeholder="비밀번호를 입력해주세요."
               onChange={handleInput}
               name="password"
@@ -170,8 +194,8 @@ export default function LoginPage() {
             <WrapMiddleContainer>
               <WrapMiddlePart>
                 {/* TODO: 이부분 동작하도록 만들어야 함 아마 로그인 유지가 아니라 이메일 유지로 바뀔듯 */}
-                <Checkbox />
-                <WrapMiddleText>로그인 상태 유지</WrapMiddleText>
+                <Checkbox func={handleCheck} />
+                <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
               {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
               <WrapMiddleTextLeft onClick={() => {}}>

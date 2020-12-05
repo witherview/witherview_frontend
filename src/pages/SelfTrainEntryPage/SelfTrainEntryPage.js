@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { handleReset } from '@store/Time/time';
 import TextBox from '@components/TextBox';
 import Button from '@components/Button';
 import SelectCard from './SelectCard';
@@ -30,13 +33,21 @@ const SELECT_NOTHING = 0;
 const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
-export default function SelfTrainEntry() {
+export default function SelfTrainEntryPage() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [clicked, setClicked] = useState(SELECT_NOTHING);
+
+  useEffect(() => {
+    dispatch(handleReset({ keepTrain: false }));
+  }, []);
 
   const handleToggle = (select) => {
     if (select === clicked) return setClicked(SELECT_NOTHING);
     return setClicked(select);
   };
+
+  const isGuide = clicked === GUIDE_BUTTON;
 
   return (
     <Wrapper>
@@ -57,7 +68,16 @@ export default function SelfTrainEntry() {
             func={() => handleToggle(ADD_QUESTION_BUTTON)}
           />
         </WrapCardSection>
-        <Button theme="blue" text="다음" />
+        <Button
+          func={
+            isGuide
+              // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
+              ? () => history.push('/self/setting/3')
+              : () => history.push('/questionlist')
+          }
+          theme={clicked ? 'blue' : 'gray'}
+          text="다음"
+        />
       </WrapContent>
     </Wrapper>
   );

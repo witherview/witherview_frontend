@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -122,7 +122,6 @@ const THIRD_TEXT = {
 };
 
 export default function LandingMiddleThree({ myRefStudy }) {
-  const intervalId = useRef(null);
   const [state, setState] = useState(FIRST_STEP);
 
   const handleClick = (val) => setState(val);
@@ -140,10 +139,10 @@ export default function LandingMiddleThree({ myRefStudy }) {
   };
 
   useEffect(() => {
-    intervalId.current = setInterval(() => {
+    const interval = setInterval(() => {
       setState((stat) => (stat + 1) % 3);
     }, 6000);
-    return clearInterval(intervalId);
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -16,12 +16,15 @@ const Wrapper = styled.input`
   color: #9e9e9e;
   &:focus {
     outline: none;
-    border-bottom: 3px solid #5f5fd9;
+    border-bottom: 2px solid #5f5fd9;
     color: #3d3d3d;
   }
 `;
 
 export default function InputBar({
+  disabled,
+  autoFocus,
+  value,
   className,
   placeholder,
   onChange,
@@ -31,6 +34,9 @@ export default function InputBar({
 }) {
   return (
     <Wrapper
+      disabled={disabled}
+      autoFocus={autoFocus}
+      value={value}
       className={className}
       type={type}
       name={name}
@@ -42,6 +48,9 @@ export default function InputBar({
 }
 
 InputBar.propTypes = {
+  disabled: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+  value: PropTypes.string,
   className: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
@@ -51,6 +60,9 @@ InputBar.propTypes = {
 };
 
 InputBar.defaultProps = {
+  disabled: false,
+  autoFocus: false,
+  value: '',
   className: '',
   placeholder: '',
   onChange: () => {},
