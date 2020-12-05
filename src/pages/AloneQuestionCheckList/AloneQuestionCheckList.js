@@ -228,7 +228,6 @@ export default function AloneQuestionCheckList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { localBlob, selectedQnaId } = useSelector(get('train'));
-  const [nextActionBtn, setNextActionBtn] = useState(1);
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
   const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
   const video = useRef();
@@ -297,14 +296,12 @@ export default function AloneQuestionCheckList() {
   );
 
   const selfTraingAgain = useCallback(() => {
-    setNextActionBtn(1);
-    history.push('/question/:id');
-  }, [nextActionBtn]);
+    history.push(`/question/${selectedQnaId}`);
+  }, [selectedQnaId]);
 
   const initCheckList = useCallback(() => {
-    setNextActionBtn(3);
     setCheckListArray(Array(14).fill(false));
-  }, [nextActionBtn]);
+  }, []);
 
   const saveInterviewVideo = useCallback(() => {
     const formData = new FormData();
@@ -318,6 +315,7 @@ export default function AloneQuestionCheckList() {
       const blob = responseFirst.data;
 
       formData.append('videoFile', blob);
+      // TODO: 이부분 앞페이지에서 넘어올 때 response 받는 historyId로 변경해야 함 <- 백엔드 배포 후 적용
       formData.append('questionListId', selectedQnaId);
       postVideoApi(formData)
         .then((responseSecond) => {
@@ -326,6 +324,8 @@ export default function AloneQuestionCheckList() {
             dispatch(setIsLoading({ isLoading: false }));
             const { savedLocation } = resp.data.find((elem) => elem.id === id);
             dispatch(setUploadedLocation({ savedLocation }));
+            // TODO: 모달로 바꾸기?
+            alert('저장 완료!');
           });
         })
         .catch((err) => {
@@ -333,14 +333,7 @@ export default function AloneQuestionCheckList() {
           alert(err);
         });
     });
-
-    setNextActionBtn(2);
-  }, [nextActionBtn]);
-
-  const saveCheckList = useCallback(() => {
-    setNextActionBtn(4);
-    history.push('/questionlist');
-  }, [nextActionBtn]);
+  }, [localBlob]);
 
   return (
     <Background>
@@ -414,23 +407,25 @@ export default function AloneQuestionCheckList() {
           <ButtonsWrapper>
             <Button
               text="다시 연습하기"
-              theme={nextActionBtn === 1 ? 'blue' : 'white'}
+              theme="blue"
               func={selfTraingAgain}
             />
             <Button
               text="연습 영상 저장"
-              theme={nextActionBtn === 2 ? 'blue' : 'white'}
+              theme="white"
               func={saveInterviewVideo}
             />
             <Button
               text="체크리스트 초기화"
-              theme={nextActionBtn === 3 ? 'blue' : 'white'}
+              theme="white"
               func={initCheckList}
             />
             <Button
+              disabled
               text="체크리스트 저장"
-              theme={nextActionBtn === 4 ? 'blue' : 'white'}
-              func={saveCheckList}
+              theme="white"
+              // TODO: 이부분 추후 API 완성되면 추가해야 함
+              func={() => alert('아직 구현되지 않았습니다.')}
             />
           </ButtonsWrapper>
         </LeftContent>
