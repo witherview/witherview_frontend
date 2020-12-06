@@ -66,7 +66,7 @@ export default function Sidebar() {
   const handleClick = (value) => {
     setClick(value);
     history.push(value === 0 ? '/questionlist'
-               : value === 1 ? 'group-study' : 'mypage');
+               : value === 1 ? '/group-study' : '/mypage');
   };
 
   function hoverActive() {
