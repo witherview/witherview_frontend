@@ -93,6 +93,8 @@ const WrapCarousel = styled.div`
 `;
 
 const Div = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
 `;
 
@@ -150,36 +152,36 @@ export default function LandingMiddleThree({ myRefStudy }) {
   }, []);
 
   return (
-    <Div data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
       <Wrapper ref={myRefStudy}>
-        <WrapContainer>
-          <WrapPadding>
-            <TextBoxA
-              height={350}
-              header={handleText(state).header}
-              content={handleText(state).content}
-              summary={handleText(state).summary}
-            />
-          </WrapPadding>
-          <WrapImage src={handleImage(state)} />
-          <WrapStaticImage src={StaticImage} />
-          <WrapCarousel>
-            <CircleButton
-              clicked={state === FIRST_STEP}
-              func={() => handleClick(FIRST_STEP)}
-            />
-            <CircleButton
-              clicked={state === SECOND_STEP}
-              func={() => handleClick(SECOND_STEP)}
-            />
-            <CircleButton
-              clicked={state === THIRD_STEP}
-              func={() => handleClick(THIRD_STEP)}
-            />
-          </WrapCarousel>
-        </WrapContainer>
+        <Div data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+          <WrapContainer>
+            <WrapPadding>
+              <TextBoxA
+                height={350}
+                header={handleText(state).header}
+                content={handleText(state).content}
+                summary={handleText(state).summary}
+              />
+            </WrapPadding>
+            <WrapImage src={handleImage(state)} />
+            <WrapStaticImage src={StaticImage} />
+            <WrapCarousel>
+              <CircleButton
+                clicked={state === FIRST_STEP}
+                func={() => handleClick(FIRST_STEP)}
+              />
+              <CircleButton
+                clicked={state === SECOND_STEP}
+                func={() => handleClick(SECOND_STEP)}
+              />
+              <CircleButton
+                clicked={state === THIRD_STEP}
+                func={() => handleClick(THIRD_STEP)}
+              />
+            </WrapCarousel>
+          </WrapContainer>
+        </Div>
       </Wrapper>
-    </Div>
   );
 }
 
