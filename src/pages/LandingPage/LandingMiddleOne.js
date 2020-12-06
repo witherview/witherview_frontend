@@ -50,40 +50,48 @@ export default function LandingMiddleOne({ myRef }) {
   return (
     <Wrapper ref={myRef}>
       <WrapContainer>
-        <TextBoxB
-          height={250}
-          header="INTENTION OF WITHERVIEW"
-          content="나를 위한 효과적인 면접 연습"
-          summary={[
-            '면접은, 위더뷰로! 합격의 자신감을 주기 위해 개발한',
-            '면접 솔루션 위더뷰를 통해 이제 집에서 연습하세요.',
-          ]}
-        />
+        <div data-aos="fade-up" data-aos-duration="1000">
+          <TextBoxB
+            height={250}
+            header="INTENTION OF WITHERVIEW"
+            content="나를 위한 효과적인 면접 연습"
+            summary={[
+              '면접은, 위더뷰로! 합격의 자신감을 주기 위해 개발한',
+              '면접 솔루션 위더뷰를 통해 이제 집에서 연습하세요.',
+            ]}
+          />
+        </div>
         <WrapBottomContent>
-          <TextBoxC
-            header="함께하는"
-            summary={[
-              '같은 산업과 직무를 준비하는 지원자들과 함께',
-              '연습하고 서로 피드백을 공유할 수 있습니다.',
-            ]}
-            icon={TogetherIcon}
-          />
-          <TextBoxC
-            header="심플한"
-            summary={[
-              '명확하고 직관적인 서비스를 통해 스터디와',
-              '혼자 연습 서비스를 용이하게 즐길 수 있습니다.',
-            ]}
-            icon={SimpleIcon}
-          />
-          <TextBoxC
-            header="편안한"
-            summary={[
-              '간단한 구조와 큰 화면으로 처음 접하시는',
-              '지원자분들도 편안하게 스터디를 할 수 있습니다.',
-            ]}
-            icon={ComfortableIcon}
-          />
+          <div data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+            <TextBoxC
+              header="함께하는"
+              summary={[
+                '같은 산업과 직무를 준비하는 지원자들과 함께',
+                '연습하고 서로 피드백을 공유할 수 있습니다.',
+              ]}
+              icon={TogetherIcon}
+            />
+          </div>
+          <div data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1000">
+            <TextBoxC
+              header="심플한"
+              summary={[
+                '명확하고 직관적인 서비스를 통해 스터디와',
+                '혼자 연습 서비스를 용이하게 즐길 수 있습니다.',
+              ]}
+              icon={SimpleIcon}
+            />
+          </div>
+          <div data-aos="fade-up" data-aos-delay="1500" data-aos-duration="1000">
+            <TextBoxC
+              header="편안한"
+              summary={[
+                '간단한 구조와 큰 화면으로 처음 접하시는',
+                '지원자분들도 편안하게 스터디를 할 수 있습니다.',
+              ]}
+              icon={ComfortableIcon}
+            />
+          </div>
         </WrapBottomContent>
       </WrapContainer>
     </Wrapper>
