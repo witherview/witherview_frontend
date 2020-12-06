@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
+const Background = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f6f6f6;
+`;
+
 const Wrapper = styled.div`
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top
-    background-color: #f6f6f6;
+    margin-top: 178px;
+    margin-left: 100px;
 `;
 
 const ProfileWrapper = styled.div`
@@ -189,6 +194,7 @@ const BoxWrapper = styled.div`
 `;
 
 export default {
+  Background,
   Wrapper,
   ProfileWrapper,
   Profile,
