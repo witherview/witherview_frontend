@@ -56,41 +56,21 @@ const ScoreWrapper = styled.div`
     margin-top: 25px;
 `;
 
-const SmallBox = styled.div`
+const Box = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30.6px;
-    height: 30.6px;
+    width: ${({size})=> size === "big" ? "40px" : "36.5px"};
+    height: ${({size})=> size === "big" ? "40px" : "36.5px"};
     margin: 0 12.5px;
     border-radius: 8px;
-    background-color: rgba(211,211,211,0.4);
+    background-color: rgba(211,211,211,${({size})=> size === "big" ? "1" : "0.4"});
     font-family: AppleSDGothicNeoM00;
-    font-size: 14px;
+    font-size: ${({size})=> size === "big" ? "20px" : "14px"};
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.29;
-    letter-spacing: normal;
-    text-align: center;
-    color: #ffffff;
-`;
-
-const BigBox = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin: 0 12.5px;
-    border-radius: 10px;
-    background-color: rgba(211,211,211);
-    font-family: AppleSDGothicNeoM00;
-    font-size: 20px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.3;
     letter-spacing: normal;
     text-align: center;
     color: #ffffff;
@@ -137,7 +117,7 @@ const EvaluateBox = styled.div`
     flex-direction: column;
     align-items: center;
     .${({evaluate})=>evaluate} {
-        font-weight: bold;
+        font-weight: 700;
     }
 `;
 
@@ -152,7 +132,6 @@ const EvaluateText = styled.div`
     letter-spacing: normal;
     text-align: center;
     color: #3d3d3d;
-
 `;
 
 export default function EvaluationModal() {
@@ -170,7 +149,11 @@ export default function EvaluationModal() {
 
     const handleButtonClick = () => {
         // TODO: api연동
-        dispatch(hideModal(MODALS.EVALUATION_MODAL))
+        dispatch(hideModal(MODALS.EVALUATION_MODAL));
+    }
+
+    const calScore = (val) => {
+        return (score+val)%10+1;
     }
 
     return(
@@ -187,31 +170,31 @@ export default function EvaluationModal() {
             <ScoreWrapper>
                 <Icon type="previous" func={()=>handleCount(-1)}/>
                 <Margin />
-                <SmallBox>
+                <Box>
                     <Text height={16}>
-                        {(score-2)%10+1}
+                        {calScore(-2)}
                     </Text>
-                </SmallBox>
-                <BigBox>
-                    <Text height={23}>
-                        {(score-1)%10+1}
+                </Box>
+                <Box size="big">
+                    <Text height={19}>
+                        {calScore(-1)}
                     </Text>
-                </BigBox>
+                </Box>
                 <ScoreBox>
                     <Text height={23}>
-                        {score%10+1}
+                        {calScore(0)}
                     </Text>
                 </ScoreBox>
-                <BigBox>
-                    <Text height={23}>
-                        {(score+1)%10+1}
+                <Box size="big">
+                    <Text height={19}>
+                        {calScore(1)}
                     </Text>
-                </BigBox>
-                <SmallBox>
+                </Box>
+                <Box>
                     <Text height={16}>
-                        {(score+2)%10+1}
+                        {calScore(2)}
                     </Text>
-                </SmallBox>
+                </Box>
                 <Margin />
                 <Icon type="next_blue" alt="" func={()=>handleCount(1)}/>
             </ScoreWrapper>
