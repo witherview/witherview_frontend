@@ -86,7 +86,7 @@ const PartiWrapper = styled.div`
     flex-direction: column;
 `;
 
-const partiText = styled.div`
+const PartiText = styled.div`
     margin-bottom: 40px;
     font-family: AppleSDGothicNeoEB00;
     font-size: 20px;
@@ -150,7 +150,7 @@ export default {
   PartiWrapper,
   ListWrapper,
   FilterWrapper,
-  partiText,
+  PartiText,
   StudyListWrapper,
   AddStudy,
   AddText,

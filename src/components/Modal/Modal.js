@@ -8,7 +8,7 @@ import SelfTrainStartModal from './SelfTrainStartModal';
 import StudyMakeModal from './StudyMakeModal';
 
 export default function Modal({
-  modalName, func
+  modalName, func,
 }) {
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
@@ -30,7 +30,9 @@ export default function Modal({
 
 Modal.propTypes = {
   modalName: PropTypes.string,
+  func: PropTypes.func,
 };
 Modal.defaultProps = {
   modalName: '',
+  func: () => {},
 };

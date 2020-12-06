@@ -13,7 +13,7 @@ export const getGroupMemberApi = async (param) => await api({
 });
 
 export const postStudyApi = async (param) => await api({
-  url: `/api/group`,
+  url: '/api/group',
   type: 'post',
-  param
+  param,
 });

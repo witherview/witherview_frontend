@@ -1,18 +1,17 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from 'react';
 
 export default function usePageBottom() {
   const [bottom, setBottom] = React.useState(false);
 
   useEffect(() => {
     function handleScroll() {
-      const isBottom =
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight;
+      const isBottom = window.innerHeight + document.documentElement.scrollTop
+        === document.documentElement.offsetHeight;
       setBottom(isBottom);
     }
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
   return bottom;

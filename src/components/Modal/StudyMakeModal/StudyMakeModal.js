@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
@@ -142,7 +143,7 @@ const PickerWrapper = styled.div`
   background-color: #ffffff;
 `;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   textField: {
     width: '230px',
     marginLeft: '21px',
@@ -213,8 +214,8 @@ export default function StudyStartModal({ func }) {
   };
 
   const handleMakeStudy = () => {
-    if(title === '' || description === '' || jobList.indexOf(job) === -1 || industryList.indexOf(industry) === -1) {
-      alert("입력값을 확인해 주세요.");
+    if (title === '' || description === '' || jobList.indexOf(job) === -1 || industryList.indexOf(industry) === -1) {
+      alert('입력값을 확인해 주세요.');
       return;
     }
     postStudyApi({
@@ -223,12 +224,12 @@ export default function StudyStartModal({ func }) {
       job,
       industry,
       date,
-      time
-    }).then(()=>{
+      time,
+    }).then(() => {
       func();
       dispatch(hideModal(MODALS.STUDY_MAKE_MODAL));
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -340,3 +341,11 @@ export default function StudyStartModal({ func }) {
     </>
   );
 }
+
+StudyStartModal.propTypes = {
+  func: PropTypes.func,
+};
+
+StudyStartModal.defaultProp = {
+  func: () => {},
+};

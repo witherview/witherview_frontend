@@ -42,10 +42,13 @@ const Content = styled.div`
 `;
 
 const Title = styled.div`
-  width: 280px;
+  width: 290px;
+  height: 30px;
   margin-top: 29px;
-  overflow:hidden; 
-  text-overflow:ellipsis; 
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  word-break: break-all;
   font-family: AppleSDGothicNeoEB00;
   font-size: 24px;
   font-weight: normal;
@@ -55,7 +58,6 @@ const Title = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: black;
-  word-break: break-all;
   justify-self: flex-start;
 `;
 
@@ -164,7 +166,7 @@ export default function StudyCardView({
               /2
             </Text>
           </MemberWrapper>
-          <Button onClick={()=>history.push(`/study-room/${id}`)}>
+          <Button onClick={() => history.push(`/study-room/${id}`)}>
             <ButtonText>
               입장하기
             </ButtonText>
@@ -177,6 +179,7 @@ export default function StudyCardView({
 }
 
 StudyCardView.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
@@ -184,6 +187,7 @@ StudyCardView.propTypes = {
 };
 
 StudyCardView.defaultProp = {
+  id: undefined,
   title: '예시 방입니다.',
   description: '예시 내용입니다.',
   time: '20201022',

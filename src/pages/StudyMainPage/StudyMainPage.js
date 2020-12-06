@@ -5,11 +5,11 @@ import Icon from '@components/Icon';
 import TextButton from '@components/TextButton';
 import ProfileInfoContainer from '@components/ProfileInfoContainer/ProfileInfoContainer';
 import StudyCardView from '@components/StudyCardView';
-import S from './StudyMainPage.style';
 import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from '@components/Modal/Modal';
 import usePageBottom from '@hooks/usePageBottom';
+import S from './StudyMainPage.style';
 
 export default function StudyMainPage() {
   const dispatch = useDispatch();
@@ -17,46 +17,38 @@ export default function StudyMainPage() {
   const [groupList, setGroupList] = useState([]);
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const fetch = async (page) => {
-    getGroupListApi(page).then((res) => {
-      const resLength = res.data.length;
-      //const unit = resLength === 6 ? 1 : 0;
-      const unit = resLength === 1 ? 0 : 1;
-      res.data.map((val) => {
+  const fetch = async (pages) => {
+    getGroupListApi(pages).then((res) => {
+      const unit = res.data.length === 6 ? 1 : 0;
+      res.data.forEach((val) => {
         getGroupMemberApi(val.id).then((response) => {
-          console.log(`id ${val.id} member: ${response.data.length}`);
-          setMember((member) => [...member, { id: val.id, member: response.data.length }]);
+          setMember((members) => [...members, { id: val.id, member: response.data.length }]);
         });
       });
-      // let length = groupList.length%6 === 0 ? groupList.length+resLength : groupList.length+resLength - (resLength%6);
-      // if(length === 0) length = 6;
-      //setGroupList((groupList)=>[...groupList, ...res.data].slice(0, length));
-      setGroupList((groupList)=>[...groupList, ...res.data]);
-      setLoading(true);
-      setPage(page+unit);
+      setGroupList((GroupList) => [...GroupList, ...res.data].filter((v, i, a) => a.findIndex((t) => (t.id === v.id)) === i));
+      setPage(pages + unit);
     });
   };
 
   const handleStudyAddModal = () => {
     dispatch(showModal(MODALS.STUDY_MAKE_MODAL));
-  }
+  };
 
   const handleReload = () => {
     setGroupList([]);
     setMember([]);
-    for(let i = 0; i<page; i++){
+    for (let i = 0; i <= page; i += 1) {
       fetch(i);
     }
-  }
+  };
 
   useEffect(() => {
     fetch(page);
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!isPageBottom) return;
-    console.log("bottom");
+    console.log('bottom');
     fetch(page);
   }, [isPageBottom]);
 
@@ -67,15 +59,10 @@ export default function StudyMainPage() {
     '인문계_공기업',
     '자유_기타',
   ];
-  
+
   return (
     <S.Wrapper>
-      {page} 
-      <br />
-      {groupList.length}
-      <br />
-      {JSON.stringify(groupList)}
-      <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload}/>
+      <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload} />
       <S.SearchWrapper>
         <S.IconWrapper>
           <Icon type="search" alt="" />
@@ -122,9 +109,9 @@ export default function StudyMainPage() {
             </S.StudyListWrapper>
           </S.ListWrapper>
           <S.PartiWrapper>
-            <S.partiText>
+            <S.PartiText>
               참여도 높은 유저
-            </S.partiText>
+            </S.PartiText>
             <ProfileInfoContainer />
             <ProfileInfoContainer />
             <ProfileInfoContainer />
