@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import ProfileIcon from '../ProfileIcon/ProfileIcon';
@@ -8,6 +9,7 @@ const Wrapper = styled.div`
   width: 487px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   border-radius: 20px;
+  background-color: #ffffff;
 `;
 
 const WrapperHeader = styled.div`
@@ -20,6 +22,7 @@ const WrapperHeader = styled.div`
 `;
 
 const UserInfo = styled.div`
+  text-align: left;
   margin-top: 5px;
   margin-left: 30px;
 
@@ -37,7 +40,7 @@ const UserInfo = styled.div`
 `;
 
 const WrapperContent = styled.div`
-  height: 345px;
+  height: ${({ setInterviewer }) => (setInterviewer ? 345 : 467)}px;
   overflow-y: scroll;
 `;
 
@@ -74,7 +77,7 @@ const WrapperBottom = styled.div`
   border-radius: 0 0 20px 20px;
 `;
 
-export default function InterviewChat() {
+export default function InterviewChat({ setInterviewer }) {
   return (
     <Wrapper>
       <WrapperHeader>
@@ -103,10 +106,27 @@ export default function InterviewChat() {
             지원동기에서 직무 강점을 말하면 더 좋을 것 같아요.
           </MessageText>
         </ChatMessageWrapper>
+        <ChatMessageWrapper>
+          <TimeInfo>6:02PM</TimeInfo>
+          <MessageText>
+            본인의 장점 같은 경우에는 밝다 말고 다른 것도 생각해 보면 좋을 것 같아요. 중간중간 미소는 좋네요~^^
+          </MessageText>
+        </ChatMessageWrapper>
       </WrapperContent>
-      <WrapperBottom>
-        <ChatInput />
-      </WrapperBottom>
+      {setInterviewer
+        && (
+        <WrapperBottom>
+          <ChatInput />
+        </WrapperBottom>
+        )}
     </Wrapper>
   );
 }
+
+InterviewChat.propTypes = {
+  setInterviewer: PropTypes.bool,
+};
+
+InterviewChat.defaultProps = {
+  setInterviewer: true,
+};
