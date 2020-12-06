@@ -7,3 +7,10 @@ export const LoginApi = async (param) => await api({
   type: 'post',
   param,
 });
+
+export const getUserApi = async (param) => await api({
+  url: '/api/myinfo',
+  type: 'get',
+  param,
+});
+
