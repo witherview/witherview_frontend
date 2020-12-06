@@ -1,7 +1,10 @@
 /* eslint-disable indent */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
+import { setLogout } from '@store/Auth/auth';
 
 import LogoWithTitle from '@assets/images/witherview_logo_title.png';
 import Logo from '@assets/images/witherview_logo.png';
@@ -59,6 +62,7 @@ const WrapBottomButton = styled.div`
 `;
 
 export default function Sidebar() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [click, setClick] = useState(0);
   const [hover, setHover] = useState(false);
@@ -91,21 +95,21 @@ export default function Sidebar() {
       </WrapTopButton>
       <WrapButtonContainer>
         <SidebarButton
-          handleClick={() => handleClick(0)}
+          func={() => handleClick(0)}
           type={click === 0 ? 'bubble_black' : 'bubble_white'}
           clicked={click === 0}
           hover={hover}
           title="혼자연습"
         />
         <SidebarButton
-          handleClick={() => handleClick(1)}
+          func={() => handleClick(1)}
           type={click === 1 ? 'sound_black' : 'sound_white'}
           clicked={click === 1}
           hover={hover}
           title="면접스터디"
         />
         <SidebarButton
-          handleClick={() => handleClick(2)}
+          func={() => handleClick(2)}
           type={click === 2 ? 'profile_black' : 'profile_white'}
           clicked={click === 2}
           hover={hover}
@@ -114,7 +118,7 @@ export default function Sidebar() {
       </WrapButtonContainer>
       <WrapBottomButton hover={hover}>
         <SidebarButton
-          handleClick={() => handleClick(3)}
+          func={() => dispatch(setLogout())}
           type={click === 3 ? 'exit_blue' : 'exit_white'}
           clicked={click === 3}
           hover={hover}

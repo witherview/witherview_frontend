@@ -4,8 +4,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  @media only screen and (max-width: 1870px) {
+    margin: 25px;
+    margin-bottom: 75px;
+  }
+
   height: 310px;
-  width: 470px;
+  width: 480px;
   position: relative;
   display: flex;
   flex-direction: column;

@@ -6,7 +6,6 @@ const authReducer = createSlice({
     isLogin: false,
     email: '',
     name: '',
-    selectedQnaId: 3,
   },
   reducers: {
     setLogin(state, { payload: { email, name } }) {
@@ -27,15 +26,9 @@ const authReducer = createSlice({
         name: '',
       };
     },
-    setSelectedQnaId(state, { payload: { selectedQnaId } }) {
-      return {
-        ...state,
-        selectedQnaId,
-      };
-    },
   },
 });
 
-export const { setLogin, setLogout, setSelectedQnaId } = authReducer.actions;
+export const { setLogin, setLogout } = authReducer.actions;
 
 export default authReducer.reducer;

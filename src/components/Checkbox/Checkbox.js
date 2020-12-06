@@ -59,12 +59,10 @@ const Checkmark = styled.span`
   }
 `;
 
-export default function Checkbox({
-  className,
-}) {
+export default function Checkbox({ className, func }) {
   return (
     <Wrapper>
-      <Input type="checkbox" className={className} />
+      <Input type="checkbox" className={className} onClick={func} />
       <Checkmark />
     </Wrapper>
   );
@@ -72,8 +70,10 @@ export default function Checkbox({
 
 Checkbox.propTypes = {
   className: PropTypes.string,
+  func: PropTypes.func,
 };
 
 Checkbox.defaultProps = {
   className: '',
+  func: () => {},
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Timeout from 'await-timeout';
 
@@ -9,12 +10,12 @@ import {
   startTime,
   handleReset,
   handleNextButton,
-  setStep,
   handleStepQuestion,
 } from '@store/Time/time';
-import { get } from '@utils/snippet';
+import { setStep, setHistoryId } from '@store/Train/train';
+import { sortObjectByOrder, get } from '@utils/snippet';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
-
+import { postPreVideoApi } from '@repository/requestVideoRepository';
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
 import CamView from '@components/CamView';
@@ -40,36 +41,31 @@ const STEP_START = 3;
 const STEP_ING = 4;
 const TOGGLE_SCRIPT = 5;
 
-// TODO: 앞 페이지 완성하면 거기서 상태를 들고오도록 수정
-const COMPANY = '카카오';
-const JOB = '서비스 기획';
-
-export default function SelfTrainPage() {
+export default function SelfTrainPage({ match }) {
+  const { id } = match.params;
   const transition = new Timeout();
 
   const history = useHistory();
   const dispatch = useDispatch();
 
   const { width } = useWindowSize();
-  const {
-    status,
-    startRecording,
-    stopRecording,
-  } = useReactMediaRecorder({
+  const { status, startRecording, stopRecording } = useReactMediaRecorder({
     video: true,
   });
-
-  const { name, selectedQnaId } = useSelector(get('auth'));
+  const { name } = useSelector(get('auth'));
+  const { time } = useSelector(get('time'));
   const {
-    time, qnaStep, step,
-  } = useSelector(get('time'));
+    company, job, viewAnswer, qnaStep, step,
+  } = useSelector(
+    get('train'),
+  );
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
-  const fetch = async (id) => {
+  const fetch = async (requestId) => {
     try {
-      await getQuestionItemAPI(id).then((response) => {
-        setQuestionList(response.data);
+      await getQuestionItemAPI(requestId).then((response) => {
+        setQuestionList(sortObjectByOrder(response.data));
       });
     } catch (err) {
       if (err.response.status === 401) {
@@ -80,20 +76,23 @@ export default function SelfTrainPage() {
   };
 
   useEffect(() => {
-    dispatch(handleReset({ keepTrain: false }));
-    fetch(selectedQnaId);
+    fetch(id);
   }, []);
 
   const handleCancel = async () => {
     await stopRecording();
     transition.clear();
+    history.push('/self');
     dispatch(handleReset({ keepTrain: false }));
   };
 
-  const handleChecklistPage = async () => {
-    await stopRecording();
-    history.push('/self-checklist');
-    dispatch(handleReset({ keepTrain: true }));
+  const handleChecklistPage = () => {
+    postPreVideoApi({ questionListId: id }).then((response) => {
+      dispatch(setHistoryId({ historyId: response.data.id }));
+      stopRecording();
+      history.push(`/self-checklist/${id}`);
+      dispatch(handleReset({ keepTrain: true }));
+    });
   };
 
   useEffect(() => {
@@ -118,6 +117,13 @@ export default function SelfTrainPage() {
     }
   }, [step]);
 
+  // TODO: questionList의 원소가 1개일 경우에 처리하는 로직인데 바꿔야함;; 더 좋은 방법이 있을듯
+  useEffect(() => {
+    if (qnaStep === 1 && questionList.length === 1) {
+      handleChecklistPage();
+    }
+  }, [qnaStep]);
+
   const isStepFirst = step === STEP_FIRST;
   const isLoading = step <= STEP_START;
   const isBackground = step > STEP_FIRST && step < STEP_ING;
@@ -128,7 +134,7 @@ export default function SelfTrainPage() {
   const textBox = (
     <TextBox
       topText={
-        (step === STEP_LOADING_2 ? `${name}님은 ${COMPANY} ${JOB}` : '')
+        (step === STEP_LOADING_2 ? `${name}님은 ${company} ${job}` : '')
         + Fixture[step]?.top
       }
       bottomText={Fixture[step]?.bottom || ''}
@@ -182,7 +188,9 @@ export default function SelfTrainPage() {
                 theme="blue"
                 text={Fixture[step].button}
                 func={
+                  // TODO: 리펙토링 필요
                   qnaStep === questionList.length - 1
+                  && questionList.length !== 1
                     ? () => handleChecklistPage()
                     : () => {
                       if (step === STEP_START) startRecording();
@@ -192,7 +200,7 @@ export default function SelfTrainPage() {
               />
             )}
             <S.WrapBottomSide right>
-              {isShowToggle && (
+              {isShowToggle && viewAnswer && (
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
                   <ToggleButton

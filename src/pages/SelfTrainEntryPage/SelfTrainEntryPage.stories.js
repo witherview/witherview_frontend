@@ -1,13 +1,13 @@
 import React from 'react';
-import SelfTrainEntry from './SelfTrainEntry';
+import SelfTrainEntryPage from './SelfTrainEntryPage';
 import SelectCard from './SelectCard';
 
 export default {
-  title: 'Page/SelfTrainEntry',
-  component: SelfTrainEntry,
+  title: 'Page/SelfTrainEntryPage',
+  component: SelfTrainEntryPage,
 };
 
-export const SelfTrainEntryPage = () => <SelfTrainEntry />;
+export const SelfTrainEntryPageDefault = () => <SelfTrainEntryPage />;
 export const SelectCardDefault = () => (
   <>
     <SelectCard kind={0} />

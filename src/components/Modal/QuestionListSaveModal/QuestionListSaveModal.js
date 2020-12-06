@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModal, showModal } from '@store/Modal/modal';
+import { setJob, setCompany, setSelectedQnaId } from '@store/Train/train';
 import InputBar from '@components/InputBar';
 import Button from '@components/Button';
-import { postQuestionListAPI, postQuestionItemAPI } from '@repository/questionListRepository';
+import {
+  postQuestionListAPI,
+  postQuestionItemAPI,
+} from '@repository/questionListRepository';
 import { get } from '@utils/snippet';
 import { MODALS } from '@utils/constant';
 
@@ -51,21 +55,33 @@ const ButtonWrapper = styled.div`
 
 const QuestionListSaveModal = () => {
   const dispatch = useDispatch();
-  const qeustionSelector = useSelector(get('question'));
+  const { questions } = useSelector(get('question'));
+
   const [title, setTitle] = useState();
   const [enterprise, setEnterprise] = useState();
-  const [job, setJob] = useState();
+  const [position, setPosition] = useState();
+  // TODO: 이거 어떻게? 모달이라 불가능..?
+  // const { id } = match.param;
 
   const handleListMake = () => {
-    postQuestionListAPI({ title, enterprise, job }).then((response) => {
-      postQuestionItemAPI({
-        listId: response.data.id,
-        questions: qeustionSelector.questions,
-      }).then(() => {
-        dispatch(hideModal(MODALS.QUESTIONLIST_SAVE_MODAL));
-        dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
-      });
-    });
+    postQuestionListAPI({ title, enterprise, job: position }).then(
+      (response) => {
+        dispatch(setSelectedQnaId({ selectedQnaId: response.data.id }));
+        postQuestionItemAPI({
+          listId: response.data.id,
+          questions,
+        }).then(() => {
+          const qnaId = window.location.pathname.replace('/question/', '');
+          dispatch(setJob({ job: position }));
+          dispatch(setCompany({ company: enterprise }));
+          if (qnaId !== 'new') {
+            dispatch(setSelectedQnaId({ selectedQnaId: qnaId }));
+          }
+          dispatch(hideModal(MODALS.QUESTIONLIST_SAVE_MODAL));
+          dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+        });
+      },
+    );
   };
 
   const handleInputChange = (e, setState) => {
@@ -75,26 +91,30 @@ const QuestionListSaveModal = () => {
   return (
     <>
       <Wrapper>
-        <Text>
-          질문 리스트 저장
-        </Text>
+        <Text>질문 리스트 저장</Text>
         <InputWrapper>
-          <InputText>
-            질문 리스트 제목
-          </InputText>
-          <InputBar placeholder="제목을 입력해주세요." value={title} onChange={(e) => handleInputChange(e, setTitle)} />
+          <InputText>질문 리스트 제목</InputText>
+          <InputBar
+            placeholder="제목을 입력해주세요."
+            value={title}
+            onChange={(e) => handleInputChange(e, setTitle)}
+          />
         </InputWrapper>
         <InputWrapper>
-          <InputText>
-            기업 이름
-          </InputText>
-          <InputBar placeholder="기업명을 입력해주세요." value={enterprise} onChange={(e) => handleInputChange(e, setEnterprise)} />
+          <InputText>기업 이름</InputText>
+          <InputBar
+            placeholder="기업명을 입력해주세요."
+            value={enterprise}
+            onChange={(e) => handleInputChange(e, setEnterprise)}
+          />
         </InputWrapper>
         <InputWrapper>
-          <InputText>
-            직무 이름
-          </InputText>
-          <InputBar placeholder="직무명을 입력해주세요." value={job} onChange={(e) => handleInputChange(e, setJob)} />
+          <InputText>직무 이름</InputText>
+          <InputBar
+            placeholder="직무명을 입력해주세요."
+            value={position}
+            onChange={(e) => handleInputChange(e, setPosition)}
+          />
         </InputWrapper>
         <ButtonWrapper onClick={handleListMake}>
           <Button text="저장" theme="blue" />

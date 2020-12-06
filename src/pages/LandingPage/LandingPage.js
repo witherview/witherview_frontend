@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 
 import styled from 'styled-components';
-
 import LandingHeader from './LandingHeader';
 import LandingTop from './LandingTop';
 import LandingMiddleOne from './LandingMiddleOne';
