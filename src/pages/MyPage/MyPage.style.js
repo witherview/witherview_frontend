@@ -12,7 +12,7 @@ const Background = styled.div`
 
 const Wrapper = styled.div`
     margin-top: 178px;
-    margin-left: 100px;
+    margin-left: 250px;
 `;
 
 const ProfileWrapper = styled.div`
