@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader';
-import { css } from '@emotion/react';
 
 import LandingPage from '@pages/LandingPage';
 
@@ -31,18 +30,18 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
+const WrapSpinner = styled.div`
+  z-index: 30;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
-
-  const override = css`
-    z-index: 30;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
 
   return (
     <>
@@ -51,7 +50,11 @@ export default function App() {
         <Route exact path="/login" component={LoginPage} />
         <AuthRoute path="/conference" component={ConferenceButton} />
         <Route path="/room/:roomID" component={ConferenceRoom} />
-        {isLoading && <SyncLoader css={override} size={50} color="#123abc" />}
+        {isLoading && (
+          <WrapSpinner>
+            <SyncLoader size={50} color="#123abc" />
+          </WrapSpinner>
+        )}
         <Wrapper>
           <>
             {!toggleTrain && <Sidebar />}
