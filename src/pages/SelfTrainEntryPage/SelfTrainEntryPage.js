@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { get } from '@utils/snippet';
 import { handleReset } from '@store/Time/time';
 import TextBox from '@components/TextBox';
 import Button from '@components/Button';
@@ -22,12 +23,19 @@ const WrapContent = styled.div`
 `;
 
 const WrapCardSection = styled.div`
+  @media only screen and (max-height: 1080px) {
+    padding: 0px;
+  }
+  @media only screen and (min-height: 1600px) {
+    @media only screen and (max-width: 1080px) {
+      flex-direction: column;
+      padding: 0px;
+    }
+  }
+
   display: flex;
   padding: 80px;
 `;
-
-// TODO: 이부분 API 처리를 통해 redux에서 상태 들고 와야 함
-const NAME = '홍길동';
 
 const SELECT_NOTHING = 0;
 const GUIDE_BUTTON = 1;
@@ -37,6 +45,7 @@ export default function SelfTrainEntryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [clicked, setClicked] = useState(SELECT_NOTHING);
+  const { name } = useSelector(get('auth'));
 
   useEffect(() => {
     dispatch(handleReset({ keepTrain: false }));
@@ -53,7 +62,7 @@ export default function SelfTrainEntryPage() {
     <Wrapper>
       <WrapContent>
         <TextBox
-          topText={`${NAME}님 화상 면접을 혼자 연습해보세요`}
+          topText={`${name}님 화상 면접을 혼자 연습해보세요`}
           bottomText="원하는 기능을 선택하여 화상 면접을 대비해 보세요."
         />
         <WrapCardSection>
@@ -70,8 +79,8 @@ export default function SelfTrainEntryPage() {
         </WrapCardSection>
         <Button
           func={
+            // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
             isGuide
-              // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
               ? () => history.push('/self/setting/3')
               : () => history.push('/questionlist')
           }

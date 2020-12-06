@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
+  @media only screen and (max-height: 1080px) {
+    height: 75px;
+  }
   height: 100px;
   display: flex;
   flex-direction: column;

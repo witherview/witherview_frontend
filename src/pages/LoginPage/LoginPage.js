@@ -23,6 +23,9 @@ const Wrapper = styled.div`
 `;
 
 const WrapContent = styled.div`
+  @media only screen and (max-height: 1080px) {
+    height: 800px;
+  }
   height: 900px;
   display: flex;
   flex-direction: column;
