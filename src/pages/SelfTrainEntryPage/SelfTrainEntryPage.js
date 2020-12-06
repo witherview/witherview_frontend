@@ -64,7 +64,7 @@ export default function SelfTrainEntryPage({ match }) {
     <Wrapper>
       <WrapContent>
         <TextBox
-          topText={`${name}님 화상 면접을 혼자 연습해보세요`}
+          topText={`${name}님 화상 면접을 연습하세요`}
           bottomText="원하는 기능을 선택하여 화상 면접을 대비해 보세요."
         />
         <WrapCardSection>
