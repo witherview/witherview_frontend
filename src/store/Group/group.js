@@ -19,16 +19,10 @@ const groupReducer = createSlice({
         questions: [],
       };
     },
-    setReload(state) {
-      return {
-        ...state,
-        reload: !state.reload,
-      };
-    },
   },
 });
 
-const { addQuestions, resetQuestions, setReload } = groupReducer.actions;
+const { addQuestions, resetQuestions } = groupReducer.actions;
 
 export const AddQuestions = ({ questions }) => async (dispatch) => {
   dispatch(addQuestions({ questions }));
@@ -36,10 +30,6 @@ export const AddQuestions = ({ questions }) => async (dispatch) => {
 
 export const ResetQuestions = () => (dispatch) => {
   dispatch(resetQuestions());
-};
-
-export const SetReload = () => (dispatch) => {
-  dispatch(setReload());
 };
 
 export default groupReducer.reducer;
