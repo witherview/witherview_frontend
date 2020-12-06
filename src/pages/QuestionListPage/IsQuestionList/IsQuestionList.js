@@ -64,6 +64,7 @@ export default function IsQuestionList({ questionList, handleDelete }) {
         {questionList?.map((val, index) => {
           const [count, setCount] = useState(0);
           getQuestionItemAPI(val.id).then((response) => {
+            console.log(response.data);
             setCount(response.data.length);
           });
           return (

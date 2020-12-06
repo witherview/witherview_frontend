@@ -63,7 +63,7 @@ export default function StudyMainPage() {
   const MockProfile = (val) => {
     let item = [];
     for(let i = 0; i<val; i+=1) {
-      item.push(<ProfileInfoContainer />);
+      item.push(<ProfileInfoContainer src="https://api.generated.photos/api/v1/faces?api_key=kOw2wPhMd_54sDQk3OY1Gg"/>);
     }
     return item;
   }

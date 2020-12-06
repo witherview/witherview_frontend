@@ -11,6 +11,7 @@ import Button from '@components/Button';
 import SelectCard from './SelectCard';
 
 const Wrapper = styled.div`
+  margin-left: 150px;
   flex: 1;
   flex-direction: column;
 `;

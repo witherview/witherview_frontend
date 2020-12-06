@@ -58,7 +58,6 @@ export default function QuestionListPage() {
 
   const fetch = async () => {
     getQuestionListAPI().then((response) => {
-      console.log(response.data);
       setQuestionList(response.data);
       setLoading(true);
     });
@@ -68,7 +67,7 @@ export default function QuestionListPage() {
     fetch();
   }, []);
 
-  const handleDelete = async (e, id) => {
+  const handleDelete = async (id) => {
     await deleteQuestionListAPI(id).then(async () => {
       setLoading(false);
       await fetch();
