@@ -47,8 +47,22 @@ io.on('connection', (sock) => {
     });
   });
 
+  sock.on('next', () => {
+    if (
+      users[socketToRoom[sock.id]]
+      && users[socketToRoom[sock.id]].length <= 2
+    ) {
+      users[socketToRoom[sock.id]].forEach((val) => {
+        io.to(val).emit('clicked');
+      });
+    }
+  });
+
   sock.on('disconnect', () => {
-    if (users[socketToRoom[sock.id]] && users[socketToRoom[sock.id]].length <= 2) {
+    if (
+      users[socketToRoom[sock.id]]
+      && users[socketToRoom[sock.id]].length <= 2
+    ) {
       users[socketToRoom[sock.id]].forEach((val) => {
         io.to(val).emit('refresh');
       });
