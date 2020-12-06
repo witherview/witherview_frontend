@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import profileExample from '@assets/images/profile_example.png';
@@ -91,6 +92,7 @@ const Each = styled.div`
 `;
 
 export default function ProfileMenuContainer({ name, src }) {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -109,8 +111,7 @@ export default function ProfileMenuContainer({ name, src }) {
         <Icon type="arrow_down_grey" alt="arrow_down_grey" />
         <List isOpen={isOpen}>
           <Item>
-            {/* TODO: history.push('mypage') */}
-            <Each onClick={() => {}}>마이페이지</Each>
+            <Each onClick={() => history.push('/mypage')}>마이페이지</Each>
           </Item>
           <Item>
             <Each onClick={() => dispatch(setLogout())}>로그아웃</Each>

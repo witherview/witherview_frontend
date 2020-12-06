@@ -30,14 +30,10 @@ const WrapText = styled.div`
 `;
 
 export default function SidebarButton({
-  type,
-  clicked,
-  handleClick,
-  hover,
-  title,
+  type, clicked, func, hover, title,
 }) {
   return (
-    <Wrapper onClick={handleClick} clicked={clicked} hover={hover}>
+    <Wrapper onClick={func} clicked={clicked} hover={hover}>
       <Icon type={type} alt="icon" />
       {hover && <WrapText clicked={clicked}>{title}</WrapText>}
     </Wrapper>
@@ -47,7 +43,7 @@ export default function SidebarButton({
 SidebarButton.propTypes = {
   type: PropTypes.string.isRequired,
   clicked: PropTypes.bool,
-  handleClick: PropTypes.func.isRequired,
+  func: PropTypes.func.isRequired,
   hover: PropTypes.bool,
   title: PropTypes.string,
 };

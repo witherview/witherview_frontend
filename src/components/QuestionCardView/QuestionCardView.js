@@ -10,7 +10,7 @@ const Box = styled.div`
   height: 270px;
   border-radius: 10px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid  ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')};
+  border: solid ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')};
   background-color: #ffffff;
   box-sizing: content-box;
   user-select: none;
@@ -23,12 +23,21 @@ const Content = styled.div`
 `;
 
 const IconBox = styled.div`
-  width: 20px;
-  height: 7px;
-  margin: 23px 26px 0 0;
+  width: 40px;
+  height: 30px;
+  margin: 0px 26px 0 0;
   margin-left: auto;
-  background-color: red;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
   z-index: 10;
+`;
+
+const IconEach = styled.div`
+  width: 7px;
+  height: 7px;
+  border-radius: 7px;
+  background-color: #9e9e9e;
 `;
 
 const Number = styled.div`
@@ -104,7 +113,7 @@ const SubTitle = styled.div`
   max-width: 250px;
   max-height: 30px;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
   word-wrap: normal;
   font-family: AppleSDGothicNeoB00;
@@ -118,62 +127,78 @@ const SubTitle = styled.div`
   color: #000000;
 `;
 
-const Delete = styled.div`
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 165px;
-  top: 40px;
+const List = styled.ul`
   width: 143px;
-  height: 86px;
+  padding: 18.5px 0px 18.5px 0px;
+  position: absolute;
+  top: 30px;
+  right: 25px;
+  z-index: 101;
+  background-color: #fff;
+  transition: 0.25s ease all;
+  transform: scale(0);
+  transform-origin: 0 1;
   border-radius: 10px;
   box-shadow: 0 12px 24px 0 rgba(4, 4, 161, 0.15);
-  background-color: #ffffff;
-  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transform: ${({ isOpen }) => isOpen && 'scale(1)'};
 `;
 
-const DeleteText = styled.div`
-  margin-left: 28px;
+const Item = styled.li`
+  width: 87px;
+  padding-top: 12.5px;
+  padding-bottom: 12.5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+const Each = styled.div`
+  width: 100%;
+  user-select: none;
   font-family: AppleSDGothicNeoM00;
   font-size: 20px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.3;
-  letter-spacing: normal;
-  text-align: left;
-  color: #f2886b;
+  color: #9e9e9e;
+  &:hover {
+    color: #f2886b;
+    text-decoration: none;
+  }
 `;
 
 export default function QuestionCardView({
-  id, number, title, description, handleDelete,
+  id,
+  number,
+  title,
+  description,
+  handleDelete,
 }) {
-  const [clicked, setClicked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
-  const handleClick = (e) => {
-    if (e.target === e.currentTarget) {
-      setClicked(!clicked);
-    }
-  };
 
   const handleMove = (e) => {
     if (e.target === e.currentTarget) {
       history.push(`/question/${id}`);
     }
   };
-
+  const toggle = (set) => setIsOpen(set);
   return (
     <>
       <Box onClick={handleMove}>
-        <IconBox onClick={handleClick} />
+        <IconBox isOpen={isOpen} onMouseOver={() => toggle(true)}>
+          <IconEach />
+          <IconEach />
+          <IconEach />
+        </IconBox>
+        <List isOpen={isOpen} onMouseLeave={() => toggle(false)}>
+          <Item>
+            <Each onClick={() => handleDelete()}>삭제</Each>
+          </Item>
+        </List>
         <Content onClick={handleMove}>
-          { clicked && (
-          <Delete onClick={(e) => handleDelete(e, id)}>
-            <DeleteText>
-              삭제
-            </DeleteText>
-          </Delete>
-          )}
           <Number>
             <NumberText>{number}</NumberText>
             <SubText>
@@ -184,16 +209,12 @@ export default function QuestionCardView({
           </Number>
           <Line />
           <Title>
-            <TitleText>
-              {title}
-            </TitleText>
+            <TitleText>{title}</TitleText>
             <Icon type="post" alt="" />
           </Title>
           <SubTitle>{description}</SubTitle>
         </Content>
-
       </Box>
-
     </>
   );
 }

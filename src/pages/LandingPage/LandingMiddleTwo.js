@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   @media only screen and (max-width: 1870px) {
     min-height: 400px;
   }
+
   width: 100%;
   user-select: none;
   min-height: 700px;
@@ -25,9 +26,10 @@ const WrapContainer = styled.div`
     min-height: 400px;
     justify-content: flex-end;
   }
+
   position: relative;
   min-height: 600px;
-  max-width: 1600px;
+  max-width: 1400px;
   width: 80%;
   display: flex;
   align-items: center;
@@ -45,10 +47,11 @@ const WrapPadding = styled.div`
 const WrapImage = styled.img`
   @media only screen and (max-width: 1870px) {
     height: 550px;
+    left: -105px;
     bottom: -90px;
   }
 
-  @media only screen and (max-width: 1280px) {
+  @media only screen and (max-width: 1400px) {
     display: none;
     position: relative;
     bottom: auto;

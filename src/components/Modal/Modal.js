@@ -6,6 +6,9 @@ import ModalWrapper from './ModalWrapper';
 import QuestionListSaveModal from './QuestionListSaveModal';
 import SelfTrainStartModal from './SelfTrainStartModal';
 import StudyMakeModal from './StudyMakeModal';
+import EvaluationModal from './EvaluationModal';
+import ModalWrapper from './ModalWrapper';
+
 
 export default function Modal({
   modalName, func,
@@ -15,6 +18,7 @@ export default function Modal({
     [MODALS.QUESTIONLIST_SAVE_MODAL]: <QuestionListSaveModal />,
     [MODALS.SELF_TRAIN_START_MODAL]: <SelfTrainStartModal />,
     [MODALS.STUDY_MAKE_MODAL]: <StudyMakeModal func={func} />,
+    [MODALS.EVALUATION_MODAL]: <EvaluationModal />,
   };
   return (
     <>
