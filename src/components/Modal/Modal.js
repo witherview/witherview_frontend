@@ -7,7 +7,6 @@ import QuestionListSaveModal from './QuestionListSaveModal';
 import SelfTrainStartModal from './SelfTrainStartModal';
 import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
-import ModalWrapper from './ModalWrapper';
 
 
 export default function Modal({
