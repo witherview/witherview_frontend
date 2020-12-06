@@ -60,6 +60,14 @@ export default function StudyMainPage() {
     '자유_기타',
   ];
 
+  const MockProfile = (val) => {
+    let item = [];
+    for(let i = 0; i<val; i+=1) {
+      item.push(<ProfileInfoContainer />);
+    }
+    return item;
+  }
+
   return (
     <S.Wrapper>
       <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload} />
@@ -112,13 +120,7 @@ export default function StudyMainPage() {
             <S.PartiText>
               참여도 높은 유저
             </S.PartiText>
-            <ProfileInfoContainer />
-            <ProfileInfoContainer />
-            <ProfileInfoContainer />
-            <ProfileInfoContainer />
-            <ProfileInfoContainer />
-            <ProfileInfoContainer />
-            <ProfileInfoContainer />
+            {MockProfile(10)}
           </S.PartiWrapper>
         </S.BoxWrapper>
       </S.ContentWrapper>
