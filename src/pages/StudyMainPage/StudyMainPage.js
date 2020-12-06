@@ -60,13 +60,17 @@ export default function StudyMainPage() {
     '자유_기타',
   ];
 
-  const MockProfile = (val) => {
-    let item = [];
-    for(let i = 0; i<val; i+=1) {
-      item.push(<ProfileInfoContainer src="https://api.generated.photos/api/v1/faces?api_key=kOw2wPhMd_54sDQk3OY1Gg"/>);
+  const MockProfile = () => {
+    const item = [];
+    for (let i = 0; i < 2; i += 1) {
+      item.push(<ProfileInfoContainer name="이영희" participateRate={95} src="https://images.generated.photos/wNQ4DFhYBW1rhVfJcABnSbnEqvAYvNFC2FoXFmSlQDk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NjI5NTJfMDc4/MzU0N18wNzU2MTIz/LmpwZw.jpg" />);
+      item.push(<ProfileInfoContainer name="김민수" participateRate={97} src="https://images.generated.photos/Mvj3BACVuVB7nhFBMntFD2_GSpti55sQZGA6W41CbkA/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2MjQwMjguanBn.jpg" />);
+      item.push(<ProfileInfoContainer name="이수근" participateRate={82} src="https://images.generated.photos/2eakikvGnP8RXguLLlS5btl2IsS3ao6T9E1eE8b0Kik/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzM4ODZfMDI5/NzcyOF8wMTcyMjAz/LmpwZw.jpg" />);
+      item.push(<ProfileInfoContainer name="박미나" participateRate={91} src="https://images.generated.photos/vrlHRAktOiwyM0-2632IhhbhEj2vDafwnBvTll8rpdk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NjgxMzYuanBn.jpg" />);
+      item.push(<ProfileInfoContainer name="홍길동" participateRate={90} src="https://images.generated.photos/BJlxsNPRJxDUZKrc3v-ok3_aY10keLpkqvXb6wHPo6Q/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMTI1NDZfMDQ5/MTQxMV8wMTIxMjg5/LmpwZw.jpg" />);
     }
     return item;
-  }
+  };
 
   return (
     <S.Wrapper>
@@ -120,7 +124,7 @@ export default function StudyMainPage() {
             <S.PartiText>
               참여도 높은 유저
             </S.PartiText>
-            {MockProfile(10)}
+            {MockProfile()}
           </S.PartiWrapper>
         </S.BoxWrapper>
       </S.ContentWrapper>

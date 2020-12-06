@@ -146,15 +146,15 @@ export default function StudyCardView({
   };
 
   const handleClick = () => {
-    getGroupMemberApi(id).then((res)=>{
-      res.data.forEach(val=>{
-        if(val.email !== sessionStorage.getItem('email')) {
-          postJoinStudyApi({id});
+    getGroupMemberApi(id).then((res) => {
+      res.data.forEach((val) => {
+        if (val.email !== sessionStorage.getItem('email')) {
+          postJoinStudyApi({ id });
         }
-      })
-    })
-    history.push(`/study-room/${id}`)
-  }
+      });
+    });
+    history.push(`/study-room/${id}`);
+  };
   return (
     <Wrapper>
       <Box onMouseEnter={hoverIn} onMouseLeave={hoverOut}>

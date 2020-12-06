@@ -21,7 +21,7 @@ const Box = styled.div`
 `;
 
 const Time = styled.span`
-  width: 40px;
+  width: 100%;
   height: 45px;
   font-family: TitilliumWeb;
   font-size: 36px;
@@ -48,7 +48,7 @@ const Unit = styled.span`
   user-select: none;
 `;
 
-export default function TimeButton({ time }) {
+export default function TimeButton({ time, unit }) {
   // TODO: Atomic Desgin Pattern에 따르면 컴포넌트는 상태를 들고 있는게 좋지 않다고 함 - 추후 리펙토링 예정
   const dispatch = useDispatch();
   const [isClicked, setIsClicked] = useState(false);
@@ -71,7 +71,7 @@ export default function TimeButton({ time }) {
     <div>
       <Box onClick={timeSet} isClicked={isClicked}>
         <Time>{time}</Time>
-        <Unit>초</Unit>
+        {unit && <Unit>{unit}</Unit>}
       </Box>
     </div>
   );
@@ -79,8 +79,10 @@ export default function TimeButton({ time }) {
 
 TimeButton.propTypes = {
   time: PropTypes.number.isRequired,
+  unit: PropTypes.string,
 };
 
 TimeButton.defaultProp = {
   time: 45,
+  unit: '',
 };

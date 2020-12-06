@@ -14,34 +14,34 @@ export default function MyPage() {
       const { data } = response;
       setInfo([
         {
-          "type": "sound_big",
-          "title": "면접스터디 횟수",
-          "count": data?.groupStudyCnt,
+          type: 'sound_big',
+          title: '면접스터디 횟수',
+          count: data?.groupStudyCnt,
         },
         {
-          "type": "bubble_big",
-          "title": "혼자연습 횟수",
-          "count": data?.selfPracticeCnt,
+          type: 'bubble_big',
+          title: '혼자연습 횟수',
+          count: data?.selfPracticeCnt,
         },
         {
-          "type": "memo_big",
-          "title": "질문 리스트 갯수",
-          "count": data?.questionListCnt,
+          type: 'memo_big',
+          title: '질문 리스트 갯수',
+          count: data?.questionListCnt,
         },
         {
-          "type": "star_big",
-          "title": "면접 평균 점수",
-          "count": data?.interviewScore,
+          type: 'star_big',
+          title: '면접 평균 점수',
+          count: data?.interviewScore,
         },
         {
-          "type": "thumb_up_big",
-          "title": "합격 횟수",
-          "count": data?.passCnt,
+          type: 'thumb_up_big',
+          title: '합격 횟수',
+          count: data?.passCnt,
         },
         {
-          "type": "thumb_down_big",
-          "title": "불합격 횟수",
-          "count": data?.failCnt,
+          type: 'thumb_down_big',
+          title: '불합격 횟수',
+          count: data?.failCnt,
         },
       ]);
     });
@@ -117,9 +117,7 @@ export default function MyPage() {
           </S.InfoWrapper>
         </S.ProfileWrapper>
         <S.BoxWrapper>
-          {info?.map(val=>{
-            return  <Box type={val.type} title={val.title} count={val.count !== null ? val.count : 0} />
-          })}
+          {info?.map((val) => <Box type={val.type} title={val.title} count={val.count !== null ? val.count : 0} />)}
         </S.BoxWrapper>
       </S.Wrapper>
     </>

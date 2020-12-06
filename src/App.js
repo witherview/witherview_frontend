@@ -71,7 +71,7 @@ export default function App() {
             <AuthRoute
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
-            /> 
+            />
             <AuthRoute path="/self-train/:id" component={SelfTrainPage} />
             <AuthRoute
               exact

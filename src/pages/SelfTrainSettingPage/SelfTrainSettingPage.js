@@ -86,10 +86,10 @@ export default function SelfTrainSettingPage({ match }) {
         />
         <WrapContainer>
           <WrapSubContainer>
-            <TimeButton time={30} />
-            <TimeButton time={45} />
-            <TimeButton time={60} />
-            <TimeButton time={90} />
+            <TimeButton time={30} unit="초" />
+            <TimeButton time={45} unit="초" />
+            <TimeButton time={60} unit="초" />
+            <TimeButton time={90} unit="초" />
           </WrapSubContainer>
           <WrapToggle>
             <WrapText>답변 보기 허용</WrapText>

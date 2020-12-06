@@ -55,7 +55,7 @@ export default function InterviewStudyEntry({ match }) {
               <S.Description>{description}</S.Description>
             </S.TextWrapper>
             <S.BoxWrapper>
-              <div onClick={()=> history.push('/group-study')}>
+              <div onClick={() => history.push('/group-study')}>
                 <Button text="방 나가기" theme="gray" />
               </div>
               <Button text="스터디 시작하기" theme="blue" />

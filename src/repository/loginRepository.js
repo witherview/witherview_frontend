@@ -13,4 +13,3 @@ export const getUserApi = async (param) => await api({
   type: 'get',
   param,
 });
-
