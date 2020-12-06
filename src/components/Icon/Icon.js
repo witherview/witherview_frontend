@@ -12,7 +12,6 @@ const I = styled.i`
   display: inline-block;
   background-image: url(${iconImage});
   background-size: 1237px 876px;
-  background-color: transparent;
   border-radius: ${({ circle, size }) => (circle ? (size === 'xsm' ? '14px'
                         : size === 'sm' ? '21px'
                         : size === 'md' ? '28px'
