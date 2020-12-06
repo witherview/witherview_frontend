@@ -11,7 +11,7 @@ export default function MyPage() {
   const [info, setInfo] = useState([]);
   const fetch = async () => {
     getUserApi().then((response) => {
-      const data = response.data;
+      const { data } = response;
       setInfo([
         {
           "type": "sound_big",
