@@ -8,7 +8,6 @@ import SelfTrainStartModal from './SelfTrainStartModal';
 import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
 
-
 export default function Modal({
   modalName, func,
 }) {

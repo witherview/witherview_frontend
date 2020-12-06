@@ -22,6 +22,7 @@ import SelfTrainPage from '@pages/SelfTrainPage';
 import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
 import MyPage from '@pages/MyPage';
 import StudyMainPage from '@pages/StudyMainPage';
+import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
@@ -70,7 +71,7 @@ export default function App() {
             <AuthRoute
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
-            /> 
+            />
             <AuthRoute path="/self-train/:id" component={SelfTrainPage} />
             <AuthRoute
               exact
@@ -78,6 +79,7 @@ export default function App() {
               component={AloneQuestionCheckList}
             />
             <AuthRoute path="/group-study" component={StudyMainPage} />
+            <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
             <AuthRoute exact path="/mypage" component={MyPage} />
           </>
         </Wrapper>

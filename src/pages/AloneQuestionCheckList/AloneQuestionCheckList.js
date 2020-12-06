@@ -232,8 +232,8 @@ const SmallCheckList = styled.div`
   }
 `;
 
-export default function AloneQuestionCheckList( ) {
-  //const { id } = match.params;
+export default function AloneQuestionCheckList({ match }) {
+  const { id } = match.params;
   const dispatch = useDispatch();
   const history = useHistory();
   const { localBlob, historyId } = useSelector(get('train'));
@@ -305,8 +305,8 @@ export default function AloneQuestionCheckList( ) {
   );
 
   const selfTraingAgain = useCallback(() => {
-    //history.push(`/question/${id}`);
-  }, []);
+    history.push(`/question/${id}`);
+  }, [id]);
 
   const initCheckList = useCallback(() => {
     setCheckListArray(Array(14).fill(false));
