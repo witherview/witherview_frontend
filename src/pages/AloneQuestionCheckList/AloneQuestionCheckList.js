@@ -22,8 +22,7 @@ import EvaluationListMock from '@mocks/EvaluationListMock';
 
 const CloseButton = styled.button`
   position: absolute;
-  right: 3%;
-  top: 3%;
+  right: 7%;
   border: none;
   cursor: pointer;
   background-color: transparent;
@@ -33,9 +32,8 @@ const CloseButton = styled.button`
 `;
 
 const Background = styled.div`
-  width: 100%;
-  height: 100vh;
   background-color: #eef0ff;
+  padding: 66px 97px 112px;
   text-align: center;
 `;
 
@@ -44,11 +42,10 @@ const EndingTitle = styled.span`
   color: #000000;
   font-family: AppleSDGothicNeoEB00;
   font-size: 36px;
-  margin-top: 70px;
+  margin-top: 90px;
 `;
 
 const Content = styled.div`
-  margin-left: 100px;
   margin-top: 105px;
   display: flex;
 `;
@@ -171,8 +168,8 @@ const CheckListContainer = styled.div`
   height: 671px;
   box-sizing: border-box;
   margin-right: 11px;
-  margin-bottom: 20px;
-  padding: 38px 42px 33px 56px;
+  margin-bottom: 30px;
+  padding: 43px 42px 57px 56px;
   border-radius: 10px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   background-color: #ffffff;
@@ -232,8 +229,8 @@ const SmallCheckList = styled.div`
   }
 `;
 
-export default function AloneQuestionCheckList( ) {
-  //const { id } = match.params;
+export default function AloneQuestionCheckList({ match }) {
+  const { id } = match.params;
   const dispatch = useDispatch();
   const history = useHistory();
   const { localBlob, historyId } = useSelector(get('train'));
@@ -305,8 +302,8 @@ export default function AloneQuestionCheckList( ) {
   );
 
   const selfTraingAgain = useCallback(() => {
-    //history.push(`/question/${id}`);
-  }, []);
+    history.push(`/question/${id}`);
+  }, [id]);
 
   const initCheckList = useCallback(() => {
     setCheckListArray(Array(14).fill(false));

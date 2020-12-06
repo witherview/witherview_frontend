@@ -32,9 +32,8 @@ const WrapCardSection = styled.div`
       padding: 0px;
     }
   }
+
   display: flex;
-  margin-top: 60px;
-  margin-bottom: 60px;
   padding: 80px;
 `;
 
@@ -42,10 +41,9 @@ const SELECT_NOTHING = 0;
 const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
-export default function SelfTrainEntryPage({ match }) {
+export default function SelfTrainEntryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { id } = match.params;
   const [clicked, setClicked] = useState(SELECT_NOTHING);
   const { name } = useSelector(get('auth'));
 
