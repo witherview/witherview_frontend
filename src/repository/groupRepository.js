@@ -17,3 +17,9 @@ export const postStudyApi = async (param) => await api({
   type: 'post',
   param,
 });
+
+export const postJoinStudyApi = async (param) => await api({
+  url: '/api/group/room',
+  type: 'post',
+  param,
+});

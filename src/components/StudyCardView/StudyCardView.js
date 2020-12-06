@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icon from '@components/Icon';
+import { postJoinStudyApi, getGroupMemberApi } from '@repository/groupRepository';
 
 const Wrapper = styled.div`
   display: flex;
@@ -143,6 +144,17 @@ export default function StudyCardView({
     setType('clock_black');
     setProfile('profile_blue');
   };
+
+  const handleClick = () => {
+    getGroupMemberApi(id).then((res)=>{
+      res.data.forEach(val=>{
+        if(val.email !== sessionStorage.getItem('email')) {
+          postJoinStudyApi({id});
+        }
+      })
+    })
+    history.push(`/study-room/${id}`)
+  }
   return (
     <Wrapper>
       <Box onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -166,7 +178,7 @@ export default function StudyCardView({
               /2
             </Text>
           </MemberWrapper>
-          <Button onClick={() => history.push(`/study-room/${id}`)}>
+          <Button onClick={handleClick}>
             <ButtonText>
               입장하기
             </ButtonText>
