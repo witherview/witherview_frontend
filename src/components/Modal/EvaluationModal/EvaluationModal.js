@@ -60,13 +60,13 @@ const Box = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${({size})=> size === "big" ? "40px" : "36.5px"};
-    height: ${({size})=> size === "big" ? "40px" : "36.5px"};
+    width: ${({ size }) => (size === 'big' ? '40px' : '36.5px')};
+    height: ${({ size }) => (size === 'big' ? '40px' : '36.5px')};
     margin: 0 12.5px;
     border-radius: 8px;
-    background-color: rgba(211,211,211,${({size})=> size === "big" ? "1" : "0.4"});
+    background-color: rgba(211,211,211,${({ size }) => (size === 'big' ? '1' : '0.4')});
     font-family: AppleSDGothicNeoM00;
-    font-size: ${({size})=> size === "big" ? "20px" : "14px"};
+    font-size: ${({ size }) => (size === 'big' ? '20px' : '14px')};
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -98,7 +98,7 @@ const ScoreBox = styled.div`
 `;
 
 const Text = styled.div`
-    height: ${({height})=> height}px;
+    height: ${({ height }) => height}px;
 `;
 
 const Margin = styled.div`
@@ -116,7 +116,7 @@ const EvaluateBox = styled.div`
     margin: 0 60px;
     flex-direction: column;
     align-items: center;
-    .${({evaluate})=>evaluate} {
+    .${({ evaluate }) => evaluate} {
         font-weight: 700;
     }
 `;
@@ -135,84 +135,82 @@ const EvaluateText = styled.div`
 `;
 
 export default function EvaluationModal() {
-    const dispatch = useDispatch();
-    const [score, setScore] = useState(9);
-    const [evaluate, setEvaluate] = useState("");
+  const dispatch = useDispatch();
+  const [score, setScore] = useState(9);
+  const [evaluate, setEvaluate] = useState('');
 
-    const handleCount = (val) => {
-        setScore(score+val);
-    }
+  const handleCount = (val) => {
+    setScore(score + val);
+  };
 
-    const handleEvaluate = (val) => {
-        setEvaluate(val);
-    }
+  const handleEvaluate = (val) => {
+    setEvaluate(val);
+  };
 
-    const handleButtonClick = () => {
-        // TODO: api연동
-        dispatch(hideModal(MODALS.EVALUATION_MODAL));
-    }
+  const handleButtonClick = () => {
+    // TODO: api연동
+    dispatch(hideModal(MODALS.EVALUATION_MODAL));
+  };
 
-    const calScore = (val) => {
-        return (score+val)%10+1;
-    }
+  const calScore = (val) => ((score + val) % 10) + 1;
 
-    return(
-        <Wrapper>
-            <IconWrapper>
-                <Icon type="cancel_blue" alt="" func={()=>dispatch(hideModal(MODALS.EVALUATION_MODAL))} />
-            </IconWrapper>
-            <ResultText>
-                면접 최종 평가
-            </ResultText>
-            <ScoreText>
-                홍길동님의 면접 점수를 입력해주세요.
-            </ScoreText>
-            <ScoreWrapper>
-                <Icon type="previous" func={()=>handleCount(-1)}/>
-                <Margin />
-                <Box>
-                    <Text height={16}>
-                        {calScore(-2)}
-                    </Text>
-                </Box>
-                <Box size="big">
-                    <Text height={19}>
-                        {calScore(-1)}
-                    </Text>
-                </Box>
-                <ScoreBox>
-                    <Text height={23}>
-                        {calScore(0)}
-                    </Text>
-                </ScoreBox>
-                <Box size="big">
-                    <Text height={19}>
-                        {calScore(1)}
-                    </Text>
-                </Box>
-                <Box>
-                    <Text height={16}>
-                        {calScore(2)}
-                    </Text>
-                </Box>
-                <Margin />
-                <Icon type="next_blue" alt="" func={()=>handleCount(1)}/>
-            </ScoreWrapper>
-            <EvaluateWrapper>
-                <EvaluateBox onClick={()=>handleEvaluate("pass")}  evaluate={evaluate}>
-                    <Icon type="thumb_up_white" alt=""/>
-                    <EvaluateText className="pass">
-                        합격이에요!
-                    </EvaluateText>
-                </EvaluateBox>
-                <EvaluateBox onClick={()=>handleEvaluate("fail")}  evaluate={evaluate}>
-                    <Icon type="thumb_down_white" alt=""/>
-                    <EvaluateText className="fail">
-                        불합격이에요..
-                    </EvaluateText>
-                </EvaluateBox>
-            </EvaluateWrapper>
-            <Button text="평가 완료" theme="blue" func={handleButtonClick} />
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+      <IconWrapper>
+        <Icon type="cancel_blue" alt="" func={() => dispatch(hideModal(MODALS.EVALUATION_MODAL))} />
+      </IconWrapper>
+      <ResultText>
+        면접 최종 평가
+      </ResultText>
+      <ScoreText>
+        홍길동님의 면접 점수를 입력해주세요.
+      </ScoreText>
+      <ScoreWrapper>
+        <Icon type="previous" func={() => handleCount(-1)} />
+        <Margin />
+        <Box>
+          <Text height={16}>
+            {calScore(-2)}
+          </Text>
+        </Box>
+        <Box size="big">
+          <Text height={19}>
+            {calScore(-1)}
+          </Text>
+        </Box>
+        <ScoreBox>
+          <Text height={23}>
+            {calScore(0)}
+          </Text>
+        </ScoreBox>
+        <Box size="big">
+          <Text height={19}>
+            {calScore(1)}
+          </Text>
+        </Box>
+        <Box>
+          <Text height={16}>
+            {calScore(2)}
+          </Text>
+        </Box>
+        <Margin />
+        <Icon type="next_blue" alt="" func={() => handleCount(1)} />
+      </ScoreWrapper>
+      <EvaluateWrapper>
+        <EvaluateBox onClick={() => handleEvaluate('pass')} evaluate={evaluate}>
+          <Icon type="thumb_up_white" alt="" />
+          <EvaluateText className="pass">
+            합격이에요!
+          </EvaluateText>
+        </EvaluateBox>
+        <EvaluateBox onClick={() => handleEvaluate('fail')} evaluate={evaluate}>
+          <Icon type="thumb_down_white" alt="" />
+          <EvaluateText className="fail">
+            불합격이에요..
+          </EvaluateText>
+        </EvaluateBox>
+      </EvaluateWrapper>
+      <Button text="평가 완료" theme="blue" func={handleButtonClick} />
+    </Wrapper>
+  );
 }

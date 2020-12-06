@@ -112,8 +112,8 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
                                     : type === 'memo_big' ? '-429px -712px'
                                     : type === 'star_big' ? '-608px -712px'
                                     : type === 'thumb_up_big' ? '-787px -712px'
-                                    : type === 'thumb_down_big' ? '-966px -712px' 
-                                    : type === 'profile_big' ? '-1125px -712px': '0 0')};
+                                    : type === 'thumb_down_big' ? '-966px -712px'
+                                    : type === 'profile_big' ? '-1125px -712px' : '0 0')};
 `;
 
 export default function Icon({
