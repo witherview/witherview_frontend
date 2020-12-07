@@ -43,7 +43,7 @@ export default function PeerStudyTrainPage({ match }) {
   //   stream: true,
   // });
 
-  const { roomID } = match.params;
+  const { roomId } = match.params;
   const { width } = useWindowSize();
   const [step, setStep] = useState(0);
 
@@ -94,7 +94,7 @@ export default function PeerStudyTrainPage({ match }) {
       .then((stream) => {
         userVideo.current.srcObject = stream;
 
-        socketRef.current.emit('join room', roomID);
+        socketRef.current.emit('join room', roomId);
 
         socketRef.current.on('all users', (users) => {
           setPeers([]);
@@ -194,6 +194,7 @@ export default function PeerStudyTrainPage({ match }) {
             <Button
               theme={step === STEP_FIRST ? 'gray' : 'blue'}
               text={Fixture[step].button}
+              // TODO: change below line after test
               func={() => socketRef.current.emit('next', step + 1)}
             />
             <S.WrapBottomSide right />

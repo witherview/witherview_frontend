@@ -8,8 +8,6 @@ import SyncLoader from 'react-spinners/SyncLoader';
 import LandingPage from '@pages/LandingPage';
 
 import AuthRoute from '@components/AuthRoute';
-import ConferenceButton from '@components/ConferenceButton';
-import ConferenceRoom from '@pages/ConferenceRoom';
 import NotFound from '@pages/404';
 import LoginPage from '@pages/LoginPage';
 import QuestionListPage from '@pages/QuestionListPage';
@@ -22,6 +20,9 @@ import SelfTrainPage from '@pages/SelfTrainPage';
 import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
 import MyPage from '@pages/MyPage';
 import StudyMainPage from '@pages/StudyMainPage';
+
+import InterviewStudyEntry from '@pages/InterviewStudyEntry';
+import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
@@ -44,13 +45,12 @@ export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
 
+  // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
-        <AuthRoute path="/conference" component={ConferenceButton} />
-        <Route path="/room/:roomID" component={ConferenceRoom} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
@@ -70,7 +70,7 @@ export default function App() {
             <AuthRoute
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
-            /> 
+            />
             <AuthRoute path="/self-train/:id" component={SelfTrainPage} />
             <AuthRoute
               exact
@@ -78,6 +78,11 @@ export default function App() {
               component={AloneQuestionCheckList}
             />
             <AuthRoute path="/group-study" component={StudyMainPage} />
+            <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
+            <AuthRoute
+              path="/peer-study/:roomId"
+              component={PeerStudyTrainPage}
+            />
             <AuthRoute exact path="/mypage" component={MyPage} />
           </>
         </Wrapper>
