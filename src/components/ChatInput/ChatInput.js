@@ -64,7 +64,7 @@ const SubmitBtn = styled.span`
   }
 `;
 
-export default function InterviewChat() {
+export default function ChatInput() {
   return (
     <Wrapper>
       <InputField placeholder="채팅을 입력해주세요." />
