@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import styled from 'styled-components';
 import LandingHeader from './LandingHeader';
 import LandingTop from './LandingTop';
@@ -31,7 +32,7 @@ export default function LandingPage() {
   const middleOneRef = useRef(null);
   const aloneRef = useRef(null);
   const studyRef = useRef(null);
-
+  AOS.init();
   return (
     <Wrapper>
       <WrapContent>

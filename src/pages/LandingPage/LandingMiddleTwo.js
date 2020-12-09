@@ -64,27 +64,35 @@ const WrapImage = styled.img`
   left: -135px;
 `;
 
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 export default function LandingMiddleTwo({ myRefAlone }) {
   return (
-    <Wrapper ref={myRefAlone}>
-      <WrapContainer>
-        <WrapImage src={AloneImage} />
-        <div />
-        <WrapPadding>
-          <TextBoxA
-            isRight
-            height={350}
-            header="PRACTICE ALONE"
-            content={['혼자서도 쉽게', '화상 면접 진행을!']}
-            summary={[
-              '면접 질문 작성, 면접 스크립트, 자가평가로 이루어지는',
-              '완벽한 면접 연습! 질문리스트 작성을 통해 기업, 직무별',
-              '면접 리스트를 편리하게 경험해 보세요.',
-            ]}
-          />
-        </WrapPadding>
-      </WrapContainer>
-    </Wrapper>
+      <Wrapper ref={myRefAlone}>
+        <Div data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+          <WrapContainer>
+            <WrapImage src={AloneImage} />
+            <div />
+            <WrapPadding>
+              <TextBoxA
+                isRight
+                height={350}
+                header="PRACTICE ALONE"
+                content={['혼자서도 쉽게', '화상 면접 진행을!']}
+                summary={[
+                  '면접 질문 작성, 면접 스크립트, 자가평가로 이루어지는',
+                  '완벽한 면접 연습! 질문리스트 작성을 통해 기업, 직무별',
+                  '면접 리스트를 편리하게 경험해 보세요.',
+                ]}
+              />
+            </WrapPadding>
+          </WrapContainer>
+        </Div>
+      </Wrapper>
   );
 }
 

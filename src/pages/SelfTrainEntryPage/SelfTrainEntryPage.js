@@ -12,6 +12,7 @@ import Button from '@components/Button';
 import SelectCard from './SelectCard';
 
 const Wrapper = styled.div`
+  margin-left: 150px;
   flex: 1;
   flex-direction: column;
 `;
@@ -63,7 +64,7 @@ export default function SelfTrainEntryPage({ history }) {
     <Wrapper>
       <WrapContent>
         <TextBox
-          topText={`${name}님 화상 면접을 혼자 연습해보세요`}
+          topText={`${name}님 화상 면접을 연습하세요`}
           bottomText="원하는 기능을 선택하여 화상 면접을 대비해 보세요."
         />
         <WrapCardSection>

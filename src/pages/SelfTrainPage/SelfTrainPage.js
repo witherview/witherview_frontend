@@ -111,7 +111,7 @@ export default function SelfTrainPage({ match }) {
 
   useEffect(() => {
     if (step === STEP_LOADING_1 || step === STEP_LOADING_2) {
-      transition.set(3000).then(() => dispatch(setStep({ step: step + 1 })));
+      transition.set(5000).then(() => dispatch(setStep({ step: step + 1 })));
     }
 
     if (step === STEP_START) {

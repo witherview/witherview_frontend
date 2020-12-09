@@ -79,15 +79,15 @@ export default function SelfTrainSettingPage({ match, history }) {
     <Wrapper>
       <WrapContent>
         <TextBox
-          topText="먼저 환경설정을 시작하겠습니다."
-          bottomText="원하는 답변 시간을 선택하고 기업 직무 명을 입력해주세요."
+          topText="환경설정을 시작하겠습니다."
+          bottomText="답변 시간을 선택하고 기업이름과 직무이름을 입력해주세요."
         />
         <WrapContainer>
           <WrapSubContainer>
-            <TimeButton time={30} />
-            <TimeButton time={45} />
-            <TimeButton time={60} />
-            <TimeButton time={90} />
+            <TimeButton time={30} unit="초" />
+            <TimeButton time={45} unit="초" />
+            <TimeButton time={60} unit="초" />
+            <TimeButton time={90} unit="초" />
           </WrapSubContainer>
           <WrapToggle>
             <WrapText>답변 보기 허용</WrapText>

@@ -72,12 +72,12 @@ export default function SelectCard({ kind, clicked, func }) {
           alt="Button Middle"
         />
         <WrapMiddleText clicked={clicked}>
-          {kind === GUIDE_IMAGE ? '면접 질문 가이드' : '면접 질문 등록 후 연습'}
+          {kind === GUIDE_IMAGE ? '위더뷰 면접 가이드' : '면접 질문 만들기'}
         </WrapMiddleText>
         <WrapBottomText>
           {kind === GUIDE_IMAGE
-            ? '기존에 있는 질문으로 면접을\n연습해보세요.'
-            : '면접 질문 리스트를 설정하고\n연습할 수 있어요.'}
+            ? '위더뷰가 제시하는\n핵심 면접 질문으로 연습해보세요.'
+            : '직접 면접 질문을 만들고\n면접을 대비 할 수 있어요.'}
         </WrapBottomText>
       </WrapContainer>
     </Wrapper>

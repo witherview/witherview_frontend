@@ -20,6 +20,7 @@ import SelfTrainPage from '@pages/SelfTrainPage';
 import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
 import MyPage from '@pages/MyPage';
 import StudyMainPage from '@pages/StudyMainPage';
+import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 
 import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
