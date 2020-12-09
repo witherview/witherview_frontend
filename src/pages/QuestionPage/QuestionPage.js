@@ -1,5 +1,7 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
@@ -271,3 +273,7 @@ export default function QuestionPage({ match }) {
     </>
   );
 }
+
+QuestionPage.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+};

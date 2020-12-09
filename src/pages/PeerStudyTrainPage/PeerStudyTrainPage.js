@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 // import Timeout from 'await-timeout';
 // import { useHistory } from 'react-router-dom';
 // import { useSelector, useDispatch } from 'react-redux';
@@ -118,3 +121,7 @@ export default function PeerStudyTrainPage({ match }) {
     </S.Wrapper>
   );
 }
+
+PeerStudyTrainPage.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+};

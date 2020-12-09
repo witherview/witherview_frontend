@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import styled from 'styled-components';
 
-import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
 import { handleReset } from '@store/Time/time';
@@ -42,10 +43,8 @@ const SELECT_NOTHING = 0;
 const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
-export default function SelfTrainEntryPage({ match }) {
+export default function SelfTrainEntryPage({ history }) {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { id } = match.params;
   const [clicked, setClicked] = useState(SELECT_NOTHING);
   const { name } = useSelector(get('auth'));
 
@@ -93,3 +92,7 @@ export default function SelfTrainEntryPage({ match }) {
     </Wrapper>
   );
 }
+
+SelfTrainEntryPage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};

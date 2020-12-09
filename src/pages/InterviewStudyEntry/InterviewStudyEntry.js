@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import Button from '@components/Button/Button';
 
 import { getInterviewStudyRoomAPI } from '@repository/interviewStudyRepository';
 import S from './InterviewStudy.style';
 import UsersSection from './UsersSection';
 
+const DEFAULT_ID = 421;
+
 export default function InterviewStudyEntry({ match, history }) {
   const { id } = match.params;
-  const DEFAULT_ID = 421;
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
   const [description, setDescription] = useState();
@@ -36,7 +39,7 @@ export default function InterviewStudyEntry({ match, history }) {
   };
 
   const fetchRoomInfo = async () => {
-    const { data } = await getInterviewStudyRoomAPI(DEFAULT_ID);
+    const { data } = await getInterviewStudyRoomAPI(id || DEFAULT_ID);
     setRoomTitle(data.title);
     const dateText = createDateInfo(data.date, data.time);
     setDateInfoText(dateText);
@@ -72,3 +75,8 @@ export default function InterviewStudyEntry({ match, history }) {
     </S.Wrapper>
   );
 }
+
+InterviewStudyEntry.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+};

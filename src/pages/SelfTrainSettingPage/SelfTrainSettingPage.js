@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCompany, setJob, setViewAnswer } from '@store/Train/train';
@@ -55,13 +55,11 @@ const WrapText = styled.div`
   ${({ padding }) => (padding ? 'padding-bottom: 20px' : 'padding-right: 25px')};
 `;
 
-export default function SelfTrainSettingPage({ match }) {
+export default function SelfTrainSettingPage({ match, history }) {
   const { id } = match.params;
   const dispatch = useDispatch();
   const { selectedQnaId, job, company } = useSelector(get('train'));
   const { standardTime } = useSelector(get('train'));
-
-  const history = useHistory();
 
   const fetch = async () => {
     getQuestionListAPI().then((response) => {
@@ -124,3 +122,8 @@ export default function SelfTrainSettingPage({ match }) {
     </Wrapper>
   );
 }
+
+SelfTrainSettingPage.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+};
