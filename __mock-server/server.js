@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
+const { userInfo } = require('os');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,7 +17,8 @@ io.on('connection', (sock) => {
   sock.on('join room', (roomID) => {
     if (users[roomID]) {
       const { length } = users[roomID];
-      if (length === 4) {
+      if (length === 2) {
+        socketToRoom.roomID = {};
         sock.emit('room full');
         return;
       }
@@ -45,15 +47,30 @@ io.on('connection', (sock) => {
     });
   });
 
-  // 1:n 일 경우 특정 사람이 disconnect시 목록갱신 부분 업데이트 필요
+  sock.on('next', () => {
+    if (
+      users[socketToRoom[sock.id]]
+      && users[socketToRoom[sock.id]].length <= 2
+    ) {
+      users[socketToRoom[sock.id]].forEach((val) => {
+        io.to(val).emit('clicked');
+      });
+    }
+  });
+
   sock.on('disconnect', () => {
-    // const roomID = socketToRoom[sock.id];
-    // let room = users[roomID];
-    // if (room) {
-    //   room = room.filter((id) => id !== sock.id);
-    //   users[roomID] = room;
-    // }
-    // io.emit('all users', room);
+    if (
+      users[socketToRoom[sock.id]]
+      && users[socketToRoom[sock.id]].length <= 2
+    ) {
+      users[socketToRoom[sock.id]].forEach((val) => {
+        io.to(val).emit('refresh');
+      });
+      users[socketToRoom[sock.id]] = users[socketToRoom[sock.id]].filter(
+        (val) => val !== sock.id,
+      );
+    }
+    delete socketToRoom[sock.id];
   });
 });
 
