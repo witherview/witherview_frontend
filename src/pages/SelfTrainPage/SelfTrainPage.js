@@ -166,14 +166,14 @@ export default function SelfTrainPage({ match }) {
           {isLoading ? textBox : questionTextBox}
           <S.WrapCamView width={width / 1.5}>
             <CamView
-              height={width / 3}
+              height={width / 4}
               width={isShowAnswer ? width / 1.5 - 553 : width / 1.5}
               status={status}
             />
             {isShowAnswer && (
               <AnswerBox
                 answer={questionList[qnaStep].answer}
-                height={width / 3}
+                height={width / 4}
                 date={questionList[qnaStep].modifiedAt}
               />
             )}
