@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { hideModal } from '@store/Modal/modal';
 import Icon from '@components/Icon';
@@ -135,6 +137,7 @@ const EvaluateText = styled.div`
 `;
 
 export default function EvaluationModal() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [score, setScore] = useState(9);
   const [evaluate, setEvaluate] = useState('');
@@ -150,6 +153,7 @@ export default function EvaluationModal() {
   const handleButtonClick = () => {
     // TODO: api연동
     dispatch(hideModal(MODALS.EVALUATION_MODAL));
+    history.push('/group-study');
   };
 
   const calScore = (val) => ((score + val) % 10) + 1;
@@ -198,13 +202,13 @@ export default function EvaluationModal() {
       </ScoreWrapper>
       <EvaluateWrapper>
         <EvaluateBox onClick={() => handleEvaluate('pass')} evaluate={evaluate}>
-          <Icon type="thumb_up_white" alt="" />
+          <Icon type={evaluate === 'pass' ? 'thumb_up_big' : 'thumb_up_white'} alt="" />
           <EvaluateText className="pass">
             합격이에요!
           </EvaluateText>
         </EvaluateBox>
         <EvaluateBox onClick={() => handleEvaluate('fail')} evaluate={evaluate}>
-          <Icon type="thumb_down_white" alt="" />
+          <Icon type={evaluate === 'fail' ? 'thumb_down_big' : 'thumb_down_white'} alt="" />
           <EvaluateText className="fail">
             불합격이에요..
           </EvaluateText>

@@ -30,6 +30,11 @@ import Icon from '@components/Icon';
 
 import RemainTime from '@components/RemainTime';
 import useWindowSize from '@hooks/useWindowSize';
+
+import Modal from '@components/Modal/Modal';
+import { showModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
+
 import MyCamView from './MyCamView';
 import PeerVideo from './PeerVideo';
 
@@ -77,20 +82,28 @@ export default function PeerStudyTrainPage({ match, history }) {
       dispatch(setToggleTrain({ toggleTrain: true }));
       setStep(STEP_CONNECT);
     }
-    // TODO: peer-study 메인 페이지로 돌아가도록 처리
     if (peers.length === 0 && step > 0) history.push('/group-study');
     if (isTrain) {
       dispatch(startTime({ count: 1800 }));
+    }
+    if (peers.length === 1 && step === STEP_FINAL - 1) {
+      dispatch(showModal(MODALS.EVALUATION_MODAL));
     }
     return () => {};
   }, [peers, step, isConnectStomp, isTrain]);
 
   return (
     <S.Wrapper source={StudyBackground}>
+      <Modal modalName={MODALS.EVALUATION_MODAL} />
       <S.WrapContainer>
         <S.WrapAbsolute>
           {!isStepFirst && (
-            <Icon isCircle type="cancel_circle" func={() => history.push('/group-study')} alt="cancel" />
+            <Icon
+              isCircle
+              type="cancel_circle"
+              func={() => history.push('/group-study')}
+              alt="cancel"
+            />
           )}
         </S.WrapAbsolute>
         <S.WrapContent>
@@ -133,7 +146,11 @@ export default function PeerStudyTrainPage({ match, history }) {
               theme={step === STEP_FIRST ? 'gray' : 'blue'}
               text={Fixture[step].button}
               socketRef
-              func={() => socketRef.current.emit('next', step + 1)}
+              func={
+                step + 1 !== STEP_FINAL
+                  ? () => socketRef.current.emit('next', step + 1)
+                  : () => console.log('last')
+              }
             />
             <S.WrapBottomSide right />
           </S.WrapBottom>
