@@ -35,7 +35,7 @@ export default function PeerVideo({
   height,
   name,
   status,
-  mediaBlobUrl,
+  isTrain,
 }) {
   const ref = useRef();
 
@@ -59,10 +59,14 @@ export default function PeerVideo({
             autoPlay
             ref={ref}
           />
-          <WrapButtonGroup>
-            <ButtonGroup />
-          </WrapButtonGroup>
-          {peer && <SamllCamView peerRef={mediaBlobUrl} />}
+          {isTrain && (
+            <>
+              <WrapButtonGroup>
+                <ButtonGroup />
+              </WrapButtonGroup>
+              <SamllCamView />
+            </>
+          )}
         </>
       )}
     </Wrapper>
@@ -75,7 +79,7 @@ PeerVideo.propTypes = {
   height: PropTypes.number,
   name: PropTypes.string,
   status: PropTypes.string,
-  mediaBlobUrl: PropTypes.string,
+  isTrain: PropTypes.bool,
 };
 
 PeerVideo.defaultProps = {
@@ -84,5 +88,4 @@ PeerVideo.defaultProps = {
   height: 590,
   name: undefined,
   status: 'stopped',
-  mediaBlobUrl: '',
 };

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  z-index: 1;
   width: 226px;
   height: 152px;
   border-radius: 20px;
@@ -15,28 +14,27 @@ const Wrapper = styled.div`
 `;
 
 const WrapVideo = styled.video`
+  z-index: 1;
   width: 226px;
   height: 152px;
   border-radius: 20px;
   object-fit: cover;
 `;
 
-export default function SmallCamView({ peerRef }) {
-  const ref = useRef();
+export default function SmallCamView() {
+  const userVideo = useRef();
 
   useEffect(() => {
-    peerRef.on('stream', (stream) => {
-      ref.current.srcObject = stream;
-      console.log('success');
-    });
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        userVideo.current.srcObject = stream;
+      });
   }, []);
+
   return (
     <Wrapper>
-      <WrapVideo ref={ref} alt="peer_cam" autoPlay muted />
+      <WrapVideo ref={userVideo} alt="peer_cam" autoPlay muted />
     </Wrapper>
   );
 }
-
-SmallCamView.propTypes = {
-  peerRef: PropTypes.object.isRequired,
-};

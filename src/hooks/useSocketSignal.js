@@ -43,7 +43,7 @@ export default function useSocketSignal({ roomId, setStep }) {
   }
 
   useEffect(() => {
-    socketRef.current = io.connect('localhost:8000');
+    socketRef.current = io.connect('https://witherview.herokuapp.com/');
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -91,9 +91,9 @@ export default function useSocketSignal({ roomId, setStep }) {
         });
 
         // TODO: stomp 시그널링과 분리해서 stomp topic에 추가
-        // socketRef.current.on('clicked', () => {
-        //   setStep((prev) => prev + 1);
-        // });
+        socketRef.current.on('clicked', () => {
+          setStep((prev) => prev + 1);
+        });
       });
   }, []);
   return {
@@ -101,6 +101,7 @@ export default function useSocketSignal({ roomId, setStep }) {
     addPeer,
     userVideo,
     peersRef,
+    socketRef,
     peers,
   };
 }

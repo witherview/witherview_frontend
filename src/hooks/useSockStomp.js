@@ -1,19 +1,23 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import moment from 'moment';
 
 export default function useSockStomp({
-  url = 'https://api.witherview.com/chat',
+  url = 'https://api.witherview.com/socket',
   roomId,
 }) {
+  const [chat, setChat] = useState([]);
+  const [isConnectStomp, setIsConnectStomp] = useState(false);
   const client = useRef(null);
 
   const handleClick = (payload) => {
+    console.log(payload);
     const sender = `${sessionStorage.getItem('name')} (${sessionStorage.getItem(
       'email',
     )})`;
     const newMessage = {
-      // TODO: type을 추가해서 topic 안놔눠도 분기처리?
+      type: 'COMMENT',
       roomId,
       sender,
       contents: payload,
@@ -27,9 +31,17 @@ export default function useSockStomp({
     client.current.connect(
       {},
       () => {
+        setIsConnectStomp(true);
         client.current.subscribe(`/sub/room/${roomId}`, (data) => {
           const newMessage = JSON.parse(data.body);
           console.log(newMessage);
+
+          const chatData = {
+            time: moment(new Date()).format('HH:mm A'),
+            name: newMessage.sender,
+            content: newMessage.contents,
+          };
+          setChat((prev) => [...prev, chatData]);
         });
       },
       (err) => {
@@ -44,5 +56,7 @@ export default function useSockStomp({
   return {
     client: client.current,
     handleClick,
+    chat,
+    isConnectStomp,
   };
 }
