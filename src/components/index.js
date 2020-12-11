@@ -3,9 +3,9 @@ import AuthRoute from './AuthRoute';
 import Button from './Button';
 import CamView from './CamView';
 import Checkbox from './Checkbox';
-import ConferenceButton from './ConferenceButton';
 import Icon from './Icon';
 import InputBar from './InputBar';
+import InterviewChat from './InterviewChat';
 import Modal from './Modal';
 import ProfileIcon from './ProfileIcon';
 import ProfileInfoContainer from './ProfileInfoContainer';
@@ -30,9 +30,9 @@ export default {
   Button,
   CamView,
   Checkbox,
-  ConferenceButton,
   Icon,
   InputBar,
+  InterviewChat,
   Modal,
   ProfileIcon,
   ProfileInfoContainer,
