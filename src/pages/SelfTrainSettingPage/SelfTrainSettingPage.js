@@ -32,7 +32,7 @@ const WrapContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 90px;
+  padding: 30px;
 `;
 
 const WrapSubContainer = styled.div`

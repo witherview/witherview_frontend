@@ -54,7 +54,7 @@ const Content = styled.div`
 `;
 
 const LeftContent = styled.div`
-  width: 490px;
+  width: 470px;
   height: auto;
 `;
 

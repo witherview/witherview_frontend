@@ -12,7 +12,6 @@ import Button from '@components/Button';
 import SelectCard from './SelectCard';
 
 const Wrapper = styled.div`
-  margin-left: 150px;
   flex: 1;
   flex-direction: column;
 `;
@@ -25,19 +24,10 @@ const WrapContent = styled.div`
 `;
 
 const WrapCardSection = styled.div`
-  @media only screen and (max-height: 1080px) {
-    padding: 0px;
-  }
-  @media only screen and (min-height: 1600px) {
-    @media only screen and (max-width: 1080px) {
-      flex-direction: column;
-      padding: 0px;
-    }
-  }
   display: flex;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  padding: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
 `;
 
 const SELECT_NOTHING = 0;

@@ -14,7 +14,6 @@ const WrapperContent = styled.div`
 
 const InterviewRoomSection = styled.div`
   width: 1196px;
-  margin-bottom: 70px;
 `;
 
 const InterviewRoomInfo = styled.div`
@@ -62,8 +61,9 @@ const BoxWrapper = styled.div`
 const UserInfoWrapper = styled.div`
   width: 1196px;
   margin: 23.9px 50px 0 0;
-  padding: 0 0 54px;
+  padding: 0 0 1px;
   border-radius: 20px;
+  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
 `;
 
 const UserInfoHeader = styled.div`
@@ -88,7 +88,7 @@ const TableColumn = styled.div`
 
 const UserInfoContent = styled.div`
   width: 100%;
-  padding: 41px 0 20px 0;
+  padding: 41px 0 0 0;
 `;
 
 const ContentRow = styled.div`
