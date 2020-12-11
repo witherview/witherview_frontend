@@ -22,7 +22,6 @@ import MyPage from '@pages/MyPage';
 import StudyMainPage from '@pages/StudyMainPage';
 import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 
-import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
 
 import Sidebar from '@components/Sidebar';
@@ -80,7 +79,7 @@ export default function App() {
             />
             <AuthRoute path="/group-study" component={StudyMainPage} />
             <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
-            <AuthRoute
+            <Route
               path="/peer-study/:roomId"
               component={PeerStudyTrainPage}
             />

@@ -36,14 +36,9 @@ export default function PeerVideo({
   name,
   status,
   mediaBlobUrl,
+  otherPeer,
 }) {
   const ref = useRef();
-
-  useEffect(() => {
-    peer.on('stream', (stream) => {
-      ref.current.srcObject = stream;
-    });
-  }, []);
 
   return (
     <Wrapper width={width} height={height}>
@@ -57,12 +52,12 @@ export default function PeerVideo({
             muted
             playsInline
             autoPlay
-            ref={ref}
+            ref={otherPeer}
           />
           <WrapButtonGroup>
             <ButtonGroup />
           </WrapButtonGroup>
-          {peer && <SamllCamView peerRef={mediaBlobUrl} />}
+          {/* <SamllCamView peerRef={mediaBlobUrl} /> */}
         </>
       )}
     </Wrapper>

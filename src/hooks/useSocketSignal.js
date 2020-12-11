@@ -85,10 +85,10 @@ export default function useSocketSignal({ roomId, setStep }) {
           item.peer.signal(payload.signal);
         });
 
-        socketRef.current.on('refresh', () => {
-          setPeers([]);
-          setStep(0);
-        });
+        // socketRef.current.on('refresh', () => {
+        //   setPeers([]);
+        //   setStep(0);
+        // });
 
         // TODO: stomp 시그널링과 분리해서 stomp topic에 추가
         // socketRef.current.on('clicked', () => {
@@ -101,6 +101,7 @@ export default function useSocketSignal({ roomId, setStep }) {
     addPeer,
     userVideo,
     peersRef,
+    socketRef,
     peers,
   };
 }

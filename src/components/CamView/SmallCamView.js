@@ -24,15 +24,15 @@ const WrapVideo = styled.video`
 export default function SmallCamView({ peerRef }) {
   const ref = useRef();
 
-  useEffect(() => {
-    peerRef.on('stream', (stream) => {
-      ref.current.srcObject = stream;
-      console.log('success');
-    });
-  }, []);
+  // useEffect(() => {
+  //   peerRef.on('stream', (stream) => {
+  //     ref.current.srcObject = stream;
+  //     console.log('success');
+  //   });
+  // }, []);
   return (
     <Wrapper>
-      <WrapVideo ref={ref} alt="peer_cam" autoPlay muted />
+      <WrapVideo ref={peerRef} alt="peer_cam" autoPlay muted />
     </Wrapper>
   );
 }
