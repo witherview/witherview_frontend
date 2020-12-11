@@ -52,7 +52,11 @@ const WrapRightInner = styled.div`
   justify-content: flex-end;
 `;
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 130);
+const scrollToRef = (ref) => window.scrollTo({
+  top: ref.current.offsetTop - 130,
+  left: 0,
+  behavior: 'smooth',
+});
 
 export default function LandingHeader({
   topRef,
