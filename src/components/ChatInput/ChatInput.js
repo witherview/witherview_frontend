@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
@@ -64,11 +66,24 @@ const SubmitBtn = styled.span`
   }
 `;
 
-export default function ChatInput() {
+export default function ChatInput({ onClick }) {
+  const [value, setValue] = useState('');
   return (
     <Wrapper>
-      <InputField placeholder="채팅을 입력해주세요." />
-      <SubmitBtn />
+      <InputField
+        placeholder="채팅을 입력해주세요."
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <SubmitBtn
+        onClick={() => {
+          onClick(value);
+          console.log(value);
+        }}
+      />
     </Wrapper>
   );
 }
+
+ChatInput.propTypes = {
+  onClick: PropTypes.func,
+};
