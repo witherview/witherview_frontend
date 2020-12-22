@@ -70,7 +70,8 @@ export default function Sidebar() {
   const handleClick = (value) => {
     setClick(value);
     history.push(value === 0 ? '/self'
-               : value === 1 ? '/group-study' : '/mypage');
+               : value === 1 ? '/group-study'
+               : value === 2 ? '/mypage' : 'myvideo');
   };
 
   function hoverActive() {
@@ -107,6 +108,13 @@ export default function Sidebar() {
           clicked={click === 1}
           hover={hover}
           title="면접스터디"
+        />
+        <SidebarButton
+          func={() => handleClick(3)}
+          type={click === 3 ? 'profile_black' : 'profile_white'}
+          clicked={click === 3}
+          hover={hover}
+          title="저장확인"
         />
         <SidebarButton
           func={() => handleClick(2)}

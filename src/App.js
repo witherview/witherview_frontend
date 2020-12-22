@@ -24,6 +24,8 @@ import MyPage from '@pages/MyPage';
 import StudyMainPage from '@pages/StudyMainPage';
 import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 
+import SaveVideoPage from '@pages/SaveVideoPage';
+
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
 import { get } from './utils/snippet';
@@ -81,6 +83,8 @@ export default function App() {
             <AuthRoute path="/group-study" component={StudyMainPage} />
             <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
             <AuthRoute exact path="/mypage" component={MyPage} />
+
+            <Route exact path="/myvideo" component={SaveVideoPage} />
           </>
         </Wrapper>
         <Route component={NotFound} />
