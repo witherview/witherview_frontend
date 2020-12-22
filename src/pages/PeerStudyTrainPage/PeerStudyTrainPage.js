@@ -94,7 +94,7 @@ export default function PeerStudyTrainPage({ match, history }) {
 
   return (
     <S.Wrapper source={StudyBackground}>
-      <Modal modalName={MODALS.EVALUATION_MODAL} />
+      <Modal modalName={MODALS.EVALUATION_MODAL} roomId={roomId} />
       <S.WrapContainer>
         <S.WrapAbsolute>
           {!isStepFirst && (
