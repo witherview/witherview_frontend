@@ -1,23 +1,19 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/prop-types */
-import React, {
-  useState, useEffect, useRef, useCallback,
-} from 'react';
-import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import ReactHlsPlayer from 'react-hls-player';
-import ReactHLS from 'react-hls';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import ReactHlsPlayer from "react-hls-player";
+import ReactHLS from "react-hls";
+import Hls from "hls.js";
 
-import 'video.js/dist/video-js.css';
+import "video.js/dist/video-js.css";
 
-import { getVideoApi } from '@repository/requestVideoRepository';
-import {
-  setUploadedLocation,
-  setIsLoading,
-} from '@store/Train/train';
-import { get } from '@utils/snippet';
-import Icon from '@components/Icon';
+import { getVideoApi } from "@repository/requestVideoRepository";
+import { setUploadedLocation, setIsLoading } from "@store/Train/train";
+import { get } from "@utils/snippet";
+import Icon from "@components/Icon";
 
 const VideoContainer = styled.figure`
   width: 470px;
@@ -114,8 +110,9 @@ const CheckPoint = styled.div`
 export default function SaveVideoPage() {
   const dispatch = useDispatch();
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
-  const { uploadedLocation, isLoading } = useSelector(get('train'));
+  const { uploadedLocation, isLoading } = useSelector(get("train"));
   const video = useRef();
+  const videoHlsJs = useRef();
   const progress = useRef();
   const playpause = useRef();
   const videoControls = useRef();
@@ -133,11 +130,25 @@ export default function SaveVideoPage() {
   useEffect(() => {
     getVideoApi().then((resp) => {
       dispatch(setIsLoading({ isLoading: false }));
-      const { savedLocation } = resp.data.find(
-        (elem) => elem.id === 553,
-      );
+      const { savedLocation } = resp.data.find((elem) => elem.id === 553);
       dispatch(setUploadedLocation({ uploadedLocation: savedLocation }));
     });
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        xhrSetup: (xhr, url) => {
+          xhr.withCredentials = true;
+        },
+      });
+      hls.attachMedia(videoHlsJs.current);
+      hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+        hls.loadSource(
+          "https://api.witherview.com/videos/test@test.com/self/553.m3u8"
+        );
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          videoHlsJs.current.play();
+        });
+      });
+    }
   }, []);
 
   // useEffect(() => {
@@ -145,15 +156,15 @@ export default function SaveVideoPage() {
   // }, [uploadedLocation]);
 
   const loadVideoMetaData = useCallback(
-    () => progress.current.setAttribute('max', video.current.duration),
-    [],
+    () => progress.current.setAttribute("max", video.current.duration),
+    []
   );
 
   const changeButtonState = useCallback(() => {
     if (video.current.paused || video.current.ended) {
-      playpause.current.setAttribute('data-state', 'play');
+      playpause.current.setAttribute("data-state", "play");
     } else {
-      playpause.current.setAttribute('data-state', 'pause');
+      playpause.current.setAttribute("data-state", "pause");
     }
   }, []);
 
@@ -171,16 +182,17 @@ export default function SaveVideoPage() {
   }, [playPauseBtn]);
 
   const onProgressClck = useCallback((evt) => {
-    const pos = (evt.pageX
-        - (progress.current.offsetLeft
-          + progress.current.offsetParent.offsetLeft))
-      / progress.current.offsetWidth;
+    const pos =
+      (evt.pageX -
+        (progress.current.offsetLeft +
+          progress.current.offsetParent.offsetLeft)) /
+      progress.current.offsetWidth;
     video.current.currentTime = pos * video.current.duration;
   }, []);
 
   const onTimeUpdate = useCallback(() => {
-    if (!progress.current.getAttribute('max')) {
-      progress.current.setAttribute('max', video.current.duration);
+    if (!progress.current.getAttribute("max")) {
+      progress.current.setAttribute("max", video.current.duration);
     }
     progress.current.value = video.current.currentTime;
     if (progress.current.max === progress.current.value) {
@@ -190,8 +202,7 @@ export default function SaveVideoPage() {
 
   return (
     <div>
-      {isLoading
-        || (
+      {isLoading || (
         <div>
           <VideoContainer>
             <ReactHlsPlayer
@@ -202,6 +213,13 @@ export default function SaveVideoPage() {
               height={375}
             />
             <ReactHLS url="https://api.witherview.com/videos/test@test.com/self/553.m3u8" />
+            <video
+              controls
+              width={500}
+              height={375}
+              ref={videoHlsJs}
+              autoPlay={true}
+            ></video>
             {/* <ReactHlsPlayer
               url="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
               autoplay={false}
@@ -220,7 +238,7 @@ export default function SaveVideoPage() {
                 onClick={onPlayPause}
               >
                 <Icon
-                  type={playPauseBtn ? 'play_blue' : 'pause'}
+                  type={playPauseBtn ? "play_blue" : "pause"}
                   isCircle
                   alt="play/button"
                 />
@@ -247,7 +265,7 @@ export default function SaveVideoPage() {
             </ControlWrapper>
           </VideoContainer>
         </div>
-        )}
+      )}
     </div>
   );
 }
