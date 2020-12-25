@@ -152,36 +152,36 @@ export default function LandingMiddleThree({ myRefStudy }) {
   }, []);
 
   return (
-      <Wrapper ref={myRefStudy}>
-        <Div data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
-          <WrapContainer>
-            <WrapPadding>
-              <TextBoxA
-                height={350}
-                header={handleText(state).header}
-                content={handleText(state).content}
-                summary={handleText(state).summary}
-              />
-            </WrapPadding>
-            <WrapImage src={handleImage(state)} />
-            <WrapStaticImage src={StaticImage} />
-            <WrapCarousel>
-              <CircleButton
-                clicked={state === FIRST_STEP}
-                func={() => handleClick(FIRST_STEP)}
-              />
-              <CircleButton
-                clicked={state === SECOND_STEP}
-                func={() => handleClick(SECOND_STEP)}
-              />
-              <CircleButton
-                clicked={state === THIRD_STEP}
-                func={() => handleClick(THIRD_STEP)}
-              />
-            </WrapCarousel>
-          </WrapContainer>
-        </Div>
-      </Wrapper>
+    <Wrapper ref={myRefStudy}>
+      <Div data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+        <WrapContainer>
+          <WrapPadding>
+            <TextBoxA
+              height={350}
+              header={handleText(state).header}
+              content={handleText(state).content}
+              summary={handleText(state).summary}
+            />
+          </WrapPadding>
+          <WrapImage src={handleImage(state)} />
+          <WrapStaticImage src={StaticImage} />
+          <WrapCarousel>
+            <CircleButton
+              clicked={state === FIRST_STEP}
+              func={() => handleClick(FIRST_STEP)}
+            />
+            <CircleButton
+              clicked={state === SECOND_STEP}
+              func={() => handleClick(SECOND_STEP)}
+            />
+            <CircleButton
+              clicked={state === THIRD_STEP}
+              func={() => handleClick(THIRD_STEP)}
+            />
+          </WrapCarousel>
+        </WrapContainer>
+      </Div>
+    </Wrapper>
   );
 }
 

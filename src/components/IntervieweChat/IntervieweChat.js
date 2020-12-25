@@ -87,7 +87,7 @@ export default function InterviewChat({ setInterviewer }) {
           <p>유통 및 데이터 분석</p>
         </UserInfo>
       </WrapperHeader>
-      <WrapperContent setInterviewer={setInterviewer} >
+      <WrapperContent setInterviewer={setInterviewer}>
         <ChatMessageWrapper>
           <TimeInfo>5:55PM</TimeInfo>
           <MessageText>
