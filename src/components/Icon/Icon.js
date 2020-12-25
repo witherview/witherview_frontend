@@ -60,6 +60,8 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
                                     : type === 'cancel_white' ? '-630.5px -42.5px'
                                     : type === 'add_orange' ? '-747px -42.5px'
                                     : type === 'add_blue' ? '-863.5px -42.5px'
+                                    : type === 'folder_white' ? '-970px -35px'
+                                    : type === 'folder_blue' ? '-1088px -35px'
                                     : type === 'post' ? '-43px -140px'
                                     : type === 'cancel_blue' ? '-160px -140px'
                                     : type === 'cancel_black' ? '-276px -140px'
@@ -132,7 +134,7 @@ export default function Icon({
     if (type === 'next_white' || type === 'previous' || type === 'next_blue') {
       setSize('thin');
     }
-    if (type === 'add_white' || type === 'add_black') {
+    if (type === 'add_white' || type === 'add_black' || type === 'folder_white' || type === 'folder_blue') {
       setSize('xmd');
     }
     if (type === 'drawer' || type === 'check_off' || type === 'check_on' || type === 'remove' || type === 'check_circle_white' || type === 'filter') {
@@ -186,6 +188,8 @@ Icon.propTypes = {
     'cancel_white',
     'add_orange',
     'add_blue',
+    'folder_white',
+    'folder_blue',
     'post',
     'cancel_blue',
     'cancel_black',

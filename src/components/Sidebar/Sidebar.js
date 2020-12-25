@@ -110,9 +110,9 @@ export default function Sidebar() {
           title="면접스터디"
         />
         <SidebarButton
-          func={() => handleClick(3)}
-          type={click === 3 ? 'profile_black' : 'profile_white'}
-          clicked={click === 3}
+          func={() => handleClick(4)}
+          type={click === 4 ? 'folder_blue' : 'folder_white'}
+          clicked={click === 4}
           hover={hover}
           title="저장확인"
         />

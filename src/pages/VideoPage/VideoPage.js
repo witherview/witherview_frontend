@@ -69,12 +69,11 @@ export default function VideoPage({ match }) {
             autoPlay={false}
           >
             <track
-              src={uploadedLocation}
+              src=""
               kind="captions"
               srcLang="ko"
               label="korean_captions"
             />
-            <source src={uploadedLocation} type="video/m3u8" />
           </video>
         </VideoContainer>
       </>
