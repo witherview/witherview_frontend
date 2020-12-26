@@ -10,6 +10,7 @@ const modalReducer = createSlice({
   initialState: {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: true,
     [MODALS.SELF_TRAIN_START_MODAL]: true,
+    [MODALS.STUDY_MAKE_MODAL]: true,
     [MODALS.EVALUATION_MODAL]: true,
   },
   reducers: {
@@ -47,6 +48,7 @@ export default {
 const modals = (args) => <Modal {...args} />;
 export const QuestionListSaveModal = modals.bind({});
 export const SelfTrainStartModal = modals.bind({});
+export const StudyMakeModal = modals.bind({});
 export const EvaluationModal = modals.bind({});
 
 QuestionListSaveModal.args = {
@@ -55,6 +57,10 @@ QuestionListSaveModal.args = {
 
 SelfTrainStartModal.args = {
   modalName: MODALS.SELF_TRAIN_START_MODAL,
+};
+
+StudyMakeModal.args = {
+  modalName: MODALS.STUDY_MAKE_MODAL,
 };
 
 EvaluationModal.args = {

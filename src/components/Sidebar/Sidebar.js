@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -10,6 +11,7 @@ import Logo from '@assets/images/witherview_logo.png';
 import SidebarButton from './SidebarButton';
 
 const Wrapper = styled.div`
+  position: fixed;
   width: ${({ hover }) => (hover ? 296 : 159)}px;
   min-width: 159px;
   max-width: 296px;
@@ -22,6 +24,7 @@ const Wrapper = styled.div`
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
+  z-index: 10;
 `;
 
 const WrapTopButton = styled.div`
@@ -66,8 +69,9 @@ export default function Sidebar() {
 
   const handleClick = (value) => {
     setClick(value);
-    if (value === 0) return history.push('/self');
-    return history.push('/mypage');
+    history.push(value === 0 ? '/self'
+               : value === 1 ? '/group-study'
+               : value === 2 ? '/mypage' : 'myvideo');
   };
 
   function hoverActive() {
@@ -104,6 +108,13 @@ export default function Sidebar() {
           clicked={click === 1}
           hover={hover}
           title="면접스터디"
+        />
+        <SidebarButton
+          func={() => handleClick(4)}
+          type={click === 4 ? 'folder_blue' : 'folder_white'}
+          clicked={click === 4}
+          hover={hover}
+          title="저장확인"
         />
         <SidebarButton
           func={() => handleClick(2)}

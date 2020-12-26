@@ -195,7 +195,7 @@ export default function QuestionCardView({
         </IconBox>
         <List isOpen={isOpen} onMouseLeave={() => toggle(false)}>
           <Item>
-            <Each onClick={() => handleDelete()}>삭제</Each>
+            <Each onClick={() => handleDelete(id)}>삭제</Each>
           </Item>
         </List>
         <Content onClick={handleMove}>

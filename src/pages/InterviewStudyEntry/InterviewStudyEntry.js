@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import Button from '@components/Button/Button';
 
 import { getInterviewStudyRoomAPI } from '@repository/interviewStudyRepository';
 import S from './InterviewStudy.style';
 import UsersSection from './UsersSection';
 
-export default function InterviewStudyEntry({ id }) {
-  const DEFAULT_ID = 421;
+export default function InterviewStudyEntry({ match }) {
+  const { id } = match.params;
+  const history = useHistory();
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
   const [description, setDescription] = useState();
@@ -32,7 +33,7 @@ export default function InterviewStudyEntry({ id }) {
   };
 
   const fetchRoomInfo = async () => {
-    const { data } = await getInterviewStudyRoomAPI(DEFAULT_ID);
+    const { data } = await getInterviewStudyRoomAPI(id);
     setRoomTitle(data.title);
     const dateText = createDateInfo(data.date, data.time);
     setDateInfoText(dateText);
@@ -54,7 +55,9 @@ export default function InterviewStudyEntry({ id }) {
               <S.Description>{description}</S.Description>
             </S.TextWrapper>
             <S.BoxWrapper>
-              <Button text="방 나가기" theme="gray" />
+              <div onClick={() => history.push('/group-study')}>
+                <Button text="방 나가기" theme="gray" />
+              </div>
               <Button text="스터디 시작하기" theme="blue" />
             </S.BoxWrapper>
           </S.InterviewRoomInfo>

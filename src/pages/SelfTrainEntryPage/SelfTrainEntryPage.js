@@ -11,6 +11,7 @@ import Button from '@components/Button';
 import SelectCard from './SelectCard';
 
 const Wrapper = styled.div`
+  margin-left: 150px;
   flex: 1;
   flex-direction: column;
 `;
@@ -32,8 +33,9 @@ const WrapCardSection = styled.div`
       padding: 0px;
     }
   }
-
   display: flex;
+  margin-top: 60px;
+  margin-bottom: 60px;
   padding: 80px;
 `;
 
@@ -41,9 +43,10 @@ const SELECT_NOTHING = 0;
 const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
-export default function SelfTrainEntryPage() {
+export default function SelfTrainEntryPage({ match }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { id } = match.params;
   const [clicked, setClicked] = useState(SELECT_NOTHING);
   const { name } = useSelector(get('auth'));
 
@@ -62,7 +65,7 @@ export default function SelfTrainEntryPage() {
     <Wrapper>
       <WrapContent>
         <TextBox
-          topText={`${name}님 화상 면접을 혼자 연습해보세요`}
+          topText={`${name}님 화상 면접을 연습하세요`}
           bottomText="원하는 기능을 선택하여 화상 면접을 대비해 보세요."
         />
         <WrapCardSection>
