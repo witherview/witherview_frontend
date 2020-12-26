@@ -107,20 +107,6 @@ const WrapMiddlePart = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 20vh;
-  > label {
-    > span {
-      top: -1.8vh;
-      width: 3.6vh;
-      height: 3.6vh;
-      border-radius: 1vh;
-      &::after {
-        top: 0.3vh;
-        left: 1.2vh;
-        width: 1vh;
-        height: 2vh;
-      }
-    }
-  }
 `;
 
 const WrapMiddleText = styled.div`
