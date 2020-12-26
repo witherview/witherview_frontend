@@ -29,8 +29,8 @@ const WrapContent = styled.div`
 
 const WrapCardSection = styled.div`
   display: flex;
-  margin-top: 4vh;
-  margin-bottom: 4.3vh;
+  margin-top: 3vh;
+  margin-bottom: 3.3vh;
   padding: 2.5vh;
 `;
 

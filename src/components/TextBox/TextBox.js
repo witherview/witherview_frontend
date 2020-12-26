@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
-  height: 10vh;
+  height: 8vh;
   display: flex;
   flex-direction: column;
   align-items: center;
