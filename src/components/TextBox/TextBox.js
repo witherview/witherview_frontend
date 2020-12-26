@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
-  @media only screen and (max-height: 1080px) {
-    height: 75px;
-  }
-  height: 100px;
+  height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,11 +12,11 @@ const Wrapper = styled.div`
 
 const FirstText = styled.div`
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.8vh;
 `;
 
 const SecondText = styled.div`
-  font-size: 24px;
+  font-size: 1.9vh;
   color: #3d3d3d;
 `;
 

@@ -12,10 +12,15 @@ import SelectCard from './SelectCard';
 
 const Wrapper = styled.div`
   flex: 1;
+  display: flex;
   flex-direction: column;
-`;
-const WrapContent = styled.div`
+  justify-content: center;
+  align-items: center;
   height: 100vh;
+`;
+
+const WrapContent = styled.div`
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,19 +29,28 @@ const WrapContent = styled.div`
 
 const WrapCardSection = styled.div`
   display: flex;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-top: 4vh;
+  margin-bottom: 4.3vh;
+  padding: 2.5vh;
+`;
+
+const WrapButton = styled.div`
+  > div {
+    width: 29.6vh;
+    height: 6vh;
+    > p {
+      font-size: 1.9vh;
+    }
+  }
 `;
 
 const SELECT_NOTHING = 0;
 const GUIDE_BUTTON = 1;
 const ADD_QUESTION_BUTTON = 2;
 
-export default function SelfTrainEntryPage({ match }) {
+export default function SelfTrainEntryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { id } = match.params;
   const [clicked, setClicked] = useState(SELECT_NOTHING);
   const { name } = useSelector(get('auth'));
 
@@ -70,16 +84,19 @@ export default function SelfTrainEntryPage({ match }) {
             func={() => handleToggle(ADD_QUESTION_BUTTON)}
           />
         </WrapCardSection>
-        <Button
-          func={
+        <WrapButton>
+          <Button
+            func={
             // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
             isGuide
               ? () => history.push('/self/setting/3')
               : () => history.push('/questionlist')
           }
-          theme={clicked ? 'blue' : 'gray'}
-          text="다음"
-        />
+            theme={clicked ? 'blue' : 'gray'}
+            text="다음"
+          />
+
+        </WrapButton>
       </WrapContent>
     </Wrapper>
   );
