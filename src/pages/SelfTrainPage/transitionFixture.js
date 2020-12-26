@@ -1,6 +1,6 @@
 const transitionFixture = [
   {
-    top: '위더뷰 면접 가이드를 시작하겠습니다..',
+    top: '위더뷰 면접 가이드를 시작하겠습니다.',
     bottom: '마이크와 카메라를 준비해주세요.',
     button: '시작하기',
   },

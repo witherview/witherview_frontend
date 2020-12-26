@@ -50,28 +50,6 @@ const WrapToggle = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  > label {
-    height: 4.6vh;
-    width: 8.2vh;
-    > span {
-      border-radius: 2.3vh;
-      &::before {
-        height: 3.6vh;
-        width: 3.6vh;
-        left: 0.4vh;
-        bottom: 0.4vh;
-      }
-      > input:checked + & {
-        background-color: #eef0ff;
-      }
-      > input:checked + &::before {
-        background-image: linear-gradient(to bottom, #2323de, #4848da);
-        -webkit-transform: translateX(36px);
-        -ms-transform: translateX(36px);
-        transform: translateX(36px);
-      }
-    }
-  }
 `;
 
 const WrapInput = styled.div`

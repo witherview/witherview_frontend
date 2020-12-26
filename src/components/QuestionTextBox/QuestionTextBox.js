@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  height: 75px;
-  width: ${({ width }) => width}px;
-  border-radius: 20px;
+  height: 7.5vh;
+  width: 132.6vh;
+  border-radius: 2vh;
   background-color: #eef0ff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.1vh;
   font-weight: normal;
 `;
 
@@ -21,9 +21,9 @@ const WrapPrefix = styled.span`
   color: #0c0c59;
 `;
 
-export default function QuestionTextBox({ order, question, width }) {
+export default function QuestionTextBox({ order, question }) {
   return (
-    <Wrapper width={width}>
+    <Wrapper>
       <WrapPrefix>
         Q
         {order}
@@ -38,9 +38,4 @@ export default function QuestionTextBox({ order, question, width }) {
 QuestionTextBox.propTypes = {
   order: PropTypes.number.isRequired,
   question: PropTypes.string.isRequired,
-  width: PropTypes.number,
-};
-
-QuestionTextBox.defaultProps = {
-  width: 1024,
 };

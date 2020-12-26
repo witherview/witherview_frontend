@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: relative;
-  width: 515px;
-  height: ${({ height }) => height}px;
+  width: 51.5vh;
+  height: 59vh;
   border-radius: 20px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   border: solid 1px #f6f6f6;
@@ -14,32 +14,32 @@ const Wrapper = styled.div`
 
 const WrapContent = styled.div`
   position: relative;
-  height: ${({ height }) => height - 100}px;
-  padding: 37px 51px 37px 51px;
+  height: 49vh;
+  padding: 3.7vh 5.1vh 3.7vh 5.1vh;
   flex: 1;
 `;
 
 const WrapTitleText = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   color: #6e6eff;
 `;
 
 const WrapDate = styled.div`
-  padding-top: 5px;
-  padding-bottom: 40px;
+  padding-top: 0.5vh;
+  padding-bottom: 4vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 1.5vh;
   color: #d3d3d3;
 `;
 
 const WrapAnswer = styled.textarea`
   width: 100%;
-  height: ${({ height }) => height - 177}px;
+  height: 41.3vh;
   background-color: white;
   border: 0px;
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 1.9vh;
   color: #3d3d3d;
   overflow-y: auto;
   ::-webkit-scrollbar {
@@ -51,8 +51,8 @@ const WrapAnswer = styled.textarea`
 const WrapOveray = styled.div`
   position: absolute;
   bottom: 0px;
-  height: 61px;
-  width: 413px;
+  height: 6.1vh;
+  width: 41.3vh;
   background-image: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0) -9%,
@@ -62,10 +62,10 @@ const WrapOveray = styled.div`
 
 const WrapPoint = styled.div`
   position: absolute;
-  top: 34px;
-  width: 5px;
-  height: 64px;
-  margin: 0 22px 37px 0;
+  top: 3.4vh;
+  width: 0.5vh;
+  height: 6.4vh;
+  margin: 0 2.2vh 3.7vh 0;
   background-color: #6e6eff;
 `;
 
