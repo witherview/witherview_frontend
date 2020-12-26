@@ -23,31 +23,32 @@ const Wrapper = styled.div`
 `;
 
 const WrapContent = styled.div`
-  @media only screen and (max-height: 1080px) {
-    height: 800px;
-  }
-  height: 900px;
+  height: 83vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 `;
 
+const Logo = styled.img`
+  height: 6vh;
+`;
+
 const WrapSubTitle = styled.div`
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 2.4vh;
   color: #3d3d3d;
-  padding-top: 35px;
-  padding-bottom: 54px;
+  padding-top: 3.5vh;
+  padding-bottom: 5.4vh;
 `;
 
 const WrapBox = styled.div`
-  width: 686px;
-  height: 600px;
+  width: 68.6vh;
+  height: 60vh;
   background-color: white;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   border: solid 1px #f6f6f6;
-  border-radius: 20px;
+  border-radius: 2vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,23 +57,48 @@ const WrapBox = styled.div`
 
 const WrapText = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 2.4vh;
   color: #6e6eff;
-  padding-bottom: 19px;
+  padding-bottom: 1.9vh;
 `;
 
 const WrapContianer = styled.div`
-  margin-top: 50px;
-  margin-bottom: 40px;
+  margin-top: 5vh;
+  margin-bottom: 4vh;
+`;
+
+const WrapUpperContainer = styled.div`
+  height: 23vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+`;
+
+const WrapInput = styled.div`
+  > input {
+    width: 53.3vh;
+    height: 5vh;
+    font-size: 1.5vh;
+    ::placeholder {
+      font-size: 2vh;
+    }
+    :-ms-input-placeholder {
+      font-size: 2vh;
+    }
+    ::-ms-input-placeholder {
+      font-size: 2vh;
+    }
+  }
 `;
 
 const WrapMiddleContainer = styled.div`
-  height: 120px;
+  height: 12vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 533px;
+  width: 53.3vh;
 `;
 
 const WrapMiddlePart = styled.div`
@@ -80,12 +106,26 @@ const WrapMiddlePart = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 190px;
+  width: 20vh;
+  > label {
+    > span {
+      top: -1.8vh;
+      width: 3.6vh;
+      height: 3.6vh;
+      border-radius: 1vh;
+      &::after {
+        top: 0.3vh;
+        left: 1.2vh;
+        width: 1vh;
+        height: 2vh;
+      }
+    }
+  }
 `;
 
 const WrapMiddleText = styled.div`
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 2vh;
   color: #9e9e9e;
 `;
 
@@ -96,19 +136,29 @@ const WrapMiddleTextLeft = styled(WrapMiddleText)`
   }
 `;
 
+const WrapButton = styled.div`
+  > div {
+    width: 29.6vh;
+    height: 6vh;
+    > p {
+      font-size: 1.9vh;
+    }
+  }
+`;
+
 const WrapBottomContainer = styled.div`
-  padding-top: 40px;
+  padding-top: 4vh;
 `;
 
 const WrapBottomText = styled.span`
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 1.9vh;
   color: #9e9e9e;
-  padding-right: 20px;
+  padding-right: 2vh;
 `;
 
 const WrapAnker = styled.span`
-  font-size: 20px;
+  font-size: 1.9vh;
   color: #6e6eff;
   user-select: none;
   &:hover {
@@ -167,36 +217,39 @@ export default function LoginPage() {
     <Wrapper>
       {authSelector.isLogin && <Redirect to="/self" />}
       <WrapContent>
-        <img src={witherviewLogo} alt="logo" />
+        <Logo src={witherviewLogo} alt="logo" />
         <WrapSubTitle>
           위더뷰와 함께 화상 면접 연습을 진행해보세요.
         </WrapSubTitle>
         <WrapBox>
-          <div>
-            <WrapText>이메일 주소</WrapText>
-            <InputBar
-              disabled={toggleCheck}
-              autoFocus
-              value={loginForm.email}
-              placeholder="이메일 주소를 입력해주세요."
-              onChange={handleInput}
-              name="email"
-            />
-          </div>
-
           <WrapContianer>
-            <WrapText>비밀번호</WrapText>
-            <InputBar
-              disabled={toggleCheck}
-              value={loginForm.password}
-              placeholder="비밀번호를 입력해주세요."
-              onChange={handleInput}
-              name="password"
-              type="password"
-            />
+            <WrapUpperContainer>
+              <WrapInput>
+                <WrapText>이메일 주소</WrapText>
+                <InputBar
+                  disabled={toggleCheck}
+                  autoFocus
+                  value={loginForm.email}
+                  placeholder="이메일 주소를 입력해주세요."
+                  onChange={handleInput}
+                  name="email"
+                />
+              </WrapInput>
+              <WrapInput>
+                <WrapText>비밀번호</WrapText>
+                <InputBar
+                  disabled={toggleCheck}
+                  value={loginForm.password}
+                  placeholder="비밀번호를 입력해주세요."
+                  onChange={handleInput}
+                  name="password"
+                  type="password"
+                />
+              </WrapInput>
+            </WrapUpperContainer>
             <WrapMiddleContainer>
               <WrapMiddlePart>
-                {/* TODO: 이부분 동작하도록 만들어야 함 아마 로그인 유지가 아니라 이메일 유지로 바뀔듯 */}
+                {/* TODO: 이부분 동작하도록 만들어야 함 아마 로그인 유지가 아니라 이메일 유지로 바뀔듯 - local storage 사용하게 될 듯 */}
                 <Checkbox func={handleCheck} />
                 <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
@@ -206,7 +259,9 @@ export default function LoginPage() {
               </WrapMiddleTextLeft>
             </WrapMiddleContainer>
           </WrapContianer>
-          <Button theme="blue" func={handleLogin} text="로그인" />
+          <WrapButton>
+            <Button theme="blue" func={handleLogin} text="로그인" />
+          </WrapButton>
         </WrapBox>
         <WrapBottomContainer>
           <WrapBottomText>새로오셨나요?</WrapBottomText>
