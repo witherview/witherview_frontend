@@ -23,8 +23,8 @@ import Checkbox from '@components/Checkbox';
 
 const CloseButton = styled.button`
   position: absolute;
-  right: 3%;
-  top: 3%;
+  top: 5.3vh;
+  right: 10.5vh;
   border: none;
   cursor: pointer;
   background-color: transparent;
@@ -260,7 +260,7 @@ const ChecklistEach = styled.li`
   padding-bottom: 1vh;
   > label {
     > span {
-      top: -0.5vh
+      top: -0.5vh;
     }
   }
   > span {

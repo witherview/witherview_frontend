@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 
 const Box = styled.div`
   position: relative;

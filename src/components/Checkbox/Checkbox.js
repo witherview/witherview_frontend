@@ -26,7 +26,7 @@ const Input = styled.input`
 
 const Checkmark = styled.span`
   position: absolute;
-  top: -1.8vh;
+  top: -2vh;
   left: 0px;
   height: 3.6vh;
   width: 3.6vh;

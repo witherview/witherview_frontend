@@ -117,6 +117,13 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 6.7vh;
+  > div {
+    width: 29.6vh;
+    height: 6vh;
+    > p {
+      font-size: 1.9vh;
+    }
+  }
 `;
 
 export default function QuestionPage({ match }) {
