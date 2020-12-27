@@ -6,9 +6,9 @@ import { setStandardTime } from '@store/Train/train';
 import { get } from '@utils/snippet';
 
 const Box = styled.div`
-  width: 201px;
-  height: 127px;
-  border-radius: 10px;
+  width: 20.1vh;
+  height: 12.7vh;
+  border-radius: 1vh;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   border: ${({ isClicked }) => (isClicked ? 'solid 3px #5f5fd9;' : 'none')};
   background-color: white;
@@ -22,9 +22,9 @@ const Box = styled.div`
 
 const Time = styled.span`
   width: 100%;
-  height: 45px;
+  height: 4.5vh;
   font-family: TitilliumWeb;
-  font-size: 36px;
+  font-size: 3.1vh;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -35,10 +35,10 @@ const Time = styled.span`
 `;
 
 const Unit = styled.span`
-  width: 21px;
-  height: 29px;
+  width: 2.1vh;
+  height: 2.9vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 1.9vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

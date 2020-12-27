@@ -8,8 +8,8 @@ const Wrapper = styled.label`
   display: block;
   position: relative;
   cursor: pointer;
-  margin-right: 44px;
-  font-size: 22px;
+  margin-right: 4.4vh;
+  font-size: 2.2vh;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -26,20 +26,20 @@ const Input = styled.input`
 
 const Checkmark = styled.span`
   position: absolute;
-  top: -18px;
+  top: -1.8vh;
   left: 0px;
-  height: 36px;
-  width: 36px;
+  height: 3.6vh;
+  width: 3.6vh;
   background-color: #ffffff;
   border: solid 3px #d6d6d6;
-  border-radius: 10px;
+  border-radius: 1vh;
   &::after {
-    top: 3px;
-    left: 12px;
-    width: 10px;
-    height: 20px;
+    top: 0.3vh;
+    left: 1.2vh;
+    width: 1vh;
+    height: 2vh;
     border: solid white;
-    border-width: 0 3px 3px 0;
+    border-width: 0 0.3vh 0.3vh 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);

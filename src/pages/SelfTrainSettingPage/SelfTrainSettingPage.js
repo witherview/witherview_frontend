@@ -16,11 +16,15 @@ import InputBar from '@components/InputBar';
 
 const Wrapper = styled.div`
   flex: 1;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 `;
 
 const WrapContent = styled.div`
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,11 +32,12 @@ const WrapContent = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  height: 500px;
+  height: 50vh;
+  width: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 90px;
+  padding: 8.9vh;
 `;
 
 const WrapSubContainer = styled.div`
@@ -47,12 +52,39 @@ const WrapToggle = styled.div`
   justify-content: flex-end;
 `;
 
+const WrapInput = styled.div`
+  > input {
+    height: 5vh;
+    width: 100vh;
+    font-size: 1.5vh;
+    ::placeholder {
+      font-size: 2vh;
+    }
+    :-ms-input-placeholder {
+      font-size: 2vh;
+    }
+    ::-ms-input-placeholder {
+      font-size: 2vh;
+    }
+  }
+`;
+
 const WrapText = styled.div`
   display: flex;
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   color: #6e6eff;
-  ${({ padding }) => (padding ? 'padding-bottom: 20px' : 'padding-right: 25px')};
+  ${({ padding }) => (padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh')};
+`;
+
+const WrapButton = styled.div`
+  > div {
+    width: 29.6vh;
+    height: 6vh;
+    > p {
+      font-size: 1.9vh;
+    }
+  }
 `;
 
 export default function SelfTrainSettingPage({ match }) {
@@ -98,28 +130,30 @@ export default function SelfTrainSettingPage({ match }) {
               funcDecative={() => dispatch(setViewAnswer({ viewAnswer: false }))}
             />
           </WrapToggle>
-          <div>
+          <WrapInput>
             <WrapText padding>기업 이름</WrapText>
             <InputBar
               value={company}
               onChange={(e) => dispatch(setCompany({ company: e.target.value }))}
               width={967}
             />
-          </div>
-          <div>
+          </WrapInput>
+          <WrapInput>
             <WrapText padding>직무 이름</WrapText>
             <InputBar
               value={job}
               onChange={(e) => dispatch(setJob({ job: e.target.value }))}
               width={967}
             />
-          </div>
+          </WrapInput>
         </WrapContainer>
-        <Button
-          theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
-          text="다음"
-          func={() => history.push(`/self-train/${selectedQnaId}`)}
-        />
+        <WrapButton>
+          <Button
+            theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
+            text="다음"
+            func={() => history.push(`/self-train/${selectedQnaId}`)}
+          />
+        </WrapButton>
       </WrapContent>
     </Wrapper>
   );

@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 import addQuestionImage from '@assets/images/illust_2.png';
 import guideImage from '@assets/images/illust_3.png';
-import Icon from '@components/Icon';
+// import Icon from '@components/Icon';
 
 const Wrapper = styled.div`
   user-select: none;
-  width: 390px;
-  height: 495px;
+  width: 39vh;
+  height: 49.5vh;
   display: flex;
   align-itmes: center;
   justify-content: center;
@@ -22,35 +22,39 @@ const WrapContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 374px;
-  height: 479px;
-  border-radius: 20px;
+  width: 37.4vh;
+  height: 47.9vh;
+  border-radius: 2vh;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   ${({ clicked }) => clicked && 'border: solid 4px #6e6eff;'}
 `;
 
-const WrapIcon = styled.div`
-  position: absolute;
-  top: 24px;
-  right: 28px;
-`;
+// const WrapIcon = styled.div`
+//   position: absolute;
+//   top: 2.4vh;
+//   right: 2.8vh;
+//   > i {
+//     width: 4vh;
+//     height: 4vh;
+//   }
+// `;
 
 const WrapImage = styled.img`
-  height: 248px;
+  height: 24.8vh;
 `;
 
 const WrapMiddleText = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   ${({ clicked }) => clicked && 'color: #6e6eff;'}
-  padding: 27px;
+  padding: 2.7vh;
 `;
 
 const WrapBottomText = styled.div`
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 1.5vh;
   color: #3d3d3d;
-  padding: 3px;
+  padding: 0.3vh;
   white-space: pre;
   text-align: center;
   line-height: 1.5;
@@ -62,11 +66,12 @@ export default function SelectCard({ kind, clicked, func }) {
   return (
     <Wrapper onClick={func}>
       <WrapContainer clicked={clicked}>
-        <WrapIcon>
+        {/* TODO: 이미지 크기가 고정이라 vh로 적용하면 이미지가 짤림 */}
+        {/* <WrapIcon>
           {clicked && (
             <Icon type="check_circle_white" alt="Check Circle White" />
           )}
-        </WrapIcon>
+        </WrapIcon> */}
         <WrapImage
           src={kind === GUIDE_IMAGE ? guideImage : addQuestionImage}
           alt="Button Middle"

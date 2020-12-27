@@ -28,7 +28,6 @@ import RemainTime from '@components/RemainTime';
 import ToggleButton from '@components/ToggleButton';
 import AnswerBox from '@components/AnswerBox';
 import QuestionTextBox from '@components/QuestionTextBox';
-import useWindowSize from '@hooks/useWindowSize';
 
 import Fixture from './transitionFixture';
 import QNA_LIST from './qnaListFixture';
@@ -48,7 +47,6 @@ export default function SelfTrainPage({ match }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { width } = useWindowSize();
   const { status, startRecording, stopRecording } = useReactMediaRecorder({
     video: true,
   });
@@ -145,7 +143,6 @@ export default function SelfTrainPage({ match }) {
     <QuestionTextBox
       question={questionList[qnaStep]?.question || ''}
       order={questionList[qnaStep]?.order + 1 || 0}
-      width={width / 1.5}
     />
   );
 
@@ -164,30 +161,29 @@ export default function SelfTrainPage({ match }) {
         </S.WrapAbsolute>
         <S.WrapContent>
           {isLoading ? textBox : questionTextBox}
-          <S.WrapCamView width={width / 1.5}>
+          <S.WrapCamView>
             <CamView
-              height={width / 3}
-              width={isShowAnswer ? width / 1.5 - 553 : width / 1.5}
+              isShowAnswer={isShowAnswer}
               status={status}
             />
             {isShowAnswer && (
               <AnswerBox
                 answer={questionList[qnaStep].answer}
-                height={width / 3}
                 date={questionList[qnaStep].modifiedAt}
               />
             )}
           </S.WrapCamView>
-          <S.WrapBottom width={width / 1.5}>
+          <S.WrapBottom>
             <S.WrapBottomSide>
               {isShowTimer && <RemainTime time={time} />}
             </S.WrapBottomSide>
             {/* STEP_ING의 경우 버튼 누를 때 구간 저장하는 로직 추가 필요 */}
             {Fixture[step]?.button && (
-              <Button
-                theme="blue"
-                text={Fixture[step].button}
-                func={
+              <S.WrapButton>
+                <Button
+                  theme="blue"
+                  text={Fixture[step].button}
+                  func={
                   // TODO: 리펙토링 필요
                   qnaStep === questionList.length - 1
                   && questionList.length !== 1
@@ -197,7 +193,8 @@ export default function SelfTrainPage({ match }) {
                       dispatch(handleNextButton());
                     }
                 }
-              />
+                />
+              </S.WrapButton>
             )}
             <S.WrapBottomSide right>
               {isShowToggle && viewAnswer && (

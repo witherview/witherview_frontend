@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import { numberPad } from '@utils/snippet';
 
 const Wrapper = styled.div`
-  width: 189px;
-  height: 72px;
+  width: 18.9vh;
+  height: 7.2vh;
   font-family: TitilliumWebBold;
-  font-size: 25px;
+  font-size: 1.9vh;
   color: ${({ highlight }) => (highlight ? '#f2886b' : 'black')};
   display: flex;
   flex-direction: row;
@@ -20,10 +20,10 @@ const Wrapper = styled.div`
 `;
 
 const Minutes = styled.div`
-  width: 75px;
-  height: 72px;
+  width: 7.5vh;
+  height: 7.2vh;
   font-family: TitilliumWebBold;
-  border-radius: 10px;
+  border-radius: 1vh;
   box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
   background-color: ${({ highlight }) => (highlight ? '#fff3ef' : '#f6f6f6')};
   display: flex;
@@ -32,10 +32,10 @@ const Minutes = styled.div`
 `;
 
 const Seconds = styled.div`
-  width: 75px;
-  height: 72px;
+  width: 7.5vh;
+  height: 7.2vh;
   font-family: TitilliumWebBold;
-  border-radius: 10px;
+  border-radius: 1vh;
   box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
   background-color: ${({ highlight }) => (highlight ? '#fff3ef' : '#f6f6f6')};
   display: flex;

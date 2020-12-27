@@ -9,15 +9,15 @@ import RecLabel from './RecLabel';
 import SmallCamView from './SmallCamView';
 
 const Wrapper = styled.div`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
+  width: ${({ isShowAnswer }) => (isShowAnswer ? 77.3 : 132.6)}vh;
+  height: 59vh;
   position: relative;
 `;
 
 const WrapVideo = styled.video`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
-  border-radius: 20px;
+  width: ${({ isShowAnswer }) => (isShowAnswer ? 77.3 : 132.6)}vh;
+  height: 59vh;
+  border-radius: 2vh;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   background-size: cover;
   object-fit: cover;
@@ -28,8 +28,7 @@ const WrapVideo = styled.video`
 export default function CamView({
   oneOnOne,
   peerRef,
-  width,
-  height,
+  isShowAnswer,
   name,
   status,
   mediaBlobUrl,
@@ -65,15 +64,14 @@ export default function CamView({
   }, [status]);
 
   return (
-    <Wrapper width={width} height={height}>
+    <Wrapper isShowAnswer={isShowAnswer}>
       {name ? <NameLabel name={name} /> : <></>}
       {status === 'recording' ? <RecLabel /> : <></>}
       {/* TODO: src property의 mediaBolbUrl은 잘 녹화되었는지 테스트 목적 - 실제 서비스에선 제거되어야 함 */}
       <WrapVideo
         src={mediaBlobUrl}
         ref={videoRef}
-        width={width}
-        height={height}
+        isShowAnswer={isShowAnswer}
         alt="image_view"
         autoPlay
         loop
@@ -87,8 +85,7 @@ export default function CamView({
 CamView.propTypes = {
   oneOnOne: PropTypes.bool,
   peerRef: PropTypes.object,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  isShowAnswer: PropTypes.bool,
   name: PropTypes.string,
   status: PropTypes.string,
   mediaBlobUrl: PropTypes.string,
@@ -97,8 +94,6 @@ CamView.propTypes = {
 CamView.defaultProps = {
   oneOnOne: false,
   peerRef: undefined,
-  width: 1167,
-  height: 590,
   name: undefined,
   status: 'stopped',
   mediaBlobUrl: undefined,
