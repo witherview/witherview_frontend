@@ -3,7 +3,6 @@ import AuthRoute from './AuthRoute';
 import Button from './Button';
 import CamView from './CamView';
 import Checkbox from './Checkbox';
-import ConferenceButton from './ConferenceButton';
 import Icon from './Icon';
 import InputBar from './InputBar';
 import Modal from './Modal';
@@ -30,7 +29,6 @@ export default {
   Button,
   CamView,
   Checkbox,
-  ConferenceButton,
   Icon,
   InputBar,
   Modal,
