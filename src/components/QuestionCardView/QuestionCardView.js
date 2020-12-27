@@ -6,11 +6,12 @@ import Icon from '@components/Icon';
 
 const Box = styled.div`
   position: relative;
-  width: 334px;
-  height: 270px;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid ${({ clicked }) => (clicked ? '3px #5f5fd9;' : '1px #f6f6f6;')};
+  width: 33.4vh;
+  height: 27vh;
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid
+    ${({ clicked }) => (clicked ? '0.3vh #5f5fd9;' : '0.1vh #f6f6f6;')};
   background-color: #ffffff;
   box-sizing: content-box;
   user-select: none;
@@ -19,13 +20,13 @@ const Box = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 0 41px;
+  padding: 0 4.1vh;
 `;
 
 const IconBox = styled.div`
-  width: 40px;
-  height: 30px;
-  margin: 0px 26px 0 0;
+  width: 4vh;
+  height: 3vh;
+  margin: 0px 2.6vh 0 0;
   margin-left: auto;
   display: flex;
   align-items: flex-end;
@@ -34,15 +35,15 @@ const IconBox = styled.div`
 `;
 
 const IconEach = styled.div`
-  width: 7px;
-  height: 7px;
-  border-radius: 7px;
+  width: 0.7vh;
+  height: 0.7vh;
+  border-radius: 0.7vh;
   background-color: #9e9e9e;
 `;
 
 const Number = styled.div`
   width: 100%;
-  height: 83px;
+  height: 8.3vh;
   display: flex;
   align-items: center;
   margin-bottom: 14.5px;
@@ -51,7 +52,7 @@ const Number = styled.div`
 const NumberText = styled.div`
   float: left;
   font-family: TitilliumWeb;
-  font-size: 55px;
+  font-size: 5.5vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -59,15 +60,15 @@ const NumberText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #5f5fd9;
-  margin-right: 20px;
+  margin-right: 2vh;
 `;
 
 const SubText = styled.div`
-  width: 150px;
-  height: 50px;
+  width: 15vh;
+  height: 5vh;
   float: left;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 1.5vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -78,11 +79,11 @@ const SubText = styled.div`
 `;
 
 const Line = styled.div`
-  width: 243px;
+  width: 24.3vh;
   height: 0;
-  border-top: solid 2px #707070;
-  margin-bottom: 32.5px;
-  margin-left: 8px;
+  border-top: solid 0.2vh #707070;
+  margin-bottom: 3.25vh;
+  margin-left: 0.8vh;
 `;
 
 const Title = styled.div`
@@ -91,14 +92,14 @@ const Title = styled.div`
 `;
 
 const TitleText = styled.span`
-  max-width: 210px;
-  max-height: 30px;
+  max-width: 21vh;
+  max-height: 3vh;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   word-wrap: normal;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -110,14 +111,14 @@ const TitleText = styled.span`
 
 const SubTitle = styled.div`
   display: inline-block;
-  max-width: 250px;
-  max-height: 30px;
+  max-width: 25vh;
+  max-height: 3vh;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   word-wrap: normal;
   font-family: AppleSDGothicNeoB00;
-  font-size: 20px;
+  font-size: 2vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -128,18 +129,18 @@ const SubTitle = styled.div`
 `;
 
 const List = styled.ul`
-  width: 143px;
-  padding: 18.5px 0px 18.5px 0px;
+  width: 14.3vh;
+  padding: 1.85vh 0 1.85vh 0;
   position: absolute;
-  top: 30px;
-  right: 25px;
+  top: 3vh;
+  right: 2.5vh;
   z-index: 101;
   background-color: #fff;
   transition: 0.25s ease all;
   transform: scale(0);
   transform-origin: 0 1;
   border-radius: 10px;
-  box-shadow: 0 12px 24px 0 rgba(4, 4, 161, 0.15);
+  box-shadow: 0 1.2vh 2.4vh 0 rgba(4, 4, 161, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,9 +150,9 @@ const List = styled.ul`
 `;
 
 const Item = styled.li`
-  width: 87px;
-  padding-top: 12.5px;
-  padding-bottom: 12.5px;
+  width: 8.7vh;
+  padding-top: 1.25vh;
+  padding-bottom: 1.25vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -161,7 +162,7 @@ const Each = styled.div`
   width: 100%;
   user-select: none;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 2vh;
   color: #9e9e9e;
   &:hover {
     color: #f2886b;

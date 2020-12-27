@@ -5,14 +5,14 @@ import NoListImage from '@assets/images/illust_4.png';
 import Icon from '@components/Icon';
 
 const Image = styled.img`
-    width: 327px;
-    height: 197px;
-    margin-top: 171px;
+    width: 32.7vh;
+    height: 19.7vh;
+    margin-top: 17.1vh;
 `;
 const Text = styled.div`
-    margin-top: 30px;
+    margin-top: 3vh;
     font-family: AppleSDGothicNeoM00;
-    font-size: 24px;
+    font-size: 1.9vh;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -22,20 +22,20 @@ const Text = styled.div`
 `;
 const Button = styled.div`
     display: flex;
-    width: 356px;
-    height: 82px;
-    margin: 100px 0 0 0;
-    border-radius: 10px;
+    width: 35.6vh;
+    height: 8.2vh;
+    margin: 10vh 0 0 0;
+    border-radius: 1vh;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     justify-content: center;
     align-items: center;
     cursor: pointer;
 `;
 const ButtonText = styled.span`
-    height: 30px;
-    margin-left: 30px;
+    height: 3vh;
+    margin-left: 3vh;
     font-family: AppleSDGothicNeoB00;
-    font-size: 24px;
+    font-size: 1.9vh;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;

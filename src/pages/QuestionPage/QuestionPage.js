@@ -19,47 +19,47 @@ import ProfileMenuContiner from '@components/ProfileMenuContainer';
 import { setSelectedQnaId } from '@store/Train/train';
 import { AddQuestions, ResetQuestions } from '@store/Question/question';
 
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import QuestionList from '@components/Question/QuestionList';
 import Modal from '@components/Modal/Modal';
 import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 
 const PageWrapper = styled.div`
-  display: flex;
   flex: 1;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 const ContentWrapper = styled.div`
-  width: 100%;
+  height: 80vh;
 `;
 
 const ProfileWrapper = styled.div`
   float: right;
-  margin: 53px 105px 0 0;
+  margin: 5.3vh 10.5vh 0 0;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh-137px;
-  margin-top: 137px;
   flex-direction: column;
   align-items: center;
 `;
 
 const Input = styled.div`
   display: flex;
-  height: 100vh-137px;
+  margin-top: 5vh;
   align-items: center;
   justify-content: center;
-  margin-top: 71px;
 `;
 
 const Title = styled.div`
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.6vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -71,28 +71,28 @@ const Title = styled.div`
 const InputQuestion = styled.input`
   display: flex;
   align-self: center;
-  width: 1070px;
-  height: 26px;
-  font-size: 24px;
-  padding: 17px 30px 17px 17px;
+  width: 107vh;
+  height: 2.6vh;
+  font-size: 2.4vh;
+  padding: 1.7vh 3vh 1.7vh 1.7vh;
   border: none;
   outline: none;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.04);
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
   background-color: #f6f6f6;
 `;
 
 const IconWrapper = styled.span`
-  width: 63px;
-  height: 63px;
-  transform: translate(-17px, -2px);
+  width: 6.3vh;
+  height: 6.3vh;
+  transform: translate(-1.7vh, -0.2vh);
 `;
 
 const Text = styled.div`
-  margin-top: 262px;
-  margin-bottom: 220px;
+  margin-top: 26.2vh;
+  margin-bottom: 22vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 1.9vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -105,18 +105,18 @@ const Text = styled.div`
 const ListWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 73px;
+  margin-top: 7.3vh;
 `;
 
 const Scroll = styled.div`
-  height: 400px;
+  height: 40vh;
   overflow: scroll;
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 67px;
+  margin-top: 6.7vh;
 `;
 
 export default function QuestionPage({ match }) {

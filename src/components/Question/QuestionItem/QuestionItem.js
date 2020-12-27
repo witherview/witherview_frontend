@@ -3,21 +3,21 @@ import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 1158px;
+  width: 115.8vh;
 `;
 
 const QuestionCard = styled.div`
   position: relative;
   display: flex;
-  width: 1118px;
-  height: 60px;
-  margin: 5px;
-  border-radius: 10px;
+  width: 111.8vh;
+  height: 6vh;
+  margin: 0.5vh;
+  border-radius: 1vh;
   background-color: ${({ clicked }) => (clicked ? '#5f5fd9' : '#f3f3ff')};
   align-items: center;
   opacity: ${({ isDragging }) => (isDragging ? 0 : 1)};
@@ -26,9 +26,9 @@ const QuestionCard = styled.div`
 
 const QusetionSymbol = styled.span`
   font-family: AppleSDGothicNeoB00;
-  margin-left: 40px;
-  margin-right: 25px;
-  font-size: 24px;
+  margin-left: 4vh;
+  margin-right: 2.5vh;
+  font-size: 2.4vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -40,7 +40,7 @@ const QusetionSymbol = styled.span`
 
 const TitleText = styled.span`
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 2.4vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -54,33 +54,33 @@ const IconWrapper = styled.span`
   display: flex;
   align-items: center;
   margin-left: auto;
-  margin-right: 46px;
+  margin-right: 4.6vh;
   ${({ clicked }) => clicked && 'transform: rotate(180deg)'}
 `;
 
 const AnswerBox = styled.div`
-  width: 1110px;
-  margin: 5px 5px 5px 40px;
+  width: 111vh;
+  margin: 0.5vh 0.5vh 0.5vh 5vh;
   display: ${({ clicked }) => (clicked ? 'block' : 'none')};
   overflow: hidden;
-  box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
-  border: solid 3px #f6f6f6;
-  border-radius: 10px;
+  box-shadow: 0 0.6vh 2.4vh 0 rgba(4, 4, 161, 0.04);
+  border: solid 0.3vh #f6f6f6;
+  border-radius: 1vh;
   background-color: #ffffff;
-  transform: translateY(-20px);
+  transform: translateY(-2vh);
 `;
 
 const ContenText = styled.textarea`
-  width: 963px;
-  height: 124px;
-  margin: 40px 96px;
+  width: 96.3vh;
+  height: 12.4vh;
+  margin: 4vh 9.6vh;
   outline: none;
   resize: none;
   border: none;
   word-break: break-all;
   text-align: justify;
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 2.4vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
