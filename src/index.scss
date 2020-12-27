@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'AppleSDGothicNeoM00';
-  src: url('../public/fonts/AppleSDGothicNeoM.woff2') format('woff2'),
+  src: url('../public/fonts/Spoqa Han Sans Neo Regular.woff2') format('woff2'),
 }
 
 @font-face {
   font-family: 'AppleSDGothicNeoB00';
-  src: url('../public/fonts/AppleSDGothicNeoB.woff2') format('woff2'),
+  src: url('../public/fonts/Spoqa Han Sans Neo Bold.woff2') format('woff2'),
 }
 
 @font-face {
   font-family: 'AppleSDGothicNeoEB00';
-  src: url('../public/fonts/AppleSDGothicNeoEB.woff2') format('woff2'),
+  src: url('../public/fonts/Spoqa Han Sans Neo Medium.woff2') format('woff2'),
 }
 
 // 한글을 제외한 부분에서 종종 사용되므로 아래의 범위에서만 사용되게끔 변경(한글은 AppleSDGothicNeo 사용)
@@ -30,12 +30,12 @@
 // 한글 범위: U+AC00-D7AF
 @font-face {
   font-family: 'TitilliumWeb';
-  src: url('../public/fonts/AppleSDGothicNeoM.woff2') format('woff2');
+  src: url('../public/fonts/Spoqa Han Sans Neo Regular.woff2') format('woff2');
   unicode-range: U+AC00-D7AF;
 }
 @font-face {
   font-family: 'TitilliumWebBold';
-  src: url('../public/fonts/AppleSDGothicNeoB.woff2') format('woff2');
+  src: url('../public/fonts/Spoqa Han Sans Neo Bold.woff2') format('woff2');
   unicode-range: U+AC00-D7AF;
 }
 
