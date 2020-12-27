@@ -12,11 +12,11 @@ import SidebarButton from './SidebarButton';
 
 const Wrapper = styled.div`
   position: fixed;
-  width: ${({ hover }) => (hover ? 296 : 159)}px;
-  min-width: 159px;
-  max-width: 296px;
+  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
+  min-width: 15.9vh;
+  max-width: 29.6vh;
   height: 100vh;
-  min-height: 200px;
+  min-height: 20vh;
   border: none;
   background-color: #0c0c59;
   -webkit-user-select: none;
@@ -29,36 +29,29 @@ const Wrapper = styled.div`
 
 const WrapTopButton = styled.div`
   position: absolute;
-  top: 72px;
-  width: ${({ hover }) => (hover ? 296 : 159)}px;
+  top: 7.2vh;
+  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const WrapImage = styled.img`
-  height: ${({ hover }) => (hover ? 30 : 50)}px;
-  padding: ${({ hover }) => (hover ? 10 : 0)}px;
+  height: ${({ hover }) => (hover ? 3 : 5)}vh;
+  padding: ${({ hover }) => (hover ? 1 : 0)}vh;
 `;
 
 const WrapButtonContainer = styled.div`
-  @media only screen and (max-height: 613px) {
-    display: none;
-  }
-  padding-top: 200px;
+  padding-top: 20vh;
 `;
 
 const WrapBottomButton = styled.div`
-  @media only screen and (max-height: 400px) {
-    display: none;
-  }
-  width: ${({ hover }) => (hover ? 296 : 159)}px;
-
+  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
   position: absolute;
   align-items: center;
   justify-content: center;
   display: flex;
-  bottom: 97.9px;
+  bottom: 9.79vh;
 `;
 
 export default function Sidebar() {
@@ -69,9 +62,15 @@ export default function Sidebar() {
 
   const handleClick = (value) => {
     setClick(value);
-    history.push(value === 0 ? '/self'
-               : value === 1 ? '/group-study'
-               : value === 2 ? '/mypage' : 'myvideo');
+    history.push(
+      value === 0
+        ? '/self'
+        : value === 1
+        ? '/group-study'
+        : value === 2
+        ? '/mypage'
+        : 'myvideo',
+    );
   };
 
   function hoverActive() {
@@ -102,7 +101,7 @@ export default function Sidebar() {
           hover={hover}
           title="혼자연습"
         />
-        <SidebarButton
+        {/* <SidebarButton
           func={() => handleClick(1)}
           type={click === 1 ? 'sound_black' : 'sound_white'}
           clicked={click === 1}
@@ -115,7 +114,7 @@ export default function Sidebar() {
           clicked={click === 4}
           hover={hover}
           title="저장확인"
-        />
+        /> */}
         <SidebarButton
           func={() => handleClick(2)}
           type={click === 2 ? 'profile_black' : 'profile_white'}
@@ -126,7 +125,10 @@ export default function Sidebar() {
       </WrapButtonContainer>
       <WrapBottomButton hover={hover}>
         <SidebarButton
-          func={() => dispatch(setLogout())}
+          func={() => {
+            dispatch(setLogout());
+            history.push('/');
+          }}
           type={click === 3 ? 'exit_blue' : 'exit_white'}
           clicked={click === 3}
           hover={hover}

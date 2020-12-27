@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import profileExample from '@assets/images/profile_example.png';
 
 const Wrapper = styled.div`
-  width: ${({ isSmall }) => (isSmall ? 60 : 73)}px;
-  height: ${({ isSmall }) => (isSmall ? 60 : 73)}px;
-  border-radius: ${({ isSmall }) => (isSmall ? 10 : 20)}px;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.04);
+  width: ${({ isSmall }) => (isSmall ? 6 : 7.3)}vh;
+  height: ${({ isSmall }) => (isSmall ? 6 : 7.3)}vh;
+  border-radius: ${({ isSmall }) => (isSmall ? 1 : 2)}vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(0, 0, 0, 0.04);
   user-select: none;
   background-image: url(${({ src }) => src});
   background-position: center center;

@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import profileExample from '@assets/images/profile_example.png';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 
 const Wrapper = styled.div`
-    position: relative;
+  position: relative;
 `;
 
 const Image = styled.div`
-  width: 149px;
-  height: 156px;
-  border-radius: 20px;
+  width: 14.9vh;
+  height: 15.6vh;
+  border-radius: 2vh;
   user-select: none;
   background-image: url(${({ src }) => src});
   background-position: center center;
@@ -20,10 +20,10 @@ const Image = styled.div`
 `;
 
 const IconWrapper = styled.span`
-    display: inline-block;
-    position: absolute;
-    top: 115px;
-    left: 120px;
+  display: inline-block;
+  position: absolute;
+  top: 11.5vh;
+  left: 12vh;
 `;
 
 export default function ProfileEdit({ src }) {

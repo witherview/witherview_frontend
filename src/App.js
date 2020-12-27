@@ -34,6 +34,13 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
+const WrapPage = styled.div`
+  display: flex;
+  ${({ toggleTrain }) => (toggleTrain
+    ? 'width: 100vw;'
+    : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;')}
+`;
+
 const WrapSpinner = styled.div`
   z-index: 30;
   height: 100vh;
@@ -59,16 +66,16 @@ export default function App() {
           </WrapSpinner>
         )}
         <Wrapper>
-          <>
-            {!toggleTrain && <Sidebar />}
-            {!toggleTrain && <ProfileMenuContainer name={name} />}
+          {!toggleTrain && <Sidebar />}
+          {!toggleTrain && <ProfileMenuContainer name={name} />}
+          <WrapPage toggleTrain={toggleTrain}>
+            <Route exact path="/self" component={SelfTrainEntryPage} />
             <AuthRoute
               exact
               path="/questionlist"
               component={QuestionListPage}
             />
             <AuthRoute path="/question/:id" component={QuestionPage} />
-            <AuthRoute exact path="/self" component={SelfTrainEntryPage} />
             <AuthRoute
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
@@ -79,17 +86,16 @@ export default function App() {
               path="/self-checklist/:id"
               component={AloneQuestionCheckList}
             />
-            <AuthRoute path="/group-study" component={StudyMainPage} />
-            <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
-            <AuthRoute
-              path="/peer-study/:roomId"
-              component={PeerStudyTrainPage}
-            />
-            <AuthRoute exact path="/mypage" component={MyPage} />
-
-            <Route exact path="/myvideo" component={MyVideoPage} />
-            <Route exact path="/video/:id" component={VideoPage} />
-          </>
+            <AuthRoute path="/mypage" component={MyPage} />
+          </WrapPage>
+          <AuthRoute path="/group-study" component={StudyMainPage} />
+          <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
+          <AuthRoute
+            path="/peer-study/:roomId"
+            component={PeerStudyTrainPage}
+          />
+          <Route exact path="/myvideo" component={MyVideoPage} />
+          <Route exact path="/video/:id" component={VideoPage} />
         </Wrapper>
         <Route component={NotFound} />
       </Switch>

@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import profileExample from '@assets/images/profile_example.png';
-import ProfileIcon from '@components/ProfileIcon';
+import ProfileIcon from '@components/IconTemp';
 
 const Wrapper = styled.div`
-  height: 73px;
+  height: 7.3vh;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -16,8 +16,8 @@ const Wrapper = styled.div`
 
 const Name = styled.div`
   font-family: AppleSDGothicNeoEB00;
-  font-size: 20px;
-  padding-left: 25px;
+  font-size: 1.5vh;
+  padding-left: 2.5vh;
   user-select: none;
   color: #3d3d3d;
 `;
