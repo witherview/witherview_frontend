@@ -61,4 +61,7 @@ typings/
 # dotenv environment variables file
 .env
 
+# Local Netlify folder
+.netlify
+
 .DS_Store

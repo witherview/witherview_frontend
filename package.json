@@ -8,6 +8,7 @@
     "test:cypress": "cypress open",
     "lint": "eslint --fix --ext .js,.jsx src",
     "build": "webpack --config ./webpack.config.prod.js",
+    "deploy": "netlify deploy",
     "start": "webpack-dev-server",
     "storybook": "start-storybook -p 6060 -c .storybook watch-css -s ./public",
     "build-storybook": "build-storybook -c .storybook watch-css -s ./public"
