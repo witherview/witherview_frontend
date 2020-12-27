@@ -8,8 +8,6 @@ import SyncLoader from 'react-spinners/SyncLoader';
 import LandingPage from '@pages/LandingPage';
 
 import AuthRoute from '@components/AuthRoute';
-import ConferenceButton from '@components/ConferenceButton';
-import ConferenceRoom from '@pages/ConferenceRoom';
 import NotFound from '@pages/404';
 import LoginPage from '@pages/LoginPage';
 import QuestionListPage from '@pages/QuestionListPage';
@@ -53,8 +51,6 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
-        <AuthRoute path="/conference" component={ConferenceButton} />
-        <Route path="/room/:roomID" component={ConferenceRoom} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
