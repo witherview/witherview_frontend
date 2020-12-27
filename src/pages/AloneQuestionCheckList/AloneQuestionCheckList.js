@@ -17,7 +17,7 @@ import {
 
 import { get } from '@utils/snippet';
 import Button from '@components/Button';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import EvaluationListMock from '@mocks/EvaluationListMock';
 import Checkbox from '@components/Checkbox';
 

@@ -24,7 +24,7 @@ import CamView from '@components/CamView';
 
 import TextBox from '@components/TextBox';
 import Button from '@components/Button';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 
 import RemainTime from '@components/RemainTime';
 import ToggleButton from '@components/ToggleButton';

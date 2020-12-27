@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import addQuestionImage from '@assets/images/illust_2.png';
 import guideImage from '@assets/images/illust_3.png';
-// import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 
 const Wrapper = styled.div`
   user-select: none;
@@ -29,15 +29,11 @@ const WrapContainer = styled.div`
   ${({ clicked }) => clicked && 'border: solid 4px #6e6eff;'}
 `;
 
-// const WrapIcon = styled.div`
-//   position: absolute;
-//   top: 2.4vh;
-//   right: 2.8vh;
-//   > i {
-//     width: 4vh;
-//     height: 4vh;
-//   }
-// `;
+const WrapIcon = styled.div`
+  position: absolute;
+  top: 2.4vh;
+  right: 2.8vh;
+`;
 
 const WrapImage = styled.img`
   height: 24.8vh;
@@ -66,12 +62,11 @@ export default function SelectCard({ kind, clicked, func }) {
   return (
     <Wrapper onClick={func}>
       <WrapContainer clicked={clicked}>
-        {/* TODO: 이미지 크기가 고정이라 vh로 적용하면 이미지가 짤림 */}
-        {/* <WrapIcon>
+        <WrapIcon>
           {clicked && (
             <Icon type="check_circle_white" alt="Check Circle White" />
           )}
-        </WrapIcon> */}
+        </WrapIcon>
         <WrapImage
           src={kind === GUIDE_IMAGE ? guideImage : addQuestionImage}
           alt="Button Middle"
