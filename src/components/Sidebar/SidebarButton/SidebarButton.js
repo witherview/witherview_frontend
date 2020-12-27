@@ -4,11 +4,11 @@ import styled from 'styled-components';
 
 import PropTypes from 'prop-types';
 
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 
 const Wrapper = styled.button`
-  width: ${({ hover }) => (hover ? 296 : 159)}px;
-  height: 71px;
+  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
+  height: 7.1vh;
   background-color: ${({ clicked }) => (clicked ? 'white' : '#0c0c59')};
   display: flex;
   align-items: center;
@@ -21,10 +21,10 @@ const Wrapper = styled.button`
 `;
 
 const WrapText = styled.div`
-  width: 114px;
-  padding-left: 24px;
+  width: 11.4vh;
+  padding-left: 1.9vh;
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   text-align: left;
   color: ${({ clicked }) => (clicked ? '#0c0c59' : 'white')};
 `;
