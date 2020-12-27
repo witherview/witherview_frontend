@@ -16,7 +16,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 /*
  * We've enabled HtmlWebpackPlugin for you! This generates a html
@@ -134,6 +134,6 @@ module.exports = {
       template: 'public/index.html',
       favicon: 'favicon.png',
     }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
   ],
 };
