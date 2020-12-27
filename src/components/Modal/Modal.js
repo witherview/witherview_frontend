@@ -9,14 +9,14 @@ import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
 
 export default function Modal({
-  modalName, func,
+  modalName, func, roomId,
 }) {
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: <QuestionListSaveModal />,
     [MODALS.SELF_TRAIN_START_MODAL]: <SelfTrainStartModal />,
     [MODALS.STUDY_MAKE_MODAL]: <StudyMakeModal func={func} />,
-    [MODALS.EVALUATION_MODAL]: <EvaluationModal />,
+    [MODALS.EVALUATION_MODAL]: <EvaluationModal roomId={roomId} />,
   };
   return (
     <>
@@ -33,7 +33,9 @@ export default function Modal({
 Modal.propTypes = {
   modalName: PropTypes.string,
   func: PropTypes.func,
+  roomId: PropTypes.string,
 };
+
 Modal.defaultProps = {
   modalName: '',
   func: () => {},

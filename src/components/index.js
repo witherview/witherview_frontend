@@ -5,6 +5,7 @@ import CamView from './CamView';
 import Checkbox from './Checkbox';
 import Icon from './Icon';
 import InputBar from './InputBar';
+import InterviewChat from './InterviewChat';
 import Modal from './Modal';
 import ProfileIcon from './ProfileIcon';
 import ProfileInfoContainer from './ProfileInfoContainer';
@@ -31,6 +32,7 @@ export default {
   Checkbox,
   Icon,
   InputBar,
+  InterviewChat,
   Modal,
   ProfileIcon,
   ProfileInfoContainer,

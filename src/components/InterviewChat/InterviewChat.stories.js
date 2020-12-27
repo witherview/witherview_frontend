@@ -1,5 +1,5 @@
 import React from 'react';
-import InterviewChat from './IntervieweChat';
+import InterviewChat from './InterviewChat';
 
 export default {
   title: 'interviewChat',

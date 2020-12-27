@@ -24,6 +24,7 @@ import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 
 import MyVideoPage from '@pages/MyVideoPage';
 import VideoPage from '@pages/VideoPage';
+import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
@@ -46,6 +47,7 @@ export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
 
+  // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
       <Switch>
@@ -79,6 +81,10 @@ export default function App() {
             />
             <AuthRoute path="/group-study" component={StudyMainPage} />
             <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
+            <AuthRoute
+              path="/peer-study/:roomId"
+              component={PeerStudyTrainPage}
+            />
             <AuthRoute exact path="/mypage" component={MyPage} />
 
             <Route exact path="/myvideo" component={MyVideoPage} />
