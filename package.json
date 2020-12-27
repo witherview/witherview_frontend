@@ -7,7 +7,7 @@
     "test": "jest --watchAll --coverage",
     "test:cypress": "cypress open",
     "lint": "eslint --fix --ext .js,.jsx src",
-    "build": "webpack",
+    "build": "webpack --config ./webpack.config.prod.js",
     "start": "webpack-dev-server",
     "storybook": "start-storybook -p 6060 -c .storybook watch-css -s ./public",
     "build-storybook": "build-storybook -c .storybook watch-css -s ./public"
@@ -62,8 +62,10 @@
     "redux-mock-store": "^1.5.4",
     "sass-loader": "^10.0.3",
     "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^4.2.3",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
+    "webpack-bundle-analyzer": "^4.3.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
