@@ -28,6 +28,10 @@ import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
+
+import StudyBackground from '@assets/images/study_background.png';
+import useWindowSize from '@hooks/useWindowSize';
+
 import { get } from './utils/snippet';
 
 const Wrapper = styled.div`
@@ -50,9 +54,24 @@ const WrapSpinner = styled.div`
   align-items: center;
 `;
 
+const WrapRatio = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 4vw;
+  line-height: 7vw;
+  text-align: center;
+  background-image: url(${({ source }) => source});
+`;
+
 export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
+  const { ratio } = useWindowSize();
 
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
@@ -64,6 +83,13 @@ export default function App() {
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
           </WrapSpinner>
+        )}
+        {ratio < 1.6 && (
+          <WrapRatio source={StudyBackground}>
+            브라우저 창의 높이를 줄여주세요.
+            <br />
+            16:9 비율에 최적화되어 있습니다.
+          </WrapRatio>
         )}
         <Wrapper>
           {!toggleTrain && <Sidebar />}
