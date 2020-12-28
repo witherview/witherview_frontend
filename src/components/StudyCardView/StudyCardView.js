@@ -3,7 +3,10 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icon from '@components/Icon';
-import { postJoinStudyApi, getGroupMemberApi } from '@repository/groupRepository';
+import {
+  postJoinStudyApi,
+  getGroupMemberApi,
+} from '@repository/groupRepository';
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,10 +29,11 @@ const Box = styled.div`
     border-radius: 20px;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-    &>div>div, &>div>div>span {
+    & > div > div,
+    & > div > div > span {
       color: white;
     }
-    &>div>div>div {
+    & > div > div > div {
       color: #0c0c59;
     }
   }
@@ -46,9 +50,9 @@ const Title = styled.div`
   width: 290px;
   height: 30px;
   margin-top: 29px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   word-break: break-all;
   font-family: AppleSDGothicNeoEB00;
   font-size: 24px;
@@ -66,7 +70,7 @@ const Description = styled.div`
   width: 280px;
   height: 60px;
   margin-top: 20px;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
   font-family: AppleSDGothicNeoM00;
   font-size: 20px;
@@ -130,7 +134,11 @@ const ButtonText = styled.div`
 `;
 
 export default function StudyCardView({
-  id, title, description, time, member,
+  id,
+  title,
+  description,
+  time,
+  member,
 }) {
   const history = useHistory();
   const [type, setType] = useState('clock_black');
@@ -159,17 +167,11 @@ export default function StudyCardView({
     <Wrapper>
       <Box onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
         <Content>
-          <Title>
-            {title}
-          </Title>
-          <Description>
-            {description}
-          </Description>
+          <Title>{title}</Title>
+          <Description>{description}</Description>
           <Time>
             <Icon type={type} alt="" />
-            <Text>
-              {time}
-            </Text>
+            <Text>{time}</Text>
           </Time>
           <MemberWrapper>
             <Icon type={profile} alt="" />
@@ -179,14 +181,11 @@ export default function StudyCardView({
             </Text>
           </MemberWrapper>
           <Button onClick={handleClick}>
-            <ButtonText>
-              입장하기
-            </ButtonText>
+            <ButtonText>입장하기</ButtonText>
           </Button>
         </Content>
       </Box>
     </Wrapper>
-
   );
 }
 

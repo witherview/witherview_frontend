@@ -6,4 +6,6 @@ export default {
   component: QuestionTextBox,
 };
 
-export const QuestionTextBoxDefault = () => <QuestionTextBox order={1} question="test" width={1025} />;
+export const QuestionTextBoxDefault = () => (
+  <QuestionTextBox order={1} question="test" width={1025} />
+);

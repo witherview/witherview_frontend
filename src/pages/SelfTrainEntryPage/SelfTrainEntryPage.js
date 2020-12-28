@@ -87,15 +87,14 @@ export default function SelfTrainEntryPage({ history }) {
         <WrapButton>
           <Button
             func={
-            // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
-            isGuide
-              ? () => history.push('/self/setting/3')
-              : () => history.push('/questionlist')
-          }
+              // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
+              isGuide
+                ? () => history.push('/self/setting/3')
+                : () => history.push('/questionlist')
+            }
             theme={clicked ? 'blue' : 'gray'}
             text="다음"
           />
-
         </WrapButton>
       </WrapContent>
     </Wrapper>

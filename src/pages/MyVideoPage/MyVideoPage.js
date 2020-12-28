@@ -23,13 +23,22 @@ const Wrapper = styled.div`
 
 const columns = [
   {
-    id: 'questionListEnterprise', label: '산업', minWidth: 170, align: 'center',
+    id: 'questionListEnterprise',
+    label: '산업',
+    minWidth: 170,
+    align: 'center',
   },
   {
-    id: 'questionListJob', label: '직무', minWidth: 100, align: 'center',
+    id: 'questionListJob',
+    label: '직무',
+    minWidth: 100,
+    align: 'center',
   },
   {
-    id: 'createdAt', label: '날짜', minWidth: 170, align: 'center',
+    id: 'createdAt',
+    label: '날짜',
+    minWidth: 170,
+    align: 'center',
   },
 ];
 
@@ -72,7 +81,13 @@ export default function MyVideoPage() {
   useEffect(() => {
     getVideoApi().then((resp) => {
       // 삭제 API가 없어서 실제 동작 하지 않는 경우 (savedLocation가 없거나 savedLocation에 videos가 포함이 안된 경우)를 filter해줬습니다.
-      setRows(resp.data.filter((val) => val.savedLocation !== null && val.savedLocation.includes('videos')).sort((a, b) => -a.id + b.id));
+      setRows(
+        resp.data
+          .filter(
+            (val) => val.savedLocation !== null && val.savedLocation.includes('videos'),
+          )
+          .sort((a, b) => -a.id + b.id),
+      );
     });
   }, []);
 
@@ -96,18 +111,28 @@ export default function MyVideoPage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={() => history.push(`/video/${row.id}`)}>
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))}
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.code}
+                    onClick={() => history.push(`/video/${row.id}`)}
+                  >
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number'
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

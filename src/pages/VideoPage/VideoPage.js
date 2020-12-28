@@ -37,7 +37,9 @@ export default function VideoPage({ match }) {
   useEffect(() => {
     getVideoApi().then((resp) => {
       dispatch(setIsLoading({ isLoading: false }));
-      const { savedLocation } = resp.data.find((elem) => elem.id === parseInt(id, 10));
+      const { savedLocation } = resp.data.find(
+        (elem) => elem.id === parseInt(id, 10),
+      );
       dispatch(setUploadedLocation({ uploadedLocation: savedLocation }));
     });
     if (Hls.isSupported()) {
@@ -48,9 +50,7 @@ export default function VideoPage({ match }) {
       });
       hls.attachMedia(videoHlsJs.current);
       hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-        hls.loadSource(
-          uploadedLocation,
-        );
+        hls.loadSource(uploadedLocation);
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
           videoHlsJs.current.play();
         });
@@ -61,22 +61,18 @@ export default function VideoPage({ match }) {
   return (
     <Wrapper>
       {isLoading || (
-      <>
-        <VideoContainer>
-          <video
-            controls
-            ref={videoHlsJs}
-            autoPlay={false}
-          >
-            <track
-              src=""
-              kind="captions"
-              srcLang="ko"
-              label="korean_captions"
-            />
-          </video>
-        </VideoContainer>
-      </>
+        <>
+          <VideoContainer>
+            <video controls ref={videoHlsJs} autoPlay={false}>
+              <track
+                src=""
+                kind="captions"
+                srcLang="ko"
+                label="korean_captions"
+              />
+            </video>
+          </VideoContainer>
+        </>
       )}
     </Wrapper>
   );

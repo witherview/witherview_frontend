@@ -18,9 +18,7 @@ const Wrapper = styled.div`
 `;
 
 export default function ProfileIcon({ src, isSmall }) {
-  return (
-    <Wrapper src={src} isSmall={isSmall} alt="profile_image" />
-  );
+  return <Wrapper src={src} isSmall={isSmall} alt="profile_image" />;
 }
 
 ProfileIcon.propTypes = {

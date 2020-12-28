@@ -164,12 +164,14 @@ export default function EvaluationModal({ roomId }) {
       targetUser: 0, // TODO: change this properly
     };
 
-    postGroupFeedback(data).then(() => {
-      dispatch(hideModal(MODALS.EVALUATION_MODAL));
-      history.push('/group-study');
-    }).catch((error) => {
-      console.error(error);
-    });
+    postGroupFeedback(data)
+      .then(() => {
+        dispatch(hideModal(MODALS.EVALUATION_MODAL));
+        history.push('/group-study');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const calScore = (val) => ((score + val) % 10) + 1;
