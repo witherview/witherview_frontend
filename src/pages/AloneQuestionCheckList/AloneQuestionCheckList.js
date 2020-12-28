@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable react/prop-types */
 import React, {
   useState, useEffect, useCallback, useRef,
@@ -19,9 +22,8 @@ import { get } from '@utils/snippet';
 import Button from '@components/Button';
 import Icon from '@components/IconTemp';
 import EvaluationListMock from '@mocks/EvaluationListMock';
-import Checkbox from '@components/Checkbox';
 
-const CloseButton = styled.button`
+const CloseButton = styled.div`
   position: absolute;
   top: 5.3vh;
   right: 10.5vh;
@@ -37,14 +39,18 @@ const Wrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100vh;
   background-color: #eef0ff;
 `;
 
-const Background = styled.div`
-  text-align: center;
+const WrapContent = styled.div`
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const EndingTitle = styled.span`
@@ -52,24 +58,26 @@ const EndingTitle = styled.span`
   color: #000000;
   font-family: AppleSDGothicNeoEB00;
   font-size: 3.1vh;
-  margin-top: 7vh;
+  padding-top: 3.9vh;
 `;
 
 const Content = styled.div`
-  margin-left: 10vh;
-  margin-top: 10.5vh;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 9vh;
 `;
 
 const LeftContent = styled.div`
+  height: 67.1vh;
   width: 47vh;
-  height: auto;
+  padding-top: 3vh;
 `;
 
 const RightContent = styled.div`
-  width: 117.8vh;
-  height: auto;
-  margin-left: 5.5vh;
+  height: 67.1vh;
+  margin-left: 6.1vh;
 `;
 
 const VideoContainer = styled.figure`
@@ -79,6 +87,7 @@ const VideoContainer = styled.figure`
   & video {
     width: 100%;
     border-radius: 2vh;
+    box-shadow: 0 0.6vh 2.4vh 0 rgba(4, 4, 161, 0.04);
   }
 `;
 
@@ -91,6 +100,8 @@ const ControlWrapper = styled.div`
   margin-top: 1vh;
   padding: 1vh;
   box-sizing: border-box;
+
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
 
   &[data-state="hidden"] {
     display: none;
@@ -134,8 +145,9 @@ const ProgressWrapper = styled.div`
 
   & progress {
     display: block;
+    height: 2vh;
     width: 100%;
-    margin-top: 1.125rem;
+    margin-top: 2vh;
     border: none;
     overflow: hidden;
     -moz-border-radius: 0.2vh;
@@ -167,33 +179,30 @@ const CheckPointWrapper = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
+  height: 18vh;
   width: inherit;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 5.5vh;
 
-  & > * {
-    margin: 1vh;
-    flex: 1 0 calc(50% - 2vh);
-    cursor: pointer;
-  }
   > div {
-    width: 29.6vh;
+    width: 22.5vh;
     height: 6vh;
     > p {
       font-size: 1.9vh;
     }
+    box-shadow: 0 0.6vh 2.4vh 0 rgba(4, 4, 161, 0.04);
   }
 `;
 
 const CheckListContainer = styled.div`
   display: inline-block;
-  width: 55vh;
+  width: 52vh;
   height: 67vh;
   box-sizing: border-box;
-  margin-right: 1.1vh;
-  margin-bottom: 2vh;
-  padding: 3.8vh 4.2vh 3.3vh 5.6vh;
+  margin-right: 2.6vh;
+  padding: 4.3vh 5.5vh 0 5.5vh;
   border-radius: 1vh;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
   background-color: #ffffff;
@@ -233,7 +242,7 @@ const CheckListContainer = styled.div`
 `;
 
 const CheckListTitle = styled.h2`
-  font-size: 3vh;
+  font-size: 2.5vh;
   margin-bottom: 3vh;
 `;
 
@@ -247,7 +256,7 @@ const SmallCheckList = styled.div`
 
   & > * {
     display: block;
-    height: auto;
+    height: 32vh;
     margin: 0;
     margin-bottom: 3vh;
   }
@@ -257,20 +266,23 @@ const ChecklistEach = styled.li`
   display: flex;
   flex-direction: row;
   align-itmes: center;
+<<<<<<< HEAD
   padding-bottom: 1vh;
   > label {
     > span {
       top: -0.5vh;
     }
   }
+=======
+
+>>>>>>> a1d1742 (refactor: 혼자연습하기 checklist 화면비 대응 및 와이어프레임에 맞춰 수정)
   > span {
-    font-size: 2vh;
-    padding-left: 1vh;
+    font-size: 1.9vh;
   }
 `;
 
 export default function AloneQuestionCheckList({ match }) {
-  const { id } = match.params;
+  const { roomId } = match.params;
   const dispatch = useDispatch();
   const history = useHistory();
   const { localBlob, historyId } = useSelector(get('train'));
@@ -335,6 +347,7 @@ export default function AloneQuestionCheckList({ match }) {
 
   const onCheck = useCallback(
     (evt) => {
+      // eslint-disable-next-line max-len
       const newCheckList = checkListArray.map((item, idx) => (idx === parseInt(evt.target.parentNode.id, 10) ? !item : item));
       setCheckListArray(newCheckList);
     },
@@ -342,8 +355,8 @@ export default function AloneQuestionCheckList({ match }) {
   );
 
   const selfTraingAgain = useCallback(() => {
-    history.push(`/question/${id}`);
-  }, [id]);
+    history.push(`/question/${roomId}`);
+  }, [roomId]);
 
   const initCheckList = useCallback(() => {
     setCheckListArray(Array(14).fill(false));
@@ -383,7 +396,7 @@ export default function AloneQuestionCheckList({ match }) {
 
   return (
     <Wrapper>
-      <Background>
+      <WrapContent>
         <CloseButton type="button">
           <Icon
             type="cancel_circle"
@@ -480,9 +493,13 @@ export default function AloneQuestionCheckList({ match }) {
             <CheckListContainer>
               <CheckListTitle>답변내용 및 목소리 체크!</CheckListTitle>
               <ul>
-                {EvaluationListMock.evaluationList1.map(({ key, text }) => (
-                  <ChecklistEach id={key} key={key}>
-                    <Checkbox />
+                {EvaluationListMock.evaluationList1.map(({ id, text }) => (
+                  <ChecklistEach id={id} key={id}>
+                    <Icon
+                      type={checkListArray[id] ? 'check_on' : 'check_off'}
+                      alt="checkbox"
+                      func={onCheck}
+                    />
                     <span>{text}</span>
                   </ChecklistEach>
                 ))}
@@ -492,9 +509,13 @@ export default function AloneQuestionCheckList({ match }) {
               <CheckListContainer>
                 <CheckListTitle>비언어 내용 체크!</CheckListTitle>
                 <ul>
-                  {EvaluationListMock.evaluationList2.map(({ key, text }) => (
-                    <ChecklistEach id={key} key={key}>
-                      <Checkbox />
+                  {EvaluationListMock.evaluationList2.map(({ id, text }) => (
+                    <ChecklistEach id={id} key={id}>
+                      <Icon
+                        type={checkListArray[id] ? 'check_on' : 'check_off'}
+                        alt="checkbox"
+                        func={onCheck}
+                      />
                       <span>{text}</span>
                     </ChecklistEach>
                   ))}
@@ -503,9 +524,13 @@ export default function AloneQuestionCheckList({ match }) {
               <CheckListContainer>
                 <CheckListTitle>영상 환경 체크!</CheckListTitle>
                 <ul>
-                  {EvaluationListMock.evaluationList3.map(({ key, text }) => (
-                    <ChecklistEach id={key} key={key}>
-                      <Checkbox />
+                  {EvaluationListMock.evaluationList3.map(({ id, text }) => (
+                    <ChecklistEach id={id} key={id}>
+                      <Icon
+                        type={checkListArray[id] ? 'check_on' : 'check_off'}
+                        alt="checkbox"
+                        func={onCheck}
+                      />
                       <span>{text}</span>
                     </ChecklistEach>
                   ))}
@@ -514,7 +539,7 @@ export default function AloneQuestionCheckList({ match }) {
             </SmallCheckList>
           </RightContent>
         </Content>
-      </Background>
+      </WrapContent>
     </Wrapper>
   );
 }

@@ -56,9 +56,7 @@ export default function SelfTrainPage({ match }) {
   const { time } = useSelector(get('time'));
   const {
     company, job, viewAnswer, qnaStep, step,
-  } = useSelector(
-    get('train'),
-  );
+  } = useSelector(get('train'));
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
@@ -164,10 +162,7 @@ export default function SelfTrainPage({ match }) {
         <S.WrapContent>
           {isLoading ? textBox : questionTextBox}
           <S.WrapCamView>
-            <CamView
-              isShowAnswer={isShowAnswer}
-              status={status}
-            />
+            <CamView isShowAnswer={isShowAnswer} status={status} />
             {isShowAnswer && (
               <AnswerBox
                 answer={questionList[qnaStep].answer}
@@ -186,15 +181,15 @@ export default function SelfTrainPage({ match }) {
                   theme="blue"
                   text={Fixture[step].button}
                   func={
-                  // TODO: 리펙토링 필요
-                  qnaStep === questionList.length - 1
-                  && questionList.length !== 1
-                    ? () => handleChecklistPage()
-                    : () => {
-                      if (step === STEP_START) startRecording();
-                      dispatch(handleNextButton());
-                    }
-                }
+                    // TODO: 리펙토링 필요
+                    qnaStep === questionList.length - 1
+                    && questionList.length !== 1
+                      ? () => handleChecklistPage()
+                      : () => {
+                        if (step === STEP_START) startRecording();
+                        dispatch(handleNextButton());
+                      }
+                  }
                 />
               </S.WrapButton>
             )}

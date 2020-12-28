@@ -118,7 +118,7 @@ background-position: ${({ type }) => (type === 'bubble_white' ? '-44px -36px'
 `;
 
 export default function Icon({
-  type, alt, style, src, isCircle, func,
+  type, alt, isCircle, func,
 }) {
   const [size, setSize] = useState('md');
   useEffect(() => {
@@ -160,14 +160,7 @@ export default function Icon({
     }
   }, [type]);
 
-  return src ? (
-    <img
-      src={src}
-      alt={alt}
-      style={style}
-      onClick={func}
-    />
-  ) : (
+  return (
     <I
       type={type}
       size={size}
@@ -245,11 +238,10 @@ Icon.propTypes = {
     'profile_big',
   ]).isRequired,
   alt: PropTypes.string.isRequired,
-  src: PropTypes.string,
-  style: PropTypes.string,
   func: PropTypes.func,
   isCircle: PropTypes.bool,
 };
+
 Icon.defaultProp = {
   type: 'test',
   alt: '',

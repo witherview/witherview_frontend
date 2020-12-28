@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { get } from '@utils/snippet';
 import TextBox from '@components/TextBox';
 import Button from '@components/Button';
@@ -101,8 +101,7 @@ const InnerText = styled.div`
   color: #000000;
 `;
 
-export default function StudySetting() {
-  const dispatch = useDispatch();
+export default function StudySetting({ history }) {
   const [first, setFirst] = useState();
   const { selectedQnaId } = useSelector(get('train'));
   const { standardTime } = useSelector(get('train'));
@@ -120,14 +119,10 @@ export default function StudySetting() {
         />
         <WrapContainer>
           <WrapToggle>
-            <Text>
-              스터디 면접 시간
-            </Text>
+            <Text>스터디 면접 시간</Text>
             <WrapText>질문 제한 시간 설정</WrapText>
-            <ToggleButton
-              funcActive={() => dispatch(setViewAnswer({ viewAnswer: true }))}
-              funcDecative={() => dispatch(setViewAnswer({ viewAnswer: false }))}
-            />
+            {/* TODO: 질문 제한 시간 토글 기능 넣어야 함 */}
+            <ToggleButton />
           </WrapToggle>
           <WrapSubContainer>
             <TimeButton time={30} unit="분" />
@@ -137,31 +132,29 @@ export default function StudySetting() {
             <TimeButton time={60} unit="분" />
             <Margin />
             <TextButton>
-              <InnerText>
-                무한
-              </InnerText>
+              <InnerText>무한</InnerText>
             </TextButton>
             <TextButton>
-              <InnerText>
-                직접 입력
-              </InnerText>
+              <InnerText>직접 입력</InnerText>
             </TextButton>
           </WrapSubContainer>
           <WrapToggle>
-            <Text>
-              스터디 면접 시간
-            </Text>
+            <Text>스터디 면접 시간</Text>
           </WrapToggle>
           <WrapSubContainer first={first}>
-            <TextButton className="host" first={first} onClick={() => handleFirst('host')}>
-              <InnerText className="host">
-                호스트
-              </InnerText>
+            <TextButton
+              className="host"
+              first={first}
+              onClick={() => handleFirst('host')}
+            >
+              <InnerText className="host">호스트</InnerText>
             </TextButton>
-            <TextButton className="guest" first={first} onClick={() => handleFirst('guest')}>
-              <InnerText className="guest">
-                상대방
-              </InnerText>
+            <TextButton
+              className="guest"
+              first={first}
+              onClick={() => handleFirst('guest')}
+            >
+              <InnerText className="guest">상대방</InnerText>
             </TextButton>
           </WrapSubContainer>
         </WrapContainer>

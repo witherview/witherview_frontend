@@ -12,7 +12,6 @@ export const SelectCardDefault = () => (
   <>
     <SelectCard kind={0} />
     <SelectCard kind={0} clicked />
-
     <SelectCard kind={1} />
     <SelectCard kind={1} clicked />
   </>

@@ -9,5 +9,9 @@ export default {
   description: 'Set Normal and small Profile Icon',
 };
 
-export const NormalProfileIcon = ({ src = profileExample }) => <ProfileIcon src={src} />;
-export const SmallProfileIcon = ({ src = profileExample }) => <ProfileIcon isSmall src={src} />;
+export const NormalProfileIcon = ({ src = profileExample }) => (
+  <ProfileIcon src={src} />
+);
+export const SmallProfileIcon = ({ src = profileExample }) => (
+  <ProfileIcon isSmall src={src} />
+);

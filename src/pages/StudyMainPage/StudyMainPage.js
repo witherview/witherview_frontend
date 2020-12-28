@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getGroupListApi, getGroupMemberApi } from '@repository/groupRepository';
+import {
+  getGroupListApi,
+  getGroupMemberApi,
+} from '@repository/groupRepository';
 import Icon from '@components/Icon';
 import TextButton from '@components/TextButton';
 import ProfileInfoContainer from '@components/ProfileInfoContainer/ProfileInfoContainer';
@@ -22,10 +25,15 @@ export default function StudyMainPage() {
       const unit = res.data.length === 6 ? 1 : 0;
       res.data.forEach((val) => {
         getGroupMemberApi(val.id).then((response) => {
-          setMember((members) => [...members, { id: val.id, member: response.data.length }]);
+          setMember((members) => [
+            ...members,
+            { id: val.id, member: response.data.length },
+          ]);
         });
       });
-      setGroupList((GroupList) => [...GroupList, ...res.data].filter((v, i, a) => a.findIndex((t) => (t.id === v.id)) === i));
+      setGroupList((GroupList) => [...GroupList, ...res.data].filter(
+        (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
+      ));
       setPage(pages + unit);
     });
   };
@@ -63,11 +71,41 @@ export default function StudyMainPage() {
   const MockProfile = () => {
     const item = [];
     for (let i = 0; i < 2; i += 1) {
-      item.push(<ProfileInfoContainer name="이영희" participateRate={95} src="https://images.generated.photos/wNQ4DFhYBW1rhVfJcABnSbnEqvAYvNFC2FoXFmSlQDk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NjI5NTJfMDc4/MzU0N18wNzU2MTIz/LmpwZw.jpg" />);
-      item.push(<ProfileInfoContainer name="김민수" participateRate={97} src="https://images.generated.photos/Mvj3BACVuVB7nhFBMntFD2_GSpti55sQZGA6W41CbkA/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2MjQwMjguanBn.jpg" />);
-      item.push(<ProfileInfoContainer name="이수근" participateRate={82} src="https://images.generated.photos/2eakikvGnP8RXguLLlS5btl2IsS3ao6T9E1eE8b0Kik/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzM4ODZfMDI5/NzcyOF8wMTcyMjAz/LmpwZw.jpg" />);
-      item.push(<ProfileInfoContainer name="박미나" participateRate={91} src="https://images.generated.photos/vrlHRAktOiwyM0-2632IhhbhEj2vDafwnBvTll8rpdk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NjgxMzYuanBn.jpg" />);
-      item.push(<ProfileInfoContainer name="홍길동" participateRate={90} src="https://images.generated.photos/BJlxsNPRJxDUZKrc3v-ok3_aY10keLpkqvXb6wHPo6Q/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMTI1NDZfMDQ5/MTQxMV8wMTIxMjg5/LmpwZw.jpg" />);
+      item.push(
+        <ProfileInfoContainer
+          name="이영희"
+          participateRate={95}
+          src="https://images.generated.photos/wNQ4DFhYBW1rhVfJcABnSbnEqvAYvNFC2FoXFmSlQDk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NjI5NTJfMDc4/MzU0N18wNzU2MTIz/LmpwZw.jpg"
+        />,
+      );
+      item.push(
+        <ProfileInfoContainer
+          name="김민수"
+          participateRate={97}
+          src="https://images.generated.photos/Mvj3BACVuVB7nhFBMntFD2_GSpti55sQZGA6W41CbkA/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2MjQwMjguanBn.jpg"
+        />,
+      );
+      item.push(
+        <ProfileInfoContainer
+          name="이수근"
+          participateRate={82}
+          src="https://images.generated.photos/2eakikvGnP8RXguLLlS5btl2IsS3ao6T9E1eE8b0Kik/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzM4ODZfMDI5/NzcyOF8wMTcyMjAz/LmpwZw.jpg"
+        />,
+      );
+      item.push(
+        <ProfileInfoContainer
+          name="박미나"
+          participateRate={91}
+          src="https://images.generated.photos/vrlHRAktOiwyM0-2632IhhbhEj2vDafwnBvTll8rpdk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NjgxMzYuanBn.jpg"
+        />,
+      );
+      item.push(
+        <ProfileInfoContainer
+          name="홍길동"
+          participateRate={90}
+          src="https://images.generated.photos/BJlxsNPRJxDUZKrc3v-ok3_aY10keLpkqvXb6wHPo6Q/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMTI1NDZfMDQ5/MTQxMV8wMTIxMjg5/LmpwZw.jpg"
+        />,
+      );
     }
     return item;
   };
@@ -81,9 +119,7 @@ export default function StudyMainPage() {
         </S.IconWrapper>
         <S.Input placeholder="Search" />
       </S.SearchWrapper>
-      <S.StudyText>
-        현재 진행 중인 스터디 방
-      </S.StudyText>
+      <S.StudyText>현재 진행 중인 스터디 방</S.StudyText>
       <S.ContentWrapper>
         <S.BoxWrapper>
           <S.ListWrapper>
@@ -101,9 +137,7 @@ export default function StudyMainPage() {
               <S.Wrap onClick={handleStudyAddModal}>
                 <S.AddStudy>
                   <Icon type="add_black" />
-                  <S.AddText>
-                    방 만들기
-                  </S.AddText>
+                  <S.AddText>방 만들기</S.AddText>
                 </S.AddStudy>
               </S.Wrap>
               {groupList?.map((val) => {
@@ -121,9 +155,7 @@ export default function StudyMainPage() {
             </S.StudyListWrapper>
           </S.ListWrapper>
           <S.PartiWrapper>
-            <S.PartiText>
-              참여도 높은 유저
-            </S.PartiText>
+            <S.PartiText>참여도 높은 유저</S.PartiText>
             {MockProfile()}
           </S.PartiWrapper>
         </S.BoxWrapper>

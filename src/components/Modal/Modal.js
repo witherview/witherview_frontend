@@ -8,9 +8,7 @@ import SelfTrainStartModal from './SelfTrainStartModal';
 import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
 
-export default function Modal({
-  modalName, func, roomId,
-}) {
+export default function Modal({ modalName, func, roomId }) {
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: <QuestionListSaveModal />,
@@ -20,11 +18,10 @@ export default function Modal({
   };
   return (
     <>
-      { isShow
-      && (
-      <ModalWrapper modalName={modalName}>
-        {modalList[modalName]}
-      </ModalWrapper>
+      {isShow && (
+        <ModalWrapper modalName={modalName}>
+          {modalList[modalName]}
+        </ModalWrapper>
       )}
     </>
   );

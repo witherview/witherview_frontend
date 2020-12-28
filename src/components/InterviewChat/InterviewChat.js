@@ -41,7 +41,7 @@ const UserInfo = styled.div`
 `;
 
 const WrapperContent = styled.div`
-  height: ${({ height }) => (height - 250)}px;
+  height: ${({ height }) => height - 250}px;
   overflow-y: scroll;
 `;
 
@@ -79,7 +79,10 @@ const WrapperBottom = styled.div`
 `;
 
 export default function InterviewChat({
-  setInterviewer, chatData, onClick, height,
+  setInterviewer,
+  chatData,
+  onClick,
+  height,
 }) {
   const chatBoxRef = useRef();
 
@@ -100,7 +103,11 @@ export default function InterviewChat({
           <p>유통 및 데이터 분석</p>
         </UserInfo>
       </WrapperHeader>
-      <WrapperContent ref={chatBoxRef} setInterviewer={setInterviewer} height={height}>
+      <WrapperContent
+        ref={chatBoxRef}
+        setInterviewer={setInterviewer}
+        height={height}
+      >
         {chatData?.map((chat) => (
           <ChatMessageWrapper>
             <TimeInfo>{chat.time}</TimeInfo>
@@ -108,12 +115,11 @@ export default function InterviewChat({
           </ChatMessageWrapper>
         ))}
       </WrapperContent>
-      {setInterviewer
-        && (
+      {setInterviewer && (
         <WrapperBottom>
           <ChatInput onClick={onClick} />
         </WrapperBottom>
-        )}
+      )}
     </Wrapper>
   );
 }

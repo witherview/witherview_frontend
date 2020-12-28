@@ -38,22 +38,21 @@ const InputText = styled.div`
 `;
 
 const SelectWrapper = styled.div`
-    display: flex;
-    width: 600px;
-    margin-top: 45px;
-    
+  display: flex;
+  width: 600px;
+  margin-top: 45px;
 `;
 
 const LeftWrapper = styled.div`
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 `;
 
 const RightWrapper = styled.div`
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 `;
 
 const ButtonWrapper = styled.div`
@@ -83,9 +82,9 @@ const SelectItemListWrapper = styled.div`
   position: absolute;
   width: 270px;
   height: 250px;
-  transform:translateY(56px);
-  overflow-y:auto; 
-  overflow-x:hidden; 
+  transform: translateY(56px);
+  overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 10px;
   box-shadow: 0 12px 36px 0 rgba(4, 4, 161, 0.15);
   background-color: #ffffff;
@@ -95,7 +94,7 @@ const SelectItemList = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow:visible;
+  overflow: visible;
   z-index: 10;
 `;
 
@@ -111,7 +110,7 @@ const SelectItem = styled.div`
   }
   &:hover {
     background-color: #eef0ff;
-    &>div {
+    & > div {
       color: #0c0c59;
     }
   }
@@ -162,13 +161,9 @@ export default function StudyStartModal({ func }) {
     industry: false,
     job: false,
   });
-  const [date, setDate] = useState(
-    moment(new Date()).format('YYYY-MM-DD'),
-  );
+  const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
-  const [time, setTime] = useState(
-    moment(new Date()).format('HH:mm'),
-  );
+  const [time, setTime] = useState(moment(new Date()).format('HH:mm'));
 
   const industryList = [
     '경영/사무',
@@ -214,7 +209,12 @@ export default function StudyStartModal({ func }) {
   };
 
   const handleMakeStudy = () => {
-    if (title === '' || description === '' || jobList.indexOf(job) === -1 || industryList.indexOf(industry) === -1) {
+    if (
+      title === ''
+      || description === ''
+      || jobList.indexOf(job) === -1
+      || industryList.indexOf(industry) === -1
+    ) {
       alert('입력값을 확인해 주세요.');
       return;
     }
@@ -235,101 +235,97 @@ export default function StudyStartModal({ func }) {
     <>
       <Wrapper>
         <InputWrapper first>
-          <InputText>
-            방 제목
-          </InputText>
-          <InputBar placeholder="제목을 입력해주세요." value={title} onChange={(e) => handleInputChange(e, setTitle)} />
+          <InputText>방 제목</InputText>
+          <InputBar
+            placeholder="제목을 입력해주세요."
+            value={title}
+            onChange={(e) => handleInputChange(e, setTitle)}
+          />
         </InputWrapper>
         <InputWrapper>
-          <InputText>
-            방 설명
-          </InputText>
-          <InputBar placeholder="설명을 입력해주세요." value={description} onChange={(e) => handleInputChange(e, setDescription)} />
+          <InputText>방 설명</InputText>
+          <InputBar
+            placeholder="설명을 입력해주세요."
+            value={description}
+            onChange={(e) => handleInputChange(e, setDescription)}
+          />
         </InputWrapper>
         <SelectWrapper>
           <LeftWrapper>
-            <InputText>
-              산업
-            </InputText>
+            <InputText>산업</InputText>
             <SelectList>
               <Select onClick={() => handleToggle('industry')}>
-                <SelectText>
-                  {industry}
-                </SelectText>
+                <SelectText>{industry}</SelectText>
                 <Icon type="arrow_down_blue" alt="" />
               </Select>
               {select.industry && (
-              <SelectItemListWrapper>
-                <SelectItemList>
-                  {industryList.map((val) => (
-                    <SelectItem>
-                      <SelectText onClick={() => handleSelect(setIndustry, val, 'industry')}>
-                        {val}
-                      </SelectText>
-                    </SelectItem>
-                  ))}
-                </SelectItemList>
-              </SelectItemListWrapper>
+                <SelectItemListWrapper>
+                  <SelectItemList>
+                    {industryList.map((val) => (
+                      <SelectItem>
+                        <SelectText
+                          onClick={() => handleSelect(setIndustry, val, 'industry')}
+                        >
+                          {val}
+                        </SelectText>
+                      </SelectItem>
+                    ))}
+                  </SelectItemList>
+                </SelectItemListWrapper>
               )}
             </SelectList>
-            <InputText>
-              진행 날짜
-            </InputText>
+            <InputText>진행 날짜</InputText>
             <PickerWrapper>
               {select.industry || (
-              <TextField
-                id="date"
-                type="date"
-                value={date}
-                className={classes.textField}
-                onChange={handleChangeDate}
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
+                <TextField
+                  id="date"
+                  type="date"
+                  value={date}
+                  className={classes.textField}
+                  onChange={handleChangeDate}
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
               )}
             </PickerWrapper>
           </LeftWrapper>
           <RightWrapper>
-            <InputText>
-              직무
-            </InputText>
+            <InputText>직무</InputText>
             <SelectList>
               <Select onClick={() => handleToggle('job')}>
-                <SelectText>
-                  {job}
-                </SelectText>
+                <SelectText>{job}</SelectText>
                 <Icon type="arrow_down_blue" alt="" />
               </Select>
               {select.job && (
-              <SelectItemListWrapper>
-                <SelectItemList>
-                  {jobList.map((val) => (
-                    <SelectItem>
-                      <SelectText onClick={() => handleSelect(setJob, val, 'job')}>
-                        {val}
-                      </SelectText>
-                    </SelectItem>
-                  ))}
-                </SelectItemList>
-              </SelectItemListWrapper>
+                <SelectItemListWrapper>
+                  <SelectItemList>
+                    {jobList.map((val) => (
+                      <SelectItem>
+                        <SelectText
+                          onClick={() => handleSelect(setJob, val, 'job')}
+                        >
+                          {val}
+                        </SelectText>
+                      </SelectItem>
+                    ))}
+                  </SelectItemList>
+                </SelectItemListWrapper>
               )}
             </SelectList>
-            <InputText>
-              진행 시간
-            </InputText>
+            <InputText>진행 시간</InputText>
             <PickerWrapper>
               {select.job || (
-              <TextField
-                id="time"
-                type="time"
-                value={time}
-                className={classes.textField}
-                onChange={handleChangeTime}
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
+                <TextField
+                  id="time"
+                  type="time"
+                  value={time}
+                  className={classes.textField}
+                  onChange={handleChangeTime}
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
               )}
             </PickerWrapper>
           </RightWrapper>

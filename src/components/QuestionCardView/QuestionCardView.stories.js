@@ -17,7 +17,11 @@ const Div = styled.div`
   justify-content: center;
 `;
 
-const questionCardView = (args) => <Div><QuestionCardView {...args} /></Div>;
+const questionCardView = (args) => (
+  <Div>
+    <QuestionCardView {...args} />
+  </Div>
+);
 
 export const CardView = questionCardView.bind({});
 export const LongCardView = questionCardView.bind({});

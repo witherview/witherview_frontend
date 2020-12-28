@@ -80,7 +80,7 @@ const TableColumn = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  left: ${({ value }) => `${(value > 0 ? value : 0)}px`};
+  left: ${({ value }) => `${value > 0 ? value : 0}px`};
   font-family: AppleSDGothicNeoB00;
   font-size: 20px;
   color: ${({ color }) => (color === 'blue' ? '#6e6eff' : '#3d3d3d')};
@@ -134,10 +134,10 @@ const ProgressBar = styled.progress`
   width: 245px;
   height: 8px;
   margin-right: 22px;
-  border:none;
+  border: none;
   overflow: hidden;
   -moz-border-radius: 50px;
-   -webkit-border-radius: 50px;
+  -webkit-border-radius: 50px;
   border-radius: 50px;
   &::-webkit-progress-value {
     background-image: linear-gradient(to right, #2323de 1%, #4848da 91%);

@@ -55,7 +55,7 @@ const WrapText = styled.div`
 const WrapCamView = styled.div`
   height: 59vh;
   width: 132.6vh;
-   display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;

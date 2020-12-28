@@ -10,11 +10,13 @@ export default {
 
 const profileImage = 'https://avatars2.githubusercontent.com/u/16266103?s=460&u=46ab2774d38212f0d0050592ce02dbcf36a7a97a&v=4';
 
-export const ProfileInfoDefault = ({ src = profileImage }) => <ProfileInfoContainer src={src} />;
-export const ProfileInfoName = ({ src = profileImage, name = '아무개' }) => <ProfileInfoContainer name={name} src={src} />;
-export const ProfileInfoParticipateRate = ({ src = profileImage, participateRate = 70 }) => (
-  <ProfileInfoContainer
-    participateRate={participateRate}
-    src={src}
-  />
+export const ProfileInfoDefault = ({ src = profileImage }) => (
+  <ProfileInfoContainer src={src} />
 );
+export const ProfileInfoName = ({ src = profileImage, name = '아무개' }) => (
+  <ProfileInfoContainer name={name} src={src} />
+);
+export const ProfileInfoParticipateRate = ({
+  src = profileImage,
+  participateRate = 70,
+}) => <ProfileInfoContainer participateRate={participateRate} src={src} />;

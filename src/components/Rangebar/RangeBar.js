@@ -75,7 +75,7 @@ const Thumb = styled.div`
     border: 6px solid white;
     border-radius: 50%;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-    transition: box-shadow .3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
   }
 
   .slider > &.left {
@@ -89,9 +89,7 @@ const Thumb = styled.div`
   }
 `;
 
-export default function RangeBar({
-  minParam, maxParam, valueParam,
-}) {
+export default function RangeBar({ minParam, maxParam, valueParam }) {
   const inputLeft = useRef();
   const inputRight = useRef();
   const thumbLeft = useRef();
@@ -99,10 +97,11 @@ export default function RangeBar({
   const range = useRef();
   const setLeftValue = () => {
     const inputLeftRange = inputLeft.current;
-    const min = parseInt(inputLeftRange.min);
-    const max = parseInt(inputLeftRange.max);
+    const min = parseInt(inputLeftRange.min, 10);
+    const max = parseInt(inputLeftRange.max, 10);
     inputLeftRange.value = Math.min(
-      parseInt(inputLeftRange.value), parseInt(inputRight.current.value) - 1,
+      parseInt(inputLeftRange.value, 10),
+      parseInt(inputRight.current.value, 10) - 1,
     );
     const percent = ((inputLeftRange.value - min) / (max - min)) * 100;
     thumbLeft.current.style.left = `${percent}%`;
@@ -111,10 +110,11 @@ export default function RangeBar({
 
   const setRightValue = () => {
     const inputRightRange = inputRight.current;
-    const min = parseInt(inputRightRange.min);
-    const max = parseInt(inputRightRange.max);
+    const min = parseInt(inputRightRange.min, 10);
+    const max = parseInt(inputRightRange.max, 10);
     inputRightRange.value = Math.max(
-      parseInt(inputRightRange.value), parseInt(inputLeft.current.value) + 1,
+      parseInt(inputRightRange.value, 10),
+      parseInt(inputLeft.current.value, 10) + 1,
     );
     const percent = ((inputRightRange.value - min) / (max - min)) * 100;
     thumbRight.current.style.right = `${100 - percent}%`;

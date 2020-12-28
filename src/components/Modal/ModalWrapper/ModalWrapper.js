@@ -11,7 +11,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 999;
 `;
 
@@ -50,9 +50,7 @@ export default function ModalWrapper({ modalName, children }) {
     <>
       <Background />
       <Wrapper tabIndex="-1" onClick={handleCloseModal}>
-        <Content tabIndex="0">
-          {children}
-        </Content>
+        <Content tabIndex="0">{children}</Content>
       </Wrapper>
     </>
   );
