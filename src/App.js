@@ -83,7 +83,7 @@ export default function App() {
             <AuthRoute path="/self-train/:id" component={SelfTrainPage} />
             <AuthRoute
               exact
-              path="/self-checklist/:id"
+              path="/self-checklist/:roomId"
               component={AloneQuestionCheckList}
             />
             <AuthRoute path="/mypage" component={MyPage} />
