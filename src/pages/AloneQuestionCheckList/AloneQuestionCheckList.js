@@ -266,16 +266,7 @@ const ChecklistEach = styled.li`
   display: flex;
   flex-direction: row;
   align-itmes: center;
-<<<<<<< HEAD
-  padding-bottom: 1vh;
-  > label {
-    > span {
-      top: -0.5vh;
-    }
-  }
-=======
 
->>>>>>> a1d1742 (refactor: 혼자연습하기 checklist 화면비 대응 및 와이어프레임에 맞춰 수정)
   > span {
     font-size: 1.9vh;
   }
