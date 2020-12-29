@@ -26,8 +26,15 @@ import MyVideoPage from '@pages/MyVideoPage';
 import VideoPage from '@pages/VideoPage';
 import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
 
+import FragileRatio from '@pages/FragileRatio';
+
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
+
+import useWindowSize from '@hooks/useWindowSize';
+
+import GlobalStyles from './style/globalStyles';
+
 import { get } from './utils/snippet';
 
 const Wrapper = styled.div`
@@ -53,10 +60,12 @@ const WrapSpinner = styled.div`
 export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
+  const { ratio } = useWindowSize();
 
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
+      <GlobalStyles />
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
@@ -64,6 +73,9 @@ export default function App() {
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
           </WrapSpinner>
+        )}
+        {ratio < 1.6 && (
+          <FragileRatio />
         )}
         <Wrapper>
           {!toggleTrain && <Sidebar />}

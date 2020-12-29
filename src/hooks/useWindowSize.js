@@ -19,5 +19,9 @@ export default function useWindowSize() {
     };
   }, []);
 
-  return windowSize;
+  return {
+    width: windowSize.width,
+    height: windowSize.height,
+    ratio: windowSize.width / windowSize.height,
+  };
 }

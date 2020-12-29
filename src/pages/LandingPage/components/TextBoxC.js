@@ -42,7 +42,7 @@ const WrapContent = styled.div`
 
 const WrapInnerContent = styled.div`
   height: 140px;
-  width: 360px;
+  width: auto;
 `;
 
 const WrapText = styled.div`

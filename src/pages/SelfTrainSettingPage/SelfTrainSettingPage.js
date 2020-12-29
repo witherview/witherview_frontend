@@ -28,16 +28,16 @@ const WrapContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 const WrapContainer = styled.div`
-  height: 50vh;
+  height: 48vh;
   width: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 8.9vh;
+  padding: 8vh;
 `;
 
 const WrapSubContainer = styled.div`
