@@ -26,10 +26,11 @@ import MyVideoPage from '@pages/MyVideoPage';
 import VideoPage from '@pages/VideoPage';
 import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
 
+import FragileRatio from '@pages/FragileRatio';
+
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
 
-import StudyBackground from '@assets/images/study_background.png';
 import useWindowSize from '@hooks/useWindowSize';
 
 import GlobalStyles from './style/globalStyles';
@@ -56,20 +57,6 @@ const WrapSpinner = styled.div`
   align-items: center;
 `;
 
-const WrapRatio = styled.div`
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 4vw;
-  line-height: 7vw;
-  text-align: center;
-  background-image: url(${({ source }) => source});
-`;
-
 export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
@@ -88,11 +75,7 @@ export default function App() {
           </WrapSpinner>
         )}
         {ratio < 1.6 && (
-          <WrapRatio source={StudyBackground}>
-            브라우저 창의 높이를 줄여주세요.
-            <br />
-            16:9 비율에 최적화되어 있습니다.
-          </WrapRatio>
+          <FragileRatio />
         )}
         <Wrapper>
           {!toggleTrain && <Sidebar />}

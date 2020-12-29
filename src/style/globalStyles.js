@@ -36,7 +36,7 @@ export default createGlobalStyle`
         font-style: normal;
         font-weight: 400;
         font-display: swap;
-        src: url(https://fonts.gstatic.com/l/font?kit=NaPecZTIAOhVxoMyOr9n_E7fRMHsCoRTVIKpgFAN8c24iEen5Qw8NyDxY79I_rg1mHNYQMocCnVNIEQdnOSHW-0w1OYmQsz-6F3i93Uy8MuP7_6ng-_xDA&skey=19ee7c202c5bec48&v=v9) format('woff2');
+        src: url(https://fonts.gstatic.com/s/titilliumweb/v9/NaPecZTIAOhVxoMyOr9n_E7fdMPmDaZRbrw.woff2) format('woff2');
         unicode-range: U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
     }
 
@@ -45,7 +45,7 @@ export default createGlobalStyle`
         font-style: normal;
         font-weight: 700;
         font-display: swap;
-        src: url(https://fonts.gstatic.com/l/font?kit=NaPDcZTIAOhVxoMyOr9n_E7ffHjDKIl5ZLSZg1wO9Mq9i0qok3ZGMif0YLJH87swn3ZbXdUBCXBKJUcQk-m-YNQ10-MlT8Pz61jl8nYv79aM6vmigOL-ATMavw&skey=6e7dbb342580bb18&v=v9) format('woff2');
+        src: url(https://fonts.gstatic.com/s/titilliumweb/v9/NaPDcZTIAOhVxoMyOr9n_E7ffHjDGItzY5abuWI.woff2) format('woff2');
         unicode-range: U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
     }
 
