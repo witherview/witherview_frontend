@@ -32,6 +32,8 @@ import ProfileMenuContainer from '@components/ProfileMenuContainer';
 import StudyBackground from '@assets/images/study_background.png';
 import useWindowSize from '@hooks/useWindowSize';
 
+import GlobalStyles from './style/globalStyles';
+
 import { get } from './utils/snippet';
 
 const Wrapper = styled.div`
@@ -76,6 +78,7 @@ export default function App() {
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
+      <GlobalStyles />
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
