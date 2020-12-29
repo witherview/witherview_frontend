@@ -24,7 +24,7 @@ const WrapContent = styled.div`
   height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 

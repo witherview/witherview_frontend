@@ -35,6 +35,7 @@ const WrapBottom = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 132.6vh;
+  margin-bottom: -0.6vh;
 `;
 
 const WrapBottomSide = styled.div`
