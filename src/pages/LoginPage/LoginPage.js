@@ -229,7 +229,7 @@ export default function LoginPage() {
                 <WrapText>이메일 주소</WrapText>
                 <InputBar
                   disabled={toggleCheck}
-                  autoFocus
+                  autoFocus={ratio > 0.65}
                   value={loginForm.email}
                   placeholder="이메일 주소를 입력해주세요."
                   onChange={handleInput}
@@ -254,11 +254,11 @@ export default function LoginPage() {
                 <Checkbox func={handleCheck} />
                 <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
-              {ratio > 0.58 && (
-              <WrapMiddleTextLeft onClick={() => {}}>
-                {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
-                비밀번호 찾기
-              </WrapMiddleTextLeft>
+              {ratio > 0.65 && (
+                <WrapMiddleTextLeft onClick={() => {}}>
+                  {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
+                  비밀번호 찾기
+                </WrapMiddleTextLeft>
               )}
             </WrapMiddleContainer>
           </WrapContianer>
