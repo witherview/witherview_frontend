@@ -23,35 +23,38 @@ const Wrapper = styled.div`
 `;
 
 const WrapOops = styled.div`
-  font-size: 4vw;
+  height: 12vh;
+  font-size: 6.5vh;
   font-family: TitilliumWebBold;
   color: ${({ theme }) => theme.colors.cornflower};
 `;
 
 const WrapText = styled.div`
-  font-size: 1.6vw;
-  line-height: 2vw;
+  max-width: 80vw;
+  font-size: 2.5vh;
+  line-height: 4vh;
 `;
 
 const WrapImage = styled.div`
-  height: 24vw;
-  width: 80vw;
+  height: 24vh;
+  min-height: 25vw;
+  min-width: 70vw;
   z-index: 1000;
   background-image: url(${({ source }) => source});
   background-position: center center;
   background-size: cover;
-  object-fit: cover;
   margin-right: 2.5vw;
-  margin-top: 5vw;
-  margin-bottom: 5vw;
+  margin-top: 8.5vh;
+  margin-bottom: 6.5vh;
 `;
 
 const WrapButton = styled.div`
   > div {
-    width: 29.6wh;
-    height: 6wh;
+    height: 6vh;
+    width: 29.6vh;
+    max-width: 80vw;
     > p {
-      font-size: 1.9wh;
+      font-size: 1.9vh;
     }
   }
 `;
