@@ -13,6 +13,8 @@ import InputBar from '@components/InputBar';
 import Checkbox from '@components/Checkbox';
 import Button from '@components/Button';
 
+import useWindowSize from '@hooks/useWindowSize';
+
 const Wrapper = styled.div`
   height: 100vh;
   display: flex;
@@ -35,8 +37,11 @@ const Logo = styled.img`
 `;
 
 const WrapSubTitle = styled.div`
+  max-width: 80vw;
+  text-align: center;
   font-family: AppleSDGothicNeoM00;
   font-size: 2.4vh;
+  line-height: 3vh;
   color: #3d3d3d;
   padding-top: 3.5vh;
   padding-bottom: 5.4vh;
@@ -44,6 +49,7 @@ const WrapSubTitle = styled.div`
 
 const WrapBox = styled.div`
   width: 68.6vh;
+  max-width: 80vw;
   height: 60vh;
   background-color: white;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
@@ -63,6 +69,7 @@ const WrapText = styled.div`
 `;
 
 const WrapContianer = styled.div`
+  max-width: 60vw;
   margin-top: 5vh;
   margin-bottom: 4vh;
 `;
@@ -77,22 +84,28 @@ const WrapUpperContainer = styled.div`
 const WrapInput = styled.div`
   > input {
     width: 53.3vh;
+    max-width: 60vw;
     height: 5vh;
-    font-size: 1.5vh;
+    font-size: 1.9vh;
+    font-family: AppleSDGothicNeoM00;
+    letter-spacing: 0.2vh;
     ::placeholder {
-      font-size: 2vh;
+      color: ${({ theme }) => theme.colors.warmGrey};
     }
     :-ms-input-placeholder {
-      font-size: 2vh;
+      font-family: AppleSDGothicNeoB00;
+      color: ${({ theme }) => theme.colors.warmGrey};
     }
     ::-ms-input-placeholder {
-      font-size: 2vh;
+      font-family: AppleSDGothicNeoB00;
+      color: ${({ theme }) => theme.colors.warmGrey};
     }
   }
 `;
 
 const WrapMiddleContainer = styled.div`
   height: 12vh;
+  max-width: 60vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -123,8 +136,9 @@ const WrapMiddleTextLeft = styled(WrapMiddleText)`
 
 const WrapButton = styled.div`
   > div {
-    width: 29.6vh;
     height: 6vh;
+    width: 29.6vh;
+    max-width: 60vw;
     > p {
       font-size: 1.9vh;
     }
@@ -164,6 +178,8 @@ const TEST_FORM = {
 export default function LoginPage() {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
+
+  const { ratio } = useWindowSize();
 
   const [loginForm, setLoginForm] = useState(EMPTY_FORM);
   const [toggleCheck, setToggleCheck] = useState(false);
@@ -234,14 +250,16 @@ export default function LoginPage() {
             </WrapUpperContainer>
             <WrapMiddleContainer>
               <WrapMiddlePart>
-                {/* TODO: 이부분 동작하도록 만들어야 함 아마 로그인 유지가 아니라 이메일 유지로 바뀔듯 - local storage 사용하게 될 듯 */}
+                {/* 로그인 유지가 아니라 이메일 유지로 바뀔듯 - local storage 사용하도록 변경 */}
                 <Checkbox func={handleCheck} />
                 <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
-              {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
+              {ratio > 0.58 && (
               <WrapMiddleTextLeft onClick={() => {}}>
+                {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
                 비밀번호 찾기
               </WrapMiddleTextLeft>
+              )}
             </WrapMiddleContainer>
           </WrapContianer>
           <WrapButton>
