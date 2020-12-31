@@ -149,14 +149,7 @@ const WrapMiddleText = styled.div`
 
 const WrapButton = styled.div`
   margin-bottom: 6vh;
-  > div {
-    height: 6vh;
-    width: 29.6vh;
-    max-width: 60vw;
-    > p {
-      font-size: 1.9vh;
-    }
-  }
+  ${({ theme }) => theme.button}
 `;
 
 const WrapBottomContainer = styled.div`
@@ -552,10 +545,9 @@ export default function SignUpPage() {
                 />
                 <WrapMiddleText ratio={ratio > 1}>
                   {/* TODO: 병헌님이 작업해주시면 추가 */}
-                  <ClickableSelectText>
-                    이용약관
-                  </ClickableSelectText>
-                  에 모두 동의합니다.
+                  <ClickableSelectText>이용약관</ClickableSelectText>
+                  에 모두
+                  동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
               <WrapMiddlePart>
@@ -568,10 +560,9 @@ export default function SignUpPage() {
                 />
                 <WrapMiddleText ratio={ratio > 1}>
                   {/* TODO: 병헌님이 작업해주시면 추가 */}
-                  <ClickableSelectText>
-                    개인정보처리방침
-                  </ClickableSelectText>
-                  에 모두 동의합니다.
+                  <ClickableSelectText>개인정보처리방침</ClickableSelectText>
+                  에
+                  모두 동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
             </WrapMiddleContainer>

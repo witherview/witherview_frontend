@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 const theme = {
   colors: {
     black: '#000000',
@@ -12,6 +14,17 @@ const theme = {
     palaLilac: '#eef0ff',
     greyishBrown: '#3d3d3d',
   },
+  button: css`
+    > div {
+      height: 6vh;
+      width: 29.6vh;
+      border-radius: 1vh;
+      max-width: 80vw;
+      > p {
+        font-size: 1.9vh;
+      }
+    }
+  `,
 };
 
 export default theme;

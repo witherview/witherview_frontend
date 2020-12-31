@@ -78,13 +78,7 @@ const WrapText = styled.div`
 `;
 
 const WrapButton = styled.div`
-  > div {
-    width: 29.6vh;
-    height: 6vh;
-    > p {
-      font-size: 1.9vh;
-    }
-  }
+  ${({ theme }) => theme.button}
 `;
 
 export default function SelfTrainSettingPage({ match, history }) {

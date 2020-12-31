@@ -142,14 +142,7 @@ const WrapMiddleTextRight = styled(WrapMiddleText)`
 `;
 
 const WrapButton = styled.div`
-  > div {
-    height: 6vh;
-    width: 29.6vh;
-    max-width: 60vw;
-    > p {
-      font-size: 1.9vh;
-    }
-  }
+  ${({ theme }) => theme.button}
 `;
 
 const WrapBottomContainer = styled.div`

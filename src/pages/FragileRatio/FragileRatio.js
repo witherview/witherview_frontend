@@ -49,15 +49,9 @@ const WrapImage = styled.div`
 `;
 
 const WrapButton = styled.div`
-  > div {
-    height: 6vh;
-    width: 29.6vh;
-    max-width: 80vw;
-    > p {
-      font-size: 1.9vh;
-    }
-  }
+  ${({ theme }) => theme.button}
 `;
+
 export default function FragileRatio() {
   const history = useHistory();
   const dispatch = useDispatch();
