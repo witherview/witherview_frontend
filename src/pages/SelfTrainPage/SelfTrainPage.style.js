@@ -19,6 +19,9 @@ const WrapAbsolute = styled.div`
   position: absolute;
   top: 5.3vh;
   right: 10.5vh;
+  > i {
+    cursor: pointer;
+  }
 `;
 
 const WrapContent = styled.div`

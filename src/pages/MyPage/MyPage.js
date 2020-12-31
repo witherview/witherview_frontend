@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import ProfileEdit from '@components/ProfileEdit';
 import { getUserApi } from '@repository/loginRepository';
 import S from './MyPage.style';

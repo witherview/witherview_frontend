@@ -20,6 +20,9 @@ const Wrapper = styled.div`
 const CancelWrapper = styled.div`
   align-self: flex-end;
   margin: 26px 26px 11px 0;
+  > i {
+    cursor: pointer;
+  }
 `;
 
 const TextSave = styled.div`

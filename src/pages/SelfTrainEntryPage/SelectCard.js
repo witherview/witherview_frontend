@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   align-itmes: center;
   justify-content: center;
   margin: 17px;
+  cursor: pointer;
 `;
 
 const WrapContainer = styled.div`

@@ -48,6 +48,7 @@ const WrapSubTitle = styled.div`
   color: #3d3d3d;
   padding-top: 3.5vh;
   padding-bottom: 5.4vh;
+  pointer-events: none;
 `;
 
 const WrapBox = styled.div`
@@ -69,6 +70,7 @@ const WrapText = styled.div`
   font-size: 2.4vh;
   color: #6e6eff;
   padding-bottom: 1.9vh;
+  pointer-events: none;
 `;
 
 const WrapContianer = styled.div`
@@ -128,13 +130,15 @@ const WrapMiddleText = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 2vh;
   color: #9e9e9e;
+  pointer-events: none;
 `;
 
-const WrapMiddleTextLeft = styled(WrapMiddleText)`
+const WrapMiddleTextRight = styled(WrapMiddleText)`
   user-select: none;
   &:hover {
     border-bottom: 0.1vh solid #9e9e9e;
   }
+  cursor: pointer;
 `;
 
 const WrapButton = styled.div`
@@ -157,6 +161,7 @@ const WrapBottomText = styled.span`
   font-size: 1.9vh;
   color: #9e9e9e;
   padding-right: 2vh;
+  cursor: default;
 `;
 
 const WrapAnker = styled.span`
@@ -166,6 +171,7 @@ const WrapAnker = styled.span`
   &:hover {
     border-bottom: 0.1vh solid #6e6eff;
   }
+  cursor: pointer;
 `;
 
 const EMPTY_FORM = {
@@ -256,10 +262,10 @@ export default function LoginPage({ history }) {
                 <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
               {ratio > 0.65 && (
-                <WrapMiddleTextLeft onClick={() => {}}>
+                <WrapMiddleTextRight onClick={() => {}}>
                   {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
                   비밀번호 찾기
-                </WrapMiddleTextLeft>
+                </WrapMiddleTextRight>
               )}
             </WrapMiddleContainer>
           </WrapContianer>

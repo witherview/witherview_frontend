@@ -9,6 +9,9 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   width: 115.8vh;
+  > i {
+    cursor: pointer;
+  }
 `;
 
 const QuestionCard = styled.div`
@@ -22,6 +25,7 @@ const QuestionCard = styled.div`
   align-items: center;
   opacity: ${({ isDragging }) => (isDragging ? 0 : 1)};
   z-index: 2;
+  cursor: pointer;
 `;
 
 const QusetionSymbol = styled.span`

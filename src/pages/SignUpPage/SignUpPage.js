@@ -47,6 +47,7 @@ const WrapSubTitle = styled.div`
   color: #3d3d3d;
   padding-top: 3.5vh;
   padding-bottom: 5.4vh;
+  pointer-events: none;
 `;
 
 const WrapBox = styled.div`
@@ -68,6 +69,7 @@ const WrapText = styled.div`
   font-size: 2.4vh;
   color: #6e6eff;
   padding-bottom: 1.9vh;
+  pointer-events: none;
 `;
 
 const WrapContianer = styled.div`
@@ -142,6 +144,7 @@ const WrapMiddleText = styled.div`
   color: #9e9e9e;
   padding-left: 2vh;
   ${({ ratio }) => ratio && 'width: 35vh;'}
+  cursor: default;
 `;
 
 const WrapButton = styled.div`
@@ -164,6 +167,7 @@ const WrapBottomText = styled.span`
   font-family: AppleSDGothicNeoM00;
   font-size: 1.9vh;
   color: #9e9e9e;
+  cursor: default;
 `;
 
 const SelectList = styled.div`

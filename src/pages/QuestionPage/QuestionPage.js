@@ -80,12 +80,16 @@ const InputQuestion = styled.input`
   border-radius: 1vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
   background-color: #f6f6f6;
+  cursor: text;
 `;
 
 const IconWrapper = styled.span`
   width: 6.3vh;
   height: 6.3vh;
   transform: translate(-1.7vh, -0.2vh);
+  > i {
+    cursor: pointer;
+  }
 `;
 
 const Text = styled.div`

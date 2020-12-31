@@ -36,6 +36,9 @@ const NameWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1.2vh;
+  > i {
+    cursor: pointer;
+  }
 `;
 
 const NameText = styled.div`
