@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { get } from '@utils/snippet';
 import { setLogin } from '@store/Auth/auth';
-import { LoginApi } from '@repository/loginRepository';
+import { loginApi } from '@repository/loginRepository';
 
 import InputBar from '@components/InputBar';
 import Checkbox from '@components/Checkbox';
@@ -196,7 +196,7 @@ export default function LoginPage({ history }) {
   };
 
   const handleLogin = () => {
-    LoginApi(JSON.stringify(loginForm))
+    loginApi(JSON.stringify(loginForm))
       .then((response) => {
         console.log(response.data);
         const email = JSON.stringify(response.data.email).replace(/\"/g, '');
