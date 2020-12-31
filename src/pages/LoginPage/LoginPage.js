@@ -204,7 +204,6 @@ export default function LoginPage({ history }) {
   const handleLogin = () => {
     loginApi(JSON.stringify(loginForm))
       .then((response) => {
-        console.log(response.data);
         const email = JSON.stringify(response.data.email).replace(/\"/g, '');
         const name = JSON.stringify(response.data.name).replace(/\"/g, '');
         dispatch(setLogin({ email, name }));

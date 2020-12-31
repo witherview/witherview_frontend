@@ -56,7 +56,6 @@ export default function StudyMainPage() {
 
   useEffect(() => {
     if (!isPageBottom) return;
-    console.log('bottom');
     fetch(page);
   }, [isPageBottom]);
 

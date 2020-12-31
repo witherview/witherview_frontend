@@ -77,7 +77,6 @@ export default function ChatInput({ onClick }) {
       <SubmitBtn
         onClick={() => {
           onClick(value);
-          console.log(value);
         }}
       />
     </Wrapper>
