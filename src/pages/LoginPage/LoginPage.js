@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import styled from 'styled-components';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
@@ -52,8 +55,8 @@ const WrapBox = styled.div`
   max-width: 80vw;
   height: 60vh;
   background-color: white;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;
   display: flex;
   flex-direction: column;
@@ -70,18 +73,17 @@ const WrapText = styled.div`
 
 const WrapContianer = styled.div`
   max-width: 60vw;
-  margin-top: 5vh;
-  margin-bottom: 4vh;
 `;
 
 const WrapUpperContainer = styled.div`
-  height: 23vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 const WrapInput = styled.div`
+  margin-top: 1vh;
+  margin-bottom: 5vh;
   > input {
     width: 53.3vh;
     max-width: 60vw;
@@ -89,6 +91,7 @@ const WrapInput = styled.div`
     font-size: 1.9vh;
     font-family: AppleSDGothicNeoM00;
     letter-spacing: 0.2vh;
+    border-bottom: 0.2vh solid #9e9e9e;
     ::placeholder {
       color: ${({ theme }) => theme.colors.warmGrey};
     }
@@ -104,12 +107,12 @@ const WrapInput = styled.div`
 `;
 
 const WrapMiddleContainer = styled.div`
-  height: 12vh;
+  height: 10vh;
   max-width: 60vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   width: 53.3vh;
 `;
 
@@ -130,7 +133,7 @@ const WrapMiddleText = styled.div`
 const WrapMiddleTextLeft = styled(WrapMiddleText)`
   user-select: none;
   &:hover {
-    border-bottom: 1px solid #9e9e9e;
+    border-bottom: 0.1vh solid #9e9e9e;
   }
 `;
 
@@ -161,7 +164,7 @@ const WrapAnker = styled.span`
   color: #6e6eff;
   user-select: none;
   &:hover {
-    border-bottom: 1px solid #6e6eff;
+    border-bottom: 0.1vh solid #6e6eff;
   }
 `;
 
@@ -175,7 +178,7 @@ const TEST_FORM = {
   password: '123456',
 };
 
-export default function LoginPage() {
+export default function LoginPage({ history }) {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
 
@@ -219,9 +222,7 @@ export default function LoginPage() {
       {authSelector.isLogin && <Redirect to="/self" />}
       <WrapContent>
         <Logo src={witherviewLogo} alt="logo" />
-        <WrapSubTitle>
-          위더뷰와 함께 화상 면접 연습을 진행해보세요.
-        </WrapSubTitle>
+        <WrapSubTitle>위더뷰가 처음이신가요? 정보를 입력해주세요.</WrapSubTitle>
         <WrapBox>
           <WrapContianer>
             <WrapUpperContainer>
@@ -268,10 +269,15 @@ export default function LoginPage() {
         </WrapBox>
         <WrapBottomContainer>
           <WrapBottomText>새로오셨나요?</WrapBottomText>
-          {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
-          <WrapAnker onClick={() => {}}>회원가입</WrapAnker>
+          <WrapAnker onClick={() => history.push('/sign-up')}>
+            회원가입
+          </WrapAnker>
         </WrapBottomContainer>
       </WrapContent>
     </Wrapper>
   );
 }
+
+LoginPage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};
