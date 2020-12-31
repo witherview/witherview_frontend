@@ -10,6 +10,7 @@ import LandingPage from '@pages/LandingPage';
 import AuthRoute from '@components/AuthRoute';
 import NotFound from '@pages/404';
 import LoginPage from '@pages/LoginPage';
+import SignUpPage from '@pages/SignUpPage';
 import QuestionListPage from '@pages/QuestionListPage';
 import QuestionPage from '@pages/QuestionPage';
 
@@ -69,6 +70,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/sign-up" component={SignUpPage} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
