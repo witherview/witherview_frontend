@@ -184,6 +184,7 @@ const Select = styled.div`
   > i {
     margin-right: 2.2vh;
   }
+  cursor: pointer;
 `;
 
 const SelectItemListWrapper = styled.div`
@@ -237,6 +238,13 @@ const SelectText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #9e9e9e;
+  pointer-events: none;
+`;
+
+const ClickableSelectText = styled.span`
+  color: ${({ theme }) => theme.colors.cornflower};
+  font-family: AppleSDGothicNeoB00;
+  cursor: pointer;
 `;
 
 const EMPTY_FORM = {
@@ -539,7 +547,11 @@ export default function SignUpPage() {
                   })}
                 />
                 <WrapMiddleText ratio={ratio > 1}>
-                  이용약관에 모두 동의합니다.
+                  {/* TODO: 병헌님이 작업해주시면 추가 */}
+                  <ClickableSelectText>
+                    이용약관
+                  </ClickableSelectText>
+                  에 모두 동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
               <WrapMiddlePart>
@@ -551,7 +563,11 @@ export default function SignUpPage() {
                   })}
                 />
                 <WrapMiddleText ratio={ratio > 1}>
-                  개인정보처리방침에 모두 동의합니다.
+                  {/* TODO: 병헌님이 작업해주시면 추가 */}
+                  <ClickableSelectText>
+                    개인정보처리방침
+                  </ClickableSelectText>
+                  에 모두 동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
             </WrapMiddleContainer>
