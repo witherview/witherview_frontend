@@ -1,8 +1,12 @@
 /* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { signUpApi } from '@repository/signUpRepository';
+import { loginApi } from '@repository/loginRepository';
+import { setLogin } from '@store/Auth/auth';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { get } from '@utils/snippet';
@@ -236,14 +240,14 @@ const SelectText = styled.div`
 `;
 
 const EMPTY_FORM = {
-  name: '',
   email: '',
+  mainIndustry: '',
+  mainJob: '',
+  name: '',
   password: '',
-  phone: '',
-  industryMain: '',
-  industrySub: '',
-  jobMain: '',
-  jobSub: '',
+  passwordConfirm: '',
+  subIndustry: '',
+  subJob: '',
 };
 
 const industryList = [
@@ -269,20 +273,25 @@ const jobList = [
 ];
 
 export default function SignUpPage() {
+  const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
 
   const { ratio } = useWindowSize();
 
+  const [toggleCheckTerm, setToggleCheckTerm] = useState({
+    first: false,
+    second: false,
+  });
   const [signUpForm, setSignUpForm] = useState(EMPTY_FORM);
-  const [industryMain, setIndustryMain] = useState('산업을 선택해주세요.');
-  const [industrySub, setIndustrySub] = useState('산업을 선택해주세요.');
-  const [jobMain, setJobMain] = useState('직무를 선택해주세요.');
-  const [jobSub, setJobSub] = useState('직무를 선택해주세요.');
+  const [mainIndustry, setMainIndustry] = useState('산업을 선택해주세요.');
+  const [subIndustry, setSubIndustry] = useState('산업을 선택해주세요.');
+  const [mainJob, setMainJob] = useState('직무를 선택해주세요.');
+  const [subJob, setSubJob] = useState('직무를 선택해주세요.');
   const [select, setSelect] = useState({
-    industryMain: false,
-    industrySub: false,
-    jobMain: false,
-    jobSub: false,
+    mainIndustry: false,
+    subIndustry: false,
+    mainJob: false,
+    subJob: false,
   });
 
   const handleInput = (e) => {
@@ -304,6 +313,42 @@ export default function SignUpPage() {
 
   const handleToggle = (type) => {
     setSelect({ ...select, [type]: !select[type] });
+  };
+
+  const handleSignUp = () => {
+    if (toggleCheckTerm.first === false || toggleCheckTerm.second === false) {
+      return alert('약관에 모두 동의하셔야 합니다.');
+    }
+    if (signUpForm.password !== signUpForm.passwordConfirm) {
+      return alert('비물번호가 일치하지 않습니다.');
+    }
+    if (Object.values(signUpForm).includes('')) {
+      return alert('모든 항목을 입력/선택 해주세요.');
+    }
+    return signUpApi(JSON.stringify(signUpForm))
+      .then((response) => {
+        const loginForm = {
+          email: response.data.email,
+          password: signUpForm.password,
+        };
+        loginApi(JSON.stringify(loginForm))
+          .then((res) => {
+            const email = JSON.stringify(res.data.email).replace(/\"/g, '');
+            const name = JSON.stringify(res.data.name).replace(/\"/g, '');
+            dispatch(setLogin({ email, name }));
+          })
+          .catch(() => {
+            alert('로그인 실패');
+          });
+      })
+      .catch((err) => {
+        // TODO: 이부분 좀 더 좋은 방법으로 처리할 수 있도록 하기
+        let errors = '';
+        err.response.data.errors.forEach((val) => {
+          errors += `${val.reason}\n`;
+        });
+        alert(errors);
+      });
   };
 
   return (
@@ -352,12 +397,13 @@ export default function SignUpPage() {
                 </WrapInput>
                 {/* TODO: 지역번호 선택하는 부분 추가 */}
                 <WrapInput ratio={ratio > 1.675}>
-                  <WrapText>핸드폰 번호</WrapText>
+                  <WrapText>비밀번호 확인</WrapText>
                   <InputBar
-                    value={signUpForm.phone}
-                    placeholder="핸드폰 번호를 입력해주세요."
+                    value={signUpForm.passwordConfirm}
+                    placeholder="비밀번호를 한번 더 입력해주세요."
                     onChange={handleInput}
-                    name="phone"
+                    name="passwordConfirm"
+                    type="password"
                   />
                 </WrapInput>
               </WrapUpperContainer>
@@ -366,22 +412,22 @@ export default function SignUpPage() {
                   <WrapText>관심 산업_Main</WrapText>
                   <SelectList>
                     <Select
-                      onClick={() => handleToggle('industryMain')}
+                      onClick={() => handleToggle('mainIndustry')}
                       ratio={ratio > 1.675}
                     >
-                      <SelectText>{industryMain}</SelectText>
+                      <SelectText>{mainIndustry}</SelectText>
                       <Icon type="arrow_down_blue" alt="" />
                     </Select>
-                    {select.industryMain && (
+                    {select.mainIndustry && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {industryList.map((val) => (
                             <SelectItem>
                               <SelectText
                                 onClick={() => handleSelect(
-                                  setIndustryMain,
+                                  setMainIndustry,
                                   val,
-                                  'industryMain',
+                                  'mainIndustry',
                                 )}
                               >
                                 {val}
@@ -397,22 +443,22 @@ export default function SignUpPage() {
                   <WrapText>관심 산업_Sub</WrapText>
                   <SelectList>
                     <Select
-                      onClick={() => handleToggle('industrySub')}
+                      onClick={() => handleToggle('subIndustry')}
                       ratio={ratio > 1.675}
                     >
-                      <SelectText>{industrySub}</SelectText>
+                      <SelectText>{subIndustry}</SelectText>
                       <Icon type="arrow_down_blue" alt="" />
                     </Select>
-                    {select.industrySub && (
+                    {select.subIndustry && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {industryList.map((val) => (
                             <SelectItem>
                               <SelectText
                                 onClick={() => handleSelect(
-                                  setIndustrySub,
+                                  setSubIndustry,
                                   val,
-                                  'industrySub',
+                                  'subIndustry',
                                 )}
                               >
                                 {val}
@@ -430,19 +476,19 @@ export default function SignUpPage() {
                   <WrapText>관심 직무_Main</WrapText>
                   <SelectList>
                     <Select
-                      onClick={() => handleToggle('jobMain')}
+                      onClick={() => handleToggle('mainJob')}
                       ratio={ratio > 1.675}
                     >
-                      <SelectText>{jobMain}</SelectText>
+                      <SelectText>{mainJob}</SelectText>
                       <Icon type="arrow_down_blue" alt="" />
                     </Select>
-                    {select.jobMain && (
+                    {select.mainJob && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {jobList.map((val) => (
                             <SelectItem>
                               <SelectText
-                                onClick={() => handleSelect(setJobMain, val, 'jobMain')}
+                                onClick={() => handleSelect(setMainJob, val, 'mainJob')}
                               >
                                 {val}
                               </SelectText>
@@ -457,19 +503,19 @@ export default function SignUpPage() {
                   <WrapText>관심 직무_Sub</WrapText>
                   <SelectList>
                     <Select
-                      onClick={() => handleToggle('jobSub')}
+                      onClick={() => handleToggle('subJob')}
                       ratio={ratio > 1.675}
                     >
-                      <SelectText>{jobSub}</SelectText>
+                      <SelectText>{subJob}</SelectText>
                       <Icon type="arrow_down_blue" alt="" />
                     </Select>
-                    {select.jobSub && (
+                    {select.subJob && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {jobList.map((val) => (
                             <SelectItem>
                               <SelectText
-                                onClick={() => handleSelect(setJobSub, val, 'jobSub')}
+                                onClick={() => handleSelect(setSubJob, val, 'subJob')}
                               >
                                 {val}
                               </SelectText>
@@ -486,14 +532,24 @@ export default function SignUpPage() {
             <WrapMiddleContainer ratio={ratio > 1.675}>
               <WrapMiddlePart>
                 {/* TODO: Add function */}
-                <Checkbox />
+                <Checkbox
+                  func={() => setToggleCheckTerm({
+                    ...toggleCheckTerm,
+                    first: !toggleCheckTerm.first,
+                  })}
+                />
                 <WrapMiddleText ratio={ratio > 1}>
                   이용약관에 모두 동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
               <WrapMiddlePart>
                 {/* TODO: Add function */}
-                <Checkbox />
+                <Checkbox
+                  func={() => setToggleCheckTerm({
+                    ...toggleCheckTerm,
+                    second: !toggleCheckTerm.second,
+                  })}
+                />
                 <WrapMiddleText ratio={ratio > 1}>
                   개인정보처리방침에 모두 동의합니다.
                 </WrapMiddleText>
@@ -502,7 +558,7 @@ export default function SignUpPage() {
           </WrapContianer>
           <WrapButton>
             {/* TODO: 회원가입 로직 추기 */}
-            <Button theme="blue" text="회원가입" />
+            <Button theme="blue" text="회원가입" func={() => handleSignUp()} />
           </WrapButton>
         </WrapBox>
         <WrapBottomContainer>
