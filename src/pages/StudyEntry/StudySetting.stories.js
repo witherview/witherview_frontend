@@ -2,8 +2,8 @@ import React from 'react';
 import StudySetting from './StudySetting';
 
 export default {
-  title: 'Page/StudySetting',
+  title: 'Pages/Peer Study/Study Setting',
   component: StudySetting,
 };
 
-export const studySettingPage = () => <StudySetting />;
+export const studySetting = () => <StudySetting />;

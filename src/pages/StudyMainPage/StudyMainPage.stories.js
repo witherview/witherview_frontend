@@ -2,8 +2,8 @@ import React from 'react';
 import StudyMainPage from './StudyMainPage';
 
 export default {
-  title: 'Page/StudyMainPage',
+  title: 'Pages/Peer Study/Study Main',
   component: StudyMainPage,
 };
 
-export const studyMainPage = () => <StudyMainPage />;
+export const studyMain = () => <StudyMainPage />;

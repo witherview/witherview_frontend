@@ -3,8 +3,13 @@ import React from 'react';
 import InterviewStudyEntry from './InterviewStudyEntry';
 
 export default {
-  title: 'page/InterviewStudyEntry',
+  title: 'pages/Peer Study/Study Entry',
   component: InterviewStudyEntry,
 };
 
-export const StudyEntry = () => <InterviewStudyEntry />;
+export const StudyEntry = () => (
+  <InterviewStudyEntry match={{
+    params: { id: 1 },
+  }}
+  />
+);
