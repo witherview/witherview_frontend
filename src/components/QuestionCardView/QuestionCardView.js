@@ -16,7 +16,6 @@ const Box = styled.div`
   box-sizing: content-box;
   user-select: none;
   cursor: pointer;
-  z-index: 9;
 `;
 
 const Content = styled.div`
@@ -134,7 +133,6 @@ const List = styled.ul`
   position: absolute;
   top: 3vh;
   right: 2.5vh;
-  z-index: 101;
   background-color: #fff;
   transition: 0.25s ease all;
   transform: scale(0);
@@ -181,14 +179,14 @@ export default function QuestionCardView({
   const history = useHistory();
 
   const handleMove = (e) => {
-    if (e.target === e.currentTarget) {
-      history.push(`/question/${id}`);
-    }
+    history.push(`/question/${id}`);
   };
+
   const toggle = (set) => setIsOpen(set);
+
   return (
     <>
-      <Box onClick={handleMove}>
+      <Box onClick={() => handleMove()}>
         <IconBox isOpen={isOpen} onMouseOver={() => toggle(true)}>
           <IconEach />
           <IconEach />
@@ -199,7 +197,7 @@ export default function QuestionCardView({
             <Each onClick={() => handleDelete(id)}>삭제</Each>
           </Item>
         </List>
-        <Content onClick={handleMove}>
+        <Content>
           <Number>
             <NumberText>{number}</NumberText>
             <SubText>

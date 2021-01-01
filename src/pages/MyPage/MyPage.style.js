@@ -62,7 +62,7 @@ const Jobs = styled.div`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.3;
+  line-height: 1.55;
   letter-spacing: normal;
   text-align: left;
   color: #0c0c59;
@@ -176,7 +176,7 @@ const BlockItem = styled.div`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.3;
+  line-height: 1.55;
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;

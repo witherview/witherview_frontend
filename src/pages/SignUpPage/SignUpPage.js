@@ -178,9 +178,7 @@ const Select = styled.div`
   border-radius: 1vh;
   border: solid 0.1vh #9e9e9e;
   background-color: #ffffff;
-  > i {
-    margin-right: 2.2vh;
-  }
+  padding-right: 2.2vh;
   cursor: pointer;
 `;
 
@@ -194,7 +192,7 @@ const SelectItemListWrapper = styled.div`
   border-radius: 1vh;
   box-shadow: 0 1.2vh 3.6vh 0 rgba(4, 4, 161, 0.15);
   background-color: #ffffff;
-  z-index: 10;
+  z-index: 100;
 `;
 
 const SelectItemList = styled.div`
@@ -224,7 +222,6 @@ const SelectItem = styled.div`
 `;
 
 const SelectText = styled.div`
-  width: 39vh;
   margin-left: 2.2vh;
   font-family: AppleSDGothicNeoM00;
   font-size: 2vh;
@@ -235,7 +232,6 @@ const SelectText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #9e9e9e;
-  pointer-events: none;
 `;
 
 const ClickableSelectText = styled.span`
@@ -277,6 +273,13 @@ const jobList = [
   '기타',
 ];
 
+const initSelect = {
+  mainIndustry: false,
+  subIndustry: false,
+  mainJob: false,
+  subJob: false,
+};
+
 export default function SignUpPage() {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
@@ -313,11 +316,12 @@ export default function SignUpPage() {
       ...signUpForm,
       [type]: value,
     });
-    setSelect({ ...select, [type]: !select[type] });
+
+    setSelect({ ...initSelect, [type]: !select[type] });
   };
 
   const handleToggle = (type) => {
-    setSelect({ ...select, [type]: !select[type] });
+    setSelect({ ...initSelect, [type]: !select[type] });
   };
 
   const handleSignUp = () => {
@@ -427,16 +431,14 @@ export default function SignUpPage() {
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {industryList.map((val) => (
-                            <SelectItem>
-                              <SelectText
-                                onClick={() => handleSelect(
-                                  setMainIndustry,
-                                  val,
-                                  'mainIndustry',
-                                )}
-                              >
-                                {val}
-                              </SelectText>
+                            <SelectItem
+                              onClick={() => handleSelect(
+                                setMainIndustry,
+                                val,
+                                'mainIndustry',
+                              )}
+                            >
+                              <SelectText>{val}</SelectText>
                             </SelectItem>
                           ))}
                         </SelectItemList>
@@ -458,16 +460,10 @@ export default function SignUpPage() {
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {industryList.map((val) => (
-                            <SelectItem>
-                              <SelectText
-                                onClick={() => handleSelect(
-                                  setSubIndustry,
-                                  val,
-                                  'subIndustry',
-                                )}
-                              >
-                                {val}
-                              </SelectText>
+                            <SelectItem
+                              onClick={() => handleSelect(setSubIndustry, val, 'subIndustry')}
+                            >
+                              <SelectText>{val}</SelectText>
                             </SelectItem>
                           ))}
                         </SelectItemList>
@@ -491,12 +487,10 @@ export default function SignUpPage() {
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {jobList.map((val) => (
-                            <SelectItem>
-                              <SelectText
-                                onClick={() => handleSelect(setMainJob, val, 'mainJob')}
-                              >
-                                {val}
-                              </SelectText>
+                            <SelectItem
+                              onClick={() => handleSelect(setMainJob, val, 'mainJob')}
+                            >
+                              <SelectText>{val}</SelectText>
                             </SelectItem>
                           ))}
                         </SelectItemList>
@@ -518,12 +512,10 @@ export default function SignUpPage() {
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {jobList.map((val) => (
-                            <SelectItem>
-                              <SelectText
-                                onClick={() => handleSelect(setSubJob, val, 'subJob')}
-                              >
-                                {val}
-                              </SelectText>
+                            <SelectItem
+                              onClick={() => handleSelect(setSubJob, val, 'subJob')}
+                            >
+                              <SelectText>{val}</SelectText>
                             </SelectItem>
                           ))}
                         </SelectItemList>

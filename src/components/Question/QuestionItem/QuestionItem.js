@@ -63,8 +63,8 @@ const IconWrapper = styled.span`
 `;
 
 const AnswerBox = styled.div`
-  width: 111vh;
-  margin: 0.5vh 0.5vh 0.5vh 5vh;
+  width: 110vh;
+  margin: 0.5vh 0.5vh 0.5vh 4.5vh;
   display: ${({ clicked }) => (clicked ? 'block' : 'none')};
   overflow: hidden;
   box-shadow: 0 0.6vh 2.4vh 0 rgba(4, 4, 161, 0.04);
@@ -176,7 +176,11 @@ export default function QuestionItem({
           </QuestionCard>
         </Wrapper>
         <AnswerBox clicked={clicked}>
-          <ContenText onChange={(e) => handleQuestion(e, title)} value={text} />
+          <ContenText
+            onChange={(e) => handleQuestion(e, title)}
+            value={text}
+            autofocus
+          />
         </AnswerBox>
       </div>
     </>
