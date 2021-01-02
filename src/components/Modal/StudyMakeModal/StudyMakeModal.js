@@ -16,18 +16,18 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 742px;
-  height: 872px;
+  width: 74.2vh;
+  height: 87.2vh;
 `;
 
 const InputWrapper = styled.div`
-  width: 600px;
-  margin-top: ${({ first }) => (first ? '100px' : '45px')};
+  width: 60vh;
+  margin-top: ${({ first }) => (first ? '10vh' : '4.5vh')};
 `;
 
 const InputText = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 2.4vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -39,8 +39,8 @@ const InputText = styled.div`
 
 const SelectWrapper = styled.div`
   display: flex;
-  width: 600px;
-  margin-top: 45px;
+  width: 60vh;
+  margin-top: 4.5vh;
 `;
 
 const LeftWrapper = styled.div`
@@ -56,23 +56,23 @@ const RightWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 82px;
+  margin-top: 8.2vh;
 `;
 
 const SelectList = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 45px;
+  margin-bottom: 4.5vh;
 `;
 
 const Select = styled.div`
   display: flex;
   align-items: center;
-  width: 270px;
-  height: 60px;
+  width: 27vh;
+  height: 6vh;
   box-sizing: border-box;
-  margin-top: 16px;
-  border-radius: 10px;
+  margin-top: 1.6vh;
+  border-radius: 1vh;
   border: solid 1px #9e9e9e;
   background-color: #ffffff;
   z-index: 1000;
@@ -80,13 +80,13 @@ const Select = styled.div`
 
 const SelectItemListWrapper = styled.div`
   position: absolute;
-  width: 270px;
-  height: 250px;
+  width: 27vh;
+  height: 25vh;
   transform: translateY(56px);
   overflow-y: auto;
   overflow-x: hidden;
-  border-radius: 10px;
-  box-shadow: 0 12px 36px 0 rgba(4, 4, 161, 0.15);
+  border-radius: 1vh;
+  box-shadow: 0 1.2vh 3.6vh 0 rgba(4, 4, 161, 0.15);
   background-color: #ffffff;
 `;
 
@@ -101,12 +101,12 @@ const SelectItemList = styled.div`
 const SelectItem = styled.div`
   display: flex;
   width: 100%;
-  height: 52px;
+  height: 5.2vh;
   align-items: center;
   cursor: pointer;
   user-select: none;
   &:first-child {
-    margin-top: 20px;
+    margin-top: 2vh;
   }
   &:hover {
     background-color: #eef0ff;
@@ -117,10 +117,10 @@ const SelectItem = styled.div`
 `;
 
 const SelectText = styled.div`
-  width: 210px;
-  margin-left: 22px;
+  width: 21vh;
+  margin-left: 2.2vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 2vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -133,19 +133,19 @@ const SelectText = styled.div`
 const PickerWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 270px;
-  height: 60px;
+  width: 27vh;
+  height: 6vh;
   box-sizing: border-box;
-  margin-top: 16px;
-  border-radius: 10px;
+  margin-top: 1.6vh;
+  border-radius: 1vh;
   border: solid 1px #9e9e9e;
   background-color: #ffffff;
 `;
 
 const useStyles = makeStyles(() => ({
   textField: {
-    width: '230px',
-    marginLeft: '21px',
+    width: '23vh',
+    marginLeft: '2.1vh',
     color: '#9e9e9e',
   },
 }));

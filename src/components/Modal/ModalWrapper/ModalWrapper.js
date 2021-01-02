@@ -31,8 +31,8 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   display: inline-block;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.04);
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
   background-color: #ffffff;
   margin: 0 auto;
   outline: none;

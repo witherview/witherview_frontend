@@ -16,15 +16,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 660px;
-  height: 876px;
+  width: 66vh;
+  height: 87.6vh;
 `;
 
 const Text = styled.div`
-  margin-top: 99px;
-  margin-bottom: 72px;
+  margin-top: 9.9vh;
+  margin-bottom: 7.2vh;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.6vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -34,12 +34,12 @@ const Text = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  margin-bottom: 70px;
+  margin-bottom: 7vh;
 `;
 
 const InputText = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -50,7 +50,7 @@ const InputText = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 40px;
+  margin-top: 4vh;
 `;
 
 const QuestionListSaveModal = () => {
@@ -60,8 +60,6 @@ const QuestionListSaveModal = () => {
   const [title, setTitle] = useState();
   const [enterprise, setEnterprise] = useState();
   const [position, setPosition] = useState();
-  // TODO: 이거 어떻게? 모달이라 불가능..?
-  // const { id } = match.param;
 
   const handleListMake = () => {
     postQuestionListAPI({ title, enterprise, job: position }).then(

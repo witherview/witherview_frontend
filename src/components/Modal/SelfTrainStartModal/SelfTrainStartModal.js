@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
 import { useHistory } from 'react-router-dom';
 import Button from '@components/Button';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import { hideModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import { ResetQuestions } from '@store/Question/question';
@@ -13,22 +13,22 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 718px;
-  height: 470px;
+  width: 71.8vh;
+  height: 47vh;
 `;
 
 const CancelWrapper = styled.div`
   align-self: flex-end;
-  margin: 26px 26px 11px 0;
+  margin: 2.6vh 2.6vh 1.1vh 0;
   > i {
     cursor: pointer;
   }
 `;
 
 const TextSave = styled.div`
-  margin-top: 25px;
+  margin-top: 2.5vh;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.6vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -39,9 +39,9 @@ const TextSave = styled.div`
 `;
 
 const TextStart = styled.div`
-  margin: 20px 0 73px 0;
+  margin: 2vh 0 7.3vh 0;
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 2.4vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -49,6 +49,10 @@ const TextStart = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #3d3d3d;
+`;
+
+const WrapButton = styled.div`
+  ${({ theme }) => theme.button}
 `;
 
 export default function SelfTrainStartModal() {
@@ -74,7 +78,9 @@ export default function SelfTrainStartModal() {
         <Icon type="check_large" alt="" />
         <TextSave>질문 리스트가 저장되었습니다.</TextSave>
         <TextStart>이제 면접 연습을 시작해보세요!</TextStart>
-        <Button text="면접 시작하기" theme="blue" func={handleStart} />
+        <WrapButton>
+          <Button text="면접 시작하기" theme="blue" func={handleStart} />
+        </WrapButton>
       </Wrapper>
     </>
   );

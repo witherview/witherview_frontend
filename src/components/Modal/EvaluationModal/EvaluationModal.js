@@ -13,23 +13,23 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 616px;
-  height: 639px;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.04);
+  width: 61.6vh;
+  height: 63.9vh;
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
   background-color: #ffffff;
 `;
 
 const IconWrapper = styled.div`
   margin-left: auto;
-  margin-right: 36px;
-  margin-top: 36px;
+  margin-right: 3.6vh;
+  margin-top: 3.6vh;
 `;
 
 const ResultText = styled.div`
-  margin-top: 10px;
+  margin-top: 1vh;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.1vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -40,9 +40,9 @@ const ResultText = styled.div`
 `;
 
 const ScoreText = styled.div`
-  margin-top: 35px;
+  margin-top: 3.5vh;
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -54,19 +54,19 @@ const ScoreText = styled.div`
 
 const ScoreWrapper = styled.div`
   display: flex;
-  height: 54px;
+  height: 5.4vh;
   align-items: center;
-  margin-top: 25px;
+  margin-top: 2.5vh;
 `;
 
 const Box = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ size }) => (size === 'big' ? '40px' : '36.5px')};
-  height: ${({ size }) => (size === 'big' ? '40px' : '36.5px')};
-  margin: 0 12.5px;
-  border-radius: 8px;
+  width: ${({ size }) => (size === 'big' ? '4vh' : '3.65vh')};
+  height: ${({ size }) => (size === 'big' ? '4vh' : '3.65vh')};
+  margin: 0 1.25vh;
+  border-radius: 0.8vh;
   background-color: rgba(
     211,
     211,
@@ -74,7 +74,7 @@ const Box = styled.div`
     ${({ size }) => (size === 'big' ? '1' : '0.4')}
   );
   font-family: AppleSDGothicNeoM00;
-  font-size: ${({ size }) => (size === 'big' ? '20px' : '14px')};
+  font-size: ${({ size }) => (size === 'big' ? '.15vh' : '0.9vh')};
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -88,14 +88,14 @@ const ScoreBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 53px;
-  height: 53px;
-  margin: 0 12.5px;
-  border-radius: 10px;
-  box-shadow: 0 6px 9px 0 rgba(4, 4, 161, 0.04);
+  width: 5.3vh;
+  height: 5.3vh;
+  margin: 0 1.25vh;
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 0.9vh 0 rgba(4, 4, 161, 0.04);
   background-image: linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);
   font-family: AppleSDGothicNeoM00;
-  font-size: 27px;
+  font-size: 2.2vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -106,22 +106,22 @@ const ScoreBox = styled.div`
 `;
 
 const Text = styled.div`
-  height: ${({ height }) => height}px;
+  height: ${({ height }) => height / 10}vh;
 `;
 
 const Margin = styled.div`
-  width: 30px;
+  width: 3vh;
 `;
 
 const EvaluateWrapper = styled.div`
   display: flex;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  margin-top: 3vh;
+  margin-bottom: 4vh;
 `;
 
 const EvaluateBox = styled.div`
   display: flex;
-  margin: 0 60px;
+  margin: 0 6vh;
   flex-direction: column;
   align-items: center;
   .${({ evaluate }) => evaluate} {
@@ -130,9 +130,9 @@ const EvaluateBox = styled.div`
 `;
 
 const EvaluateText = styled.div`
-  margin-top: 20px;
+  margin-top: 2vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 2vh;
   font-stretch: normal;
   font-style: normal;
   font-weight: normal;
