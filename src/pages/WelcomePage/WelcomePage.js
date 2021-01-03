@@ -3,6 +3,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import ProfileEdit from '@components/ProfileEdit';
 import Button from '@components/Button';
@@ -27,6 +29,7 @@ const WrapContent = styled.div`
 
 const Logo = styled.img`
   height: 6vh;
+  width: fit-content;
 `;
 
 const WrapSubTitle = styled.div`
@@ -123,7 +126,7 @@ const WrapAnker = styled.span`
   cursor: pointer;
 `;
 
-export default function LoginPage() {
+export default function WelcomePage({ history }) {
   return (
     <Wrapper>
       <WrapContent>
@@ -146,7 +149,7 @@ export default function LoginPage() {
               </WrapMail>
             </WrapMiddleContainer>
             <WrapButton>
-              <Button theme="blue" func={() => {}} text="시작하기" />
+              <Button theme="blue" func={() => history.push('/self')} text="시작하기" />
             </WrapButton>
           </WrapContianer>
         </WrapBox>
@@ -167,3 +170,7 @@ export default function LoginPage() {
     </Wrapper>
   );
 }
+
+WelcomePage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};

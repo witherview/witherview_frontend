@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import { signUpApi } from '@repository/signUpRepository';
 import { loginApi } from '@repository/loginRepository';
 import { setLogin } from '@store/Auth/auth';
@@ -280,7 +282,7 @@ const initSelect = {
   subJob: false,
 };
 
-export default function SignUpPage() {
+export default function SignUpPage({ history }) {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
 
@@ -345,6 +347,7 @@ export default function SignUpPage() {
             const email = JSON.stringify(res.data.email).replace(/\"/g, '');
             const name = JSON.stringify(res.data.name).replace(/\"/g, '');
             dispatch(setLogin({ email, name }));
+            history.push('/welcome');
           })
           .catch(() => {
             alert('로그인 실패');
@@ -573,3 +576,7 @@ export default function SignUpPage() {
     </Wrapper>
   );
 }
+
+SignUpPage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};
