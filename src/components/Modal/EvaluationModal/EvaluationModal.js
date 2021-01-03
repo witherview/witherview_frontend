@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { hideModal } from '@store/Modal/modal';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import Button from '@components/Button';
 import { MODALS } from '@utils/constant';
 import { postGroupFeedback } from '@repository/groupRepository';
@@ -142,6 +142,10 @@ const EvaluateText = styled.div`
   color: #3d3d3d;
 `;
 
+const WrapButton = styled.div`
+  ${({ theme }) => theme.button}
+`;
+
 export default function EvaluationModal({ roomId }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -224,7 +228,9 @@ export default function EvaluationModal({ roomId }) {
           <EvaluateText className="fail">불합격이에요..</EvaluateText>
         </EvaluateBox>
       </EvaluateWrapper>
-      <Button text="평가 완료" theme="blue" func={handleButtonClick} />
+      <WrapButton>
+        <Button text="평가 완료" theme="blue" func={handleButtonClick} />
+      </WrapButton>
     </Wrapper>
   );
 }

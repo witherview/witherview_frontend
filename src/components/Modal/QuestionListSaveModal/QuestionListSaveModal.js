@@ -35,6 +35,7 @@ const Text = styled.div`
 
 const InputWrapper = styled.div`
   margin-bottom: 7vh;
+  ${({ theme }) => theme.input}
 `;
 
 const InputText = styled.div`
@@ -51,6 +52,7 @@ const InputText = styled.div`
 
 const ButtonWrapper = styled.div`
   margin-top: 4vh;
+  ${({ theme }) => theme.button}
 `;
 
 const QuestionListSaveModal = () => {

@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { hideModal } from '@store/Modal/modal';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import InputBar from '@components/InputBar';
 import Button from '@components/Button';
 import { postStudyApi } from '@repository/groupRepository';
@@ -23,6 +23,7 @@ const Wrapper = styled.div`
 const InputWrapper = styled.div`
   width: 60vh;
   margin-top: ${({ first }) => (first ? '10vh' : '4.5vh')};
+  ${({ theme }) => theme.input}
 `;
 
 const InputText = styled.div`
@@ -55,8 +56,9 @@ const RightWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ButtonWrapper = styled.div`
+const WrapButton = styled.div`
   margin-top: 8.2vh;
+  ${({ theme }) => theme.button}
 `;
 
 const SelectList = styled.div`
@@ -73,7 +75,7 @@ const Select = styled.div`
   box-sizing: border-box;
   margin-top: 1.6vh;
   border-radius: 1vh;
-  border: solid 1px #9e9e9e;
+  border: solid 0.1vh #9e9e9e;
   background-color: #ffffff;
   z-index: 1000;
 `;
@@ -82,7 +84,7 @@ const SelectItemListWrapper = styled.div`
   position: absolute;
   width: 27vh;
   height: 25vh;
-  transform: translateY(56px);
+  transform: translateY(5.6vh);
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 1vh;
@@ -138,8 +140,11 @@ const PickerWrapper = styled.div`
   box-sizing: border-box;
   margin-top: 1.6vh;
   border-radius: 1vh;
-  border: solid 1px #9e9e9e;
+  border: solid 0.1vh #9e9e9e;
   background-color: #ffffff;
+  > div > div > input {
+    font-size: 2vh;
+  }
 `;
 
 const useStyles = makeStyles(() => ({
@@ -330,9 +335,9 @@ export default function StudyStartModal({ func }) {
             </PickerWrapper>
           </RightWrapper>
         </SelectWrapper>
-        <ButtonWrapper>
+        <WrapButton>
           <Button text="방 개설" theme="blue" func={handleMakeStudy} />
-        </ButtonWrapper>
+        </WrapButton>
       </Wrapper>
     </>
   );
