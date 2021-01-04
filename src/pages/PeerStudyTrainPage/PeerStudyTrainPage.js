@@ -149,7 +149,7 @@ export default function PeerStudyTrainPage({ match, history }) {
               func={
                 step + 1 !== STEP_FINAL
                   ? () => socketRef.current.emit('next', step + 1)
-                  : () => console.log('last')
+                  : () => {}
               }
             />
             <S.WrapBottomSide right />

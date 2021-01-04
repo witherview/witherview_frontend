@@ -18,6 +18,7 @@ const Wrapper = styled.button`
   &: hover {
     opacity: ${({ clicked }) => (clicked ? '100%' : '60%')};
   }
+  cursor: pointer;
 `;
 
 const WrapText = styled.div`

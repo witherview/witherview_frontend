@@ -18,6 +18,7 @@ const Box = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   color: ${({ isClicked }) => (isClicked ? '#5f5fd9;' : 'black')};
+  cursor: pointer;
 `;
 
 const Time = styled.span`

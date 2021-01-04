@@ -27,11 +27,11 @@ const Input = styled.input`
 const Checkmark = styled.span`
   position: absolute;
   top: -2vh;
-  left: 0px;
+  left: 0;
   height: 3.6vh;
   width: 3.6vh;
   background-color: #ffffff;
-  border: solid 3px #d6d6d6;
+  border: solid 0.3vh #d6d6d6;
   border-radius: 1vh;
   &::after {
     top: 0.3vh;

@@ -1,51 +1,26 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-import { Provider } from 'react-redux';
-import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from './Modal';
 
-const modalReducer = createSlice({
-  name: 'modal',
-  initialState: {
-    [MODALS.QUESTIONLIST_SAVE_MODAL]: true,
-    [MODALS.SELF_TRAIN_START_MODAL]: true,
-    [MODALS.STUDY_MAKE_MODAL]: true,
-    [MODALS.EVALUATION_MODAL]: true,
-  },
-  reducers: {
-    displayModal(state, { payload: { modalName } }) {
-      return {
-        ...state,
-        [modalName]: true,
-      };
-    },
-    removeModal(state, { payload: { modalName } }) {
-      return {
-        ...state,
-        [modalName]: false,
-      };
-    },
-  },
-});
-
-const reducers = combineReducers({
-  modal: modalReducer.reducer,
-});
-
-const store = configureStore({ reducer: reducers });
-
-const withReduxMockStore = (story) => (
-  <Provider store={store}>{story()}</Provider>
-);
-
 export default {
-  title: 'Modal',
+  title: 'Modals/Modals',
   description: 'modals',
-  decorators: [withReduxMockStore],
 };
 
-const modals = (args) => <Modal {...args} />;
+const modals = (args) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(showModal(MODALS.QUESTIONLIST_SAVE_MODAL));
+    dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+    dispatch(showModal(MODALS.EVALUATION_MODAL));
+    dispatch(showModal(MODALS.STUDY_MAKE_MODAL));
+  });
+
+  return (<Modal {...args} />);
+};
 export const QuestionListSaveModal = modals.bind({});
 export const SelfTrainStartModal = modals.bind({});
 export const StudyMakeModal = modals.bind({});

@@ -19,6 +19,9 @@ const WrapAbsolute = styled.div`
   position: absolute;
   top: 5.3vh;
   right: 10.5vh;
+  > i {
+    cursor: pointer;
+  }
 `;
 
 const WrapContent = styled.div`
@@ -62,13 +65,7 @@ const WrapCamView = styled.div`
 `;
 
 const WrapButton = styled.div`
-  > div {
-    width: 29.6vh;
-    height: 6vh;
-    > p {
-      font-size: 1.9vh;
-    }
-  }
+  ${({ theme }) => theme.button}
 `;
 
 export default {

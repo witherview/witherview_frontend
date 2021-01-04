@@ -24,6 +24,9 @@ const IconWrapper = styled.span`
   position: absolute;
   top: 11.5vh;
   left: 12vh;
+  > i {
+    cursor: pointer;
+  }
 `;
 
 export default function ProfileEdit({ src }) {

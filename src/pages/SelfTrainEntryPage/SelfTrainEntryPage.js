@@ -36,13 +36,7 @@ const WrapCardSection = styled.div`
 `;
 
 const WrapButton = styled.div`
-  > div {
-    width: 29.6vh;
-    height: 6vh;
-    > p {
-      font-size: 1.9vh;
-    }
-  }
+  ${({ theme }) => theme.button}
 `;
 
 const SELECT_NOTHING = 0;

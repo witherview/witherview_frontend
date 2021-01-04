@@ -24,6 +24,7 @@ const Box = styled.div`
       : theme === 'white'
       ? 'background-color: #ffffff;'
       : '')};
+  cursor: pointer;
 `;
 
 const Text = styled.p`

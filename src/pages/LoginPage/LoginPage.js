@@ -2,12 +2,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import styled from 'styled-components';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { get } from '@utils/snippet';
 import { setLogin } from '@store/Auth/auth';
-import { LoginApi } from '@repository/loginRepository';
+import { loginApi } from '@repository/loginRepository';
 
 import InputBar from '@components/InputBar';
 import Checkbox from '@components/Checkbox';
@@ -45,6 +48,7 @@ const WrapSubTitle = styled.div`
   color: #3d3d3d;
   padding-top: 3.5vh;
   padding-bottom: 5.4vh;
+  pointer-events: none;
 `;
 
 const WrapBox = styled.div`
@@ -52,8 +56,8 @@ const WrapBox = styled.div`
   max-width: 80vw;
   height: 60vh;
   background-color: white;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;
   display: flex;
   flex-direction: column;
@@ -66,50 +70,32 @@ const WrapText = styled.div`
   font-size: 2.4vh;
   color: #6e6eff;
   padding-bottom: 1.9vh;
+  pointer-events: none;
 `;
 
 const WrapContianer = styled.div`
   max-width: 60vw;
-  margin-top: 5vh;
-  margin-bottom: 4vh;
 `;
 
 const WrapUpperContainer = styled.div`
-  height: 23vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 const WrapInput = styled.div`
-  > input {
-    width: 53.3vh;
-    max-width: 60vw;
-    height: 5vh;
-    font-size: 1.9vh;
-    font-family: AppleSDGothicNeoM00;
-    letter-spacing: 0.2vh;
-    ::placeholder {
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
-    :-ms-input-placeholder {
-      font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
-    ::-ms-input-placeholder {
-      font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
-  }
+  margin-top: 1vh;
+  margin-bottom: 5vh;
+  ${({ theme }) => theme.input}
 `;
 
 const WrapMiddleContainer = styled.div`
-  height: 12vh;
+  height: 10vh;
   max-width: 60vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   width: 53.3vh;
 `;
 
@@ -125,24 +111,19 @@ const WrapMiddleText = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 2vh;
   color: #9e9e9e;
+  pointer-events: none;
 `;
 
-const WrapMiddleTextLeft = styled(WrapMiddleText)`
+const WrapMiddleTextRight = styled(WrapMiddleText)`
   user-select: none;
   &:hover {
-    border-bottom: 1px solid #9e9e9e;
+    border-bottom: 0.1vh solid #9e9e9e;
   }
+  cursor: pointer;
 `;
 
 const WrapButton = styled.div`
-  > div {
-    height: 6vh;
-    width: 29.6vh;
-    max-width: 60vw;
-    > p {
-      font-size: 1.9vh;
-    }
-  }
+  ${({ theme }) => theme.button}
 `;
 
 const WrapBottomContainer = styled.div`
@@ -154,6 +135,7 @@ const WrapBottomText = styled.span`
   font-size: 1.9vh;
   color: #9e9e9e;
   padding-right: 2vh;
+  cursor: default;
 `;
 
 const WrapAnker = styled.span`
@@ -161,8 +143,9 @@ const WrapAnker = styled.span`
   color: #6e6eff;
   user-select: none;
   &:hover {
-    border-bottom: 1px solid #6e6eff;
+    border-bottom: 0.1vh solid #6e6eff;
   }
+  cursor: pointer;
 `;
 
 const EMPTY_FORM = {
@@ -175,7 +158,7 @@ const TEST_FORM = {
   password: '123456',
 };
 
-export default function LoginPage() {
+export default function LoginPage({ history }) {
   const dispatch = useDispatch();
   const authSelector = useSelector(get('auth'));
 
@@ -193,9 +176,8 @@ export default function LoginPage() {
   };
 
   const handleLogin = () => {
-    LoginApi(JSON.stringify(loginForm))
+    loginApi(JSON.stringify(loginForm))
       .then((response) => {
-        console.log(response.data);
         const email = JSON.stringify(response.data.email).replace(/\"/g, '');
         const name = JSON.stringify(response.data.name).replace(/\"/g, '');
         dispatch(setLogin({ email, name }));
@@ -219,9 +201,7 @@ export default function LoginPage() {
       {authSelector.isLogin && <Redirect to="/self" />}
       <WrapContent>
         <Logo src={witherviewLogo} alt="logo" />
-        <WrapSubTitle>
-          위더뷰와 함께 화상 면접 연습을 진행해보세요.
-        </WrapSubTitle>
+        <WrapSubTitle>위더뷰가 처음이신가요? 정보를 입력해주세요.</WrapSubTitle>
         <WrapBox>
           <WrapContianer>
             <WrapUpperContainer>
@@ -255,10 +235,10 @@ export default function LoginPage() {
                 <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
               {ratio > 0.65 && (
-                <WrapMiddleTextLeft onClick={() => {}}>
+                <WrapMiddleTextRight onClick={() => {}}>
                   {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
                   비밀번호 찾기
-                </WrapMiddleTextLeft>
+                </WrapMiddleTextRight>
               )}
             </WrapMiddleContainer>
           </WrapContianer>
@@ -268,10 +248,15 @@ export default function LoginPage() {
         </WrapBox>
         <WrapBottomContainer>
           <WrapBottomText>새로오셨나요?</WrapBottomText>
-          {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
-          <WrapAnker onClick={() => {}}>회원가입</WrapAnker>
+          <WrapAnker onClick={() => history.push('/sign-up')}>
+            회원가입
+          </WrapAnker>
         </WrapBottomContainer>
       </WrapContent>
     </Wrapper>
   );
 }
+
+LoginPage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};

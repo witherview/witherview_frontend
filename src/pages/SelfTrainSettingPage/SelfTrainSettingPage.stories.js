@@ -3,8 +3,14 @@ import React from 'react';
 import SelfTrainSettingPage from './SelfTrainSettingPage';
 
 export default {
-  title: 'pages/SelfTrainSettingPage',
+  title: 'pages/Self Study/Study Setting',
   component: SelfTrainSettingPage,
 };
 
-export const SelfTrainSettingPageDefault = () => <SelfTrainSettingPage />;
+export const studySetting = () => (
+  <SelfTrainSettingPage
+    match={{
+      params: { id: 1 },
+    }}
+  />
+);

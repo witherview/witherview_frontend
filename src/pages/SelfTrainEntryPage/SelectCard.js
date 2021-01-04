@@ -13,7 +13,8 @@ const Wrapper = styled.div`
   display: flex;
   align-itmes: center;
   justify-content: center;
-  margin: 17px;
+  margin: 1.7vh;
+  cursor: pointer;
 `;
 
 const WrapContainer = styled.div`
@@ -25,8 +26,8 @@ const WrapContainer = styled.div`
   width: 37.4vh;
   height: 47.9vh;
   border-radius: 2vh;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  ${({ clicked }) => clicked && 'border: solid 4px #6e6eff;'}
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  ${({ clicked }) => clicked && 'border: solid 0.4vh #6e6eff;'}
 `;
 
 const WrapIcon = styled.div`

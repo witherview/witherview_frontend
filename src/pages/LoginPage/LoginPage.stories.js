@@ -3,8 +3,8 @@ import React from 'react';
 import LoginPage from './LoginPage';
 
 export default {
-  title: 'page/LoginPage',
+  title: 'pages/Main/Login',
   component: LoginPage,
 };
 
-export const LoginPageDefault = () => <LoginPage />;
+export const login = () => <LoginPage />;

@@ -85,6 +85,7 @@ const Each = styled.div`
     color: #f2886b;
     text-decoration: none;
   }
+  cursor: pointer;
 `;
 
 export default function ProfileMenuContainer({ name, src }) {
