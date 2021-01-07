@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
 import styled from 'styled-components';
+
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { useSelector } from 'react-redux';
 import { get } from '@utils/snippet';
@@ -167,3 +168,7 @@ export default function StudySetting({ history }) {
     </Wrapper>
   );
 }
+
+StudySetting.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};
