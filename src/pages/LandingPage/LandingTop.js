@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   user-select: none;
   height: 940px;
   background-color: #f9f9ff;
-  padding-top: 140px;
+  padding-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;

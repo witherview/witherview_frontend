@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 80px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapLeft = styled.img`
-  width: 169px;
+  width: 140px;
 `;
 
 const WrapContainer = styled.div`
@@ -54,7 +54,7 @@ const WrapRightInner = styled.div`
 
 const WrapButton = styled.div`
   > div {
-    height: 45px;
+    height: 30px;
     > p {
       font-size: 15px;
     }
@@ -103,7 +103,7 @@ export default function LandingHeader({
             <C.Button
               id="menu_btn"
               theme="outline"
-              width={180}
+              width={120}
               text="LOG IN"
               func={() => history.push('/login')}
             />

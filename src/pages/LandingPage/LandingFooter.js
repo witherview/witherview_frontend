@@ -8,7 +8,7 @@ import Logo from '@assets/images/witherview_logo_title_dark.png';
 const Wrapper = styled.div`
   z-index: 2;
   width: 100%;
-  height: 153px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,12 +16,12 @@ const Wrapper = styled.div`
 `;
 
 const WrapLeft = styled.img`
-  width: 169px;
+  width: 140px;
 `;
 
 const WrapContainer = styled.div`
   max-width: 1700px;
-  width: 85%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 150px;
+  margin-bottom: 80px;
 `;
 
 const WrapContainer = styled.div`
