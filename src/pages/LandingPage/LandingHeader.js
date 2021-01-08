@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 130px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,14 +35,14 @@ const WrapContainer = styled.div`
 `;
 
 const WrapTextButton = styled.div`
-  @media only screen and (max-width: 1280px) {
+  @media only screen and (max-width: 1400px) {
     display: none;
   }
   width: 60%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 110px;
+  padding-right: 80px;
 `;
 
 const WrapRightInner = styled.div`
@@ -50,6 +50,15 @@ const WrapRightInner = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const WrapButton = styled.div`
+  > div {
+    height: 45px;
+    > p {
+      font-size: 15px;
+    }
+  }
 `;
 
 const scrollToRef = (ref) => window.scrollTo({
@@ -90,13 +99,15 @@ export default function LandingHeader({
               text="면접스터디"
             />
           </WrapTextButton>
-          <C.Button
-            id="menu_btn"
-            theme="outline"
-            width={230}
-            text="LOG IN"
-            func={() => history.push('/login')}
-          />
+          <WrapButton>
+            <C.Button
+              id="menu_btn"
+              theme="outline"
+              width={180}
+              text="LOG IN"
+              func={() => history.push('/login')}
+            />
+          </WrapButton>
         </WrapRightInner>
       </WrapContainer>
     </Wrapper>
