@@ -13,7 +13,7 @@ const WrapperContent = styled.div`
 `;
 
 const InterviewRoomSection = styled.div`
-  width: 1196px;
+  width: 120vh;
 `;
 
 const InterviewRoomInfo = styled.div`
@@ -21,49 +21,50 @@ const InterviewRoomInfo = styled.div`
   width: 100%;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  padding: 5vh;
+  border-radius: 2vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid 0.1vh #f6f6f6;
   background-color: #ffffff;
 `;
 
 const TextWrapper = styled.div`
-  width: 750px;
+  width: 75vh;
 `;
 
 const RoomTitle = styled.p`
-  font-size: 36px;
+  font-size: 3.1vh;
   font-family: AppleSDGothicNeoEB00;
   color: #6e6eff;
-  margin-bottom: 15px;
+  margin-bottom: 1.5vh;
 `;
 
 const DateInfo = styled.p`
-  font-size: 24px;
+  font-size: 1.9vh;
   font-family: AppleSDGothicNeoEB00;
-  margin-bottom: 45px;
+  margin-bottom: 4.5vh;
 `;
 
 const Description = styled.p`
-  font-size: 24px;
+  font-size: 1.9vh;
   font-family: AppleSDGothicNeoM00;
   color: #3d3d3d;
 `;
 
 const BoxWrapper = styled.div`
-  width: 300px;
+  width: 30vh;
   & div:first-child {
-    margin-bottom: 25px;
+    margin-bottom: 2.5vh;
   }
+  ${({ theme }) => theme.button}
 `;
 
 const UserInfoWrapper = styled.div`
-  width: 1196px;
-  margin: 23.9px 50px 0 0;
-  padding: 0 0 1px;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+  width: 100%;
+  margin: 2.39vh 5vh 0 0;
+  padding: 0 0 0.1vh;
+  border-radius: 2vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
 `;
 
 const UserInfoHeader = styled.div`
@@ -71,41 +72,41 @@ const UserInfoHeader = styled.div`
   align-items: center;
   position: relative;
   width: 100%;
-  height: 73px;
+  height: 7.3vh;
   background-color: #eef0ff;
-  border-radius: 20px 20px 0 0;
+  border-radius: 2vh 2vh 0 0;
 `;
 
 const TableColumn = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  left: ${({ value }) => `${value > 0 ? value : 0}px`};
+  left: ${({ value }) => `${value > 0 ? value / 10 : 0}vh`};
   font-family: AppleSDGothicNeoB00;
-  font-size: 20px;
+  font-size: 2vh;
   color: ${({ color }) => (color === 'blue' ? '#6e6eff' : '#3d3d3d')};
 `;
 
 const UserInfoContent = styled.div`
   width: 100%;
-  padding: 41px 0 0 0;
+  padding: 4.1vh 0 0 0;
 `;
 
 const ContentRow = styled.div`
   position: relative;
-  height: 60px;
-  padding: 0 88px;
-  margin-bottom: 60px;
+  height: 6vh;
+  padding: 0 8.8vh;
+  margin-bottom: 6vh;
 `;
 
 const UserInfo = styled.div`
-  width: 150px;
-  margin-left: 26px;
+  width: 15vh;
+  margin-left: 2.6vh;
 
   & > p {
     font-family: AppleSDGothicNeoEB00;
     color: #3d3d3d;
-    margin-bottom: 16px;
+    margin-bottom: 1.6vh;
   }
 `;
 
@@ -117,28 +118,28 @@ const TagsWrapper = styled.div`
 
 const TagItem = styled.label`
   background-color: ${({ color }) => (color === 'blue' ? '#eef0ff' : '#fff3ef')};
-  font-size: 15px;
+  font-size: 1vh;
   color: ${({ color }) => (color === 'blue' ? '#6e6eff' : '#f2886b')};
-  border-radius: 5px;
-  padding: 3px 11px 3px 10px;
+  border-radius: 0.5vh;
+  padding: 0.3vh 1.1vh 0.3vh 1vh;
 `;
 
 const ItemInnerWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 15px;
+  padding-top: 1.5vh;
   font-weight: bold;
 `;
 
 const ProgressBar = styled.progress`
-  width: 245px;
-  height: 8px;
-  margin-right: 22px;
+  width: 24.5vh;
+  height: 0.8vh;
+  margin-right: 2.2vh;
   border: none;
   overflow: hidden;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  border-radius: 50px;
+  -moz-border-radius: 5vh;
+  -webkit-border-radius: 5vh;
+  border-radius: 5vh;
   &::-webkit-progress-value {
     background-image: linear-gradient(to right, #2323de 1%, #4848da 91%);
   }

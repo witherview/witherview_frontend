@@ -4,7 +4,7 @@ import {
   getGroupListApi,
   getGroupMemberApi,
 } from '@repository/groupRepository';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import TextButton from '@components/TextButton';
 import ProfileInfoContainer from '@components/ProfileInfoContainer/ProfileInfoContainer';
 import StudyCardView from '@components/StudyCardView';
@@ -112,53 +112,56 @@ export default function StudyMainPage() {
   return (
     <S.Wrapper>
       <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload} />
-      <S.SearchWrapper>
-        <S.IconWrapper>
-          <Icon type="search" alt="" />
-        </S.IconWrapper>
-        <S.Input placeholder="Search" />
-      </S.SearchWrapper>
-      <S.StudyText>현재 진행 중인 스터디 방</S.StudyText>
-      <S.ContentWrapper>
-        <S.BoxWrapper>
-          <S.ListWrapper>
-            <S.ButtonWrapper>
-              {ButtonList.map((val) => (
-                <S.TextButtonWrapper>
-                  <TextButton text={val} />
-                </S.TextButtonWrapper>
-              ))}
-              <S.FilterWrapper>
-                <Icon type="filter" alt="" />
-              </S.FilterWrapper>
-            </S.ButtonWrapper>
-            <S.StudyListWrapper>
-              <S.Wrap onClick={handleStudyAddModal}>
-                <S.AddStudy>
-                  <Icon type="add_black" />
-                  <S.AddText>방 만들기</S.AddText>
-                </S.AddStudy>
-              </S.Wrap>
-              {groupList?.map((val) => {
-                const count = member.filter((elem) => elem.id === val.id)[0];
-                return (
-                  <StudyCardView
-                    id={val.id}
-                    title={val.title}
-                    description={val.description}
-                    time={val.time}
-                    member={count && count.member}
-                  />
-                );
-              })}
-            </S.StudyListWrapper>
-          </S.ListWrapper>
-          <S.PartiWrapper>
-            <S.PartiText>참여도 높은 유저</S.PartiText>
-            {MockProfile()}
-          </S.PartiWrapper>
-        </S.BoxWrapper>
-      </S.ContentWrapper>
+      <div>
+        <S.SearchWrapper>
+          <S.IconWrapper>
+            <Icon type="search" alt="" />
+          </S.IconWrapper>
+          <S.Input placeholder="Search" />
+        </S.SearchWrapper>
+        <S.StudyText>현재 진행 중인 스터디 방</S.StudyText>
+        <S.ContentWrapper>
+          <S.BoxWrapper>
+            <S.ListWrapper>
+              <S.ButtonWrapper>
+                {ButtonList.map((val, key) => (
+                  <S.TextButtonWrapper key={key}>
+                    <TextButton text={val} />
+                  </S.TextButtonWrapper>
+                ))}
+                <S.FilterWrapper>
+                  <Icon type="filter" alt="" />
+                </S.FilterWrapper>
+              </S.ButtonWrapper>
+              <S.StudyListWrapper>
+                <S.Wrap onClick={handleStudyAddModal}>
+                  <S.AddStudy>
+                    <Icon type="add_black" />
+                    <S.AddText>방 만들기</S.AddText>
+                  </S.AddStudy>
+                </S.Wrap>
+                {groupList?.map((val, key) => {
+                  const count = member.filter((elem) => elem.id === val.id)[0];
+                  return (
+                    <StudyCardView
+                      key={key}
+                      id={val.id}
+                      title={val.title}
+                      description={val.description}
+                      time={val.time}
+                      member={count && count.member}
+                    />
+                  );
+                })}
+              </S.StudyListWrapper>
+            </S.ListWrapper>
+            <S.PartiWrapper>
+              <S.PartiText>참여도 높은 유저</S.PartiText>
+              {MockProfile()}
+            </S.PartiWrapper>
+          </S.BoxWrapper>
+        </S.ContentWrapper>
+      </div>
     </S.Wrapper>
   );
 }

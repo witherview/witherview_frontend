@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Text = styled.span`
   font-family: ${({ clicked }) => (clicked ? 'AppleSDGothicNeoEB00' : 'AppleSDGothicNeoM00')};
-  font-size: 24px;
+  font-size: 1.9vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

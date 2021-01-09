@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '@components/Icon';
+import Icon from '@components/IconTemp';
 import {
   postJoinStudyApi,
   getGroupMemberApi,
@@ -11,24 +11,24 @@ import {
 const Wrapper = styled.div`
   display: flex;
   flex: 0 0 33.333%;
-  margin-bottom: 50px;
+  margin-bottom: 5vh;
 `;
 
 const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 374px;
-  height: 382px;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  width: 37.4vh;
+  height: 38.2vh;
+  border-radius: 2vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid 0.1vh #f6f6f6;
   background-color: white;
   box-sizing: border-box;
   &:hover {
-    border-radius: 20px;
+    border-radius: 2vh;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
-    box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+    box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
     & > div > div,
     & > div > div > span {
       color: white;
@@ -42,20 +42,20 @@ const Box = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 10px
-  margin-right: 10px
+  margin-left: 1vh;
+  margin-right: 1vh;
 `;
 
 const Title = styled.div`
-  width: 290px;
-  height: 30px;
-  margin-top: 29px;
+  width: 29vh;
+  height: 3vh;
+  margin-top: 2.9vh;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 24px;
+  font-size: 2.4vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -67,13 +67,13 @@ const Title = styled.div`
 `;
 
 const Description = styled.div`
-  width: 280px;
-  height: 60px;
-  margin-top: 20px;
+  width: 28vh;
+  height: 6vh;
+  margin-top: 2vh;
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 2vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -87,13 +87,13 @@ const Description = styled.div`
 const Time = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 2vh;
 `;
 
 const Text = styled.span`
   text-align: left;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 2vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -101,29 +101,29 @@ const Text = styled.span`
   letter-spacing: normal;
   color: #3d3d3d;
   word-break: break-all;
-  margin-left: 20px;
+  margin-left: 2vh;
 `;
 
 const MemberWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 1vh;
 `;
 
 const Button = styled.div`
   width: 100%;
-  height: 55px;
-  border-radius: 10px;
+  height: 5.5vh;
+  border-radius: 1vh;
   background-color: #f6f6f6;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 2.5vh;
 `;
 
 const ButtonText = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 20px;
+  font-size: 1.5vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

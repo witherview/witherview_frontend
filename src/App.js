@@ -78,9 +78,7 @@ export default function App() {
             <SyncLoader size={50} color="#123abc" />
           </WrapSpinner>
         )}
-        {ratio < 1.6 && (
-          <FragileRatio />
-        )}
+        {ratio < 1.6 && <FragileRatio />}
         <Wrapper>
           {!toggleTrain && <Sidebar />}
           {!toggleTrain && <ProfileMenuContainer name={name} />}
@@ -102,18 +100,18 @@ export default function App() {
               path="/self-checklist/:roomId"
               component={AloneQuestionCheckList}
             />
-            <Route exact path="/myvideo" component={MyVideoPage} />
-            <Route exact path="/video/:id" component={VideoPage} />
+            <AuthRoute exact path="/myvideo" component={MyVideoPage} />
+            <AuthRoute exact path="/video/:id" component={VideoPage} />
+            <AuthRoute path="/group-study" component={StudyMainPage} />
+            <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
+            <AuthRoute
+              path="/peer-study/:roomId"
+              component={PeerStudyTrainPage}
+            />
             <AuthRoute path="/mypage" component={MyPage} />
           </WrapPage>
-          <AuthRoute path="/group-study" component={StudyMainPage} />
-          <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
-          <AuthRoute
-            path="/peer-study/:roomId"
-            component={PeerStudyTrainPage}
-          />
         </Wrapper>
-        <Route component={NotFound} />
+        <AuthRoute component={NotFound} />
       </Switch>
     </>
   );

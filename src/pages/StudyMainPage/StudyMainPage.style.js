@@ -4,31 +4,32 @@ const Wrapper = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
-    margin: 53px 0 50px 245px;
+    margin: 5.3vh 0 0 0;
+    align-items: center;
 `;
 
 const SearchWrapper = styled.div`
     display: flex;
     align-items: center;
-    width: 798px;
-    height: 73px;
-    border-radius: 20px;
-    box-shadow: 0 6px 12px 0 rgba(30, 30, 215, 0.04);
+    width: 79.8vh;
+    height: 7.3vh;
+    border-radius: 2vh;
+    box-shadow: 0 0.6vh 1.2vh 0 rgba(30, 30, 215, 0.04);
     background-color: #f6f6f6;
 `;
 
 const IconWrapper = styled.div`
-    margin-left: 52px;
+    margin-left: 5.2vh;
 `;
 
 const Input = styled.input`
-    width: 650px;
-    margin-left: 30px;
+    width: 65vh;
+    margin-left: 3vh;
     border: none;
     outline: none;
     background-color: #f6f6f6;
     font-family: TitilliumWeb;
-    font-size: 20px;
+    font-size: 2vh;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -39,9 +40,9 @@ const Input = styled.input`
 `;
 
 const StudyText = styled.div`
-    margin-top: 60px;
+    margin-top: 6vh;
     font-family: AppleSDGothicNeoEB00;
-    font-size: 36px;
+    font-size: 3.1vh;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -52,25 +53,25 @@ const StudyText = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-    margin-top: 15px;
+    margin-top: 1.5vh;
 `;
 
 const ButtonWrapper = styled.div`
     display: flex;
     width: 100%;
-    height: 35px;
+    height: 3.5vh;
     align-items: center;
 `;
 
 const TextButtonWrapper = styled.div`
-    margin-right: 45px;
+    margin-right: 4.5vh;
 `;
 
 const ListWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 1222px;
-    margin-right: 60px;
+    width: 120vh;
+    margin-right: 6vh;
 `;
 
 const BoxWrapper = styled.div`
@@ -87,9 +88,9 @@ const PartiWrapper = styled.div`
 `;
 
 const PartiText = styled.div`
-    margin-bottom: 40px;
+    margin-bottom: 4vh;
     font-family: AppleSDGothicNeoEB00;
-    font-size: 20px;
+    font-size: 2vh;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -103,7 +104,7 @@ const StudyListWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 41px;
+    margin-top: 4.1vh;
 `;
 
 const Wrap = styled.div`
@@ -116,18 +117,18 @@ const AddStudy = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 374px;
-    height: 382px;
-    border-radius: 20px;
-    box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+    width: 37.4vh;
+    height: 38.2vh;
+    border-radius: 2vh;
+    box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
     border: solid 1px #f6f6f6;
     background-color: #f6f6f6;
 `;
 
 const AddText = styled.div`
-    margin-top: 30px;
+    margin-top: 3vh;
     font-family: AppleSDGothicNeoB00;
-    font-size: 24px;
+    font-size: 2.4vh;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;

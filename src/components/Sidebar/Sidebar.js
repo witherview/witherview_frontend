@@ -101,13 +101,13 @@ export default function Sidebar() {
           hover={hover}
           title="혼자연습"
         />
-        {/* <SidebarButton
+        <SidebarButton
           func={() => handleClick(1)}
           type={click === 1 ? 'sound_black' : 'sound_white'}
           clicked={click === 1}
           hover={hover}
           title="면접스터디"
-        /> */}
+        />
         <SidebarButton
           func={() => handleClick(4)}
           type={click === 4 ? 'folder_blue' : 'folder_white'}
