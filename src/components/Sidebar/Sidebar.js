@@ -107,14 +107,14 @@ export default function Sidebar() {
           clicked={click === 1}
           hover={hover}
           title="면접스터디"
-        />
+        /> */}
         <SidebarButton
           func={() => handleClick(4)}
           type={click === 4 ? 'folder_blue' : 'folder_white'}
           clicked={click === 4}
           hover={hover}
           title="저장확인"
-        /> */}
+        />
         <SidebarButton
           func={() => handleClick(2)}
           type={click === 2 ? 'profile_black' : 'profile_white'}

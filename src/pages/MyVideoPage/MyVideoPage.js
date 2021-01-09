@@ -17,7 +17,11 @@ import TableRow from '@material-ui/core/TableRow';
 import { getVideoApi } from '@repository/requestVideoRepository';
 
 const Wrapper = styled.div`
-  width: 90%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 `;
 
@@ -46,7 +50,7 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '90%',
+    width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
     margin: '200px',
@@ -55,7 +59,7 @@ const useStyles = makeStyles({
     backgroundColor: 'transparent',
     backgroundImage: 'linear-gradient(to bottom, #2323de, #4848da)',
     color: 'white',
-    fontSize: '25px',
+    fontSize: '2vh',
   },
   pagenation: {
     width: '100%',

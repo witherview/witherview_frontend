@@ -102,6 +102,8 @@ export default function App() {
               path="/self-checklist/:roomId"
               component={AloneQuestionCheckList}
             />
+            <Route exact path="/myvideo" component={MyVideoPage} />
+            <Route exact path="/video/:id" component={VideoPage} />
             <AuthRoute path="/mypage" component={MyPage} />
           </WrapPage>
           <AuthRoute path="/group-study" component={StudyMainPage} />
@@ -110,8 +112,6 @@ export default function App() {
             path="/peer-study/:roomId"
             component={PeerStudyTrainPage}
           />
-          <Route exact path="/myvideo" component={MyVideoPage} />
-          <Route exact path="/video/:id" component={VideoPage} />
         </Wrapper>
         <Route component={NotFound} />
       </Switch>

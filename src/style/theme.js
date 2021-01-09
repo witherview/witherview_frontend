@@ -35,15 +35,15 @@ const theme = {
       letter-spacing: 0.2vh;
       border-bottom: 0.2vh solid #9e9e9e;
       ::placeholder {
-        font-family: AppleSDGothicNeoB00;
+        font-family: AppleSDGothicNeoM00;
         color: #9e9e9e;
       }
       :-ms-input-placeholder {
-        font-family: AppleSDGothicNeoB00;
+        font-family: AppleSDGothicNeoM00;
         color: #9e9e9e;
       }
       ::-ms-input-placeholder {
-        font-family: AppleSDGothicNeoB00;
+        font-family: AppleSDGothicNeoM00;
         color: #9e9e9e;
       }
     }
