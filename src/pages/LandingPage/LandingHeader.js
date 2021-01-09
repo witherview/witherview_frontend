@@ -62,7 +62,7 @@ const WrapButton = styled.div`
 `;
 
 const scrollToRef = (ref) => window.scrollTo({
-  top: ref.current.offsetTop - 130,
+  top: ref.current.offsetTop - 60,
   left: 0,
   behavior: 'smooth',
 });

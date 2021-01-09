@@ -26,17 +26,17 @@ const WrapContent = styled.div`
 
 const WrapContainer = styled.div`
   width: 80%;
-  height: 500px;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 90px;
+  padding: 9vh;
 `;
 
 const WrapSubContainer = styled.div`
   display: flex;
   .${({ first }) => first} {
-    border: solid 3px #5f5fd9;
+    border: solid 0.3vh #5f5fd9;
     color: #5f5fd9;
   }
 `;
@@ -52,11 +52,11 @@ const TextButton = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 201px;
-  height: 127px;
-  margin-right: 60px;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+  width: 20vh;
+  height: 12.7vh;
+  margin-right: 6vh;
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: solid 1px #f6f6f6;
   background-color: #ffffff;
   .${({ first }) => first} {
@@ -66,21 +66,21 @@ const TextButton = styled.div`
 `;
 
 const Margin = styled.span`
-  width: 60px;
+  width: 6vh;
 `;
 
 const WrapText = styled.div`
   display: flex;
   margin-left: auto;
   font-family: AppleSDGothicNeoB00;
-  font-size: 24px;
+  font-size: 1.9vh;
   color: #6e6eff;
-  ${({ padding }) => (padding ? 'padding-bottom: 20px' : 'padding-right: 25px')};
+  ${({ padding }) => (padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh')};
 `;
 
 const Text = styled.div`
   font-family: AppleSDGothicNeoEB00;
-  font-size: 30px;
+  font-size: 2.5vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -92,7 +92,7 @@ const Text = styled.div`
 
 const InnerText = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 30px;
+  font-size: 2.5vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

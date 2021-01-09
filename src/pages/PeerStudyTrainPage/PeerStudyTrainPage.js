@@ -108,12 +108,10 @@ export default function PeerStudyTrainPage({ match, history }) {
         </S.WrapAbsolute>
         <S.WrapContent>
           {textBox}
-          <S.WrapCamView width={width / 1.5}>
+          <S.WrapCamView>
             {!isTrain && (
               <MyCamView
                 mediaBlobUrl={userVideo}
-                height={width / 5}
-                width={peers.length !== 0 ? width / 3.1 : width / 1.5}
                 name="test"
                 absolute={step >= 2}
               />
@@ -142,16 +140,18 @@ export default function PeerStudyTrainPage({ match, history }) {
             <S.WrapBottomSide>
               {isTrain && <RemainTime time={time} />}
             </S.WrapBottomSide>
-            <Button
-              theme={step === STEP_FIRST ? 'gray' : 'blue'}
-              text={Fixture[step].button}
-              socketRef
-              func={
-                step + 1 !== STEP_FINAL
-                  ? () => socketRef.current.emit('next', step + 1)
-                  : () => {}
-              }
-            />
+            <S.WrapButton>
+              <Button
+                theme={step === STEP_FIRST ? 'gray' : 'blue'}
+                text={Fixture[step].button}
+                socketRef
+                func={
+                  step + 1 !== STEP_FINAL
+                    ? () => socketRef.current.emit('next', step + 1)
+                    : () => {}
+                }
+              />
+            </S.WrapButton>
             <S.WrapBottomSide right />
           </S.WrapBottom>
         </S.WrapContent>
