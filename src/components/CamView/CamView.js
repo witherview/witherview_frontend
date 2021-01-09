@@ -18,7 +18,7 @@ const WrapVideo = styled.video`
   width: ${({ isShowAnswer }) => (isShowAnswer ? 77.3 : 132.6)}vh;
   height: 59vh;
   border-radius: 2vh;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   background-size: cover;
   object-fit: cover;
   overflow: hidden;

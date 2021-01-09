@@ -111,6 +111,7 @@ export default function PeerStudyTrainPage({ match, history }) {
           <S.WrapCamView>
             {!isTrain && (
               <MyCamView
+                peers={step === STEP_CONNECT}
                 mediaBlobUrl={userVideo}
                 name="test"
                 absolute={step >= 2}
@@ -121,22 +122,19 @@ export default function PeerStudyTrainPage({ match, history }) {
                 <PeerVideo
                   key={index}
                   peer={peer}
-                  height={width / 5}
-                  width={isTrain ? width / 3.1 + 150 : width / 3.1}
                   isTrain={isTrain}
                   name="최빛"
                 />
               ))}
             {isTrain && (
               <InterviewChat
-                height={width / 5}
                 setInterviewer
                 chatData={chat}
                 onClick={handleClick}
               />
             )}
           </S.WrapCamView>
-          <S.WrapBottom width={width / 1.5}>
+          <S.WrapBottom>
             <S.WrapBottomSide>
               {isTrain && <RemainTime time={time} />}
             </S.WrapBottomSide>

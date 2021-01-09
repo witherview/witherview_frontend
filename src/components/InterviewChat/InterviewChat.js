@@ -6,76 +6,78 @@ import ProfileIcon from '../ProfileIcon/ProfileIcon';
 import ChatInput from '../ChatInput/ChatInput';
 
 const Wrapper = styled.div`
-  height: ${({ height }) => height}px;
-  width: 487px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border-radius: 20px;
+  height: 59vh;
+  width: 48.7vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border-radius: 2vh;
   background-color: #ffffff;
 `;
 
 const WrapperHeader = styled.div`
   display: flex;
-  padding: 29px 31px 32px 31px;
+  padding: 2.9vh 3.1vh 3.2vh 3.1vh;
   box-sizing: border-box;
   background-color: #ffffff;
-  border: solid 1px #f6f6f6;
-  border-radius: 20px 20px 0 0;
+  border: solid 0.1vh #f6f6f6;
+  border-radius: 2vh 2vh 0 0;
 `;
 
 const UserInfo = styled.div`
   text-align: left;
-  margin-top: 5px;
-  margin-left: 30px;
+  margin-top: 0.5vh;
+  margin-left: 3vh;
 
   & > * {
-    font-size: 15px;
+    font-size: 1.5vh;
     font-family: AppleSDGothicNeoM00;
     color: #d3d3d3;
   }
   & p:first-child {
-    font-size: 24px;
+    font-size: 2.2vh;
     font-family: AppleSDGothicNeoB00;
     color: #000000;
-    margin-bottom: 8px;
+    margin-bottom: 1.7vh;
   }
 `;
 
 const WrapperContent = styled.div`
-  height: ${({ height }) => height - 250}px;
+  height: 36.5vh;
   overflow-y: scroll;
 `;
 
 const ChatMessageWrapper = styled.div`
   display: flex;
   align-items: flex-end;
-  padding: 0 18px 0 37px;
-  margin: 25px 0;
+  padding: 0 1.8vh 0 3.7vh;
+  margin: 2.5vh 0;
 `;
 
 const TimeInfo = styled.div`
   color: #d3d3d3;
   font-family: AppleSDGothicNeoM00;
-  font-size: 14px;
-  margin-right: 5px;
+  font-size: 1.4vh;
+  margin-right: 0.5vh;
 `;
 
 const MessageText = styled.div`
   width: 67%;
-  padding: 23px 43px 20px 30px;
-  border-radius: 20px 20px 0 20px;
+  padding: 2.3vh 4.3vh 2vh 3vh;
+  border-radius: 2vh 2vh 0 2vh;
   background-color: #eef0ff;
   font-family: AppleSDGothicNeoM00;
-  font-size: 20px;
+  font-size: 2vh;
   line-height: 1.3;
   color: #3d3d3d;
 `;
 
 const WrapperBottom = styled.div`
-  border: solid 1px #f6f6f6;
-  border-top: solid 1px #eef0ff;
+  border: solid 0.1vh #f6f6f6;
+  border-top: solid 0.1vh #eef0ff;
   background-color: #ffffff;
-  padding: 30px;
-  border-radius: 0 0 20px 20px;
+  padding: 2vh;
+  border-radius: 0 0 2vh 2vh;
+  display: flex;
+  justify-content: center;
 `;
 
 export default function InterviewChat({

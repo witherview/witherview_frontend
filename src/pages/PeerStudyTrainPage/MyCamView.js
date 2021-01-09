@@ -8,16 +8,16 @@ import NameLabel from '@components/CamView/NameLabel';
 import RecLabel from '@components/CamView/RecLabel';
 
 const Wrapper = styled.div`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
+  width: ${({ peers }) => (peers ? '66.3vh;' : '132.6vh;')}
+  height: 59vh;
   position: relative;
 `;
 
 const WrapVideo = styled.video`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+  width: 98%;
+  height: 100%;
+  border-radius: 2vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   background-size: cover;
   object-fit: cover;
   overflow: hidden;
@@ -25,39 +25,25 @@ const WrapVideo = styled.video`
 `;
 
 export default function MyCamView({
-  width,
-  height,
-  name,
-  status,
-  mediaBlobUrl,
+  name, status, mediaBlobUrl, peers,
 }) {
   return (
-    <Wrapper width={width} height={height}>
+    <Wrapper peers={peers}>
       {name ? <NameLabel name={name} /> : <></>}
       {status === 'recording' ? <RecLabel /> : <></>}
-      <WrapVideo
-        ref={mediaBlobUrl}
-        width={width}
-        height={height}
-        alt="image_view"
-        autoPlay
-        muted
-      />
+      <WrapVideo ref={mediaBlobUrl} alt="image_view" autoPlay muted />
     </Wrapper>
   );
 }
 
 MyCamView.propTypes = {
   mediaBlobUrl: PropTypes.object,
-  width: PropTypes.number,
-  height: PropTypes.number,
   name: PropTypes.string,
   status: PropTypes.string,
+  peers: PropTypes.bool,
 };
 
 MyCamView.defaultProps = {
-  width: 1167,
-  height: 590,
   name: undefined,
   status: 'stopped',
 };

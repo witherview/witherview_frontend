@@ -46,7 +46,7 @@ const WrapButton = styled.div`
 `;
 
 const WrapBottomSide = styled.div`
-  width: 250px;
+  width: 25vh;
   display: flex;
   justify-content: ${({ right }) => (right ? 'flex-end' : 'flex-start')};
   align-items: center;
