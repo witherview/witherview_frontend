@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import profileExample from '@assets/images/profile_example.png';
-
 const Wrapper = styled.div`
   width: ${({ isSmall }) => (isSmall ? 6 : 7.3)}vh;
   height: ${({ isSmall }) => (isSmall ? 6 : 7.3)}vh;
@@ -15,6 +13,7 @@ const Wrapper = styled.div`
   background-image: url(${({ src }) => src});
   background-position: center center;
   background-size: cover;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
 
 export default function ProfileIcon({ src, isSmall }) {
@@ -27,6 +26,5 @@ ProfileIcon.propTypes = {
 };
 
 ProfileIcon.defaultProps = {
-  src: profileExample,
   isSmall: false,
 };

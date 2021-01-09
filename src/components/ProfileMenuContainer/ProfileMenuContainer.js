@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import profileExample from '@assets/images/profile_example.png';
 import { setLogout } from '@store/Auth/auth';
 
 import Icon from '@components/IconTemp';
@@ -133,5 +132,4 @@ ProfileMenuContainer.propTypes = {
 
 ProfileMenuContainer.defaultProps = {
   name: '홍길동',
-  src: profileExample,
 };

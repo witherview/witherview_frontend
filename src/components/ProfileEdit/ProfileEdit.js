@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import profileExample from '@assets/images/profile_example.png';
 import Icon from '@components/IconTemp';
 
 const Wrapper = styled.div`
@@ -17,6 +16,7 @@ const Image = styled.div`
   background-image: url(${({ src }) => src});
   background-position: center center;
   background-size: cover;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
 
 const IconWrapper = styled.span`
@@ -42,8 +42,4 @@ export default function ProfileEdit({ src }) {
 
 ProfileEdit.propTypes = {
   src: PropTypes.string,
-};
-
-ProfileEdit.defaultProps = {
-  src: profileExample,
 };
