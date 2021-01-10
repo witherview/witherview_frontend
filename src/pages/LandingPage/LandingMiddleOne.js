@@ -10,40 +10,36 @@ import TextBoxC from './components/TextBoxC';
 import TextBoxB from './components/TextBoxB';
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 90%;
+  max-width: 1150px;
+  min-width: 600px;
   user-select: none;
-  min-height: 800px;
+  min-height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const WrapContainer = styled.div`
-  @media only screen and (max-width: 1870px) {
-    margin-bottom: 0px;
-  }
-
-  min-height: 600px;
+  min-height: 550px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   margin-top: 75px;
-  margin-bottom: 50px;
+  margin-bottom: 75px;
 `;
 
 const WrapBottomContent = styled.div`
-  @media only screen and (max-width: 1870px) {
-    min-height: 400px;
+  @media only screen and (max-width: 1150px) {
     justify-content: center;
   }
-
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export default function LandingMiddleOne({ myRef }) {
@@ -72,7 +68,11 @@ export default function LandingMiddleOne({ myRef }) {
               icon={TogetherIcon}
             />
           </div>
-          <div data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1000">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="1000"
+            data-aos-duration="1000"
+          >
             <TextBoxC
               header="심플한"
               summary={[
@@ -82,7 +82,11 @@ export default function LandingMiddleOne({ myRef }) {
               icon={SimpleIcon}
             />
           </div>
-          <div data-aos="fade-up" data-aos-delay="1500" data-aos-duration="1000">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="1500"
+            data-aos-duration="1000"
+          >
             <TextBoxC
               header="편안한"
               summary={[

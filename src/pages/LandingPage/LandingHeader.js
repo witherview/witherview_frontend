@@ -23,26 +23,27 @@ const Wrapper = styled.div`
 `;
 
 const WrapLeft = styled.img`
-  width: 140px;
+  width: 120px;
 `;
 
 const WrapContainer = styled.div`
   width: 90%;
-  max-width: 1700px;
+  max-width: 1150px;
+  min-width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const WrapTextButton = styled.div`
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1150px) {
     display: none;
   }
-  width: 60%;
+  min-width: 350px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 80px;
+  padding-right: 60px;
 `;
 
 const WrapRightInner = styled.div`
@@ -54,9 +55,12 @@ const WrapRightInner = styled.div`
 
 const WrapButton = styled.div`
   > div {
-    height: 30px;
+    height: 35px;
+    border-radius: 5px;
+    border-width: 1.5px;
     > p {
-      font-size: 15px;
+      font-size: 12px;
+      font-family: AppleSDGothicNeoEB00;
     }
   }
 `;
@@ -103,7 +107,7 @@ export default function LandingHeader({
             <C.Button
               id="menu_btn"
               theme="outline"
-              width={120}
+              width={140}
               text="LOG IN"
               func={() => history.push('/login')}
             />

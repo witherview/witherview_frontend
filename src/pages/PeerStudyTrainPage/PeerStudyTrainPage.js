@@ -58,7 +58,6 @@ export default function PeerStudyTrainPage({ match, history }) {
   const { time } = useSelector(get('time'));
   const [step, setStep] = useState(0);
   const { roomId } = match.params;
-  const { width } = useWindowSize();
   const { peers, userVideo, socketRef } = useSocketSignal({
     setStep,
     roomId,

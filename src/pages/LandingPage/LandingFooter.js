@@ -16,31 +16,34 @@ const Wrapper = styled.div`
 `;
 
 const WrapLeft = styled.img`
-  width: 140px;
+  width: 120px;
 `;
 
 const WrapContainer = styled.div`
-  max-width: 1700px;
   width: 90%;
+  max-width: 1150px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const WrapLeftInner = styled.div`
-  width: 50%;
+  @media only screen and (max-width: 1150px) {
+    width: 80%;
+  }
+
+  width: 40%;
   max-width: 600px;
-  min-width: 420px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const WrapText = styled.div`
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 1150px) {
     display: none;
   }
-  font-size: 20px;
+  font-size: 10px;
   color: #3d3d3d;
 `;
 

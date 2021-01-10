@@ -25,6 +25,16 @@ const theme = {
       }
     }
   `,
+  landingButton: css`
+    > div {
+      height: 45px;
+      border-radius: 8px;
+      border-width: 1.5px;
+      > p {
+        font-size: 14px;
+      }
+    }
+  `,
   input: css`
     > input {
       width: 53.3vh;

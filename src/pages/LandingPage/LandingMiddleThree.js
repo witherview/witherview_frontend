@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   }
   width: 100%;
   user-select: none;
-  min-height: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,12 +26,12 @@ const Wrapper = styled.div`
 const WrapContainer = styled.div`
   @media only screen and (max-width: 1870px) {
     width: 80%;
-    min-height: 600px;
+    height: 400px;
     justify-content: flex-start;
   }
   position: relative;
-  min-height: 1000px;
-  max-width: 1400px;
+  height: 700px;
+  max-width: 1100px;
   width: 80%;
   display: flex;
   align-items: center;
@@ -41,25 +40,21 @@ const WrapContainer = styled.div`
 
 const WrapImage = styled.img`
   @media only screen and (max-width: 1870px) {
-    height: 480px;
-    bottom: 100px;
+    height: 350px;
+    bottom: 0px;
     right: -70px;
   }
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1150px) {
     display: none;
-    position: relative;
-    bottom: auto;
-    height: 0px;
   }
   position: absolute;
   right: -100px;
-  height: 680px;
-  bottom: 170px;
+  height: 600px;
 `;
 
 const WrapPadding = styled.div`
   @media only screen and (max-width: 1870px) {
-    padding-top: 0px;
+    padding-top: 100px;
     padding-left: 0px;
   }
   padding-bottom: 100px;
@@ -67,28 +62,28 @@ const WrapPadding = styled.div`
 
 const WrapStaticImage = styled.img`
   @media only screen and (max-width: 1870px) {
-    height: 480px;
-    right: -260px;
-    top: 0px;
+    height: 300px;
+    right: -200px;
+    top: 50px;
   }
 
-  z-index: -2;
+  z-index: -10;
   overflow: auto;
-  height: 700px;
+  height: 600px;
   position: absolute;
   top: 50px;
-  right: -450px;
+  right: -400px;
 `;
 
 const WrapCarousel = styled.div`
   @media only screen and (max-width: 1870px) {
-    bottom: 100px;
+    bottom: 0px;
   }
   position: absolute;
   display: flex;
   justify-content: space-between;
   width: 80px;
-  bottom: 200px;
+  bottom: 50px;
   right: calc(50% - 40px);
 `;
 
@@ -157,7 +152,7 @@ export default function LandingMiddleThree({ myRefStudy }) {
         <WrapContainer>
           <WrapPadding>
             <TextBoxA
-              height={350}
+              height={250}
               header={handleText(state).header}
               content={handleText(state).content}
               summary={handleText(state).summary}

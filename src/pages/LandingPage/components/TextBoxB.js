@@ -15,12 +15,12 @@ const WrapText = styled.div`
   text-align: center;
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
   font-size: ${({ size }) => size}px;
-  ${({ bold }) => bold && 'font-family: AppleSDGothicNeoEB00;'}
+  ${({ bold }) => bold && 'font-family: AppleSDGothicNeoB00;'}
   color: ${({ color }) => color};
 `;
 
 const WrapPadding = styled.div`
-  padding: ${({ padding }) => padding && '30px 0 50px 0'};
+  padding: ${({ padding }) => padding && '0px 0 25px 0'};
 `;
 
 export default function TextBoxB({
@@ -28,10 +28,10 @@ export default function TextBoxB({
 }) {
   return (
     <Wrapper height={height}>
-      <WrapText lineHeight={false} size={24} bold color="#6e6eff">
+      <WrapText lineHeight={false} size={17.5} bold color="#6e6eff">
         {header}
       </WrapText>
-      <WrapText lineHeight="130%" size={65} bold color="black">
+      <WrapText lineHeight="100%" size={40} bold color="black">
         {content}
       </WrapText>
       <WrapPadding padding>
@@ -39,7 +39,7 @@ export default function TextBoxB({
           <WrapText
             key={`${key}-summary-B`}
             lineHeight="130%"
-            size={20}
+            size={15}
             color="black"
           >
             {each}

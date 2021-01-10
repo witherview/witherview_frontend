@@ -4,28 +4,25 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  @media only screen and (max-width: 1870px) {
+  @media only screen and (max-width: 1150px) {
     margin: 25px;
-    margin-bottom: 75px;
   }
-
-  height: 310px;
-  width: 440px;
+  height: 200px;
+  width: 330px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  margin: 50px;
 `;
 
 const WrapIcon = styled.img`
   z-index: 1;
   position: absolute;
-  top: 0;
-  left: 50px;
-  width: 105px;
-  height: 105px;
+  top: -40px;
+  left: 27px;
+  width: 80px;
+  height: 80px;
 `;
 
 const WrapContent = styled.div`
@@ -42,13 +39,13 @@ const WrapContent = styled.div`
 
 const WrapInnerContent = styled.div`
   height: 140px;
-  width: auto;
+  width: 260px;
 `;
 
 const WrapText = styled.div`
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
   font-size: ${({ size }) => size}px;
-  ${({ bold }) => bold && 'font-family: AppleSDGothicNeoEB00;'}
+  ${({ bold }) => bold && 'font-family: AppleSDGothicNeoB00;'}
   color: ${({ color }) => color};
 `;
 
@@ -63,7 +60,7 @@ export default function TextBoxC({ header, summary, icon }) {
       <WrapContent>
         <WrapInnerContent>
           <WrapPadding padding>
-            <WrapText size={28} bold>
+            <WrapText size={19} bold>
               {header}
             </WrapText>
           </WrapPadding>
@@ -71,7 +68,7 @@ export default function TextBoxC({ header, summary, icon }) {
             {summary.map((each, key) => (
               <WrapText
                 key={`${key}-summary-C`}
-                size={19}
+                size={13}
                 lineHeight="130%"
                 color="#3d3d3d"
               >
