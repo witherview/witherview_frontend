@@ -1,13 +1,13 @@
 import React from 'react';
-import AloneQuestionCheckList from './AloneQuestionCheckList';
+import SelfStudyChecklistPage from './SelfStudyChecklistPage';
 
 export default {
   title: 'Pages/Self Study/Check List',
-  component: AloneQuestionCheckList,
+  component: SelfStudyChecklistPage,
 };
 
 export const checkList = (args) => (
-  <AloneQuestionCheckList
+  <SelfStudyChecklistPage
     {...args}
     match={{
       params: { id: 1 },

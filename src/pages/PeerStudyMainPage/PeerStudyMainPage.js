@@ -12,9 +12,9 @@ import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from '@components/Modal/Modal';
 import usePageBottom from '@hooks/usePageBottom';
-import S from './StudyMainPage.style';
+import S from './PeerStudyMainPage.style';
 
-export default function StudyMainPage() {
+export default function PeerStudyMainPage() {
   const dispatch = useDispatch();
   const isPageBottom = usePageBottom();
   const [groupList, setGroupList] = useState([]);

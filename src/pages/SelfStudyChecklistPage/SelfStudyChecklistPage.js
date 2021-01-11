@@ -20,8 +20,8 @@ import {
 
 import { get } from '@utils/snippet';
 import Button from '@components/Button';
-import Icon from '@components/IconTemp';
 import EvaluationListMock from '@mocks/EvaluationListMock';
+import Icon from '@components/IconTemp';
 
 const CloseButton = styled.div`
   position: absolute;
@@ -272,7 +272,7 @@ const ChecklistEach = styled.li`
   }
 `;
 
-export default function AloneQuestionCheckList({ match }) {
+export default function SelfStudyChecklistPage({ match }) {
   const { roomId } = match.params;
   const dispatch = useDispatch();
   const history = useHistory();

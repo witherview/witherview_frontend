@@ -29,7 +29,7 @@ import Button from '@components/Button';
 import Icon from '@components/Icon';
 
 import RemainTime from '@components/RemainTime';
-import useWindowSize from '@hooks/useWindowSize';
+// import useWindowSize from '@hooks/useWindowSize';
 
 import Modal from '@components/Modal/Modal';
 import { showModal } from '@store/Modal/modal';

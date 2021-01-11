@@ -3,7 +3,7 @@ import React from 'react';
 import ProfileIcon from '@components/ProfileIcon/ProfileIcon';
 import ToggleButton from '@components/ToggleButton/ToggleButton';
 
-import S from './InterviewStudy.style';
+import S from './PeerStudyRoomPage.style';
 
 export default function UsersSection() {
   const FIRST_COLUMN = 88;

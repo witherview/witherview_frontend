@@ -5,12 +5,12 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import Button from '@components/Button/Button';
 
 import { getInterviewStudyRoomAPI } from '@repository/interviewStudyRepository';
-import S from './InterviewStudy.style';
+import S from './PeerStudyRoomPage.style';
 import UsersSection from './UsersSection';
 
 const DEFAULT_ID = 421;
 
-export default function InterviewStudyEntry({ match, history }) {
+export default function PeerStudyRoomPage({ match, history }) {
   const { id } = match.params;
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
@@ -76,7 +76,7 @@ export default function InterviewStudyEntry({ match, history }) {
   );
 }
 
-InterviewStudyEntry.propTypes = {
+PeerStudyRoomPage.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 };

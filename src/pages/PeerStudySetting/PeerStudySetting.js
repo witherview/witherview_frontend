@@ -102,7 +102,7 @@ const InnerText = styled.div`
   color: #000000;
 `;
 
-export default function StudySetting({ history }) {
+export default function PeerStudySetting({ history }) {
   const [first, setFirst] = useState();
   const { selectedQnaId } = useSelector(get('train'));
   const { standardTime } = useSelector(get('train'));
@@ -169,6 +169,6 @@ export default function StudySetting({ history }) {
   );
 }
 
-StudySetting.propTypes = {
+PeerStudySetting.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
 };

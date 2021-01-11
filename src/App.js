@@ -19,16 +19,17 @@ import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
 
-import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
-import MyPage from '@pages/MyPage';
-import StudyMainPage from '@pages/StudyMainPage';
-import InterviewStudyEntry from '@pages/InterviewStudyEntry';
+import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
+import PeerStudyMainPage from '@pages/PeerStudyMainPage';
+import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
+
+import PeerStudyRoomPage from '@pages/PeerStudyRoomPage';
 
 import MyVideoPage from '@pages/MyVideoPage';
 import VideoPage from '@pages/VideoPage';
-import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
+import MyPage from '@pages/MyPage';
 
-import FragileRatio from '@pages/FragileRatio';
+import FragileRatioPage from '@pages/FragileRatioPage';
 
 import Sidebar from '@components/Sidebar';
 import ProfileMenuContainer from '@components/ProfileMenuContainer';
@@ -78,7 +79,7 @@ export default function App() {
             <SyncLoader size={50} color="#123abc" />
           </WrapSpinner>
         )}
-        {ratio < 1.6 && <FragileRatio />}
+        {ratio < 1.6 && <FragileRatioPage />}
         <Wrapper>
           {!toggleTrain && <Sidebar />}
           {!toggleTrain && <ProfileMenuContainer name={name} />}
@@ -98,12 +99,12 @@ export default function App() {
             <AuthRoute
               exact
               path="/self-checklist/:roomId"
-              component={AloneQuestionCheckList}
+              component={SelfStudyChecklist}
             />
             <AuthRoute exact path="/myvideo" component={MyVideoPage} />
             <AuthRoute exact path="/video/:id" component={VideoPage} />
-            <AuthRoute path="/group-study" component={StudyMainPage} />
-            <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
+            <AuthRoute path="/group-study" component={PeerStudyMainPage} />
+            <AuthRoute path="/study-room/:id" component={PeerStudyRoomPage} />
             <AuthRoute
               path="/peer-study/:roomId"
               component={PeerStudyTrainPage}
