@@ -66,7 +66,7 @@ export default function Sidebar() {
       value === 0
         ? '/self'
         : value === 1
-        ? '/group-study'
+        ? '/peer-study'
         : value === 2
         ? '/mypage'
         : 'myvideo',

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
-
+import PropTypes from 'prop-types';
 // import Timeout from 'await-timeout';
 // import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -47,7 +47,7 @@ const STEP_TRAIN_FIRST = 2;
 const STEP_TRAIN_SECOND = 3;
 const STEP_FINAL = 4;
 
-export default function PeerStudyTrainPage({ match, history }) {
+export default function PeerStudyTrainPage({ roomId, history }) {
   // TODO: 녹화부분 연동
   // const { status, startRecording, stopRecording } = useReactMediaRecorder({
   //   stream: true,
@@ -57,7 +57,6 @@ export default function PeerStudyTrainPage({ match, history }) {
 
   const { time } = useSelector(get('time'));
   const [step, setStep] = useState(0);
-  const { roomId } = match.params;
   const { peers, userVideo, socketRef } = useSocketSignal({
     setStep,
     roomId,
@@ -81,7 +80,7 @@ export default function PeerStudyTrainPage({ match, history }) {
       dispatch(setToggleTrain({ toggleTrain: true }));
       setStep(STEP_CONNECT);
     }
-    if (peers.length === 0 && step > 0) history.push('/group-study');
+    if (peers.length === 0 && step > 0) history.push('/peer-study');
     if (isTrain) {
       dispatch(startTime({ count: 1800 }));
     }
@@ -100,7 +99,7 @@ export default function PeerStudyTrainPage({ match, history }) {
             <Icon
               isCircle
               type="cancel_circle"
-              func={() => history.push('/group-study')}
+              func={() => history.push('/peer-study')}
               alt="cancel"
             />
           )}
@@ -158,6 +157,6 @@ export default function PeerStudyTrainPage({ match, history }) {
 }
 
 PeerStudyTrainPage.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
+  roomId: PropTypes.string,
   history: ReactRouterPropTypes.history.isRequired,
 };

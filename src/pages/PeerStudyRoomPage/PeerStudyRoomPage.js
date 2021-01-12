@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 
 import Button from '@components/Button/Button';
-
 import { getInterviewStudyRoomAPI } from '@repository/interviewStudyRepository';
+
 import S from './PeerStudyRoomPage.style';
+
 import UsersSection from './UsersSection';
 
 const DEFAULT_ID = 421;
 
-export default function PeerStudyRoomPage({ match, history }) {
-  const { id } = match.params;
+export default function PeerStudyRoomPage({ id, setStepSetting, setStepTrain }) {
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
   const [description, setDescription] = useState();
@@ -62,11 +62,8 @@ export default function PeerStudyRoomPage({ match, history }) {
             </S.TextWrapper>
             <S.BoxWrapper>
               <Button text="방 나가기" theme="gray" />
-              <Button
-                text="스터디 시작하기"
-                func={() => history.push(`/peer-study/${id}`)}
-                theme="blue"
-              />
+              {/* TODO: 방장의 경우 Setting 설정으로 넘어가도록 해야 함 */}
+              <Button text="스터디 시작하기" func={setStepTrain} theme="blue" />
             </S.BoxWrapper>
           </S.InterviewRoomInfo>
           <UsersSection />
@@ -77,6 +74,7 @@ export default function PeerStudyRoomPage({ match, history }) {
 }
 
 PeerStudyRoomPage.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
-  history: ReactRouterPropTypes.history.isRequired,
+  id: PropTypes.string,
+  setStepSetting: PropTypes.func,
+  setStepTrain: PropTypes.func,
 };

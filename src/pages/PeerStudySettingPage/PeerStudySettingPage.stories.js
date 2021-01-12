@@ -1,5 +1,5 @@
 import React from 'react';
-import PeerStudySetting from './PeerStudySetting';
+import PeerStudySetting from './PeerStudySettingPage';
 
 export default {
   title: 'Pages/Peer Study/Study Setting',

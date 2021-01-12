@@ -18,12 +18,10 @@ import QuestionPage from '@pages/QuestionPage';
 import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
-
 import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
-import PeerStudyMainPage from '@pages/PeerStudyMainPage';
-import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
 
-import PeerStudyRoomPage from '@pages/PeerStudyRoomPage';
+import PeerStudyMainPage from '@pages/PeerStudyMainPage';
+import PeerStudyRoute from '@routes/PeerStudyRoute';
 
 import MyVideoPage from '@pages/MyVideoPage';
 import VideoPage from '@pages/VideoPage';
@@ -103,12 +101,8 @@ export default function App() {
             />
             <AuthRoute exact path="/myvideo" component={MyVideoPage} />
             <AuthRoute exact path="/video/:id" component={VideoPage} />
-            <AuthRoute path="/group-study" component={PeerStudyMainPage} />
-            <AuthRoute path="/study-room/:id" component={PeerStudyRoomPage} />
-            <AuthRoute
-              path="/peer-study/:roomId"
-              component={PeerStudyTrainPage}
-            />
+            <AuthRoute path="/peer-study" component={PeerStudyMainPage} />
+            <AuthRoute path="/peer/:id" component={PeerStudyRoute} />
             <AuthRoute path="/mypage" component={MyPage} />
           </WrapPage>
         </Wrapper>

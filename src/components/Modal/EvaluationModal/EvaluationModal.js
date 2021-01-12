@@ -171,7 +171,7 @@ export default function EvaluationModal({ roomId }) {
     postGroupFeedback(data)
       .then(() => {
         dispatch(hideModal(MODALS.EVALUATION_MODAL));
-        history.push('/group-study');
+        history.push('/peer-study');
       })
       .catch((error) => {
         console.error(error);
