@@ -75,7 +75,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "aos": "^2.3.4",
     "await-timeout": "^1.1.1",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "dotenv": "^8.2.0",
     "hls.js": "^0.14.17",
