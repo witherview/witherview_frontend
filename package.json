@@ -1,7 +1,7 @@
 {
   "name": "witherview",
   "version": "1.0.0",
-  "description": "YAPP_17th_WEB_2",
+  "description": "위더뷰| 취업준비생 면접 스터디 플랫폼",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --coverage",
@@ -18,19 +18,68 @@
     "url": "git+https://github.com/Yapp-17th/Web_2_Client.git"
   },
   "keywords": [
-    "interview"
+    "interview",
+    "인터뷰",
+    "면접",
+    "취업 준비생",
+    "취준생",
+    "스터디"
   ],
-  "author": "none",
+  "author": "Yapp-17th/Web-2",
+  "contributors": [
+    {
+      "name": "김병헌",
+      "role": "Product Manager",
+      "email": "75nstebesb@gmail.com",
+      "url": "https://github.com/kbh18"
+    },
+    {
+      "name": "이은비",
+      "role": "Designer",
+      "email": "dldmsql502@gmail.com",
+      "url": "https://github.com/2lanbi"
+    },
+    {
+      "name": "성재호",
+      "role": "Backend Engineer",
+      "email": "tjdwogh45@gmail.com",
+      "url": "https://github.com/sjh2428"
+    },
+    {
+      "name": "문예은",
+      "role": "Backend Engineer",
+      "email": "ggyeeungg@naver.com",
+      "url": "https://github.com/MoonYeeun"
+    },
+    {
+      "name": "박기태",
+      "role": "Frontend Engineer",
+      "email": "rlxo1651@naver.com",
+      "url": "https://github.com/SkynI25"
+    },
+    {
+      "name": "김찬호",
+      "role": "Frontend Engineer",
+      "email": "cksgh405@gmail.com",
+      "url": "https://github.com/Lavegaa"
+    },
+    {
+      "name": "이용재",
+      "role": "Frontend Engineer",
+      "email": "dev.yongjaelee@gmail.com",
+      "url": "https://github.com/dididy"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Yapp-17th/Web_2_Client/issues"
   },
+  "homepage": "https://witherview.com",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "echo pre-commit"
     }
   },
-  "homepage": "https://github.com/Yapp-17th/Web_2_Client#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
@@ -58,7 +107,6 @@
     "given2": "^2.1.7",
     "html-loader": "^1.3.2",
     "html-webpack-plugin": "^4.5.1",
-    "husky": "^5.0.6",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "jest-plugin-context": "^2.9.0",
@@ -85,6 +133,7 @@
     "babel-polyfill": "^6.26.0",
     "dotenv": "^8.2.0",
     "hls.js": "^0.14.17",
+    "husky": "^4.3.7",
     "immutability-helper": "^3.1.1",
     "moment": "^2.29.1",
     "net": "^1.0.2",
