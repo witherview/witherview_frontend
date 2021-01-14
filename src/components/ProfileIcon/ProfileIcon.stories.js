@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-
-import profileExample from '@assets/images/profile_example.png';
+import PropTypes from 'prop-types';
 import ProfileIcon from './ProfileIcon';
 
 export default {
@@ -9,9 +8,13 @@ export default {
   description: 'Set Normal and small Profile Icon',
 };
 
-export const NormalProfileIcon = ({ src = profileExample }) => (
-  <ProfileIcon src={src} />
-);
-export const SmallProfileIcon = ({ src = profileExample }) => (
-  <ProfileIcon isSmall src={src} />
-);
+export const NormalProfileIcon = ({ src }) => <ProfileIcon src={src} />;
+export const SmallProfileIcon = ({ src }) => <ProfileIcon isSmall src={src} />;
+
+NormalProfileIcon.propTypes = {
+  src: PropTypes.string,
+};
+
+SmallProfileIcon.propTypes = {
+  src: PropTypes.string,
+};

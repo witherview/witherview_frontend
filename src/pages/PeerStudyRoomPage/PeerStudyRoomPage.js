@@ -47,6 +47,8 @@ export default function PeerStudyRoomPage({ match, history }) {
   };
 
   useEffect(() => {
+    // TODO: delete below line
+    console.log(setStepSetting);
     fetchRoomInfo();
   }, []);
 

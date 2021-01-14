@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import ProfileMenuContainer from './ProfileMenuContainer';
 
 export default {
@@ -16,3 +16,12 @@ export const ProfileMenuDefault = ({ src = profileImage }) => (
 export const ProfileMenuName = ({ src = profileImage, name = '아무개' }) => (
   <ProfileMenuContainer name={name} src={src} />
 );
+
+ProfileMenuDefault.propTypes = {
+  src: PropTypes.string,
+};
+
+ProfileMenuName.propTypes = {
+  src: PropTypes.string,
+  name: PropTypes.string,
+};
