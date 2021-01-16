@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import C from '@components';
+import A from '@atoms';
 import LandingBottomImage from '@assets/images/landing_bottom.png';
 import TextBoxB from './components/TextBoxB';
 
@@ -53,7 +53,7 @@ export default function LandingBottom() {
             ]}
           />
           <WrapButton>
-            <C.Button
+            <A.Button
               theme="blue"
               width={180}
               func={() => history.push('./login')}

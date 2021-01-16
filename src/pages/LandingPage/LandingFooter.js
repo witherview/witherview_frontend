@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import C from '@components';
+import A from '@atoms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
 
 const Wrapper = styled.div`
@@ -53,8 +53,8 @@ export default function LandingFooter() {
       <WrapContainer>
         <WrapLeftInner>
           <WrapLeft src={Logo} />
-          <C.TextButtonProps text="이용약관" />
-          <C.TextButtonProps text="개인정보처리방침" />
+          <A.TextButton text="이용약관" />
+          <A.TextButton text="개인정보처리방침" />
         </WrapLeftInner>
         <WrapText>Copyrightⓒ WITHERVIEW All Rights Reserved.</WrapText>
       </WrapContainer>

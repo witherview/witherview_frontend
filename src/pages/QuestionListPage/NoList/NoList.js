@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import NoListImage from '@assets/images/illust_4.png';
-import Icon from '@components/Icon';
+import A from '@atoms';
 
 const Image = styled.img`
   width: 32.7vh;
@@ -51,7 +51,7 @@ export default function NoList() {
       <Text>등록된 질문 리스트가 없습니다.</Text>
       <Link to="/question/new" style={{ textDecoration: 'none' }}>
         <Button>
-          <Icon type="add_white" alt="" />
+          <A.Icon type="add_white" alt="" />
           <ButtonText>질문 리스트 등록하기</ButtonText>
         </Button>
       </Link>

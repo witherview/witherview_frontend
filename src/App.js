@@ -7,7 +7,9 @@ import SyncLoader from 'react-spinners/SyncLoader';
 
 import LandingPage from '@pages/LandingPage';
 
-import AuthRoute from '@components/AuthRoute';
+import R from '@routes';
+import O from '@organisms';
+
 import NotFound from '@pages/404';
 import LoginPage from '@pages/LoginPage';
 import SignUpPage from '@pages/SignUpPage';
@@ -19,18 +21,13 @@ import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
 import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
-
 import PeerStudyMainPage from '@pages/PeerStudyMainPage';
-import PeerStudyRoute from '@routes/PeerStudyRoute';
 
 import MyVideoPage from '@pages/MyVideoPage';
 import VideoPage from '@pages/VideoPage';
 import MyPage from '@pages/MyPage';
 
 import FragileRatioPage from '@pages/FragileRatioPage';
-
-import Sidebar from '@components/Sidebar';
-import ProfileMenuContainer from '@components/ProfileMenuContainer';
 
 import useWindowSize from '@hooks/useWindowSize';
 
@@ -71,7 +68,7 @@ export default function App() {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/sign-up" component={SignUpPage} />
-        <AuthRoute exact path="/welcome" component={WelcomePage} />
+        <R.AuthRoute exact path="/welcome" component={WelcomePage} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
@@ -79,34 +76,34 @@ export default function App() {
         )}
         {ratio < 1.6 && <FragileRatioPage />}
         <Wrapper>
-          {!toggleTrain && <Sidebar />}
-          {!toggleTrain && <ProfileMenuContainer name={name} />}
+          {!toggleTrain && <O.SideBar />}
+          {!toggleTrain && <O.ProfileMenuContainer name={name} />}
           <WrapPage toggleTrain={toggleTrain}>
             <Route exact path="/self" component={SelfTrainEntryPage} />
-            <AuthRoute
+            <R.AuthRoute
               exact
               path="/questionlist"
               component={QuestionListPage}
             />
-            <AuthRoute path="/question/:id" component={QuestionPage} />
-            <AuthRoute
+            <R.AuthRoute path="/question/:id" component={QuestionPage} />
+            <R.AuthRoute
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
             />
-            <AuthRoute path="/self-train/:id" component={SelfTrainPage} />
-            <AuthRoute
+            <R.AuthRoute path="/self-train/:id" component={SelfTrainPage} />
+            <R.AuthRoute
               exact
               path="/self-checklist/:roomId"
               component={SelfStudyChecklist}
             />
-            <AuthRoute exact path="/myvideo" component={MyVideoPage} />
-            <AuthRoute exact path="/video/:id" component={VideoPage} />
-            <AuthRoute path="/peer-study" component={PeerStudyMainPage} />
-            <AuthRoute path="/peer/:id" component={PeerStudyRoute} />
-            <AuthRoute path="/mypage" component={MyPage} />
+            <R.AuthRoute exact path="/myvideo" component={MyVideoPage} />
+            <R.AuthRoute exact path="/video/:id" component={VideoPage} />
+            <R.AuthRoute path="/peer-study" component={PeerStudyMainPage} />
+            <R.AuthRoute path="/peer/:id" component={R.PeerStudyRoute} />
+            <R.AuthRoute path="/mypage" component={MyPage} />
           </WrapPage>
         </Wrapper>
-        <AuthRoute component={NotFound} />
+        <R.AuthRoute component={NotFound} />
       </Switch>
     </>
   );

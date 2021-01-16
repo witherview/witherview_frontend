@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
 import { get } from '@utils/snippet';
-import TextBox from '@components/TextBox';
-import Button from '@components/Button';
-import TimeButton from '@components/TimeButton';
-import ToggleButton from '@components/ToggleButton';
+
+import A from '@atoms';
+import M from '@molecules';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -113,7 +112,7 @@ export default function PeerStudySettingPage({ setStepTrain }) {
   return (
     <Wrapper>
       <WrapContent>
-        <TextBox
+        <M.TextBox
           topText="환경설정을 시작하겠습니다."
           bottomText="질문 제한 시간을 설정하고 스터디 면접 시간을 선택해주세요."
         />
@@ -122,14 +121,14 @@ export default function PeerStudySettingPage({ setStepTrain }) {
             <Text>스터디 면접 시간</Text>
             <WrapText>질문 제한 시간 설정</WrapText>
             {/* TODO: 질문 제한 시간 토글 기능 넣어야 함 */}
-            <ToggleButton />
+            <A.ToggleButton />
           </WrapToggle>
           <WrapSubContainer>
-            <TimeButton time={30} unit="분" />
+            <M.TimeButton time={30} unit="분" />
             <Margin />
-            <TimeButton time={45} unit="분" />
+            <M.TimeButton time={45} unit="분" />
             <Margin />
-            <TimeButton time={60} unit="분" />
+            <M.TimeButton time={60} unit="분" />
             <Margin />
             <TextButton>
               <InnerText>무한</InnerText>
@@ -158,7 +157,7 @@ export default function PeerStudySettingPage({ setStepTrain }) {
             </TextButton>
           </WrapSubContainer>
         </WrapContainer>
-        <Button
+        <A.Button
           theme={first && standardTime > 0 ? 'blue' : 'gray'}
           text="다음"
           func={setStepTrain}

@@ -24,9 +24,9 @@ module.exports = async ({ config }) => {
 
   config.resolve.alias = {
     '@atoms': path.resolve(__dirname, '../src/components/atoms'),
-    // '@molecule': path.resolve(__dirname, 'src/components/molecule'),
-    // '@organism': path.resolve(__dirname, 'src/components/organism'),
-    '@components': path.resolve(__dirname, '../src/components'),
+    '@molecules': path.resolve(__dirname, '../src/components/molecules'),
+    '@organisms': path.resolve(__dirname, '../src/components/organisms'),
+    // '@components': path.resolve(__dirname, '../src/components'),
     // '@templates': path.resolve(__dirname, 'src/pages/template'),
     '@pages': path.resolve(__dirname, '../src/pages'),
     '@assets': path.resolve(__dirname, '../src/assets'),

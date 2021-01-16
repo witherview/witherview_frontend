@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import Button from '@components/Button/Button';
 import { getInterviewStudyRoomAPI } from '@repository/interviewStudyRepository';
 
+import A from '@atoms';
 import S from './PeerStudyRoomPage.style';
 
 import UsersSection from './UsersSection';
@@ -63,9 +63,9 @@ export default function PeerStudyRoomPage({ id, setStepSetting, setStepTrain }) 
               <S.Description>{description}</S.Description>
             </S.TextWrapper>
             <S.BoxWrapper>
-              <Button text="방 나가기" theme="gray" />
+              <A.Button text="방 나가기" theme="gray" />
               {/* TODO: 방장의 경우 Setting 설정으로 넘어가도록 해야 함 */}
-              <Button text="스터디 시작하기" func={setStepTrain} theme="blue" />
+              <A.Button text="스터디 시작하기" func={setStepTrain} theme="blue" />
             </S.BoxWrapper>
           </S.InterviewRoomInfo>
           <UsersSection />

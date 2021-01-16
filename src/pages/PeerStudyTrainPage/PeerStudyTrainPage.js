@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
@@ -22,16 +21,13 @@ import { get } from '@utils/snippet';
 // import { postPreVideoApi } from '@repository/requestVideoRepository';
 // import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
-import InterviewChat from '@components/InterviewChat';
+import A from '@atoms';
+import M from '@molecules';
+import O from '@organisms';
 
-import TextBox from '@components/TextBox';
-import Button from '@components/Button';
-import Icon from '@components/Icon';
-
-import RemainTime from '@components/RemainTime';
 // import useWindowSize from '@hooks/useWindowSize';
 
-import Modal from '@components/Modal/Modal';
+import Modal from '@organisms/Modal/Modal';
 import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 
@@ -66,7 +62,7 @@ export default function PeerStudyTrainPage({ roomId, history }) {
   useEffect(() => () => dispatch(setToggleTrain({ toggleTrain: false })), []);
 
   const textBox = (
-    <TextBox topText={Fixture[step].top} bottomText={Fixture[step].bottom} />
+    <M.TextBox topText={Fixture[step].top} bottomText={Fixture[step].bottom} />
   );
 
   const isStepFirst = peers.length === 0 && step === 0;
@@ -96,7 +92,7 @@ export default function PeerStudyTrainPage({ roomId, history }) {
       <S.WrapContainer>
         <S.WrapAbsolute>
           {!isStepFirst && (
-            <Icon
+            <A.Icon
               isCircle
               type="cancel_circle"
               func={() => history.push('/peer-study')}
@@ -125,7 +121,7 @@ export default function PeerStudyTrainPage({ roomId, history }) {
                 />
               ))}
             {isTrain && (
-              <InterviewChat
+              <O.InterviewChat
                 setInterviewer
                 chatData={chat}
                 onClick={handleClick}
@@ -134,10 +130,10 @@ export default function PeerStudyTrainPage({ roomId, history }) {
           </S.WrapCamView>
           <S.WrapBottom>
             <S.WrapBottomSide>
-              {isTrain && <RemainTime time={time} />}
+              {isTrain && <M.RemainTime time={time} />}
             </S.WrapBottomSide>
             <S.WrapButton>
-              <Button
+              <A.Button
                 theme={step === STEP_FIRST ? 'gray' : 'blue'}
                 text={Fixture[step].button}
                 socketRef
