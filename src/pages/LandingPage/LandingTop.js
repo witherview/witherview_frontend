@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import C from '@components';
+import A from '@atoms';
 import LandingTopImage from '@assets/images/landing_top.png';
 import TextBoxA from './components/TextBoxA';
 
@@ -73,7 +73,7 @@ export default function LandingTop({ myRef }) {
             ]}
           />
           <WrapButton>
-            <C.Button
+            <A.Button
               theme="blue"
               width={180}
               func={() => history.push('./login')}

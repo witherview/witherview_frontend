@@ -4,13 +4,11 @@ import {
   getGroupListApi,
   getGroupMemberApi,
 } from '@repository/groupRepository';
-import Icon from '@components/IconTemp';
-import TextButton from '@components/TextButton';
-import ProfileInfoContainer from '@components/ProfileInfoContainer/ProfileInfoContainer';
-import StudyCardView from '@components/StudyCardView';
+import A from '@atoms';
+import O from '@organisms';
 import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
-import Modal from '@components/Modal/Modal';
+import Modal from '@organisms/Modal/Modal';
 import usePageBottom from '@hooks/usePageBottom';
 import S from './PeerStudyMainPage.style';
 
@@ -71,35 +69,35 @@ export default function PeerStudyMainPage() {
     const item = [];
     for (let i = 0; i < 2; i += 1) {
       item.push(
-        <ProfileInfoContainer
+        <O.ProfileInfoContainer
           name="이영희"
           participateRate={95}
           src="https://images.generated.photos/wNQ4DFhYBW1rhVfJcABnSbnEqvAYvNFC2FoXFmSlQDk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NjI5NTJfMDc4/MzU0N18wNzU2MTIz/LmpwZw.jpg"
         />,
       );
       item.push(
-        <ProfileInfoContainer
+        <O.ProfileInfoContainer
           name="김민수"
           participateRate={97}
           src="https://images.generated.photos/Mvj3BACVuVB7nhFBMntFD2_GSpti55sQZGA6W41CbkA/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2MjQwMjguanBn.jpg"
         />,
       );
       item.push(
-        <ProfileInfoContainer
+        <O.ProfileInfoContainer
           name="이수근"
           participateRate={82}
           src="https://images.generated.photos/2eakikvGnP8RXguLLlS5btl2IsS3ao6T9E1eE8b0Kik/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzM4ODZfMDI5/NzcyOF8wMTcyMjAz/LmpwZw.jpg"
         />,
       );
       item.push(
-        <ProfileInfoContainer
+        <O.ProfileInfoContainer
           name="박미나"
           participateRate={91}
           src="https://images.generated.photos/vrlHRAktOiwyM0-2632IhhbhEj2vDafwnBvTll8rpdk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NjgxMzYuanBn.jpg"
         />,
       );
       item.push(
-        <ProfileInfoContainer
+        <O.ProfileInfoContainer
           name="홍길동"
           participateRate={90}
           src="https://images.generated.photos/BJlxsNPRJxDUZKrc3v-ok3_aY10keLpkqvXb6wHPo6Q/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMTI1NDZfMDQ5/MTQxMV8wMTIxMjg5/LmpwZw.jpg"
@@ -115,7 +113,7 @@ export default function PeerStudyMainPage() {
       <div>
         <S.SearchWrapper>
           <S.IconWrapper>
-            <Icon type="search" alt="" />
+            <A.Icon type="search" alt="" />
           </S.IconWrapper>
           <S.Input placeholder="Search" />
         </S.SearchWrapper>
@@ -126,24 +124,24 @@ export default function PeerStudyMainPage() {
               <S.ButtonWrapper>
                 {ButtonList.map((val, key) => (
                   <S.TextButtonWrapper key={key}>
-                    <TextButton text={val} />
+                    <A.TextButton text={val} />
                   </S.TextButtonWrapper>
                 ))}
                 <S.FilterWrapper>
-                  <Icon type="filter" alt="" />
+                  <A.Icon type="filter" alt="" />
                 </S.FilterWrapper>
               </S.ButtonWrapper>
               <S.StudyListWrapper>
                 <S.Wrap onClick={handleStudyAddModal}>
                   <S.AddStudy>
-                    <Icon type="add_black" />
+                    <A.Icon type="add_black" />
                     <S.AddText>방 만들기</S.AddText>
                   </S.AddStudy>
                 </S.Wrap>
                 {groupList?.map((val, key) => {
                   const count = member.filter((elem) => elem.id === val.id)[0];
                   return (
-                    <StudyCardView
+                    <O.StudyCardView
                       key={key}
                       id={val.id}
                       title={val.title}

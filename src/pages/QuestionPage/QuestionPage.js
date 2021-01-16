@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { sortObjectByOrder, get } from '@utils/snippet';
+import { sortObjectByOrder } from '@utils/snippet';
 import {
   deleteQuestionItemAPI,
   getQuestionItemAPI,
@@ -14,14 +14,12 @@ import {
   patchQuestionItemAPI,
 } from '@repository/questionListRepository';
 
-import Button from '@components/Button';
-import ProfileMenuContiner from '@components/ProfileMenuContainer';
 import { setSelectedQnaId } from '@store/Train/train';
 import { AddQuestions, ResetQuestions } from '@store/Question/question';
 
-import Icon from '@components/IconTemp';
-import QuestionList from '@components/Question/QuestionList';
-import Modal from '@components/Modal/Modal';
+import A from '@atoms';
+import O from '@organisms';
+
 import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 
@@ -36,11 +34,6 @@ const PageWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   height: 80vh;
-`;
-
-const ProfileWrapper = styled.div`
-  float: right;
-  margin: 5.3vh 10.5vh 0 0;
 `;
 
 const Wrapper = styled.div`
@@ -132,7 +125,6 @@ const ButtonWrapper = styled.div`
 
 export default function QuestionPage({ match }) {
   const dispatch = useDispatch();
-  const authSelector = useSelector(get('auth'));
   const [questionList, setQuestionList] = useState([]);
   const [deletedItems, setDeletedItems] = useState([]);
   const [title, setTitle] = useState('');
@@ -230,12 +222,9 @@ export default function QuestionPage({ match }) {
   return (
     <>
       <PageWrapper>
-        <Modal modalName={MODALS.QUESTIONLIST_SAVE_MODAL} />
-        <Modal modalName={MODALS.SELF_TRAIN_START_MODAL} />
+        <O.Modal modalName={MODALS.QUESTIONLIST_SAVE_MODAL} />
+        <O.Modal modalName={MODALS.SELF_TRAIN_START_MODAL} />
         <ContentWrapper>
-          <ProfileWrapper>
-            <ProfileMenuContiner name={authSelector.name} />
-          </ProfileWrapper>
           <Wrapper>
             <Title>면접 질문 작성 및 수정하기</Title>
             <Input>
@@ -245,7 +234,7 @@ export default function QuestionPage({ match }) {
                 onChange={handleTitle}
               />
               <IconWrapper>
-                <Icon
+                <A.Icon
                   type="check_rec"
                   func={handleQuestionAdd}
                   alt="check rec"
@@ -261,7 +250,7 @@ export default function QuestionPage({ match }) {
                 <ListWrapper>
                   <Scroll>
                     <DndProvider backend={HTML5Backend}>
-                      <QuestionList
+                      <O.QuestionList
                         questions={questionList}
                         setQuestions={setQuestionList}
                         setDeletedItems={setDeletedItems}
@@ -271,7 +260,7 @@ export default function QuestionPage({ match }) {
                 </ListWrapper>
               )}
               <ButtonWrapper>
-                <Button
+                <A.Button
                   func={handleQuestionMake}
                   text={id === 'new' ? '저장' : '완료'}
                   theme={isListEmpty ? 'gray' : 'blue'}

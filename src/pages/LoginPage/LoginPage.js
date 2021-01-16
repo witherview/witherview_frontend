@@ -12,9 +12,7 @@ import { get } from '@utils/snippet';
 import { setLogin } from '@store/Auth/auth';
 import { loginApi } from '@repository/loginRepository';
 
-import InputBar from '@components/InputBar';
-import Checkbox from '@components/Checkbox';
-import Button from '@components/Button';
+import A from '@atoms';
 
 import useWindowSize from '@hooks/useWindowSize';
 
@@ -207,7 +205,7 @@ export default function LoginPage({ history }) {
             <WrapUpperContainer>
               <WrapInput>
                 <WrapText>이메일 주소</WrapText>
-                <InputBar
+                <A.InputBar
                   disabled={toggleCheck}
                   autoFocus={ratio > 0.65}
                   value={loginForm.email}
@@ -218,7 +216,7 @@ export default function LoginPage({ history }) {
               </WrapInput>
               <WrapInput>
                 <WrapText>비밀번호</WrapText>
-                <InputBar
+                <A.InputBar
                   disabled={toggleCheck}
                   value={loginForm.password}
                   placeholder="비밀번호를 입력해주세요."
@@ -231,7 +229,7 @@ export default function LoginPage({ history }) {
             <WrapMiddleContainer>
               <WrapMiddlePart>
                 {/* 로그인 유지가 아니라 이메일 유지로 바뀔듯 - local storage 사용하도록 변경 */}
-                <Checkbox func={handleCheck} />
+                <A.CheckBox func={handleCheck} />
                 <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
               {ratio > 0.65 && (
@@ -243,7 +241,7 @@ export default function LoginPage({ history }) {
             </WrapMiddleContainer>
           </WrapContianer>
           <WrapButton>
-            <Button theme="blue" func={handleLogin} text="로그인" />
+            <A.Button theme="blue" func={handleLogin} text="로그인" />
           </WrapButton>
         </WrapBox>
         <WrapBottomContainer>

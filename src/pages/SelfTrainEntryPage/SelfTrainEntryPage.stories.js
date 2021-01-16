@@ -6,4 +6,4 @@ export default {
   component: SelfTrainEntryPage,
 };
 
-export const StudyEntry = () => <SelfTrainEntryPage />;
+export const studyEntry = () => <SelfTrainEntryPage />;

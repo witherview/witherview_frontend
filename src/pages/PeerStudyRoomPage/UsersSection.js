@@ -1,7 +1,6 @@
 import React from 'react';
 
-import ProfileIcon from '@components/ProfileIcon/ProfileIcon';
-import ToggleButton from '@components/ToggleButton/ToggleButton';
+import A from '@atoms';
 
 import S from './PeerStudyRoomPage.style';
 
@@ -30,7 +29,7 @@ export default function UsersSection() {
       <S.UserInfoContent>
         <S.ContentRow>
           <S.TableColumn value={FIRST_COLUMN}>
-            <ProfileIcon isSmall />
+            <A.ProfileIcon isSmall />
             <S.UserInfo>
               <p>이용재</p>
               <S.TagsWrapper>
@@ -49,12 +48,12 @@ export default function UsersSection() {
             </S.ItemInnerWrapper>
           </S.TableColumn>
           <S.TableColumn color="blue" value={FOURTH_COLUMN}>
-            <ToggleButton />
+            <A.ToggleButton />
           </S.TableColumn>
         </S.ContentRow>
         <S.ContentRow>
           <S.TableColumn value={FIRST_COLUMN}>
-            <ProfileIcon isSmall />
+            <A.ProfileIcon isSmall />
             <S.UserInfo>
               <p>김찬호</p>
               <S.TagsWrapper>
@@ -73,7 +72,7 @@ export default function UsersSection() {
             </S.ItemInnerWrapper>
           </S.TableColumn>
           <S.TableColumn color="blue" value={FOURTH_COLUMN}>
-            <ToggleButton />
+            <A.ToggleButton />
           </S.TableColumn>
         </S.ContentRow>
       </S.UserInfoContent>

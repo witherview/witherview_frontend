@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import addQuestionImage from '@assets/images/illust_2.png';
 import guideImage from '@assets/images/illust_3.png';
-import Icon from '@components/IconTemp';
+import A from '@atoms';
 
 const Wrapper = styled.div`
   user-select: none;
@@ -65,7 +65,7 @@ export default function SelectCard({ kind, clicked, func }) {
       <WrapContainer clicked={clicked}>
         <WrapIcon>
           {clicked && (
-            <Icon type="check_circle_white" alt="Check Circle White" />
+            <A.Icon type="check_circle_white" alt="Check Circle White" />
           )}
         </WrapIcon>
         <WrapImage

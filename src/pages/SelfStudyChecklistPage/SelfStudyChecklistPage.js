@@ -19,9 +19,8 @@ import {
 } from '@store/Train/train';
 
 import { get } from '@utils/snippet';
-import Button from '@components/Button';
 import EvaluationListMock from '@mocks/EvaluationListMock';
-import Icon from '@components/IconTemp';
+import A from '@atoms';
 
 const CloseButton = styled.div`
   position: absolute;
@@ -389,7 +388,7 @@ export default function SelfStudyChecklistPage({ match }) {
     <Wrapper>
       <WrapContent>
         <CloseButton type="button">
-          <Icon
+          <A.Icon
             type="cancel_circle"
             isCircle
             alt="close"
@@ -428,7 +427,7 @@ export default function SelfStudyChecklistPage({ match }) {
                   data-state="play"
                   onClick={onPlayPause}
                 >
-                  <Icon
+                  <A.Icon
                     type={playPauseBtn ? 'play_blue' : 'pause'}
                     isCircle
                     alt="play/button"
@@ -444,7 +443,7 @@ export default function SelfStudyChecklistPage({ match }) {
                   <CheckPointWrapper>
                     {[25, 50, 75].map((item) => (
                       <CheckPoint point={item} key={`${item}point`}>
-                        <Icon
+                        <A.Icon
                           type="arrow_up_blue"
                           alt="section"
                           func={onProgressClck}
@@ -456,22 +455,22 @@ export default function SelfStudyChecklistPage({ match }) {
               </ControlWrapper>
             </VideoContainer>
             <ButtonsWrapper>
-              <Button
+              <A.Button
                 text="다시 연습하기"
                 theme="blue"
                 func={selfTraingAgain}
               />
-              <Button
+              <A.Button
                 text="연습 영상 저장"
                 theme="white"
                 func={saveInterviewVideo}
               />
-              <Button
+              <A.Button
                 text="체크리스트 초기화"
                 theme="white"
                 func={initCheckList}
               />
-              <Button
+              <A.Button
                 disabled
                 text="체크리스트 저장"
                 theme="white"
@@ -486,7 +485,7 @@ export default function SelfStudyChecklistPage({ match }) {
               <ul>
                 {EvaluationListMock.evaluationList1.map(({ id, text }) => (
                   <ChecklistEach id={id} key={id}>
-                    <Icon
+                    <A.Icon
                       type={checkListArray[id] ? 'check_on' : 'check_off'}
                       alt="checkbox"
                       func={onCheck}
@@ -502,7 +501,7 @@ export default function SelfStudyChecklistPage({ match }) {
                 <ul>
                   {EvaluationListMock.evaluationList2.map(({ id, text }) => (
                     <ChecklistEach id={id} key={id}>
-                      <Icon
+                      <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}
                         alt="checkbox"
                         func={onCheck}
@@ -517,7 +516,7 @@ export default function SelfStudyChecklistPage({ match }) {
                 <ul>
                   {EvaluationListMock.evaluationList3.map(({ id, text }) => (
                     <ChecklistEach id={id} key={id}>
-                      <Icon
+                      <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}
                         alt="checkbox"
                         func={onCheck}

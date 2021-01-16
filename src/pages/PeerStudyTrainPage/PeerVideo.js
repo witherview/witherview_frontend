@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import NameLabel from '@components/CamView/NameLabel';
-import RecLabel from '@components/CamView/RecLabel';
-import ButtonGroup from '@components/CamView/ButtonGroup';
-import SamllCamView from '@components/CamView/SmallCamView';
+
+import M from '@molecules';
 
 const Wrapper = styled.div`
   width: ${({ isTrain }) => (isTrain ? '83.3vh;' : '66.3vh;')}
@@ -31,10 +29,7 @@ const WrapButtonGroup = styled.div`
 `;
 
 export default function PeerVideo({
-  peer,
-  name,
-  status,
-  isTrain,
+  peer, name, status, isTrain,
 }) {
   const ref = useRef();
 
@@ -48,21 +43,15 @@ export default function PeerVideo({
     <Wrapper isTrain={isTrain}>
       {peer && (
         <>
-          {name ? <NameLabel name={name} /> : <></>}
-          {status === 'recording' ? <RecLabel /> : <></>}
-          <WrapVideo
-            muted
-            playsInline
-            autoPlay
-            ref={ref}
-            isTrain={isTrain}
-          />
+          {name ? <M.NameLabel name={name} /> : <></>}
+          {status === 'recording' ? <M.RecLabel /> : <></>}
+          <WrapVideo muted playsInline autoPlay ref={ref} isTrain={isTrain} />
           {isTrain && (
             <>
               <WrapButtonGroup>
-                <ButtonGroup />
+                <M.ButtonGroup />
               </WrapButtonGroup>
-              <SamllCamView />
+              <M.SamllCamView />
             </>
           )}
         </>

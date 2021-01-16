@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import C from '@components';
+import A from '@atoms';
 import { setLogout } from '@store/Auth/auth';
 
 import StudyBackground from '@assets/images/fragile_ratio.png';
@@ -64,7 +64,7 @@ export default function FragileRatio() {
       </WrapText>
       <WrapImage source={StudyBackground} />
       <WrapButton>
-        <C.Button
+        <A.Button
           theme="blue"
           text="돌아가기"
           func={() => {

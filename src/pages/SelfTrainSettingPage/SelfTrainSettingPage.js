@@ -8,11 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCompany, setJob, setViewAnswer } from '@store/Train/train';
 import { get } from '@utils/snippet';
 import { getQuestionListAPI } from '@repository/questionListRepository';
-import TextBox from '@components/TextBox';
-import Button from '@components/Button';
-import TimeButton from '@components/TimeButton';
-import ToggleButton from '@components/ToggleButton';
-import InputBar from '@components/InputBar';
+import A from '@atoms';
+import M from '@molecules';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -104,35 +101,37 @@ export default function SelfTrainSettingPage({ match, history }) {
   return (
     <Wrapper>
       <WrapContent>
-        <TextBox
+        <M.TextBox
           topText="환경설정을 시작하겠습니다."
           bottomText="답변 시간을 선택하고 기업이름과 직무이름을 입력해주세요."
         />
         <WrapContainer>
           <WrapSubContainer>
-            <TimeButton time={30} unit="초" />
-            <TimeButton time={45} unit="초" />
-            <TimeButton time={60} unit="초" />
-            <TimeButton time={90} unit="초" />
+            <M.TimeButton time={30} unit="초" />
+            <M.TimeButton time={45} unit="초" />
+            <M.TimeButton time={60} unit="초" />
+            <M.TimeButton time={90} unit="초" />
           </WrapSubContainer>
           <WrapToggle>
             <WrapText>답변 보기 허용</WrapText>
-            <ToggleButton
+            <A.ToggleButton
               funcActive={() => dispatch(setViewAnswer({ viewAnswer: true }))}
-              funcDecative={() => dispatch(setViewAnswer({ viewAnswer: false }))}
+              funcDecative={() => dispatch(setViewAnswer({ viewAnswer: false }))
+              }
             />
           </WrapToggle>
           <WrapInput>
             <WrapText padding>기업 이름</WrapText>
-            <InputBar
+            <A.InputBar
               value={company}
-              onChange={(e) => dispatch(setCompany({ company: e.target.value }))}
+              onChange={(e) => dispatch(setCompany({ company: e.target.value }))
+              }
               width={967}
             />
           </WrapInput>
           <WrapInput>
             <WrapText padding>직무 이름</WrapText>
-            <InputBar
+            <A.InputBar
               value={job}
               onChange={(e) => dispatch(setJob({ job: e.target.value }))}
               width={967}
@@ -140,7 +139,7 @@ export default function SelfTrainSettingPage({ match, history }) {
           </WrapInput>
         </WrapContainer>
         <WrapButton>
-          <Button
+          <A.Button
             theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
             text="다음"
             func={() => history.push(`/self-train/${selectedQnaId}`)}

@@ -13,10 +13,7 @@ import { setLogin } from '@store/Auth/auth';
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { get } from '@utils/snippet';
 
-import InputBar from '@components/InputBar';
-import Checkbox from '@components/Checkbox';
-import Button from '@components/Button';
-import Icon from '@components/IconTemp';
+import A from '@atoms';
 
 import useWindowSize from '@hooks/useWindowSize';
 
@@ -377,7 +374,7 @@ export default function SignUpPage({ history }) {
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>이름</WrapText>
-                  <InputBar
+                  <A.InputBar
                     autoFocus={ratio > 0.65}
                     value={signUpForm.name}
                     placeholder="이름을 입력해주세요."
@@ -387,7 +384,7 @@ export default function SignUpPage({ history }) {
                 </WrapInput>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>이메일주소</WrapText>
-                  <InputBar
+                  <A.InputBar
                     value={signUpForm.email}
                     placeholder="이메일 주소를 입력해주세요."
                     onChange={handleInput}
@@ -398,7 +395,7 @@ export default function SignUpPage({ history }) {
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>비밀번호</WrapText>
-                  <InputBar
+                  <A.InputBar
                     autoFocus={ratio > 0.65}
                     value={signUpForm.password}
                     placeholder="비밀번호를 입력해주세요."
@@ -410,7 +407,7 @@ export default function SignUpPage({ history }) {
                 {/* TODO: 지역번호 선택하는 부분 추가 */}
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>비밀번호 확인</WrapText>
-                  <InputBar
+                  <A.InputBar
                     value={signUpForm.passwordConfirm}
                     placeholder="비밀번호를 한번 더 입력해주세요."
                     onChange={handleInput}
@@ -428,7 +425,7 @@ export default function SignUpPage({ history }) {
                       ratio={ratio > 1.675}
                     >
                       <SelectText>{mainIndustry}</SelectText>
-                      <Icon type="arrow_down_blue" alt="" />
+                      <A.Icon type="arrow_down_blue" alt="" />
                     </Select>
                     {select.mainIndustry && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
@@ -457,7 +454,7 @@ export default function SignUpPage({ history }) {
                       ratio={ratio > 1.675}
                     >
                       <SelectText>{subIndustry}</SelectText>
-                      <Icon type="arrow_down_blue" alt="" />
+                      <A.Icon type="arrow_down_blue" alt="" />
                     </Select>
                     {select.subIndustry && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
@@ -484,7 +481,7 @@ export default function SignUpPage({ history }) {
                       ratio={ratio > 1.675}
                     >
                       <SelectText>{mainJob}</SelectText>
-                      <Icon type="arrow_down_blue" alt="" />
+                      <A.Icon type="arrow_down_blue" alt="" />
                     </Select>
                     {select.mainJob && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
@@ -509,7 +506,7 @@ export default function SignUpPage({ history }) {
                       ratio={ratio > 1.675}
                     >
                       <SelectText>{subJob}</SelectText>
-                      <Icon type="arrow_down_blue" alt="" />
+                      <A.Icon type="arrow_down_blue" alt="" />
                     </Select>
                     {select.subJob && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
@@ -532,7 +529,7 @@ export default function SignUpPage({ history }) {
             <WrapMiddleContainer ratio={ratio > 1.675}>
               <WrapMiddlePart>
                 {/* TODO: Add function */}
-                <Checkbox
+                <A.CheckBox
                   func={() => setToggleCheckTerm({
                     ...toggleCheckTerm,
                     first: !toggleCheckTerm.first,
@@ -547,7 +544,7 @@ export default function SignUpPage({ history }) {
               </WrapMiddlePart>
               <WrapMiddlePart>
                 {/* TODO: Add function */}
-                <Checkbox
+                <A.CheckBox
                   func={() => setToggleCheckTerm({
                     ...toggleCheckTerm,
                     second: !toggleCheckTerm.second,
@@ -564,7 +561,7 @@ export default function SignUpPage({ history }) {
           </WrapContianer>
           <WrapButton>
             {/* TODO: 회원가입 로직 추기 */}
-            <Button theme="blue" text="회원가입" func={() => handleSignUp()} />
+            <A.Button theme="blue" text="회원가입" func={() => handleSignUp()} />
           </WrapButton>
         </WrapBox>
         <WrapBottomContainer>
