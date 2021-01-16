@@ -4,7 +4,9 @@ import NameLabel from './NameLabel';
 import ProfileEdit from './ProfileEdit';
 import QuestionTextBox from './QuestionTextBox';
 import RangeBar from './RangeBar';
+import RecLabel from './RecLabel';
 import RemainTime from './RemainTime';
+import SmallCamView from './SmallCamView';
 import TextBox from './TextBox';
 import TimeButton from './TimeButton';
 
@@ -15,7 +17,9 @@ export default {
   ProfileEdit,
   QuestionTextBox,
   RangeBar,
+  RecLabel,
   RemainTime,
+  SmallCamView,
   TextBox,
   TimeButton,
 };

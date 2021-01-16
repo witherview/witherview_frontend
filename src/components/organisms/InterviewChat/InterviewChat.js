@@ -84,7 +84,6 @@ export default function InterviewChat({
   setInterviewer,
   chatData,
   onClick,
-  height,
 }) {
   const chatBoxRef = useRef();
 
@@ -97,7 +96,7 @@ export default function InterviewChat({
   }, [chatData]);
 
   return (
-    <Wrapper height={height}>
+    <Wrapper>
       <WrapperHeader>
         <A.ProfileIcon isSmall />
         <UserInfo>
@@ -108,7 +107,6 @@ export default function InterviewChat({
       <WrapperContent
         ref={chatBoxRef}
         setInterviewer={setInterviewer}
-        height={height}
       >
         {chatData?.map((chat) => (
           <ChatMessageWrapper>
@@ -130,7 +128,6 @@ InterviewChat.propTypes = {
   setInterviewer: PropTypes.bool,
   chatData: PropTypes.object,
   onClick: PropTypes.func,
-  height: PropTypes.number,
 };
 
 InterviewChat.defaultProps = {
