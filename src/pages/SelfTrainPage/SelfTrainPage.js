@@ -20,16 +20,9 @@ import { getQuestionItemAPI } from '@repository/questionListRepository';
 import { postPreVideoApi } from '@repository/requestVideoRepository';
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
-import CamView from '@components/CamView';
-
-import TextBox from '@components/TextBox';
-import Button from '@components/Button';
-import Icon from '@components/IconTemp';
-
-import RemainTime from '@components/RemainTime';
-import ToggleButton from '@components/ToggleButton';
-import AnswerBox from '@components/AnswerBox';
-import QuestionTextBox from '@components/QuestionTextBox';
+import A from '@atoms';
+import M from '@molecules';
+import O from '@organisms';
 
 import Fixture from './transitionFixture';
 import QNA_LIST from './qnaListFixture';
@@ -130,7 +123,7 @@ export default function SelfTrainPage({ match }) {
   const isShowAnswer = step === TOGGLE_SCRIPT;
 
   const textBox = (
-    <TextBox
+    <M.TextBox
       topText={
         (step === STEP_LOADING_2 ? `${name}님은 ${company} ${job}` : '')
         + Fixture[step]?.top
@@ -140,7 +133,7 @@ export default function SelfTrainPage({ match }) {
   );
 
   const questionTextBox = (
-    <QuestionTextBox
+    <M.QuestionTextBox
       question={questionList[qnaStep]?.question || ''}
       order={questionList[qnaStep]?.order + 1 || 0}
     />
@@ -151,7 +144,7 @@ export default function SelfTrainPage({ match }) {
       <S.WrapContainer>
         <S.WrapAbsolute>
           {!isStepFirst && (
-            <Icon
+            <A.Icon
               isCircle
               type="cancel_circle"
               func={() => handleCancel()}
@@ -162,9 +155,9 @@ export default function SelfTrainPage({ match }) {
         <S.WrapContent>
           {isLoading ? textBox : questionTextBox}
           <S.WrapCamView>
-            <CamView isShowAnswer={isShowAnswer} status={status} />
+            <O.CamView isShowAnswer={isShowAnswer} status={status} />
             {isShowAnswer && (
-              <AnswerBox
+              <O.AnswerBox
                 answer={questionList[qnaStep].answer}
                 date={questionList[qnaStep].modifiedAt}
               />
@@ -172,12 +165,12 @@ export default function SelfTrainPage({ match }) {
           </S.WrapCamView>
           <S.WrapBottom>
             <S.WrapBottomSide>
-              {isShowTimer && <RemainTime time={time} />}
+              {isShowTimer && <M.RemainTime time={time} />}
             </S.WrapBottomSide>
             {/* STEP_ING의 경우 버튼 누를 때 구간 저장하는 로직 추가 필요 */}
             {Fixture[step]?.button && (
               <S.WrapButton>
-                <Button
+                <A.Button
                   theme="blue"
                   text={Fixture[step].button}
                   func={
@@ -197,7 +190,7 @@ export default function SelfTrainPage({ match }) {
               {isShowToggle && viewAnswer && (
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
-                  <ToggleButton
+                  <A.ToggleButton
                     funcActive={() => dispatch(setStep({ step: TOGGLE_SCRIPT }))}
                     funcDeactive={() => dispatch(setStep({ step: STEP_ING }))}
                   />

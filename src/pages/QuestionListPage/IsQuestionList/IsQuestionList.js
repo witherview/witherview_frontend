@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import QuestionCardView from '@components/QuestionCardView';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
-import Icon from '@components/IconTemp';
+import A from '@atoms';
+import O from '@organisms';
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,7 +55,7 @@ export default function IsQuestionList({ questionList, handleDelete }) {
           <Link to="/question/new" style={{ textDecoration: 'none' }}>
             <AddQuestionList>
               <IconWrapper>
-                <Icon type="add_black" alt="icon" />
+                <A.Icon type="add_black" alt="icon" />
               </IconWrapper>
               <AddText>질문 리스트 추가</AddText>
             </AddQuestionList>
@@ -68,7 +68,7 @@ export default function IsQuestionList({ questionList, handleDelete }) {
           });
           return (
             <ItemWrapper key={`itemQ-${index}`}>
-              <QuestionCardView
+              <O.QuestionCardView
                 id={val.id}
                 number={count}
                 title={val.title}

@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import NameLabel from '@components/CamView/NameLabel';
-import RecLabel from '@components/CamView/RecLabel';
+import M from '@molecules';
 
 const Wrapper = styled.div`
   width: ${({ peers }) => (peers ? '66.3vh;' : '132.6vh;')}
@@ -29,8 +28,8 @@ export default function MyCamView({
 }) {
   return (
     <Wrapper peers={peers}>
-      {name ? <NameLabel name={name} /> : <></>}
-      {status === 'recording' ? <RecLabel /> : <></>}
+      {name ? <M.NameLabel name={name} /> : <></>}
+      {status === 'recording' ? <M.RecLabel /> : <></>}
       <WrapVideo ref={mediaBlobUrl} alt="image_view" autoPlay muted />
     </Wrapper>
   );

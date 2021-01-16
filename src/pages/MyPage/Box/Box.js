@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '@components/IconTemp';
+import A from '@atoms';
 
 const Wrapper = styled.div`
   display: flex;
@@ -67,7 +67,7 @@ export default function Box({ type, title, count }) {
   return (
     <Wrapper>
       <IconWrapper>
-        <Icon type={type} />
+        <A.Icon type={type} />
       </IconWrapper>
       <ContentWrapper>
         <Title>{title}</Title>

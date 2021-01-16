@@ -7,8 +7,10 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
 import { handleReset } from '@store/Time/time';
-import TextBox from '@components/TextBox';
-import Button from '@components/Button';
+
+import A from '@atoms';
+import M from '@molecules';
+
 import SelectCard from './SelectCard';
 
 const Wrapper = styled.div`
@@ -62,7 +64,7 @@ export default function SelfTrainEntryPage({ history }) {
   return (
     <Wrapper>
       <WrapContent>
-        <TextBox
+        <M.TextBox
           topText={`${name}님 화상 면접을 연습하세요`}
           bottomText="원하는 기능을 선택하여 화상 면접을 대비해 보세요."
         />
@@ -79,7 +81,7 @@ export default function SelfTrainEntryPage({ history }) {
           />
         </WrapCardSection>
         <WrapButton>
-          <Button
+          <A.Button
             func={
               // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
               isGuide

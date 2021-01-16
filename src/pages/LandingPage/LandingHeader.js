@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import C from '@components';
+import A from '@atoms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
 
 const Wrapper = styled.div`
@@ -86,25 +86,25 @@ export default function LandingHeader({
         <WrapLeft src={Logo} />
         <WrapRightInner>
           <WrapTextButton>
-            <C.TextButtonProps
+            <A.TextButton
               onClick={() => executeScroll(topRef)}
               text="홈"
             />
-            <C.TextButtonProps
+            <A.TextButton
               onClick={() => executeScroll(middleOneRef)}
               text="위더뷰란?"
             />
-            <C.TextButtonProps
+            <A.TextButton
               onClick={() => executeScroll(aloneRef)}
               text="혼자연습"
             />
-            <C.TextButtonProps
+            <A.TextButton
               onClick={() => executeScroll(studyRef)}
               text="면접스터디"
             />
           </WrapTextButton>
           <WrapButton>
-            <C.Button
+            <A.Button
               id="menu_btn"
               theme="outline"
               width={140}

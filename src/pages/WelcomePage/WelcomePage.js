@@ -6,9 +6,8 @@ import styled from 'styled-components';
 import ReactRouterPropTypes from 'react-router-prop-types';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
-import ProfileEdit from '@components/ProfileEdit';
-import Button from '@components/Button';
-import Icon from '@components/IconTemp';
+import A from '@atoms';
+import M from '@molecules';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -135,21 +134,21 @@ export default function WelcomePage({ history }) {
         <WrapBox>
           <WrapContianer>
             <WrapUpperContainer>
-              <ProfileEdit />
+              <M.ProfileEdit />
             </WrapUpperContainer>
             <WrapMiddleContainer>
               <WrapName>
                 <div>
                   {sessionStorage.getItem('name')}
                 </div>
-                <Icon type="post" />
+                <A.Icon type="post" />
               </WrapName>
               <WrapMail>
                 {sessionStorage.getItem('email')}
               </WrapMail>
             </WrapMiddleContainer>
             <WrapButton>
-              <Button theme="blue" func={() => history.push('/self')} text="시작하기" />
+              <A.Button theme="blue" func={() => history.push('/self')} text="시작하기" />
             </WrapButton>
           </WrapContianer>
         </WrapBox>

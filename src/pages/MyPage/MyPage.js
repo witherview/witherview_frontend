@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Icon from '@components/IconTemp';
-import ProfileEdit from '@components/ProfileEdit';
+import A from '@atoms';
+import M from '@molecules';
+
 import { getUserApi } from '@repository/loginRepository';
 import S from './MyPage.style';
 import Box from './Box';
@@ -54,11 +55,11 @@ export default function MyPage() {
     <S.Wrapper>
       <S.ProfileWrapper>
         <S.Profile>
-          <ProfileEdit />
+          <M.ProfileEdit />
           <S.ProfileInfo>
             <S.NameWrapper>
               <S.NameText>{name}</S.NameText>
-              <Icon type="post" />
+              <A.Icon type="post" />
             </S.NameWrapper>
             <S.Jobs>화학 / 데이터 분석</S.Jobs>
             <S.Reliability>신뢰도</S.Reliability>
