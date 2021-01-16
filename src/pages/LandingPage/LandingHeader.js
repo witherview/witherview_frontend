@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
+import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
   z-index: 2;
@@ -86,19 +87,19 @@ export default function LandingHeader({
         <WrapLeft src={Logo} />
         <WrapRightInner>
           <WrapTextButton>
-            <A.TextButton
+            <TextButtonProps
               onClick={() => executeScroll(topRef)}
               text="홈"
             />
-            <A.TextButton
+            <TextButtonProps
               onClick={() => executeScroll(middleOneRef)}
               text="위더뷰란?"
             />
-            <A.TextButton
+            <TextButtonProps
               onClick={() => executeScroll(aloneRef)}
               text="혼자연습"
             />
-            <A.TextButton
+            <TextButtonProps
               onClick={() => executeScroll(studyRef)}
               text="면접스터디"
             />
