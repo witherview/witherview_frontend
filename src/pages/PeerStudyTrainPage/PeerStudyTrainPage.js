@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 // import Timeout from 'await-timeout';
 // import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import useSockStomp from '@hooks/useSockStomp';
 import useSocketSignal from '@hooks/useSocketSignal';
 import StudyBackground from '@assets/images/study_background.png';
 // import { setLogout } from '@store/Auth/auth';
@@ -43,7 +42,13 @@ const STEP_TRAIN_FIRST = 2;
 const STEP_TRAIN_SECOND = 3;
 const STEP_FINAL = 4;
 
-export default function PeerStudyTrainPage({ roomId, history }) {
+export default function PeerStudyTrainPage({
+  roomId,
+  history,
+  handleClick,
+  chat,
+  isConnectStomp,
+}) {
   // TODO: 녹화부분 연동
   // const { status, startRecording, stopRecording } = useReactMediaRecorder({
   //   stream: true,
@@ -57,7 +62,6 @@ export default function PeerStudyTrainPage({ roomId, history }) {
     setStep,
     roomId,
   });
-  const { handleClick, chat, isConnectStomp } = useSockStomp({ roomId });
 
   useEffect(() => () => dispatch(setToggleTrain({ toggleTrain: false })), []);
 
@@ -155,4 +159,7 @@ export default function PeerStudyTrainPage({ roomId, history }) {
 PeerStudyTrainPage.propTypes = {
   roomId: PropTypes.string,
   history: ReactRouterPropTypes.history.isRequired,
+  handleClick: PropTypes.func,
+  chat: PropTypes.array,
+  isConnectStomp: PropTypes.bool,
 };

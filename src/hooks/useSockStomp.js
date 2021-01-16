@@ -13,13 +13,11 @@ export default function useSockStomp({
 
   const handleClick = (payload) => {
     console.log(payload);
-    const sender = `${sessionStorage.getItem('name')} (${sessionStorage.getItem(
-      'email',
-    )})`;
+
     const newMessage = {
       type: 'COMMENT',
       roomId,
-      sender,
+      sender: sessionStorage.getItem('name'),
       contents: payload,
     };
     client.current.send('/pub/chat', {}, JSON.stringify(newMessage));

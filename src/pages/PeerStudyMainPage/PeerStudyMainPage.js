@@ -113,7 +113,7 @@ export default function PeerStudyMainPage() {
       <div>
         <S.SearchWrapper>
           <S.IconWrapper>
-            <A.Icon type="search" alt="" />
+            <A.Icon type="search" alt="search" />
           </S.IconWrapper>
           <S.Input placeholder="Search" />
         </S.SearchWrapper>
@@ -128,21 +128,21 @@ export default function PeerStudyMainPage() {
                   </S.TextButtonWrapper>
                 ))}
                 <S.FilterWrapper>
-                  <A.Icon type="filter" alt="" />
+                  <A.Icon type="filter" alt="filter" />
                 </S.FilterWrapper>
               </S.ButtonWrapper>
               <S.StudyListWrapper>
                 <S.Wrap onClick={handleStudyAddModal}>
                   <S.AddStudy>
-                    <A.Icon type="add_black" />
+                    <A.Icon type="add_black" alt="add_black" />
                     <S.AddText>방 만들기</S.AddText>
                   </S.AddStudy>
                 </S.Wrap>
-                {groupList?.map((val, key) => {
+                {groupList?.map((val) => {
                   const count = member.filter((elem) => elem.id === val.id)[0];
                   return (
                     <O.StudyCardView
-                      key={key}
+                      key={val.id}
                       id={val.id}
                       title={val.title}
                       description={val.description}

@@ -12,8 +12,17 @@ const WrapperContent = styled.div`
   align-items: center;
 `;
 
+const WrapContainer = styled.div`
+  height: 63vh;
+  width: 140vh;
+  display: flex;
+  justify-content: space-around;
+`;
+
 const InterviewRoomSection = styled.div`
-  width: 120vh;
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 const InterviewRoomInfo = styled.div`
@@ -81,7 +90,7 @@ const TableColumn = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  left: ${({ value }) => `${value > 0 ? value / 10 : 0}vh`};
+  left: ${({ value }) => `${value > 0 ? value / 12 : 0}vh`};
   font-family: AppleSDGothicNeoB00;
   font-size: 2vh;
   color: ${({ color }) => (color === 'blue' ? '#6e6eff' : '#3d3d3d')};
@@ -151,6 +160,7 @@ const ProgressBar = styled.progress`
 export default {
   Wrapper,
   WrapperContent,
+  WrapContainer,
   InterviewRoomSection,
   InterviewRoomInfo,
   TextWrapper,

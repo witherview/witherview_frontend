@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
 
+import useSockStomp from '@hooks/useSockStomp';
 import P from '@pages';
 
 const ROOM_PAGE = 0;
@@ -11,6 +12,8 @@ const TRAIN_PAGE = 2;
 export default function PeerStudyRoute({ match, history }) {
   const [step, setStep] = useState(ROOM_PAGE);
   const { id } = match.params;
+  const { handleClick, chat, isConnectStomp } = useSockStomp({ roomId: id });
+
   return {
     [ROOM_PAGE]: (
       <P.PeerStudyRoomPage
@@ -18,12 +21,23 @@ export default function PeerStudyRoute({ match, history }) {
         history={history}
         setStepSetting={() => setStep(SETTING_PAGE)}
         setStepTrain={() => setStep(SETTING_PAGE)}
+        handleClick={handleClick}
+        chat={chat}
+        isConnectStomp={isConnectStomp}
       />
     ),
     [SETTING_PAGE]: (
       <P.PeerStudySettingPage setStepTrain={() => setStep(TRAIN_PAGE)} />
     ),
-    [TRAIN_PAGE]: <P.PeerStudyTrainPage roomId={id} history={history} />,
+    [TRAIN_PAGE]: (
+      <P.PeerStudyTrainPage
+        roomId={id}
+        history={history}
+        handleClick={handleClick}
+        chat={chat}
+        isConnectStomp={isConnectStomp}
+      />
+    ),
   }[step];
 }
 

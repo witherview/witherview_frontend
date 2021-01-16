@@ -5,13 +5,15 @@ import PropTypes from 'prop-types';
 import { getInterviewStudyRoomAPI } from '@repository/interviewStudyRepository';
 
 import A from '@atoms';
+import O from '@organisms';
 import S from './PeerStudyRoomPage.style';
 
 import UsersSection from './UsersSection';
 
 const DEFAULT_ID = 421;
-
-export default function PeerStudyRoomPage({ id, setStepSetting, setStepTrain }) {
+export default function PeerStudyRoomPage({
+  id, setStepSetting, setStepTrain, chat, handleClick, isConnectStomp,
+}) {
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
   const [description, setDescription] = useState();
@@ -49,27 +51,31 @@ export default function PeerStudyRoomPage({ id, setStepSetting, setStepTrain }) 
   useEffect(() => {
     // TODO: delete below line
     console.log(setStepSetting);
+    console.log('abasbsd');
     fetchRoomInfo();
   }, []);
 
   return (
     <S.Wrapper>
       <S.WrapperContent>
-        <S.InterviewRoomSection>
-          <S.InterviewRoomInfo>
-            <S.TextWrapper>
-              <S.RoomTitle>{roomTitle}</S.RoomTitle>
-              <S.DateInfo>{dateInfoText}</S.DateInfo>
-              <S.Description>{description}</S.Description>
-            </S.TextWrapper>
-            <S.BoxWrapper>
-              <A.Button text="방 나가기" theme="gray" />
-              {/* TODO: 방장의 경우 Setting 설정으로 넘어가도록 해야 함 */}
-              <A.Button text="스터디 시작하기" func={setStepTrain} theme="blue" />
-            </S.BoxWrapper>
-          </S.InterviewRoomInfo>
-          <UsersSection />
-        </S.InterviewRoomSection>
+        <S.WrapContainer>
+          <S.InterviewRoomSection>
+            <S.InterviewRoomInfo>
+              <S.TextWrapper>
+                <S.RoomTitle>{roomTitle}</S.RoomTitle>
+                <S.DateInfo>{dateInfoText}</S.DateInfo>
+                <S.Description>{description}</S.Description>
+              </S.TextWrapper>
+              <S.BoxWrapper>
+                <A.Button text="방 나가기" theme="gray" />
+                {/* TODO: 방장의 경우 Setting 설정으로 넘어가도록 해야 함 */}
+                <A.Button text="스터디 시작하기" func={setStepTrain} theme="blue" />
+              </S.BoxWrapper>
+            </S.InterviewRoomInfo>
+            <UsersSection />
+          </S.InterviewRoomSection>
+          {isConnectStomp && <O.RoomChat chatData={chat} onClick={handleClick} />}
+        </S.WrapContainer>
       </S.WrapperContent>
     </S.Wrapper>
   );
@@ -79,4 +85,7 @@ PeerStudyRoomPage.propTypes = {
   id: PropTypes.string,
   setStepSetting: PropTypes.func,
   setStepTrain: PropTypes.func,
+  chat: PropTypes.array,
+  handleClick: PropTypes.func,
+  isConnectStomp: PropTypes.bool,
 };
