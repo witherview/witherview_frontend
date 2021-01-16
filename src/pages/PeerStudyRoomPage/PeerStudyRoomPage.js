@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 
 import Button from '@components/Button/Button';
@@ -10,7 +10,7 @@ import UsersSection from './UsersSection';
 
 const DEFAULT_ID = 421;
 
-export default function PeerStudyRoomPage({ match, history }) {
+export default function PeerStudyRoomPage({ match, history, setStepSetting }) {
   const { id } = match.params;
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
@@ -81,4 +81,5 @@ export default function PeerStudyRoomPage({ match, history }) {
 PeerStudyRoomPage.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
+  setStepSetting: PropTypes.func,
 };

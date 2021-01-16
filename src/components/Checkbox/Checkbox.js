@@ -43,7 +43,7 @@ const Checkmark = styled.span`
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    content: "";
+    content: '';
     position: absolute;
     display: none;
   }

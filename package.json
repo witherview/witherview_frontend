@@ -77,8 +77,13 @@
   "homepage": "https://witherview.com",
   "husky": {
     "hooks": {
-      "pre-commit": "echo pre-commit"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "npm run lint"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -135,6 +140,7 @@
     "hls.js": "^0.14.17",
     "husky": "^4.3.7",
     "immutability-helper": "^3.1.1",
+    "lint-staged": "^10.5.3",
     "moment": "^2.29.1",
     "net": "^1.0.2",
     "prop-types": "^15.7.2",
