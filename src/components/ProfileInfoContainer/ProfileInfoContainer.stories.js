@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import ProfileInfoContainer from './index';
 
 export default {
@@ -13,6 +13,7 @@ const profileImage = 'https://avatars2.githubusercontent.com/u/16266103?s=460&u=
 export const ProfileInfoDefault = ({ src = profileImage }) => (
   <ProfileInfoContainer src={src} />
 );
+
 export const ProfileInfoName = ({ src = profileImage, name = '아무개' }) => (
   <ProfileInfoContainer name={name} src={src} />
 );
@@ -20,3 +21,17 @@ export const ProfileInfoParticipateRate = ({
   src = profileImage,
   participateRate = 70,
 }) => <ProfileInfoContainer participateRate={participateRate} src={src} />;
+
+ProfileInfoDefault.propTypes = {
+  src: PropTypes.string,
+};
+
+ProfileInfoName.propTypes = {
+  src: PropTypes.string,
+  name: PropTypes.string,
+};
+
+ProfileInfoParticipateRate.propTypes = {
+  src: PropTypes.string,
+  participateRate: PropTypes.number,
+};

@@ -1,31 +1,91 @@
 {
   "name": "witherview",
   "version": "1.0.0",
-  "description": "YAPP_17th_WEB_2",
+  "description": "위더뷰| 취업준비생 면접 스터디 플랫폼",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --coverage",
     "test:cypress": "cypress open",
     "lint": "eslint --fix --ext .js,.jsx src",
-    "build": "webpack --config ./webpack.config.prod.js",
+    "build": "webpack",
     "deploy": "netlify deploy",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --env isDevelopment",
     "storybook": "start-storybook -p 6060 -c .storybook watch-css -s ./public",
-    "build-storybook": "build-storybook -c .storybook watch-css -s ./public"
+    "build-storybook": "build-storybook -c .storybook watch-css -s ./public",
+    "analyze": "webpack --env isAnalyze"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Yapp-17th/Web_2_Client.git"
   },
   "keywords": [
-    "interview"
+    "interview",
+    "인터뷰",
+    "면접",
+    "취업 준비생",
+    "취준생",
+    "스터디"
   ],
-  "author": "none",
+  "author": "Yapp-17th/Web-2",
+  "contributors": [
+    {
+      "name": "김병헌",
+      "role": "Product Manager",
+      "email": "75nstebesb@gmail.com",
+      "url": "https://github.com/kbh18"
+    },
+    {
+      "name": "이은비",
+      "role": "Designer",
+      "email": "dldmsql502@gmail.com",
+      "url": "https://github.com/2lanbi"
+    },
+    {
+      "name": "성재호",
+      "role": "Backend Engineer",
+      "email": "tjdwogh45@gmail.com",
+      "url": "https://github.com/sjh2428"
+    },
+    {
+      "name": "문예은",
+      "role": "Backend Engineer",
+      "email": "ggyeeungg@naver.com",
+      "url": "https://github.com/MoonYeeun"
+    },
+    {
+      "name": "박기태",
+      "role": "Frontend Engineer",
+      "email": "rlxo1651@naver.com",
+      "url": "https://github.com/SkynI25"
+    },
+    {
+      "name": "김찬호",
+      "role": "Frontend Engineer",
+      "email": "cksgh405@gmail.com",
+      "url": "https://github.com/Lavegaa"
+    },
+    {
+      "name": "이용재",
+      "role": "Frontend Engineer",
+      "email": "dev.yongjaelee@gmail.com",
+      "url": "https://github.com/dididy"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Yapp-17th/Web_2_Client/issues"
   },
-  "homepage": "https://github.com/Yapp-17th/Web_2_Client#readme",
+  "homepage": "https://witherview.com",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "npm run lint"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
@@ -75,11 +135,13 @@
     "@reduxjs/toolkit": "^1.5.0",
     "aos": "^2.3.4",
     "await-timeout": "^1.1.1",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "dotenv": "^8.2.0",
     "hls.js": "^0.14.17",
+    "husky": "^4.3.7",
     "immutability-helper": "^3.1.1",
+    "lint-staged": "^10.5.3",
     "moment": "^2.29.1",
     "net": "^1.0.2",
     "prop-types": "^15.7.2",

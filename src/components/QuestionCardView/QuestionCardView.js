@@ -178,7 +178,7 @@ export default function QuestionCardView({
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
 
-  const handleMove = (e) => {
+  const handleMove = () => {
     history.push(`/question/${id}`);
   };
 

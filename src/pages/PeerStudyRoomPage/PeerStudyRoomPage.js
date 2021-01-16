@@ -47,6 +47,8 @@ export default function PeerStudyRoomPage({ id, setStepSetting, setStepTrain }) 
   };
 
   useEffect(() => {
+    // TODO: delete below line
+    console.log(setStepSetting);
     fetchRoomInfo();
   }, []);
 
