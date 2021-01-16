@@ -1,8 +1,5 @@
-import React from 'react';
-
 import AuthRoute from './AuthRoute';
-
-const PeerStudyRoute = React.lazy(() => import('./PeerStudyRoute'));
+import PeerStudyRoute from './PeerStudyRoute';
 
 export default {
   AuthRoute,

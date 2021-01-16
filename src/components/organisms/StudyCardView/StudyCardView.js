@@ -161,7 +161,7 @@ export default function StudyCardView({
         }
       });
     });
-    history.push(`/study-room/${id}`);
+    history.push(`/peer/${id}`);
   };
   return (
     <Wrapper>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
 import { get } from '@utils/snippet';
@@ -101,9 +101,8 @@ const InnerText = styled.div`
   color: #000000;
 `;
 
-export default function PeerStudySetting({ history }) {
+export default function PeerStudySettingPage({ setStepTrain }) {
   const [first, setFirst] = useState();
-  const { selectedQnaId } = useSelector(get('train'));
   const { standardTime } = useSelector(get('train'));
 
   const handleFirst = (val) => {
@@ -161,13 +160,13 @@ export default function PeerStudySetting({ history }) {
         <A.Button
           theme={first && standardTime > 0 ? 'blue' : 'gray'}
           text="다음"
-          func={() => history.push(`/self-train/${selectedQnaId}`)}
+          func={setStepTrain}
         />
       </WrapContent>
     </Wrapper>
   );
 }
 
-PeerStudySetting.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
+PeerStudySettingPage.propTypes = {
+  setStepTrain: PropTypes.func,
 };

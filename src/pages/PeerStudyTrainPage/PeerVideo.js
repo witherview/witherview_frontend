@@ -51,7 +51,7 @@ export default function PeerVideo({
               <WrapButtonGroup>
                 <M.ButtonGroup />
               </WrapButtonGroup>
-              <M.SamllCamView />
+              <M.SmallCamView />
             </>
           )}
         </>
@@ -69,6 +69,5 @@ PeerVideo.propTypes = {
 
 PeerVideo.defaultProps = {
   peer: {},
-  name: undefined,
   status: 'stopped',
 };

@@ -6,6 +6,7 @@ import ProfileInfoContainer from './ProfileInfoContainer';
 import ProfileMenuContainer from './ProfileMenuContainer';
 import QuestionCardView from './QuestionCardView';
 import QuestionList from './QuestionList';
+import RoomChat from './RoomChat';
 import SideBar from './Sidebar';
 import StudyCardView from './StudyCardView';
 
@@ -18,6 +19,7 @@ export default {
   ProfileMenuContainer,
   QuestionCardView,
   QuestionList,
+  RoomChat,
   SideBar,
   StudyCardView,
 };
