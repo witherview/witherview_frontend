@@ -65,7 +65,7 @@ export default function LandingTop({ myRef }) {
         <WrapContent>
           <TextBoxA
             height={300}
-            header="INVERVIEW PRACTICE WEB"
+            header="INTERVIEW PRACTICE WEB"
             content={['집에서 편리하게', '경험해 볼 수 있는', '면접 스터디']}
             summary={[
               '위더뷰를 통해 내가 원하는 직무와 관련된',
