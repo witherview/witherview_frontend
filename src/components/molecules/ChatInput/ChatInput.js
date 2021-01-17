@@ -17,7 +17,7 @@ const Wrapper = styled.div`
       border-radius: 0.6vh 0 0 0.6vh;
     }
     &:last-child {
-      border-radius: 0 6px 6px 0;
+      border-radius: 0 0.6vh 0.6vh 0;
     }
   }
 `;
@@ -59,7 +59,7 @@ const SubmitBtn = styled.span`
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    content: "";
+    content: '';
   }
   &:hover {
     opacity: 0.9;

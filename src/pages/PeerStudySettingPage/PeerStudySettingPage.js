@@ -56,7 +56,7 @@ const TextButton = styled.div`
   margin-right: 6vh;
   border-radius: 1vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  border: solid 0.1vh #f6f6f6;
   background-color: #ffffff;
   .${({ first }) => first} {
     border: none;

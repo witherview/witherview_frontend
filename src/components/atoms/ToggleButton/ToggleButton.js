@@ -24,7 +24,7 @@ const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.04);
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
   background-color: #f6f6f6;
   border-radius: 2.3vh;
   -webkit-transition: 0.4s;

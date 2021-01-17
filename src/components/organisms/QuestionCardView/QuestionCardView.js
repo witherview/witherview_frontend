@@ -25,7 +25,7 @@ const Content = styled.div`
 const IconBox = styled.div`
   width: 4vh;
   height: 3vh;
-  margin: 0px 2.6vh 0 0;
+  margin: 0 2.6vh 0 0;
   margin-left: auto;
   display: flex;
   align-items: flex-end;
@@ -45,7 +45,7 @@ const Number = styled.div`
   height: 8.3vh;
   display: flex;
   align-items: center;
-  margin-bottom: 14.5px;
+  margin-bottom: 1.45vh;
 `;
 
 const NumberText = styled.div`
@@ -137,7 +137,7 @@ const List = styled.ul`
   transition: 0.25s ease all;
   transform: scale(0);
   transform-origin: 0 1;
-  border-radius: 10px;
+  border-radius: 1vh;
   box-shadow: 0 1.2vh 2.4vh 0 rgba(4, 4, 161, 0.15);
   display: flex;
   flex-direction: column;

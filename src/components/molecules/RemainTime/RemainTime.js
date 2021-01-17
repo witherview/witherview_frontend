@@ -24,7 +24,7 @@ const Minutes = styled.div`
   height: 7.2vh;
   font-family: TitilliumWebBold;
   border-radius: 1vh;
-  box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
+  box-shadow: 0 0.6vh 2.4vh 0 rgba(4, 4, 161, 0.04);
   background-color: ${({ highlight }) => (highlight ? '#fff3ef' : '#f6f6f6')};
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@ const Seconds = styled.div`
   height: 7.2vh;
   font-family: TitilliumWebBold;
   border-radius: 1vh;
-  box-shadow: 0 6px 24px 0 rgba(4, 4, 161, 0.04);
+  box-shadow: 0 0.6vh 2.4vh 0 rgba(4, 4, 161, 0.04);
   background-color: ${({ highlight }) => (highlight ? '#fff3ef' : '#f6f6f6')};
   display: flex;
   align-items: center;

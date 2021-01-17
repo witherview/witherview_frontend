@@ -56,7 +56,7 @@ const List = styled.ul`
   transform: scale(0);
   transform-origin: 0 1;
   border-radius: 1vh;
-  box-shadow: 0 12px 24px 0 rgba(4, 4, 161, 0.15);
+  box-shadow: 0 1.2vh 2.4vh 0 rgba(4, 4, 161, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;

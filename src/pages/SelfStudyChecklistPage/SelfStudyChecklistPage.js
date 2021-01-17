@@ -203,7 +203,7 @@ const CheckListContainer = styled.div`
   margin-right: 2.6vh;
   padding: 4.3vh 5.5vh 0 5.5vh;
   border-radius: 1vh;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   background-color: #ffffff;
   font-family: AppleSDGothicNeoM00;
   text-align: left;

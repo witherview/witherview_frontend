@@ -54,8 +54,8 @@ const WrapBox = styled.div`
   max-width: 80vw;
   height: auto;
   background-color: white;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;
   display: flex;
   flex-direction: column;

@@ -7,9 +7,9 @@ const Wrapper = styled.div`
   position: relative;
   width: 51.5vh;
   height: 59vh;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  border-radius: 2vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid 0.1vh #f6f6f6;
 `;
 
 const WrapContent = styled.div`
@@ -37,20 +37,20 @@ const WrapAnswer = styled.textarea`
   width: 100%;
   height: 41.3vh;
   background-color: white;
-  border: 0px;
+  border: 0;
   font-family: AppleSDGothicNeoM00;
   font-size: 1.9vh;
   color: #3d3d3d;
   overflow-y: auto;
   ::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
     background: transparent;
   }
 `;
 
 const WrapOveray = styled.div`
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   height: 6.1vh;
   width: 41.3vh;
   background-image: linear-gradient(

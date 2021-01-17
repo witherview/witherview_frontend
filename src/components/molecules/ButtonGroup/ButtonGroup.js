@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: 21.9vh;
   height: 7.2vh;
   border-radius: 3.9vh;
-  -webkit-backdrop-filter: blur(5.3px);
+  -webkit-backdrop-filter: blur(0.53vh);
   backdrop-filter: blur(0.53vh);
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
   background-color: white;

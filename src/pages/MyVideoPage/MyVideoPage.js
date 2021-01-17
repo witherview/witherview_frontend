@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '200px',
+    margin: '20vh',
   },
   header: {
     backgroundColor: 'transparent',

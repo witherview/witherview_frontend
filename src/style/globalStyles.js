@@ -71,7 +71,7 @@ export default createGlobalStyle`
 
     ::-webkit-scrollbar {
         background-color:white;
-        width:14px;
+        width: 14px;
     }
 
     ::-webkit-scrollbar-track {

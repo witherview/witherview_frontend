@@ -24,7 +24,7 @@ const VideoContainer = styled.figure`
 
   & video {
     width: 100%;
-    border-radius: 20px;
+    border-radius: 2vh;
   }
 `;
 

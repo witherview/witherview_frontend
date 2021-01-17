@@ -9,8 +9,8 @@ const Box = styled.div`
   width: 20.1vh;
   height: 12.7vh;
   border-radius: 1vh;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: ${({ isClicked }) => (isClicked ? 'solid 3px #5f5fd9;' : 'none')};
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: ${({ isClicked }) => (isClicked ? 'solid 0.3vh #5f5fd9;' : 'none')};
   background-color: white;
   display: flex;
   align-items: center;
