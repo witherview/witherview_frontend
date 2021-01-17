@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import profileDefault from '@assets/images/profile_default.png';
 
 const Wrapper = styled.div`
   width: ${({ isSmall }) => (isSmall ? 6 : 7.3)}vh;
@@ -24,5 +25,6 @@ ProfileIcon.propTypes = {
 };
 
 ProfileIcon.defaultProps = {
+  src: profileDefault,
   isSmall: false,
 };
