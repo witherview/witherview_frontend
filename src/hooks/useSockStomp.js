@@ -1,42 +1,39 @@
 import {
-  useEffect, useState, useRef, useCallback,
+  useEffect, useState, useRef,
 } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import Peer from 'simple-peer';
 // TODO: 모멘트 말고 다른걸로 바꾸기 - already deprecated
 import moment from 'moment';
-import { set } from 'await-timeout';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 export default function useSockStomp({
   url = 'https://api.witherview.com/socket',
   roomId,
   setStep,
 }) {
-  const [isConnect, setIsConnect] = useState(false);
   const [peers, setPeers] = useState([]);
-  const [myId, setMyId] = useState(uuidv4());
-  const [yourId, setYourId] = useState('');
+  // const [myId, setMyId] = useState(uuidv4());
+  // const [yourId, setYourId] = useState('');
 
-  const socketRef = useRef();
+  // const socketRef = useRef();
   const userVideo = useRef();
-  const peersRef = useRef([]);
+  // const peersRef = useRef([]);
   const otherPeer = useRef();
 
   const [chat, setChat] = useState([]);
   const client = useRef(null);
 
-  const handleChatPublish = (payload) => {
-    console.log('??');
-    const sender = `${sessionStorage.getItem('name')} (${sessionStorage.getItem(
-      'email',
-    )})`;
+  const [isConnectStomp, setIsConnectStomp] = useState(false);
+
+  const handleClick = (payload) => {
+    console.log(payload);
+
     const newMessage = {
-      // TODO: type을 추가해서 topic 안놔눠도 분기처리?
       type: 'COMMENT',
       roomId,
-      sender,
+      sender: sessionStorage.getItem('name'),
       contents: payload,
     };
     client.current.send('/pub/chat', {}, JSON.stringify(newMessage));
@@ -62,7 +59,7 @@ export default function useSockStomp({
 
     if (newMessage.type === 'aaaaaaa') {
       console.log('** callUser');
-      const payload = JSON.parse(newMessage.contents);
+      // const payload = JSON.parse(newMessage.contents);
 
       peer.on('stream', (otherStream) => {
         console.log('*stream');
@@ -72,7 +69,7 @@ export default function useSockStomp({
         }
       });
 
-      console.log('aa??', myId, payload.callerID);
+      // console.log('aa??', myId, payload.callerID);
       // const item = peersRef.current.find((p) => p.peerID === payload.callerID);
       // console.log('*item', item);
       // if (!item) {
@@ -86,32 +83,31 @@ export default function useSockStomp({
     }
 
     if (newMessage.type === 'join') {
-      console.log('bb??', myId, newMessage.contents);
-      if (newMessage.contents !== myId) {
-        console.log('**IN');
-        peer.on('signal', (signal) => {
-          console.log('signral');
-          const newSignal = {
-            callerID: newMessage.contents,
-            myId,
-            signal,
-          };
-          console.log('[[[[abc');
-          handleSignalPublish({
-            type: 'aaaaaaa',
-            contents: JSON.stringify(newSignal),
-          });
-        });
-        peer.signal(newMessage.contents);
-        // peersRef.current.push({
-        //   peerID: myId,
-        //   peer,
-        // });
+      // console.log('bb??', myId, newMessage.contents);
+      // if (newMessage.contents !== myId) {
+      //   console.log('**IN');
+      //   peer.on('signal', (signal) => {
+      //     console.log('signral');
+      //     const newSignal = {
+      //       callerID: newMessage.contents,
+      //       myId,
+      //       signal,
+      //     };
+      //     console.log('[[[[abc');
+      //     handleSignalPublish({
+      //       type: 'aaaaaaa',
+      //       contents: JSON.stringify(newSignal),
+      //     });
+      //   });
+      //   peer.signal(newMessage.contents);
+      // peersRef.current.push({
+      //   peerID: myId,
+      //   peer,
+      // });
 
-        // return setPeers((users) => [...users, peer]);
-      } else {
-        handleSignalPublish({ type: 'join', contents: newMessage.contents });
-      }
+      // return setPeers((users) => [...users, peer]);
+    } else {
+      handleSignalPublish({ type: 'join', contents: newMessage.contents });
     }
 
     if (newMessage.type === 'disconnect') {
@@ -128,9 +124,9 @@ export default function useSockStomp({
     return console.log('-_-_-_-');
   };
 
-  useEffect(() => {
-    console.log('####', myId, yourId, peers);
-  }, [myId, yourId, peers]);
+  // useEffect(() => {
+  //   console.log('####', myId, yourId, peers);
+  // }, [myId, yourId, peers]);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -142,7 +138,7 @@ export default function useSockStomp({
         client.current.connect(
           {},
           () => {
-            console.log('connected');
+            setIsConnectStomp(true);
 
             userVideo.current.srcObject = stream;
 
@@ -152,8 +148,6 @@ export default function useSockStomp({
               stream,
             });
 
-            setIsConnect(true);
-
             // handleSignalPublish({
             //   type: 'join',
             //   contents: myId,
@@ -161,14 +155,14 @@ export default function useSockStomp({
 
             client.current.subscribe(`/sub/room/${roomId}`, (data) => {
               const newMessage = JSON.parse(data.body);
-              console.log('chat', newMessage);
+              console.log(newMessage);
 
-              const chatEach = {
+              const chatData = {
                 time: moment(new Date()).format('HH:mm A'),
+                name: newMessage.sender,
                 content: newMessage.contents,
               };
-
-              return setChat((prev) => [...prev, chatEach]);
+              setChat((prev) => [...prev, chatData]);
             });
 
             client.current.subscribe(`/sub/signal/${roomId}`, (data) => {
@@ -191,12 +185,11 @@ export default function useSockStomp({
   return {
     client: client.current,
     handleSignalPublish,
-    handleChatPublish,
     chat,
-    isConnect,
     userVideo,
     peers,
-    myId,
     otherPeer,
+    handleClick,
+    isConnectStomp,
   };
 }

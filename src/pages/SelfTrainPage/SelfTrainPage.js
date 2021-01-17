@@ -20,17 +20,9 @@ import { getQuestionItemAPI } from '@repository/questionListRepository';
 import { postPreVideoApi } from '@repository/requestVideoRepository';
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
-import CamView from '@components/CamView';
-
-import TextBox from '@components/TextBox';
-import Button from '@components/Button';
-import Icon from '@components/Icon';
-
-import RemainTime from '@components/RemainTime';
-import ToggleButton from '@components/ToggleButton';
-import AnswerBox from '@components/AnswerBox';
-import QuestionTextBox from '@components/QuestionTextBox';
-import useWindowSize from '@hooks/useWindowSize';
+import A from '@atoms';
+import M from '@molecules';
+import O from '@organisms';
 
 import Fixture from './transitionFixture';
 import QNA_LIST from './qnaListFixture';
@@ -50,7 +42,6 @@ export default function SelfTrainPage({ match }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { width } = useWindowSize();
   const { status, startRecording, stopRecording } = useReactMediaRecorder({
     video: true,
   });
@@ -58,9 +49,7 @@ export default function SelfTrainPage({ match }) {
   const { time } = useSelector(get('time'));
   const {
     company, job, viewAnswer, qnaStep, step,
-  } = useSelector(
-    get('train'),
-  );
+  } = useSelector(get('train'));
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
@@ -134,7 +123,7 @@ export default function SelfTrainPage({ match }) {
   const isShowAnswer = step === TOGGLE_SCRIPT;
 
   const textBox = (
-    <TextBox
+    <M.TextBox
       topText={
         (step === STEP_LOADING_2 ? `${name}님은 ${company} ${job}` : '')
         + Fixture[step]?.top
@@ -144,10 +133,9 @@ export default function SelfTrainPage({ match }) {
   );
 
   const questionTextBox = (
-    <QuestionTextBox
+    <M.QuestionTextBox
       question={questionList[qnaStep]?.question || ''}
       order={questionList[qnaStep]?.order + 1 || 0}
-      width={width / 1.5}
     />
   );
 
@@ -156,7 +144,7 @@ export default function SelfTrainPage({ match }) {
       <S.WrapContainer>
         <S.WrapAbsolute>
           {!isStepFirst && (
-            <Icon
+            <A.Icon
               isCircle
               type="cancel_circle"
               func={() => handleCancel()}
@@ -166,46 +154,43 @@ export default function SelfTrainPage({ match }) {
         </S.WrapAbsolute>
         <S.WrapContent>
           {isLoading ? textBox : questionTextBox}
-          <S.WrapCamView width={width / 1.5}>
-            <CamView
-              height={width / 3}
-              width={isShowAnswer ? width / 1.5 - 553 : width / 1.5}
-              status={status}
-            />
+          <S.WrapCamView>
+            <O.CamView isShowAnswer={isShowAnswer} status={status} />
             {isShowAnswer && (
-              <AnswerBox
+              <O.AnswerBox
                 answer={questionList[qnaStep].answer}
-                height={width / 3}
                 date={questionList[qnaStep].modifiedAt}
               />
             )}
           </S.WrapCamView>
-          <S.WrapBottom width={width / 1.5}>
+          <S.WrapBottom>
             <S.WrapBottomSide>
-              {isShowTimer && <RemainTime time={time} />}
+              {isShowTimer && <M.RemainTime time={time} />}
             </S.WrapBottomSide>
             {/* STEP_ING의 경우 버튼 누를 때 구간 저장하는 로직 추가 필요 */}
             {Fixture[step]?.button && (
-              <Button
-                theme="blue"
-                text={Fixture[step].button}
-                func={
-                  // TODO: 리펙토링 필요
-                  qnaStep === questionList.length - 1
-                  && questionList.length !== 1
-                    ? () => handleChecklistPage()
-                    : () => {
-                      if (step === STEP_START) startRecording();
-                      dispatch(handleNextButton());
-                    }
-                }
-              />
+              <S.WrapButton>
+                <A.Button
+                  theme="blue"
+                  text={Fixture[step].button}
+                  func={
+                    // TODO: 리펙토링 필요
+                    qnaStep === questionList.length - 1
+                    && questionList.length !== 1
+                      ? () => handleChecklistPage()
+                      : () => {
+                        if (step === STEP_START) startRecording();
+                        dispatch(handleNextButton());
+                      }
+                  }
+                />
+              </S.WrapButton>
             )}
             <S.WrapBottomSide right>
               {isShowToggle && viewAnswer && (
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
-                  <ToggleButton
+                  <A.ToggleButton
                     funcActive={() => dispatch(setStep({ step: TOGGLE_SCRIPT }))}
                     funcDeactive={() => dispatch(setStep({ step: STEP_ING }))}
                   />

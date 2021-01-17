@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
-    'react/jsx-filename-extension': [0],
+    'react/jsx-filename-extension': 0,
     'react/require-default-props': 0,
     'no-nested-ternary': 0,
     'no-param-reassign': 0,
@@ -31,19 +31,14 @@ module.exports = {
     'linebreak-style': 0,
     'react/forbid-prop-types': 0,
     'react/no-array-index-key': 0,
+    'react/jsx-one-expression-per-line': 0,
+    'react/jsx-curly-newline': 0,
   },
   settings: {
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
-      webpack: {
-        config: 'webpack.config.js',
-      },
-    },
-  },
-  settings: {
-    'import/resolver': {
       webpack: {
         config: 'webpack.config.js',
       },

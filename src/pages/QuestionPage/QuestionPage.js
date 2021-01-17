@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { sortObjectByOrder, get } from '@utils/snippet';
+import { sortObjectByOrder } from '@utils/snippet';
 import {
   deleteQuestionItemAPI,
   getQuestionItemAPI,
@@ -14,52 +14,45 @@ import {
   patchQuestionItemAPI,
 } from '@repository/questionListRepository';
 
-import Button from '@components/Button';
-import ProfileMenuContiner from '@components/ProfileMenuContainer';
 import { setSelectedQnaId } from '@store/Train/train';
 import { AddQuestions, ResetQuestions } from '@store/Question/question';
 
-import Icon from '@components/Icon';
-import QuestionList from '@components/Question/QuestionList';
-import Modal from '@components/Modal/Modal';
+import A from '@atoms';
+import O from '@organisms';
+
 import { showModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 
 const PageWrapper = styled.div`
-  display: flex;
   flex: 1;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 const ContentWrapper = styled.div`
-  width: 100%;
-`;
-
-const ProfileWrapper = styled.div`
-  float: right;
-  margin: 53px 105px 0 0;
+  height: 80vh;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh-137px;
-  margin-top: 137px;
   flex-direction: column;
   align-items: center;
 `;
 
 const Input = styled.div`
   display: flex;
-  height: 100vh-137px;
+  margin-top: 5vh;
   align-items: center;
   justify-content: center;
-  margin-top: 71px;
 `;
 
 const Title = styled.div`
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.6vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -71,28 +64,32 @@ const Title = styled.div`
 const InputQuestion = styled.input`
   display: flex;
   align-self: center;
-  width: 1070px;
-  height: 26px;
-  font-size: 24px;
-  padding: 17px 30px 17px 17px;
+  width: 107vh;
+  height: 2.6vh;
+  font-size: 2.4vh;
+  padding: 1.7vh 3vh 1.7vh 1.7vh;
   border: none;
   outline: none;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.04);
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
   background-color: #f6f6f6;
+  cursor: text;
 `;
 
 const IconWrapper = styled.span`
-  width: 63px;
-  height: 63px;
-  transform: translate(-17px, -2px);
+  width: 6.3vh;
+  height: 6.3vh;
+  transform: translate(-1.7vh, -0.2vh);
+  > i {
+    cursor: pointer;
+  }
 `;
 
 const Text = styled.div`
-  margin-top: 262px;
-  margin-bottom: 220px;
+  margin-top: 26.2vh;
+  margin-bottom: 22vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 1.9vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -105,23 +102,29 @@ const Text = styled.div`
 const ListWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 73px;
+  margin-top: 7.3vh;
 `;
 
 const Scroll = styled.div`
-  height: 400px;
+  height: 40vh;
   overflow: scroll;
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 67px;
+  margin-top: 6.7vh;
+  > div {
+    width: 29.6vh;
+    height: 6vh;
+    > p {
+      font-size: 1.9vh;
+    }
+  }
 `;
 
 export default function QuestionPage({ match }) {
   const dispatch = useDispatch();
-  const authSelector = useSelector(get('auth'));
   const [questionList, setQuestionList] = useState([]);
   const [deletedItems, setDeletedItems] = useState([]);
   const [title, setTitle] = useState('');
@@ -219,12 +222,9 @@ export default function QuestionPage({ match }) {
   return (
     <>
       <PageWrapper>
-        <Modal modalName={MODALS.QUESTIONLIST_SAVE_MODAL} />
-        <Modal modalName={MODALS.SELF_TRAIN_START_MODAL} />
+        <O.Modal modalName={MODALS.QUESTIONLIST_SAVE_MODAL} />
+        <O.Modal modalName={MODALS.SELF_TRAIN_START_MODAL} />
         <ContentWrapper>
-          <ProfileWrapper>
-            <ProfileMenuContiner name={authSelector.name} />
-          </ProfileWrapper>
           <Wrapper>
             <Title>면접 질문 작성 및 수정하기</Title>
             <Input>
@@ -234,7 +234,7 @@ export default function QuestionPage({ match }) {
                 onChange={handleTitle}
               />
               <IconWrapper>
-                <Icon
+                <A.Icon
                   type="check_rec"
                   func={handleQuestionAdd}
                   alt="check rec"
@@ -250,7 +250,7 @@ export default function QuestionPage({ match }) {
                 <ListWrapper>
                   <Scroll>
                     <DndProvider backend={HTML5Backend}>
-                      <QuestionList
+                      <O.QuestionList
                         questions={questionList}
                         setQuestions={setQuestionList}
                         setDeletedItems={setDeletedItems}
@@ -260,7 +260,7 @@ export default function QuestionPage({ match }) {
                 </ListWrapper>
               )}
               <ButtonWrapper>
-                <Button
+                <A.Button
                   func={handleQuestionMake}
                   text={id === 'new' ? '저장' : '완료'}
                   theme={isListEmpty ? 'gray' : 'blue'}

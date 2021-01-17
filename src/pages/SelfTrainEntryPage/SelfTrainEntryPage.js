@@ -7,37 +7,38 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
 import { handleReset } from '@store/Time/time';
-import TextBox from '@components/TextBox';
-import Button from '@components/Button';
+
+import A from '@atoms';
+import M from '@molecules';
+
 import SelectCard from './SelectCard';
 
 const Wrapper = styled.div`
-  margin-left: 150px;
   flex: 1;
-  flex-direction: column;
-`;
-const WrapContent = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+`;
+
+const WrapContent = styled.div`
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const WrapCardSection = styled.div`
-  @media only screen and (max-height: 1080px) {
-    padding: 0px;
-  }
-  @media only screen and (min-height: 1600px) {
-    @media only screen and (max-width: 1080px) {
-      flex-direction: column;
-      padding: 0px;
-    }
-  }
   display: flex;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  padding: 80px;
+  margin-top: 3vh;
+  margin-bottom: 3.3vh;
+  padding: 2.5vh;
+`;
+
+const WrapButton = styled.div`
+  ${({ theme }) => theme.button}
 `;
 
 const SELECT_NOTHING = 0;
@@ -63,7 +64,7 @@ export default function SelfTrainEntryPage({ history }) {
   return (
     <Wrapper>
       <WrapContent>
-        <TextBox
+        <M.TextBox
           topText={`${name}님 화상 면접을 연습하세요`}
           bottomText="원하는 기능을 선택하여 화상 면접을 대비해 보세요."
         />
@@ -79,16 +80,18 @@ export default function SelfTrainEntryPage({ history }) {
             func={() => handleToggle(ADD_QUESTION_BUTTON)}
           />
         </WrapCardSection>
-        <Button
-          func={
-            // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
-            isGuide
-              ? () => history.push('/self/setting/3')
-              : () => history.push('/questionlist')
-          }
-          theme={clicked ? 'blue' : 'gray'}
-          text="다음"
-        />
+        <WrapButton>
+          <A.Button
+            func={
+              // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
+              isGuide
+                ? () => history.push('/self/setting/3')
+                : () => history.push('/questionlist')
+            }
+            theme={clicked ? 'blue' : 'gray'}
+            text="다음"
+          />
+        </WrapButton>
       </WrapContent>
     </Wrapper>
   );

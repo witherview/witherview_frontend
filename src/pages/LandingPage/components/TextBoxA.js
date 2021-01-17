@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   height: ${({ height }) => height}px;
-  width: 570px;
+  width: 420px;
   display: flex;
   flex-direction: column;
   ${({ isRight }) => isRight && 'align-items: flex-end'};
@@ -16,12 +16,12 @@ const WrapText = styled.div`
   ${({ isRight }) => isRight && 'text-align: right'};
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
   font-size: ${({ size }) => size}px;
-  ${({ bold }) => bold && 'font-family: AppleSDGothicNeoEB00;'}
+  ${({ bold }) => bold && 'font-family: AppleSDGothicNeoB00;'}
   color: ${({ color }) => color};
 `;
 
 const WrapPadding = styled.div`
-  padding: ${({ padding }) => padding && '30px 0 50px 0'};
+  padding: ${({ padding }) => padding && '15px 0 20px 0'};
 `;
 
 export default function TextBoxA({
@@ -33,14 +33,14 @@ export default function TextBoxA({
 }) {
   return (
     <Wrapper height={height} isRight={isRight}>
-      <WrapText lineHeight={false} size={24} bold color="#6e6eff">
+      <WrapText lineHeight={false} size={17.5} bold color="#6e6eff">
         {header}
       </WrapText>
       {content.map((each, key) => (
         <WrapText
           key={`${key}content`}
-          lineHeight="130%"
-          size={65}
+          lineHeight="80%"
+          size={48}
           bold
           color="black"
         >
@@ -53,7 +53,7 @@ export default function TextBoxA({
             isRight={isRight}
             key={`${key}summary`}
             lineHeight="130%"
-            size={20}
+            size={15}
             color="black"
           >
             {each}

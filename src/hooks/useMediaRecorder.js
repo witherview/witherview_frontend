@@ -119,10 +119,11 @@ export default function useReactMediaRecorder({
     const blobProperty = {
       type: chunk.type,
       ...(blobPropertyBag
-        || (video || screen ? { type: 'video/webm;codecs=vp8,opus' } : { type: 'audio/wav' })),
+        || (video || screen
+          ? { type: 'video/webm;codecs=vp8,opus' }
+          : { type: 'audio/wav' })),
     };
     const blob = new Blob(mediaChunks.current, blobProperty);
-    console.log(blob);
     const url = URL.createObjectURL(blob);
 
     setStatus('stopped');

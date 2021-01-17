@@ -4,15 +4,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import C from '@components';
+import A from '@atoms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
+import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
   z-index: 2;
   position: fixed;
   top: 0;
   width: 100%;
-  height: 130px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,26 +24,27 @@ const Wrapper = styled.div`
 `;
 
 const WrapLeft = styled.img`
-  width: 169px;
+  width: 120px;
 `;
 
 const WrapContainer = styled.div`
   width: 90%;
-  max-width: 1700px;
+  max-width: 1150px;
+  min-width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const WrapTextButton = styled.div`
-  @media only screen and (max-width: 1280px) {
+  @media only screen and (max-width: 1150px) {
     display: none;
   }
-  width: 60%;
+  min-width: 350px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 110px;
+  padding-right: 60px;
 `;
 
 const WrapRightInner = styled.div`
@@ -52,7 +54,23 @@ const WrapRightInner = styled.div`
   justify-content: flex-end;
 `;
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 130);
+const WrapButton = styled.div`
+  > div {
+    height: 35px;
+    border-radius: 5px;
+    border-width: 1.5px;
+    > p {
+      font-size: 12px;
+      font-family: AppleSDGothicNeoEB00;
+    }
+  }
+`;
+
+const scrollToRef = (ref) => window.scrollTo({
+  top: ref.current.offsetTop - 60,
+  left: 0,
+  behavior: 'smooth',
+});
 
 export default function LandingHeader({
   topRef,
@@ -69,30 +87,32 @@ export default function LandingHeader({
         <WrapLeft src={Logo} />
         <WrapRightInner>
           <WrapTextButton>
-            <C.TextButtonProps
+            <TextButtonProps
               onClick={() => executeScroll(topRef)}
               text="홈"
             />
-            <C.TextButtonProps
+            <TextButtonProps
               onClick={() => executeScroll(middleOneRef)}
               text="위더뷰란?"
             />
-            <C.TextButtonProps
+            <TextButtonProps
               onClick={() => executeScroll(aloneRef)}
               text="혼자연습"
             />
-            <C.TextButtonProps
+            <TextButtonProps
               onClick={() => executeScroll(studyRef)}
               text="면접스터디"
             />
           </WrapTextButton>
-          <C.Button
-            id="menu_btn"
-            theme="outline"
-            width={230}
-            text="LOG IN"
-            func={() => history.push('/login')}
-          />
+          <WrapButton>
+            <A.Button
+              id="menu_btn"
+              theme="outline"
+              width={140}
+              text="LOG IN"
+              func={() => history.push('/login')}
+            />
+          </WrapButton>
         </WrapRightInner>
       </WrapContainer>
     </Wrapper>

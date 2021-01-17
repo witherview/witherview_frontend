@@ -10,9 +10,12 @@ import NoList from './NoList';
 import IsQuestionList from './IsQuestionList';
 
 const PageWrapper = styled.div`
-  display: flex;
   flex: 1;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 const ContentWrapper = styled.div`
@@ -21,16 +24,13 @@ const ContentWrapper = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
-  height: 100vh-137px;
-  margin-top: 137px;
   flex-direction: column;
   align-items: center;
 `;
 
 const Title = styled.div`
   font-family: AppleSDGothicNeoEB00;
-  font-size: 36px;
+  font-size: 3.6vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -40,9 +40,9 @@ const Title = styled.div`
 `;
 
 const Select = styled.div`
-  margin-top: 20px;
+  margin-top: 2vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 24px;
+  font-size: 2.4vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

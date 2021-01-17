@@ -7,29 +7,43 @@ import SyncLoader from 'react-spinners/SyncLoader';
 
 import LandingPage from '@pages/LandingPage';
 
-import AuthRoute from '@components/AuthRoute';
+import R from '@routes';
+import O from '@organisms';
+
 import NotFound from '@pages/404';
 import LoginPage from '@pages/LoginPage';
+import SignUpPage from '@pages/SignUpPage';
+import WelcomePage from '@pages/WelcomePage';
 import QuestionListPage from '@pages/QuestionListPage';
 import QuestionPage from '@pages/QuestionPage';
 
 import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
+import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
+import PeerStudyMainPage from '@pages/PeerStudyMainPage';
 
-import AloneQuestionCheckList from '@pages/AloneQuestionCheckList';
+import MyVideoPage from '@pages/MyVideoPage';
+import VideoPage from '@pages/VideoPage';
 import MyPage from '@pages/MyPage';
-import StudyMainPage from '@pages/StudyMainPage';
-import InterviewStudyEntry from '@pages/InterviewStudyEntry';
 
-import PeerStudyTrainPage from '@pages/PeerStudyTrainPage';
+import FragileRatioPage from '@pages/FragileRatioPage';
 
-import Sidebar from '@components/Sidebar';
-import ProfileMenuContainer from '@components/ProfileMenuContainer';
+import useWindowSize from '@hooks/useWindowSize';
+
+import GlobalStyles from './style/globalStyles';
+
 import { get } from './utils/snippet';
 
 const Wrapper = styled.div`
   display: flex;
+`;
+
+const WrapPage = styled.div`
+  display: flex;
+  ${({ toggleTrain }) => (toggleTrain
+    ? 'width: 100vw;'
+    : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;')}
 `;
 
 const WrapSpinner = styled.div`
@@ -44,49 +58,52 @@ const WrapSpinner = styled.div`
 export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
+  const { ratio } = useWindowSize();
 
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
+      <GlobalStyles />
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/sign-up" component={SignUpPage} />
+        <R.AuthRoute exact path="/welcome" component={WelcomePage} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
           </WrapSpinner>
         )}
+        {ratio < 1.6 && <FragileRatioPage />}
         <Wrapper>
-          <>
-            {!toggleTrain && <Sidebar />}
-            {!toggleTrain && <ProfileMenuContainer name={name} />}
-            <AuthRoute
+          {!toggleTrain && <O.SideBar />}
+          {!toggleTrain && <O.ProfileMenuContainer name={name} />}
+          <WrapPage toggleTrain={toggleTrain}>
+            <Route exact path="/self" component={SelfTrainEntryPage} />
+            <R.AuthRoute
               exact
               path="/questionlist"
               component={QuestionListPage}
             />
-            <AuthRoute path="/question/:id" component={QuestionPage} />
-            <AuthRoute exact path="/self" component={SelfTrainEntryPage} />
-            <AuthRoute
+            <R.AuthRoute path="/question/:id" component={QuestionPage} />
+            <R.AuthRoute
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
             />
-            <AuthRoute path="/self-train/:id" component={SelfTrainPage} />
-            <AuthRoute
+            <R.AuthRoute path="/self-train/:id" component={SelfTrainPage} />
+            <R.AuthRoute
               exact
-              path="/self-checklist/:id"
-              component={AloneQuestionCheckList}
+              path="/self-checklist/:roomId"
+              component={SelfStudyChecklist}
             />
-            <AuthRoute path="/group-study" component={StudyMainPage} />
-            <AuthRoute path="/study-room/:id" component={InterviewStudyEntry} />
-            <Route
-              path="/peer-study/:roomId"
-              component={PeerStudyTrainPage}
-            />
-            <AuthRoute exact path="/mypage" component={MyPage} />
-          </>
+            <R.AuthRoute exact path="/myvideo" component={MyVideoPage} />
+            <R.AuthRoute exact path="/video/:id" component={VideoPage} />
+            <R.AuthRoute path="/peer-study" component={PeerStudyMainPage} />
+            <R.AuthRoute path="/peer/:id" component={R.PeerStudyRoute} />
+            <R.AuthRoute path="/mypage" component={MyPage} />
+          </WrapPage>
         </Wrapper>
-        <Route component={NotFound} />
+        <R.AuthRoute component={NotFound} />
       </Switch>
     </>
   );

@@ -4,57 +4,57 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import C from '@components';
+import A from '@atoms';
 import LandingTopImage from '@assets/images/landing_top.png';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
-  @media only screen and (max-width: 1820px) {
-    height: 600px;
+  @media only screen and (max-width: 1150px) {
+    height: 550px;
   }
   width: 100%;
   user-select: none;
-  height: 940px;
+  height: 700px;
   background-color: #f9f9ff;
-  padding-top: 140px;
+  padding-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const WrapContainer = styled.div`
-  @media only screen and (max-width: 1820px) {
-    width: 80%;
-    justify-content: center;
-  }
-
+  max-width: 80%;
+  width: 1000px;
   display: flex;
   justify-content: space-around;
 `;
 
 const WrapContent = styled.div`
-  @media only screen and (max-width: 1820px) {
+  @media only screen and (max-width: 1150px) {
     justify-content: center;
     padding-top: 0px;
     width: 100%;
   }
-  padding-top: 100px;
+
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
 `;
 
 const WrapImage = styled.img`
-  @media only screen and (max-width: 1820px) {
-    height: 500px;
+  @media only screen and (max-width: 1150px) {
+    height: 400px;
+  }
+  @media only screen and (max-width: 900px) {
+    display: none;
   }
 
-  @media only screen and (max-width: 1400px) {
-    position: relative;
-    bottom: auto;
-    height: 0px;
-  }
+  height: 600px;
+`;
 
-  height: 818px;
+const WrapButton = styled.div`
+  padding-top: 30px;
+  ${({ theme }) => theme.landingButton}
 `;
 
 export default function LandingTop({ myRef }) {
@@ -64,7 +64,7 @@ export default function LandingTop({ myRef }) {
       <WrapContainer>
         <WrapContent>
           <TextBoxA
-            height={400}
+            height={300}
             header="INVERVIEW PRACTICE WEB"
             content={['집에서 편리하게', '경험해 볼 수 있는', '면접 스터디']}
             summary={[
@@ -72,12 +72,14 @@ export default function LandingTop({ myRef }) {
               '화상 면접 스터디를 다양하게 체험해보세요.',
             ]}
           />
-          <C.Button
-            theme="blue"
-            width={240}
-            func={() => history.push('./login')}
-            text="시작하기"
-          />
+          <WrapButton>
+            <A.Button
+              theme="blue"
+              width={180}
+              func={() => history.push('./login')}
+              text="시작하기"
+            />
+          </WrapButton>
         </WrapContent>
         <WrapImage src={LandingTopImage} />
       </WrapContainer>

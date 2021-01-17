@@ -3,21 +3,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import C from '@components';
+import A from '@atoms';
 import LandingBottomImage from '@assets/images/landing_bottom.png';
 import TextBoxB from './components/TextBoxB';
 
 const Wrapper = styled.div`
   user-select: none;
-  height: 600px;
+  height: 650px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 150px;
 `;
 
 const WrapContainer = styled.div`
-  height: 600px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,6 +31,10 @@ const Div = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+`;
+
+const WrapButton = styled.div`
+  ${({ theme }) => theme.landingButton}
 `;
 
 export default function LandingBottom() {
@@ -49,12 +52,14 @@ export default function LandingBottom() {
               '위더뷰와 함께 화상 면접을 준비해볼까요? 지금 바로 시작해보세요.',
             ]}
           />
-          <C.Button
-            theme="blue"
-            width={240}
-            func={() => history.push('./login')}
-            text="시작하기"
-          />
+          <WrapButton>
+            <A.Button
+              theme="blue"
+              width={180}
+              func={() => history.push('./login')}
+              text="시작하기"
+            />
+          </WrapButton>
         </WrapContainer>
       </Div>
     </Wrapper>

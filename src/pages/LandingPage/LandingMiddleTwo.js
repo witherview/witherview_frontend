@@ -10,10 +10,9 @@ const Wrapper = styled.div`
   @media only screen and (max-width: 1870px) {
     min-height: 400px;
   }
-
   width: 100%;
   user-select: none;
-  min-height: 700px;
+  min-height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,46 +21,38 @@ const Wrapper = styled.div`
 
 const WrapContainer = styled.div`
   @media only screen and (max-width: 1870px) {
-    width: 80%;
-    min-height: 400px;
-    justify-content: flex-end;
+    min-height: 350px;
   }
-
-  position: relative;
-  min-height: 600px;
-  max-width: 1400px;
+  min-height: 475px;
   width: 80%;
+  max-width: 1100px;
+  min-width: 600px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 50px;
 `;
 
 const WrapPadding = styled.div`
   @media only screen and (max-width: 1870px) {
-    padding-top: 0px;
+    padding-top: 0;
   }
   padding-top: 100px;
 `;
 
 const WrapImage = styled.img`
   @media only screen and (max-width: 1870px) {
-    height: 550px;
-    left: -105px;
-    bottom: -90px;
+    height: 350px;
+    bottom: 0;
   }
-
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1150px) {
     display: none;
-    position: relative;
-    bottom: auto;
-    height: 0px;
   }
 
-  height: 750px;
+  height: 550px;
   position: absolute;
-  bottom: -150px;
-  left: -135px;
+  bottom: -100px;
+  left: -100px;
 `;
 
 const Div = styled.div`
@@ -80,7 +71,7 @@ export default function LandingMiddleTwo({ myRefAlone }) {
           <WrapPadding>
             <TextBoxA
               isRight
-              height={350}
+              height={250}
               header="PRACTICE ALONE"
               content={['혼자서도 쉽게', '화상 면접 진행을!']}
               summary={[

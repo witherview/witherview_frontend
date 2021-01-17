@@ -3,8 +3,13 @@ import React from 'react';
 import PeerStudyTrainPage from './PeerStudyTrainPage';
 
 export default {
-  title: 'page/PeerStudyTrainPage',
+  title: 'pages/Peer Study/Study Train',
   component: PeerStudyTrainPage,
 };
 
-export const PeerStudyTrainPageDefault = () => <PeerStudyTrainPage />;
+export const studyTrain = () => (
+  <PeerStudyTrainPage match={{
+    params: { id: 1 },
+  }}
+  />
+);

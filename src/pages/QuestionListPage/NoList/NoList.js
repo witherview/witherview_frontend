@@ -2,46 +2,46 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import NoListImage from '@assets/images/illust_4.png';
-import Icon from '@components/Icon';
+import A from '@atoms';
 
 const Image = styled.img`
-    width: 327px;
-    height: 197px;
-    margin-top: 171px;
+  width: 32.7vh;
+  height: 19.7vh;
+  margin-top: 17.1vh;
 `;
 const Text = styled.div`
-    margin-top: 30px;
-    font-family: AppleSDGothicNeoM00;
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.33;
-    letter-spacing: normal;
-    color: #000000;
+  margin-top: 3vh;
+  font-family: AppleSDGothicNeoM00;
+  font-size: 1.9vh;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: #000000;
 `;
 const Button = styled.div`
-    display: flex;
-    width: 356px;
-    height: 82px;
-    margin: 100px 0 0 0;
-    border-radius: 10px;
-    background-image: linear-gradient(to bottom, #2323de, #4848da);
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  width: 35.6vh;
+  height: 8.2vh;
+  margin: 10vh 0 0 0;
+  border-radius: 1vh;
+  background-image: linear-gradient(to bottom, #2323de, #4848da);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 const ButtonText = styled.span`
-    height: 30px;
-    margin-left: 30px;
-    font-family: AppleSDGothicNeoB00;
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.42;
-    letter-spacing: normal;
-    color: #ffffff;
+  height: 3vh;
+  margin-left: 3vh;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 1.9vh;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.42;
+  letter-spacing: normal;
+  color: #ffffff;
 `;
 
 export default function NoList() {
@@ -51,10 +51,8 @@ export default function NoList() {
       <Text>등록된 질문 리스트가 없습니다.</Text>
       <Link to="/question/new" style={{ textDecoration: 'none' }}>
         <Button>
-          <Icon type="add_white" alt="" />
-          <ButtonText>
-            질문 리스트 등록하기
-          </ButtonText>
+          <A.Icon type="add_white" alt="" />
+          <ButtonText>질문 리스트 등록하기</ButtonText>
         </Button>
       </Link>
     </>

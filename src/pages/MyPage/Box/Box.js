@@ -1,78 +1,76 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '@components/Icon';
+import A from '@atoms';
 
 const Wrapper = styled.div`
-    display: flex;
-    align-items: center;
-    width: 480px;
-    height: 195px;
-    margin-bottom: 40px;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px 0 rgba(158, 158, 158, 0.1);
-    border: solid 1px #f6f6f6;
-    background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  width: 40vh;
+  height: 19.5vh;
+  margin-bottom: 4vh;
+  border-radius: 1vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(158, 158, 158, 0.1);
+  border: solid 0.1vh #f6f6f6;
+  background-color: #ffffff;
 `;
 
 const IconWrapper = styled.div`
-    margin-right: 50px;
-    margin-left: 50px;
+  margin-right: 5vh;
+  margin-left: 5vh;
 `;
 
 const ContentWrapper = styled.div`
-    margin-top:10px;
-    display: flex;
-    flex-direction: column;
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.div`
-    font-family: AppleSDGothicNeoEB00;
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.46;
-    letter-spacing: normal;
-    text-align: left;
-    color: #3d3d3d;
+  font-family: AppleSDGothicNeoEB00;
+  font-size: 1.9vh;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3d3d3d;
 `;
 
 const Count = styled.div`
-    font-family: TitilliumWeb;
-    font-size: 55px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.51;
-    letter-spacing: normal;
-    text-align: left;
-    color: #0c0c59;
+  font-family: TitilliumWeb;
+  font-size: 5.5vh;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.51;
+  letter-spacing: normal;
+  text-align: left;
+  color: #0c0c59;
 `;
 
 const Unit = styled.span`
-    margin-left: 23px;
-    font-family: AppleSDGothicNeoM00;
-    font-size: 20px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.3;
-    letter-spacing: normal;
-    text-align: left;
-    color: #3d3d3d;
+  margin-left: 2.3vh;
+  font-family: AppleSDGothicNeoM00;
+  font-size: 1.5vh;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3d3d3d;
 `;
 
 export default function Box({ type, title, count }) {
   return (
     <Wrapper>
       <IconWrapper>
-        <Icon type={type} />
+        <A.Icon type={type} />
       </IconWrapper>
       <ContentWrapper>
-        <Title>
-          {title}
-        </Title>
+        <Title>{title}</Title>
         <Count>
           {count}
           <Unit>번</Unit>

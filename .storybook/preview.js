@@ -1,7 +1,16 @@
-import { addDecorator } from '@storybook/react'
-import { withProvider } from './decorators/addon-redux-toolkit'
+import React from 'react';
+import { addDecorator } from '@storybook/react';
+import GlobalStyles from '../src/style/globalStyles';
+import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import theme from '../src/style/theme';
+import store from '@store';
 
-addDecorator(withProvider())
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-}
+addDecorator((Story) => (
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Story />
+    </ThemeProvider>
+  </Provider>
+));
