@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   height: 63vh;
   display: flex;
   align-items: flex-end;
+  ${({ isConnectStomp }) => !isConnectStomp && 'pointer-events: none; opacity: 0.3;'}
 `;
 
 const WrapContainer = styled.div`
@@ -87,7 +88,12 @@ const WrapChatInput = styled.div`
   }
 `;
 
-export default function RoomChat({ setInterviewer, chatData, onClick }) {
+export default function RoomChat({
+  setInterviewer,
+  chatData,
+  onClick,
+  isConnectStomp,
+}) {
   const chatBoxRef = useRef();
 
   useEffect(() => {
@@ -99,18 +105,21 @@ export default function RoomChat({ setInterviewer, chatData, onClick }) {
   }, [chatData]);
 
   return (
-    <Wrapper>
+    <Wrapper isConnectStomp={isConnectStomp}>
       <WrapContainer>
         <WrapperHeader>실시간 채팅</WrapperHeader>
         <WrapperContent ref={chatBoxRef} setInterviewer={setInterviewer}>
           {chatData?.map((val) => (
-            <ChatMessageWrapper me={val.name === sessionStorage.getItem('name')}>
+            <ChatMessageWrapper
+              me={val.name === sessionStorage.getItem('name')}
+            >
               <WrapProfileIcon>
                 <A.ProfileIcon isSmall />
               </WrapProfileIcon>
               <WrapChat>
                 <WrapChatInfo>
-                  {val.name}<span>{val.time}</span>
+                  {val.name}
+                  <span>{val.time}</span>
                 </WrapChatInfo>
                 <MessageText>{val.content}</MessageText>
               </WrapChat>
@@ -129,6 +138,7 @@ RoomChat.propTypes = {
   setInterviewer: PropTypes.bool,
   chatData: PropTypes.object,
   onClick: PropTypes.func,
+  isConnectStomp: PropTypes.bool,
 };
 
 RoomChat.defaultProps = {

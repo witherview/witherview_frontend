@@ -51,7 +51,6 @@ export default function PeerStudyRoomPage({
   useEffect(() => {
     // TODO: delete below line
     console.log(setStepSetting);
-    console.log('abasbsd');
     fetchRoomInfo();
   }, []);
 
@@ -69,12 +68,20 @@ export default function PeerStudyRoomPage({
               <S.BoxWrapper>
                 <A.Button text="방 나가기" theme="gray" />
                 {/* TODO: 방장의 경우 Setting 설정으로 넘어가도록 해야 함 */}
-                <A.Button text="스터디 시작하기" func={setStepTrain} theme="blue" />
+                <A.Button
+                  text="스터디 시작하기"
+                  func={setStepTrain}
+                  theme="blue"
+                />
               </S.BoxWrapper>
             </S.InterviewRoomInfo>
             <UsersSection />
           </S.InterviewRoomSection>
-          {isConnectStomp && <O.RoomChat chatData={chat} onClick={handleClick} />}
+          <O.RoomChat
+            chatData={chat}
+            onClick={handleClick}
+            isConnectStomp={isConnectStomp}
+          />
         </S.WrapContainer>
       </S.WrapperContent>
     </S.Wrapper>
