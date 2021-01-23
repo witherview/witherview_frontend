@@ -67,7 +67,7 @@ const AnswerBox = styled.div`
   margin: 0.5vh 0.5vh 0.5vh 4.5vh;
   display: ${({ clicked }) => (clicked ? 'block' : 'none')};
   overflow: hidden;
-  box-shadow: 0 0.6vh 2.4vh 0 rgba(4, 4, 161, 0.04);
+  box-shadow: 0 1.2vh 2vh 0 rgba(4, 4, 161, 0.15);
   border: solid 0.3vh #f6f6f6;
   border-radius: 1vh;
   background-color: #ffffff;
