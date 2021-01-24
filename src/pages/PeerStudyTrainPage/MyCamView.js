@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import M from '@molecules';
 
 const Wrapper = styled.div`
-  width: ${({ peers }) => (peers ? '66.3vh;' : '132.6vh;')}
+  width: ${({ peers }) => (peers ? '66.3vh;' : '77.3vh;')}
   height: 59vh;
   position: relative;
 `;

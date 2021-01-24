@@ -154,7 +154,7 @@ export default function SelfTrainPage({ match }) {
         </S.WrapAbsolute>
         <S.WrapContent>
           {isLoading ? textBox : questionTextBox}
-          <S.WrapCamView>
+          <S.WrapCamView isShowAnswer={isShowAnswer}>
             <O.CamView isShowAnswer={isShowAnswer} status={status} />
             {isShowAnswer && (
               <O.AnswerBox

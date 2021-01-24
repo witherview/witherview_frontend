@@ -7,14 +7,14 @@ import styled from 'styled-components';
 import M from '@molecules';
 
 const Wrapper = styled.div`
-  width: ${({ isShowAnswer }) => (isShowAnswer ? 77.3 : 132.6)}vh;
   height: 59vh;
+  width: 77.3vh;
   position: relative;
 `;
 
 const WrapVideo = styled.video`
-  width: ${({ isShowAnswer }) => (isShowAnswer ? 77.3 : 132.6)}vh;
-  height: 59vh;
+  height: 100%;
+  width: 100%;
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   background-size: cover;

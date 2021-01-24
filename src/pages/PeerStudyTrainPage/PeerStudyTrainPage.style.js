@@ -65,7 +65,7 @@ const WrapCamView = styled.div`
   width: 132.6vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: ${({ isTrain }) => (isTrain ? 'space-between' : 'center')};
 `;
 
 export default {

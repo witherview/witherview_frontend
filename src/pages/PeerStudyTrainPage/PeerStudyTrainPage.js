@@ -106,7 +106,7 @@ export default function PeerStudyTrainPage({
         </S.WrapAbsolute>
         <S.WrapContent>
           {textBox}
-          <S.WrapCamView>
+          <S.WrapCamView isTrain={isTrain}>
             {!isTrain && (
               <MyCamView
                 peers={step === STEP_CONNECT}
