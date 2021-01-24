@@ -13,6 +13,7 @@ const timeReducer = createSlice({
   initialState: {
     time: 0,
     timerId: '',
+    timeFlag: [],
   },
   reducers: {
     setTime(state, { payload: { time } }) {
@@ -27,10 +28,16 @@ const timeReducer = createSlice({
         timerId,
       };
     },
+    setTimeFlag(state, { payload: { timeFlag } }) {
+      return {
+        ...state,
+        timeFlag,
+      };
+    },
   },
 });
 
-export const { setTime, setTimerId } = timeReducer.actions;
+export const { setTime, setTimerId, setTimeFlag } = timeReducer.actions;
 
 export const resetTime = () => (dispatch, getState) => {
   const {
@@ -67,6 +74,7 @@ const TOGGLE_SCRIPT = 5;
 
 export const handleReset = ({ keepTrain = false }) => (dispatch) => {
   dispatch(setStep({ step: STEP_FIRST }));
+  dispatch(setTimeFlag({ timeFlag: [] }));
   dispatch(resetTime());
   dispatch(setQnaStep({ qnaStep: 0 }));
   dispatch(setStandardTime({ standardTime: 0 }));
@@ -79,13 +87,15 @@ export const handleStepQuestion = () => (dispatch, getState) => {
   const {
     train: { standardTime, qnaStep },
   } = getState();
+
   dispatch(startTime({ count: standardTime }));
   dispatch(setQnaStep({ qnaStep: qnaStep + 1 }));
 };
 
 export const handleNextButton = () => (dispatch, getState) => {
   const {
-    train: { standardTime, step },
+    train: { standardTime, step, qnaStep },
+    time: { timeFlag, time },
   } = getState();
   if (step === STEP_FIRST) {
     dispatch(setStep({ step: STEP_LOADING_1 }));
@@ -96,6 +106,13 @@ export const handleNextButton = () => (dispatch, getState) => {
     dispatch(startTime({ count: standardTime }));
   }
   if (step === STEP_ING || step === TOGGLE_SCRIPT) {
+    let calcTime = standardTime - time;
+
+    if (qnaStep > 0) {
+      calcTime += timeFlag[qnaStep - 1];
+    }
+
+    dispatch(setTimeFlag({ timeFlag: [...timeFlag, calcTime] }));
     dispatch(handleStepQuestion());
   }
 };

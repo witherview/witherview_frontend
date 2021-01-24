@@ -276,6 +276,7 @@ export default function SelfStudyChecklistPage({ match }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { localBlob, historyId } = useSelector(get('train'));
+  const { timeFlag } = useSelector(get('time'));
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
   const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
   const video = useRef();
@@ -441,7 +442,7 @@ export default function SelfStudyChecklistPage({ match }) {
                     onClick={onProgressClck}
                   />
                   <CheckPointWrapper>
-                    {[25, 50, 75].map((item) => (
+                    {timeFlag.map((item) => (
                       <CheckPoint point={item} key={`${item}point`}>
                         <A.Icon
                           type="arrow_up_blue"
