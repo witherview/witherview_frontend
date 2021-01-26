@@ -28,7 +28,7 @@ const WrapContent = styled.div`
 
 const Logo = styled.img`
   height: 6vh;
-  width: fit-content;
+  width: auto;
 `;
 
 const WrapSubTitle = styled.div`
