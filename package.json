@@ -4,6 +4,7 @@
   "description": "위더뷰| 취업준비생 면접 스터디 플랫폼",
   "main": "index.js",
   "scripts": {
+    "commit": "git-cz",
     "test": "jest --watchAll --coverage",
     "test:cypress": "cypress open",
     "lint": "eslint --fix --ext .js,.jsx src",
@@ -78,6 +79,8 @@
   "homepage": "https://witherview.com",
   "husky": {
     "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   },
@@ -86,10 +89,17 @@
       "npm run lint"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",
     "@storybook/addon-viewport": "^6.1.15",
@@ -111,6 +121,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
+    "git-cz": "^4.7.6",
     "given2": "^2.1.7",
     "html-loader": "^1.3.2",
     "html-webpack-plugin": "^4.5.1",
