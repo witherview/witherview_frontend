@@ -3,7 +3,10 @@ const express = require('express');
 const http = require('http');
 const { userInfo } = require('os');
 
+// cors 처리
+const cors = require('cors');
 const app = express();
+app.use(cors());
 const server = http.createServer(app);
 const socket = require('socket.io');
 
@@ -59,13 +62,13 @@ io.on('connection', (sock) => {
   // todo: 브라우저 종료할 경우의 종료 로직.
   // 커넥션을 종료할 때
   sock.on('disconnect', () => {
-    let roomId = socketToRoom.get(sock.id);
-    if (roomId === undefined) { 
+    let roomID = socketToRoom.get(sock.id);
+    if (roomID === undefined) { 
       // todo: 해당 방에 존재하지 않는 커넥션이 들어올 때. 예외처리가 필요할까?
       return;
     } 
     // 해당 방에 특정 유저가 떠났다는 user left 메시지를 보낸다.
-    sock.broadcast.to(roomId).emit("user left", sock.id);
+    sock.broadcast.to(roomID).emit("user left", sock.id);
 
     // 서버에 저장된 데이터 삭제.
     socketToRoom.delete(sock.id);
