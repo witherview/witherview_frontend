@@ -6,7 +6,7 @@ export default function useSocketSignal({ roomId, setStep }) {
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef();
-  const peersRef = useRef([]);
+  const peersRef = useRef(new Map());
 
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
@@ -43,7 +43,7 @@ export default function useSocketSignal({ roomId, setStep }) {
   }
 
   useEffect(() => {
-    socketRef.current = io.connect('https://witherview.herokuapp.com/');
+    socketRef.current = io.connect('http://localhost:8000');
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -54,35 +54,53 @@ export default function useSocketSignal({ roomId, setStep }) {
 
         socketRef.current.on('all users', (users) => {
           setPeers([]);
-          const getPeers = [];
           users.forEach((userID) => {
             const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.push({
-              peerID: userID,
+            peersRef.current.put(
+              userID,
               peer,
-            });
-            getPeers.push(peer);
+            );
+            peers.push(peer);
           });
-          setPeers(getPeers);
+          setPeers(peers);
         });
 
         socketRef.current.on('user joined', (payload) => {
-          const item = peersRef.current.find(
-            (p) => p.peerID === payload.callerID,
-          );
-          if (!item) {
+          const item = peersRef.current.get(payload.callerID);
+          if (item === undefined) {
             const peer = addPeer(payload.signal, payload.callerID, stream);
-            peersRef.current.push({
-              peerID: payload.callerID,
+            const userId = payload.callerID;
+            peersRef.current.put(
+              userId,
               peer,
-            });
+            );
             setPeers((users) => [...users, peer]);
           }
         });
 
         socketRef.current.on('receiving returned signal', (payload) => {
-          const item = peersRef.current.find((p) => p.peerID === payload.id);
-          item.peer.signal(payload.signal);
+          const signalSenderId = payload.id;
+          const item = peersRef.current.get(signalSenderId);
+          if (item !== undefined) {
+            item.peer.signal(payload.signal);
+          }
+        });
+
+        // 누군가가 방을 떠났다는 메시지를 받았을 때
+        socketRef.current.on('user left', (leftSocketId) => {
+          // 떠난 유저를 제외한 나머지 배열을 반환한 뒤 setPeers로 다시 세팅
+          if (peersRef.has(leftSocketId)) {
+            peersRef.delete(leftSocketId);
+          }
+          // 연결한 peer connection 삭제
+          const remainingUsers = peers.filter((user) => {
+            if (user.peerID === leftSocketId) {
+              user.peer.destroy();
+              return undefined;
+            } return user;
+          }).map((user) => user !== undefined);
+
+          setPeers(remainingUsers);
         });
 
         socketRef.current.on('refresh', () => {
