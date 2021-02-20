@@ -1,13 +1,18 @@
 /* eslint-disable no-useless-escape */
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import styled from 'styled-components';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { useSelector } from 'react-redux';
 
-import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import A from '@atoms';
 import M from '@molecules';
+
+import { postProfileImageApi } from '@repository/updateProfile';
+
+import { get } from '@utils/snippet';
+import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -95,7 +100,7 @@ const WrapName = styled.div`
 const WrapMail = styled.div`
   font-family: TitilliumWeb;
   font-size: 2vh;
-  color: ${({ theme }) => theme.colors.warmGrey}
+  color: ${({ theme }) => theme.colors.warmGrey};
 `;
 
 const WrapButton = styled.div`
@@ -126,6 +131,20 @@ const WrapAnker = styled.span`
 `;
 
 export default function WelcomePage({ history }) {
+  const [edit, setEdit] = useState();
+
+  const { imageFile } = useSelector(get('auth'));
+
+  const uploadButton = useCallback(() => {
+    postProfileImageApi(imageFile)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [imageFile, postProfileImageApi]);
+
   return (
     <Wrapper>
       <WrapContent>
@@ -138,27 +157,26 @@ export default function WelcomePage({ history }) {
             </WrapUpperContainer>
             <WrapMiddleContainer>
               <WrapName>
-                <div>
-                  {sessionStorage.getItem('name')}
-                </div>
-                <A.Icon type="post" />
+                {edit ? <input /> : <div>{sessionStorage.getItem('name')}</div>}
+                <A.Icon type="post" onClick={() => setEdit(true)} />
               </WrapName>
-              <WrapMail>
-                {sessionStorage.getItem('email')}
-              </WrapMail>
+              <WrapMail>{sessionStorage.getItem('email')}</WrapMail>
             </WrapMiddleContainer>
             <WrapButton>
-              <A.Button theme="blue" func={() => history.push('/self')} text="시작하기" />
+              <A.Button
+                theme="blue"
+                func={() => {
+                  uploadButton();
+                  history.push('/self');
+                }}
+                text="시작하기"
+              />
             </WrapButton>
           </WrapContianer>
         </WrapBox>
         <WrapBottomContainer>
-          <WrapAnker onClick={() => {}}>
-            이용약관
-          </WrapAnker>
-          <WrapAnker onClick={() => {}}>
-            개인정보처리방침
-          </WrapAnker>
+          <WrapAnker onClick={() => {}}>이용약관</WrapAnker>
+          <WrapAnker onClick={() => {}}>개인정보처리방침</WrapAnker>
         </WrapBottomContainer>
         <WrapBottomContainer>
           <WrapBottomText>
