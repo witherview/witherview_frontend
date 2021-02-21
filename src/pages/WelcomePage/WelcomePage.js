@@ -9,7 +9,10 @@ import { useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
 
-import { postProfileImageApi } from '@repository/updateProfile';
+import {
+  postProfileImageApi,
+  putProfileInfoApi,
+} from '@repository/updateProfile';
 
 import { get } from '@utils/snippet';
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
@@ -90,6 +93,7 @@ const WrapName = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1vh;
+  margin-left: 4vh;
   > div {
     padding-right: 1vh;
     font-family: AppleSDGothicNeoEB00;
@@ -130,20 +134,52 @@ const WrapAnker = styled.span`
   cursor: pointer;
 `;
 
+const WrapInput = styled.input`
+  width: 15vh;
+  text-align: center;
+  border: none;
+  border-right: 0px;
+  border-top: 0px;
+  boder-left: 0px;
+  boder-bottom: 0px;
+  font-family: AppleSDGothicNeoEB00;
+  font-size: 2.4vh;
+`;
+
 export default function WelcomePage({ history }) {
   const [edit, setEdit] = useState();
+  const [nickname, setNickname] = useState();
 
-  const { imageFile } = useSelector(get('auth'));
+  const {
+    imageFile, name, mainIndustry, mainJob, subIndustry, subJob,
+  } = useSelector(get('auth'));
 
   const uploadButton = useCallback(() => {
-    postProfileImageApi(imageFile)
-      .then((response) => {
-        console.log(response);
+    if (imageFile) {
+      postProfileImageApi(imageFile)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+    if (nickname) {
+      putProfileInfoApi({
+        name: nickname || name,
+        mainIndustry,
+        mainJob,
+        subIndustry,
+        subJob,
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [imageFile, postProfileImageApi]);
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error(error));
+        });
+    }
+  }, [imageFile, nickname, postProfileImageApi, putProfileInfoApi]);
 
   return (
     <Wrapper>
@@ -157,8 +193,17 @@ export default function WelcomePage({ history }) {
             </WrapUpperContainer>
             <WrapMiddleContainer>
               <WrapName>
-                {edit ? <input /> : <div>{sessionStorage.getItem('name')}</div>}
-                <A.Icon type="post" onClick={() => setEdit(true)} />
+                {edit ? (
+                  <WrapInput
+                    placeholder={sessionStorage.getItem('name')}
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                    autoFocus
+                  />
+                ) : (
+                  <div>{sessionStorage.getItem('name')}</div>
+                )}
+                <A.Icon type="post" func={() => setEdit(true)} />
               </WrapName>
               <WrapMail>{sessionStorage.getItem('email')}</WrapMail>
             </WrapMiddleContainer>
