@@ -1,27 +1,179 @@
 {
   "name": "witherview-fr",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.2",
-    "web-vitals": "^1.0.1"
-  },
+  "version": "1.0.0",
+  "description": "위더뷰| 취업준비생 면접 스터디 플랫폼",
+  "main": "index.js",
+  "proxy": "http://localhost:8000",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "commit": "git-cz",
+    "test": "jest --watchAll --coverage",
+    "test:cypress": "cypress open",
+    "lint": "eslint --fix --ext .js,.jsx src",
+    "build": "webpack",
+    "deploy": "netlify deploy",
+    "start": "craco start",
+    "storybook": "start-storybook -p 6060 -c .storybook watch-css -s ./public",
+    "build-storybook": "build-storybook -c .storybook watch-css -s ./public",
+    "analyze": "webpack --env isAnalyze"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yapp-17th/Web_2_Client.git"
+  },
+  "keywords": [
+    "interview",
+    "인터뷰",
+    "면접",
+    "취업 준비생",
+    "취준생",
+    "스터디"
+  ],
+  "author": "Yapp-17th/Web-2",
+  "contributors": [
+    {
+      "name": "김병헌",
+      "role": "Product Manager",
+      "email": "75nstebesb@gmail.com",
+      "url": "https://github.com/kbh18"
+    },
+    {
+      "name": "이은비",
+      "role": "Designer",
+      "email": "dldmsql502@gmail.com",
+      "url": "https://github.com/2lanbi"
+    },
+    {
+      "name": "성재호",
+      "role": "Backend Engineer",
+      "email": "tjdwogh45@gmail.com",
+      "url": "https://github.com/sjh2428"
+    },
+    {
+      "name": "문예은",
+      "role": "Backend Engineer",
+      "email": "ggyeeungg@naver.com",
+      "url": "https://github.com/MoonYeeun"
+    },
+    {
+      "name": "박기태",
+      "role": "Frontend Engineer",
+      "email": "rlxo1651@naver.com",
+      "url": "https://github.com/SkynI25"
+    },
+    {
+      "name": "김찬호",
+      "role": "Frontend Engineer",
+      "email": "cksgh405@gmail.com",
+      "url": "https://github.com/Lavegaa"
+    },
+    {
+      "name": "이용재",
+      "role": "Frontend Engineer",
+      "email": "dev.yongjaelee@gmail.com",
+      "url": "https://github.com/dididy"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yapp-17th/Web_2_Client/issues"
+  },
+  "homepage": "https://witherview.com",
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@storybook/addon-essentials": "^6.1.11",
+    "@storybook/addon-links": "^6.1.11",
+    "@storybook/addon-viewport": "^6.1.15",
+    "@storybook/react": "^6.1.11",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/react": "^11.2.3",
+    "@types/jest": "^26.0.20",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "craco-alias": "^2.1.1",
+    "css-loader": "^4.3.0",
+    "cypress": "^5.6.0",
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-webpack": "^0.13.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "file-loader": "^6.2.0",
+    "git-cz": "^4.7.6",
+    "given2": "^2.1.7",
+    "html-loader": "^1.3.2",
+    "html-webpack-plugin": "^4.5.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "26.6.0",
+    "jest-plugin-context": "^2.9.0",
+    "jest-transform-stub": "^2.0.0",
+    "node-sass": "^4.14.1",
+    "react-is": "^16.13.1",
+    "redux-mock-store": "^1.5.4",
+    "sass-loader": "^10.1.1",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^4.2.3",
+    "url-loader": "^4.1.1",
+    "webpack": "4.44.2",
+    "webpack-bundle-analyzer": "^4.3.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "3.11.0"
+  },
+  "dependencies": {
+    "@craco/craco": "^6.1.1",
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/pickers": "^3.2.10",
+    "@reduxjs/toolkit": "^1.5.0",
+    "aos": "^2.3.4",
+    "await-timeout": "^1.1.1",
+    "axios": "^0.21.1",
+    "babel-loader": "8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "dotenv": "^8.2.0",
+    "hls.js": "^0.14.17",
+    "husky": "^4.3.7",
+    "immutability-helper": "^3.1.1",
+    "lint-staged": "^10.5.3",
+    "moment": "^2.29.1",
+    "net": "^1.0.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.14.0",
+    "react-dnd": "^11.1.3",
+    "react-dnd-html5-backend": "^11.1.3",
+    "react-dom": "^16.14.0",
+    "react-hls": "0.0.8",
+    "react-hls-player": "^1.1.0",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "react-router-prop-types": "^1.0.5",
+    "react-scripts": "^4.0.2",
+    "react-spinners": "^0.9.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "simple-peer": "^9.9.3",
+    "socket.io-client": "^2.4.0",
+    "sockjs-client": "^1.5.0",
+    "stompjs": "^2.3.3",
+    "styled-components": "^5.2.1",
+    "styled-reset": "^4.3.4",
+    "uuid": "^8.3.2"
   },
   "browserslist": {
     "production": [
