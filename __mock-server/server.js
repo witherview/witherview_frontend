@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
-const { userInfo } = require('os');
 
 const app = express();
 const server = http.createServer(app);
