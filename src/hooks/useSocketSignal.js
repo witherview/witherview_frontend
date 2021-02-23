@@ -43,8 +43,9 @@ export default function useSocketSignal({ roomId, setStep }) {
   }
 
   useEffect(() => {
-    socketRef.current = io.connect('http://localhost:8000/', {
-      transports: ['polling', 'websocket'],
+    socketRef.current = io.connect('/', {
+      transports: ['websocket'],
+      path: "/socket",
     });
 
     navigator.mediaDevices
