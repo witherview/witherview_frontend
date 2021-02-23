@@ -122,6 +122,14 @@ module.exports = (env) => {
       ],
 
     devServer: {
+      proxy: {
+        '/socket': {
+          target: 'http://localhost:8000',
+          changeOrigin: true,
+          ws: true,
+          logLevel: 'debug',
+        },
+      },
       host: 'localhost',
       port,
       open: true,

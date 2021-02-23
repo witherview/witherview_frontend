@@ -43,7 +43,10 @@ export default function useSocketSignal({ roomId, setStep }) {
   }
 
   useEffect(() => {
-    socketRef.current = io.connect('http://localhost:8000');
+    socketRef.current = io.connect('/', {
+      transports: ['websocket'],
+      path: '/socket',
+    });
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -56,7 +59,7 @@ export default function useSocketSignal({ roomId, setStep }) {
           setPeers([]);
           users.forEach((userID) => {
             const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.put(
+            peersRef.current.set(
               userID,
               peer,
             );
@@ -70,7 +73,7 @@ export default function useSocketSignal({ roomId, setStep }) {
           if (item === undefined) {
             const peer = addPeer(payload.signal, payload.callerID, stream);
             const userId = payload.callerID;
-            peersRef.current.put(
+            peersRef.current.set(
               userId,
               peer,
             );
@@ -82,20 +85,20 @@ export default function useSocketSignal({ roomId, setStep }) {
           const signalSenderId = payload.id;
           const item = peersRef.current.get(signalSenderId);
           if (item !== undefined) {
-            item.peer.signal(payload.signal);
+            item.signal(payload.signal);
           }
         });
 
         // 누군가가 방을 떠났다는 메시지를 받았을 때
         socketRef.current.on('user left', (leftSocketId) => {
           // 떠난 유저를 제외한 나머지 배열을 반환한 뒤 setPeers로 다시 세팅
-          if (peersRef.has(leftSocketId)) {
-            peersRef.delete(leftSocketId);
+          if (peersRef.current.get(leftSocketId) !== undefined) {
+            peersRef.current.delete(leftSocketId);
           }
           // 연결한 peer connection 삭제
           const remainingUsers = peers.filter((user) => {
             if (user.peerID === leftSocketId) {
-              user.peer.destroy();
+              user.destroy();
               return undefined;
             } return user;
           }).map((user) => user !== undefined);
