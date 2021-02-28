@@ -8,6 +8,16 @@ const socket = require('socket.io');
 
 const io = socket(server, {
   path: '/socket',
+  origins: ['http://localhost:3000', 'https://witherview-webrtc.herokuapp.com/'],
+
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,POST',
+      'Access-Control-Allow-Credentials': true,
+    });
+    res.end();
+  },
 });
 
 const users = {};
