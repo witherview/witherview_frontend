@@ -80,7 +80,7 @@ export default function PeerStudyTrainPage({
       dispatch(setToggleTrain({ toggleTrain: true }));
       setStep(STEP_CONNECT);
     }
-    if (peers.length === 0 && step > 0) history.push('/peer-study');
+    // if (peers.length === 0 && step > 0) history.push('/peer-study');
     if (isTrain) {
       dispatch(startTime({ count: 1800 }));
     }

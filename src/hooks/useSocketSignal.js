@@ -5,10 +5,17 @@ import { useHistory } from 'react-router-dom';
 
 export default function useSocketSignal({ roomId, setStep }) {
   const [peers, setPeers] = useState([]);
+
+  // useEffect로 마운트 실행시 socket.on에서 useState로 바뀐 상태를 가져오지 못하는 문제가 있어서 아래와 같이 처리
+  // TODO: 더 좋은 방법이 있다면 그것을 사용
+  const peersStateTempRef = useRef();
+  useEffect(() => {
+    peersStateTempRef.current = peers;
+  }, [peers]);
+
   const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef(new Map());
-
   const history = useHistory();
 
   function createPeer(userToSignal, callerID, stream) {
@@ -63,7 +70,7 @@ export default function useSocketSignal({ roomId, setStep }) {
           users.forEach((userID) => {
             const peer = createPeer(userID, socketRef.current.id, stream);
             peersRef.current.set(userID, peer);
-            peers.push(peer);
+            peers.push({ userID, peer });
           });
           setPeers(peers);
         });
@@ -76,9 +83,9 @@ export default function useSocketSignal({ roomId, setStep }) {
           const item = peersRef.current.get(payload.callerID);
           if (item === undefined) {
             const peer = addPeer(payload.signal, payload.callerID, stream);
-            const userId = payload.callerID;
-            peersRef.current.set(userId, peer);
-            setPeers((users) => [...users, peer]);
+            const userID = payload.callerID;
+            peersRef.current.set(userID, peer);
+            setPeers((users) => [...users, { userID, peer }]);
           }
         });
 
@@ -89,7 +96,6 @@ export default function useSocketSignal({ roomId, setStep }) {
             item.signal(payload.signal);
           }
         });
-
         // 누군가가 방을 떠났다는 메시지를 받았을 때
         socketRef.current.on('user left', (leftSocketId) => {
           // 떠난 유저를 제외한 나머지 배열을 반환한 뒤 setPeers로 다시 세팅
@@ -97,12 +103,13 @@ export default function useSocketSignal({ roomId, setStep }) {
             peersRef.current.delete(leftSocketId);
           }
           // 연결한 peer connection 삭제
-          const remainingUsers = peers.filter((user) => {
-            if (user.peerID === leftSocketId) {
-              user.destroy();
-              return undefined;
-            } return user;
-          }).map((user) => user !== undefined);
+          const remainingUsers = peersStateTempRef.current
+            .filter((user) => {
+              if (user.userID === leftSocketId) {
+                return undefined;
+              }
+              return user;
+            });
 
           setPeers(remainingUsers);
         });
@@ -113,6 +120,7 @@ export default function useSocketSignal({ roomId, setStep }) {
         });
       });
   }, []);
+
   return {
     createPeer,
     addPeer,

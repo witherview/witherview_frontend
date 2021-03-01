@@ -34,7 +34,7 @@ export default function PeerVideo({
   const ref = useRef();
 
   useEffect(() => {
-    peer.on('stream', (stream) => {
+    peer.peer.on('stream', (stream) => {
       ref.current.srcObject = stream;
     });
   }, []);
