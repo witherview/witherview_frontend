@@ -27,8 +27,8 @@ const socketToRoom = new Map();
 io.on('connection', (sock) => {
   sock.on('join room', (roomID) => {
     if (users[roomID]) {
-      const { length } = users[roomID].length;
-      if (length === 2) {
+      const { length } = users[roomID];
+      if (length === 3) {
         sock.emit('room full');
         return;
       }

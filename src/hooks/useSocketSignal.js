@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import Peer from 'simple-peer';
 import io from 'socket.io-client';
+import { useHistory } from 'react-router-dom';
 
 export default function useSocketSignal({ roomId, setStep }) {
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef(new Map());
+
+  const history = useHistory();
 
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
@@ -59,13 +62,14 @@ export default function useSocketSignal({ roomId, setStep }) {
           setPeers([]);
           users.forEach((userID) => {
             const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.set(
-              userID,
-              peer,
-            );
+            peersRef.current.set(userID, peer);
             peers.push(peer);
           });
           setPeers(peers);
+        });
+
+        socketRef.current.on('room full', () => {
+          history.push('/peer-study');
         });
 
         socketRef.current.on('user joined', (payload) => {
@@ -73,10 +77,7 @@ export default function useSocketSignal({ roomId, setStep }) {
           if (item === undefined) {
             const peer = addPeer(payload.signal, payload.callerID, stream);
             const userId = payload.callerID;
-            peersRef.current.set(
-              userId,
-              peer,
-            );
+            peersRef.current.set(userId, peer);
             setPeers((users) => [...users, peer]);
           }
         });
