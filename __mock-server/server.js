@@ -71,6 +71,7 @@ io.on('connection', (sock) => {
   // 커넥션을 종료할 때
   sock.on('disconnect', () => {
     const roomId = socketToRoom.get(sock.id);
+
     if (roomId === undefined) {
       // todo: 해당 방에 존재하지 않는 커넥션이 들어올 때. 예외처리가 필요할까?
       return;
@@ -80,7 +81,10 @@ io.on('connection', (sock) => {
 
     // 서버에 저장된 데이터 삭제.
     socketToRoom.delete(sock.id);
-    users[roomId].filter((id) => id !== sock.id);
+
+    const idx = users[roomId].findIndex((item) => item === sock.id);
+
+    users[roomId].splice(idx, 1);
   });
 });
 
