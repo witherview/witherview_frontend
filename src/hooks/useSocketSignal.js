@@ -107,11 +107,6 @@ export default function useSocketSignal({ roomId, setStep }) {
           setPeers(remainingUsers);
         });
 
-        socketRef.current.on('refresh', () => {
-          setPeers([]);
-          setStep(0);
-        });
-
         // TODO: stomp 시그널링과 분리해서 stomp topic에 추가
         socketRef.current.on('clicked', () => {
           setStep((prev) => prev + 1);
