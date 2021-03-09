@@ -1,11 +1,9 @@
 import React from 'react';
-import _Calendar from './Calendar';
-
-const Calendar = _Calendar;
+import Calendar from './Calendar';
 
 export default {
   title: 'Organisms/Calendar',
   component: Calendar,
 };
 
-export const interviewChat = (args) => <Calendar {...args} />;
+export const defaultCalendar = (args) => <Calendar {...args} />;
