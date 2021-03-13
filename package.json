@@ -149,6 +149,7 @@
     "await-timeout": "^1.1.1",
     "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
+    "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
     "hls.js": "^0.14.17",
     "husky": "^4.3.7",

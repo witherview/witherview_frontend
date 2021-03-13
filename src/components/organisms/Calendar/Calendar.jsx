@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 import CalendarLayout from './Layout';
 
 function Calendar() {
   // const [loading, setLoading] = useState(false);
-  const [thisMonth, setThisMonth] = useState(moment());
+  const [thisMonth, setThisMonth] = useState(dayjs());
   const [calendarItems, setCalendarItems] = useState([]);
 
   async function getCalendarItems(current) {
     try {
       // setLoading(true);
 
-      const start = current.startOf('months');
-      const daysInThisMonth = moment(current).daysInMonth();
+      const start = dayjs(current).startOf('month');
+      const daysInThisMonth = dayjs(current).daysInMonth();
 
       const newCalendarItems = [start];
 
       let i = 1;
       while (i < daysInThisMonth) {
-        const tmpDate = moment(start.add(1, 'days'));
+        const tmpDate = dayjs(start).add(i, 'day');
         newCalendarItems.push(tmpDate);
 
         i += 1;
@@ -45,11 +45,11 @@ function Calendar() {
   }, [thisMonth]);
 
   const goToPreviousMonth = () => {
-    setThisMonth((prev) => moment(prev).subtract(1, 'month'));
+    setThisMonth((prev) => prev.subtract(1, 'month'));
   };
 
   const goToNextMonth = () => {
-    setThisMonth((prev) => moment(prev).add(1, 'month'));
+    setThisMonth((prev) => prev.add(1, 'month'));
   };
 
   return (

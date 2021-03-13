@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import CalendarItem from './CalendarItem';
 
 export default function CalendarLayout({
@@ -13,7 +13,7 @@ export default function CalendarLayout({
 }) {
   const renderCalendarItems = () => {
     const list = calendarItems?.map((item) => {
-      const newItems = moment(item);
+      const newItems = dayjs(item);
       return (
         <CalendarItem
           key={newItems.toString()}
@@ -33,11 +33,11 @@ export default function CalendarLayout({
       <TopWrapper>
         <Next>
           <Button onClick={goToPreviousMonth}>{'<'}</Button>
-          <NextMonth>{moment().subtract(1, 'months').format('MMMM')}</NextMonth>
+          <NextMonth>{dayjs().subtract(1, 'months').format('MMMM')}</NextMonth>
         </Next>
         <ThisMonth>{thisMonth.format('MMMM, YYYY')}</ThisMonth>
         <Next>
-          <NextMonth>{moment().add(1, 'months').format('MMMM')}</NextMonth>
+          <NextMonth>{dayjs().add(1, 'months').format('MMMM')}</NextMonth>
           <Button onClick={goToNextMonth}>{'>'}</Button>
         </Next>
       </TopWrapper>
