@@ -202,7 +202,7 @@ export default function StudyStartModal({ func }) {
   };
 
   const handleToggle = (type) => {
-    setSelect({ ...select, [type]: !select[type] });
+    setSelect({ [type]: !select[type] });
   };
 
   const handleChangeDate = (e) => {
