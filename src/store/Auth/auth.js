@@ -7,7 +7,6 @@ const authReducer = createSlice({
     email: '',
     name: '',
     image: '',
-    imageFile: '',
     mainIndustry: '',
     mainJob: '',
     subIndustry: '',
@@ -48,15 +47,10 @@ const authReducer = createSlice({
       };
     },
     setImage(state, { payload: { image } }) {
+      sessionStorage.setItem('image', image);
       return {
         ...state,
         image,
-      };
-    },
-    setImageFile(state, { payload: { imageFile } }) {
-      return {
-        ...state,
-        imageFile,
       };
     },
   },
