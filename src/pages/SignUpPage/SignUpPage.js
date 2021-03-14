@@ -8,7 +8,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { signUpApi } from '@repository/signUpRepository';
 import { loginApi } from '@repository/loginRepository';
-import { setLogin } from '@store/Auth/auth';
+import { setLogin, setAccessToken } from '@store/Auth/auth';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { get } from '@utils/snippet';
@@ -334,16 +334,32 @@ export default function SignUpPage({ history }) {
       return alert('모든 항목을 입력/선택 해주세요.');
     }
     return signUpApi(JSON.stringify(signUpForm))
-      .then((response) => {
+      .then((resUser) => {
+        console.log(resUser);
+        const email = JSON.stringify(resUser.data.email).replace(/\"/g, '');
+        const name = JSON.stringify(resUser.data.name).replace(/\"/g, '');
+
+        dispatch(
+          setLogin({
+            email,
+            name,
+            mainIndustry,
+            mainJob,
+            subIndustry,
+            subJob,
+          }),
+        );
         const loginForm = {
-          email: response.data.email,
+          email,
           password: signUpForm.password,
         };
         loginApi(JSON.stringify(loginForm))
-          .then((res) => {
-            const email = JSON.stringify(res.data.email).replace(/\"/g, '');
-            const name = JSON.stringify(res.data.name).replace(/\"/g, '');
-            dispatch(setLogin({ email, name }));
+          .then((resToken) => {
+            const accessToken = JSON.stringify(
+              resToken.data.accessToken,
+            ).replace(/\"/g, '');
+            dispatch(setAccessToken({ accessToken }));
+
             history.push('/welcome');
           })
           .catch(() => {

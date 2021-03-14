@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get } from '@utils/snippet';
-import { setLogin } from '@store/Auth/auth';
+import { setLogin, setAccessToken } from '@store/Auth/auth';
 
 export default function AuthRoute({ component: Component, render, ...rest }) {
   const dispatch = useDispatch();
@@ -15,7 +15,10 @@ export default function AuthRoute({ component: Component, render, ...rest }) {
     const mainJob = sessionStorage.getItem('mainJob');
     const subIndustry = sessionStorage.getItem('subIndustry');
     const subJob = sessionStorage.getItem('subJob');
+
     const image = sessionStorage.getItem('image');
+
+    const accessToken = sessionStorage.getItem('accessToken');
 
     if (name !== authSelector.name) {
       dispatch(
@@ -29,6 +32,9 @@ export default function AuthRoute({ component: Component, render, ...rest }) {
           image,
         }),
       );
+    }
+    if (accessToken !== authSelector.accessToken) {
+      dispatch(setAccessToken({ accessToken }));
     }
   }, []);
   return (

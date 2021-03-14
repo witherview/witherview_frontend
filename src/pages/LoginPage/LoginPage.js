@@ -9,8 +9,9 @@ import styled from 'styled-components';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { get } from '@utils/snippet';
-import { setLogin } from '@store/Auth/auth';
+import { setLogin, setAccessToken } from '@store/Auth/auth';
 import { loginApi } from '@repository/loginRepository';
+import { getUserInfoApi } from '@repository/userRepository';
 
 import A from '@atoms';
 
@@ -175,34 +176,47 @@ export default function LoginPage({ history }) {
 
   const handleLogin = () => {
     loginApi(JSON.stringify(loginForm))
-      .then((response) => {
-        const email = JSON.stringify(response.data.email).replace(/\"/g, '');
-        const name = JSON.stringify(response.data.name).replace(/\"/g, '');
-        const mainIndustry = JSON.stringify(response.data.mainIndustry).replace(
+      .then((resToken) => {
+        const accessToken = JSON.stringify(resToken.data.accessToken).replace(
           /\"/g,
           '',
         );
-        const mainJob = JSON.stringify(response.data.mainJob).replace(/\"/g, '');
-        const subIndustry = JSON.stringify(response.data.subIndustry).replace(
-          /\"/g,
-          '',
-        );
-        const subJob = JSON.stringify(response.data.subJob).replace(/\"/g, '');
-        const image = JSON.stringify(response.data.profileImg).replace(/\"/g, '');
+        dispatch(setAccessToken({ accessToken }));
+        getUserInfoApi().then((resUser) => {
+          const email = JSON.stringify(resUser.data.email).replace(/\"/g, '');
+          const name = JSON.stringify(resUser.data.name).replace(/\"/g, '');
+          const mainIndustry = JSON.stringify(
+            resUser.data.mainIndustry,
+          ).replace(/\"/g, '');
+          const mainJob = JSON.stringify(resUser.data.mainJob).replace(
+            /\"/g,
+            '',
+          );
+          const subIndustry = JSON.stringify(resUser.data.subIndustry).replace(
+            /\"/g,
+            '',
+          );
+          const subJob = JSON.stringify(resUser.data.subJob).replace(/\"/g, '');
+          const image = JSON.stringify(resUser.data.profileImg).replace(
+            /\"/g,
+            '',
+          );
 
-        dispatch(
-          setLogin({
-            email,
-            name,
-            mainIndustry,
-            mainJob,
-            subIndustry,
-            subJob,
-            image,
-          }),
-        );
+          dispatch(
+            setLogin({
+              email,
+              name,
+              mainIndustry,
+              mainJob,
+              subIndustry,
+              subJob,
+              image,
+            }),
+          );
+        });
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e, 'e');
         alert('로그인 실패');
       });
   };
