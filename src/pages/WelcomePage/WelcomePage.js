@@ -9,10 +9,7 @@ import { useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
 
-import {
-  postProfileImageApi,
-  putProfileInfoApi,
-} from '@repository/updateProfile';
+import { putProfileInfoApi } from '@repository/updateProfile';
 
 import { get } from '@utils/snippet';
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
@@ -151,19 +148,12 @@ export default function WelcomePage({ history }) {
   const [nickname, setNickname] = useState();
 
   const {
-    imageFile, name, mainIndustry, mainJob, subIndustry, subJob,
-  } = useSelector(get('auth'));
+    name, mainIndustry, mainJob, subIndustry, subJob,
+  } = useSelector(
+    get('auth'),
+  );
 
   const uploadButton = useCallback(() => {
-    if (imageFile) {
-      postProfileImageApi(imageFile)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
     if (nickname) {
       putProfileInfoApi({
         name: nickname || name,
@@ -179,7 +169,7 @@ export default function WelcomePage({ history }) {
           console.log(error(error));
         });
     }
-  }, [imageFile, nickname, postProfileImageApi, putProfileInfoApi]);
+  }, [nickname, putProfileInfoApi]);
 
   return (
     <Wrapper>

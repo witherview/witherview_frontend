@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
-
+import { postProfileImageApi } from '@repository/updateProfile';
 import A from '@atoms';
-import { setImage, setImageFile } from '@store/Auth/auth';
+import { setImage } from '@store/Auth/auth';
 import { get } from '@utils/snippet';
 import profileDefault from '@assets/images/profile_default.png';
 
@@ -47,7 +47,14 @@ export default function ProfileEdit({ src = profileDefault }) {
       formData.append('profileImg', file, file.name);
 
       dispatch(setImage({ image: reader.result }));
-      dispatch(setImageFile({ imageFile: formData }));
+      console.log(reader.result);
+      postProfileImageApi(formData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
     reader.onerror = (error) => {
       console.error(error);
