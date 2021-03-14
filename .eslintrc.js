@@ -33,6 +33,8 @@ module.exports = {
     'react/no-array-index-key': 0,
     'react/jsx-one-expression-per-line': 0,
     'react/jsx-curly-newline': 0,
+    'no-return-await': 0,
+    'import/prefer-default-export': 0,
   },
   settings: {
     'import/resolver': {
