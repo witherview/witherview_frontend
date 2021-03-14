@@ -1,13 +1,18 @@
 /* eslint-disable no-useless-escape */
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import styled from 'styled-components';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { useSelector } from 'react-redux';
 
-import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import A from '@atoms';
 import M from '@molecules';
+
+import { putProfileInfoApi } from '@repository/updateProfile';
+
+import { get } from '@utils/snippet';
+import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -85,6 +90,7 @@ const WrapName = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1vh;
+  margin-left: 4vh;
   > div {
     padding-right: 1vh;
     font-family: AppleSDGothicNeoEB00;
@@ -95,7 +101,7 @@ const WrapName = styled.div`
 const WrapMail = styled.div`
   font-family: TitilliumWeb;
   font-size: 2vh;
-  color: ${({ theme }) => theme.colors.warmGrey}
+  color: ${({ theme }) => theme.colors.warmGrey};
 `;
 
 const WrapButton = styled.div`
@@ -125,7 +131,46 @@ const WrapAnker = styled.span`
   cursor: pointer;
 `;
 
+const WrapInput = styled.input`
+  width: 15vh;
+  text-align: center;
+  border: none;
+  border-right: 0px;
+  border-top: 0px;
+  boder-left: 0px;
+  boder-bottom: 0px;
+  font-family: AppleSDGothicNeoEB00;
+  font-size: 2.4vh;
+`;
+
 export default function WelcomePage({ history }) {
+  const [edit, setEdit] = useState();
+  const [nickname, setNickname] = useState();
+
+  const {
+    name, mainIndustry, mainJob, subIndustry, subJob,
+  } = useSelector(
+    get('auth'),
+  );
+
+  const uploadButton = useCallback(() => {
+    if (nickname) {
+      putProfileInfoApi({
+        name: nickname || name,
+        mainIndustry,
+        mainJob,
+        subIndustry,
+        subJob,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error(error));
+        });
+    }
+  }, [nickname, putProfileInfoApi]);
+
   return (
     <Wrapper>
       <WrapContent>
@@ -138,27 +183,35 @@ export default function WelcomePage({ history }) {
             </WrapUpperContainer>
             <WrapMiddleContainer>
               <WrapName>
-                <div>
-                  {sessionStorage.getItem('name')}
-                </div>
-                <A.Icon type="post" />
+                {edit ? (
+                  <WrapInput
+                    placeholder={sessionStorage.getItem('name')}
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                    autoFocus
+                  />
+                ) : (
+                  <div>{sessionStorage.getItem('name')}</div>
+                )}
+                <A.Icon type="post" func={() => setEdit(true)} />
               </WrapName>
-              <WrapMail>
-                {sessionStorage.getItem('email')}
-              </WrapMail>
+              <WrapMail>{sessionStorage.getItem('email')}</WrapMail>
             </WrapMiddleContainer>
             <WrapButton>
-              <A.Button theme="blue" func={() => history.push('/self')} text="시작하기" />
+              <A.Button
+                theme="blue"
+                func={() => {
+                  uploadButton();
+                  history.push('/self');
+                }}
+                text="시작하기"
+              />
             </WrapButton>
           </WrapContianer>
         </WrapBox>
         <WrapBottomContainer>
-          <WrapAnker onClick={() => {}}>
-            이용약관
-          </WrapAnker>
-          <WrapAnker onClick={() => {}}>
-            개인정보처리방침
-          </WrapAnker>
+          <WrapAnker onClick={() => {}}>이용약관</WrapAnker>
+          <WrapAnker onClick={() => {}}>개인정보처리방침</WrapAnker>
         </WrapBottomContainer>
         <WrapBottomContainer>
           <WrapBottomText>

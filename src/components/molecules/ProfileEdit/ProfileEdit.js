@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { postProfileImageApi } from '@repository/updateProfile';
 import A from '@atoms';
+import { setImage } from '@store/Auth/auth';
+import { get } from '@utils/snippet';
+import profileDefault from '@assets/images/profile_default.png';
 
 const Wrapper = styled.div`
   position: relative;
@@ -16,7 +21,6 @@ const Image = styled.div`
   background-image: url(${({ src }) => src});
   background-position: center center;
   background-size: cover;
-  background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
 
 const IconWrapper = styled.span`
@@ -29,11 +33,45 @@ const IconWrapper = styled.span`
   }
 `;
 
-export default function ProfileEdit({ src }) {
+export default function ProfileEdit({ src = profileDefault }) {
+  const dispatch = useDispatch();
+  const { image } = useSelector(get('auth'));
+  const fileRef = useRef();
+
+  const onChange = (e) => {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const formData = new FormData();
+      formData.append('profileImg', file, file.name);
+
+      dispatch(setImage({ image: reader.result }));
+      console.log(reader.result);
+      postProfileImageApi(formData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    reader.onerror = (error) => {
+      console.error(error);
+    };
+  };
+
   return (
     <Wrapper>
-      <Image src={src} alt="profile_image" />
-      <IconWrapper>
+      <Image src={image || src} alt="profile_image" />
+      <IconWrapper onClick={() => fileRef.current.click()}>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onChange}
+          style={{ display: 'none' }}
+          ref={fileRef}
+        />
         <A.Icon type="capture" alt="" isCircle />
       </IconWrapper>
     </Wrapper>
