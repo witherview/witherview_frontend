@@ -188,6 +188,8 @@ export default function LoginPage({ history }) {
           '',
         );
         const subJob = JSON.stringify(response.data.subJob).replace(/\"/g, '');
+        const image = JSON.stringify(response.data.profileImg).replace(/\"/g, '');
+
         dispatch(
           setLogin({
             email,
@@ -196,6 +198,7 @@ export default function LoginPage({ history }) {
             mainJob,
             subIndustry,
             subJob,
+            image,
           }),
         );
       })

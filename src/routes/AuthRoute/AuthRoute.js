@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get } from '@utils/snippet';
-import { setLogin, setImage } from '@store/Auth/auth';
+import { setLogin } from '@store/Auth/auth';
 
 export default function AuthRoute({ component: Component, render, ...rest }) {
   const dispatch = useDispatch();
@@ -26,10 +26,6 @@ export default function AuthRoute({ component: Component, render, ...rest }) {
           mainJob,
           subIndustry,
           subJob,
-        }),
-      );
-      dispatch(
-        setImage({
           image,
         }),
       );
