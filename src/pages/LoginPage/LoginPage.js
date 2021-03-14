@@ -178,7 +178,26 @@ export default function LoginPage({ history }) {
       .then((response) => {
         const email = JSON.stringify(response.data.email).replace(/\"/g, '');
         const name = JSON.stringify(response.data.name).replace(/\"/g, '');
-        dispatch(setLogin({ email, name }));
+        const mainIndustry = JSON.stringify(response.data.mainIndustry).replace(
+          /\"/g,
+          '',
+        );
+        const mainJob = JSON.stringify(response.data.mainJob).replace(/\"/g, '');
+        const subIndustry = JSON.stringify(response.data.subIndustry).replace(
+          /\"/g,
+          '',
+        );
+        const subJob = JSON.stringify(response.data.subJob).replace(/\"/g, '');
+        dispatch(
+          setLogin({
+            email,
+            name,
+            mainIndustry,
+            mainJob,
+            subIndustry,
+            subJob,
+          }),
+        );
       })
       .catch(() => {
         alert('로그인 실패');
