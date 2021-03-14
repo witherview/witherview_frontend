@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -250,7 +250,7 @@ const EMPTY_FORM = {
   subJob: '',
 };
 
-const industryList = [
+const jobList = [
   '경영/사무',
   '마케팅/MD',
   '영업',
@@ -261,7 +261,7 @@ const industryList = [
   '기타',
 ];
 
-const jobList = [
+const industryList = [
   '금융/은행',
   'IT',
   '서비스/교육',
@@ -360,6 +360,28 @@ export default function SignUpPage({ history }) {
       });
   };
 
+  const industryMainRef = useRef();
+  const industrySubRef = useRef();
+
+  const jobMainRef = useRef();
+  const jobSubRef = useRef();
+
+  function handleClickOutside({ target }) {
+    if (
+      !industryMainRef.current.contains(target)
+      && !industrySubRef.current.contains(target)
+      && !jobMainRef.current.contains(target)
+      && !jobSubRef.current.contains(target)
+    ) {
+      setSelect(initSelect);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
     <Wrapper ratio={ratio > 1.675}>
       {authSelector.isLogin && <Redirect to="/self" />}
@@ -419,7 +441,7 @@ export default function SignUpPage({ history }) {
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 산업_Main</WrapText>
-                  <SelectList>
+                  <SelectList ref={industryMainRef}>
                     <Select
                       onClick={() => handleToggle('mainIndustry')}
                       ratio={ratio > 1.675}
@@ -436,7 +458,8 @@ export default function SignUpPage({ history }) {
                                 setMainIndustry,
                                 val,
                                 'mainIndustry',
-                              )}
+                              )
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -448,7 +471,7 @@ export default function SignUpPage({ history }) {
                 </WrapInput>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 산업_Sub</WrapText>
-                  <SelectList>
+                  <SelectList ref={industrySubRef}>
                     <Select
                       onClick={() => handleToggle('subIndustry')}
                       ratio={ratio > 1.675}
@@ -461,7 +484,8 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {industryList.map((val) => (
                             <SelectItem
-                              onClick={() => handleSelect(setSubIndustry, val, 'subIndustry')}
+                              onClick={() => handleSelect(setSubIndustry, val, 'subIndustry')
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -475,7 +499,7 @@ export default function SignUpPage({ history }) {
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 직무_Main</WrapText>
-                  <SelectList>
+                  <SelectList ref={jobMainRef}>
                     <Select
                       onClick={() => handleToggle('mainJob')}
                       ratio={ratio > 1.675}
@@ -488,7 +512,8 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {jobList.map((val) => (
                             <SelectItem
-                              onClick={() => handleSelect(setMainJob, val, 'mainJob')}
+                              onClick={() => handleSelect(setMainJob, val, 'mainJob')
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -500,7 +525,7 @@ export default function SignUpPage({ history }) {
                 </WrapInput>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 직무_Sub</WrapText>
-                  <SelectList>
+                  <SelectList ref={jobSubRef}>
                     <Select
                       onClick={() => handleToggle('subJob')}
                       ratio={ratio > 1.675}
@@ -513,7 +538,8 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {jobList.map((val) => (
                             <SelectItem
-                              onClick={() => handleSelect(setSubJob, val, 'subJob')}
+                              onClick={() => handleSelect(setSubJob, val, 'subJob')
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -533,12 +559,12 @@ export default function SignUpPage({ history }) {
                   func={() => setToggleCheckTerm({
                     ...toggleCheckTerm,
                     first: !toggleCheckTerm.first,
-                  })}
+                  })
+                  }
                 />
                 <WrapMiddleText ratio={ratio > 1}>
                   {/* TODO: 병헌님이 작업해주시면 추가 */}
-                  <ClickableSelectText>이용약관</ClickableSelectText>
-                  에 모두
+                  <ClickableSelectText>이용약관</ClickableSelectText>에 모두
                   동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
@@ -548,12 +574,12 @@ export default function SignUpPage({ history }) {
                   func={() => setToggleCheckTerm({
                     ...toggleCheckTerm,
                     second: !toggleCheckTerm.second,
-                  })}
+                  })
+                  }
                 />
                 <WrapMiddleText ratio={ratio > 1}>
                   {/* TODO: 병헌님이 작업해주시면 추가 */}
-                  <ClickableSelectText>개인정보처리방침</ClickableSelectText>
-                  에
+                  <ClickableSelectText>개인정보처리방침</ClickableSelectText>에
                   모두 동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
@@ -561,7 +587,11 @@ export default function SignUpPage({ history }) {
           </WrapContianer>
           <WrapButton>
             {/* TODO: 회원가입 로직 추기 */}
-            <A.Button theme="blue" text="회원가입" func={() => handleSignUp()} />
+            <A.Button
+              theme="blue"
+              text="회원가입"
+              func={() => handleSignUp()}
+            />
           </WrapButton>
         </WrapBox>
         <WrapBottomContainer>

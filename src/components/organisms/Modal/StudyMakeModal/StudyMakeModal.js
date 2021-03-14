@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -153,6 +153,33 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const initSelect = {
+  industry: false,
+  job: false,
+};
+
+const industryList = [
+  '경영/사무',
+  '마케팅/MD',
+  '영업',
+  'IT/인터넷',
+  '연구개발/설계',
+  '생산/품질',
+  '디자인',
+  '기타',
+];
+
+const jobList = [
+  '금융/은행',
+  'IT',
+  '서비스/교육',
+  '보건/의약/바이오',
+  '제조',
+  '건설',
+  '예술/문화',
+  '기타',
+];
+
 export default function StudyStartModal({ func }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -160,35 +187,10 @@ export default function StudyStartModal({ func }) {
   const [description, setDescription] = useState();
   const [industry, setIndustry] = useState('산업을 선택해주세요.');
   const [job, setJob] = useState('직무를 선택해주세요.');
-  const [select, setSelect] = useState({
-    industry: false,
-    job: false,
-  });
+  const [select, setSelect] = useState(initSelect);
+
   const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
-
   const [time, setTime] = useState(moment(new Date()).format('HH:mm'));
-
-  const industryList = [
-    '경영/사무',
-    '마케팅/MD',
-    '영업',
-    'IT/인터넷',
-    '연구개발/설계',
-    '생산/품질',
-    '디자인',
-    '기타',
-  ];
-
-  const jobList = [
-    '금융/은행',
-    'IT',
-    '서비스/교육',
-    '보건/의약/바이오',
-    '제조',
-    '건설',
-    '예술/문화',
-    '기타',
-  ];
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
@@ -200,7 +202,7 @@ export default function StudyStartModal({ func }) {
   };
 
   const handleToggle = (type) => {
-    setSelect({ ...select, [type]: !select[type] });
+    setSelect({ [type]: !select[type] });
   };
 
   const handleChangeDate = (e) => {
@@ -234,6 +236,23 @@ export default function StudyStartModal({ func }) {
     });
   };
 
+  const industryRef = useRef();
+  const jobRef = useRef();
+
+  function handleClickOutside({ target }) {
+    if (
+      !industryRef.current.contains(target)
+      && !jobRef.current.contains(target)
+    ) {
+      setSelect(initSelect);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
     <>
       <Wrapper>
@@ -256,7 +275,7 @@ export default function StudyStartModal({ func }) {
         <SelectWrapper>
           <LeftWrapper>
             <InputText>산업</InputText>
-            <SelectList>
+            <SelectList ref={industryRef}>
               <Select onClick={() => handleToggle('industry')}>
                 <SelectText>{industry}</SelectText>
                 <A.Icon type="arrow_down_blue" alt="" />
@@ -267,7 +286,8 @@ export default function StudyStartModal({ func }) {
                     {industryList.map((val) => (
                       <SelectItem>
                         <SelectText
-                          onClick={() => handleSelect(setIndustry, val, 'industry')}
+                          onClick={() => handleSelect(setIndustry, val, 'industry')
+                          }
                         >
                           {val}
                         </SelectText>
@@ -295,7 +315,7 @@ export default function StudyStartModal({ func }) {
           </LeftWrapper>
           <RightWrapper>
             <InputText>직무</InputText>
-            <SelectList>
+            <SelectList ref={jobRef}>
               <Select onClick={() => handleToggle('job')}>
                 <SelectText>{job}</SelectText>
                 <A.Icon type="arrow_down_blue" alt="" />
