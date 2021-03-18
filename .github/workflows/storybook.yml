@@ -15,9 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          repository: witherview/witherview_frontend
-          token: ${{ secrets.GH_TOKEN }}
 
       - name: Cache dependencies
         uses: actions/cache@v2
