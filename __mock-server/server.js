@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const http = require('http');
 
@@ -8,7 +7,7 @@ const socket = require('socket.io');
 
 const io = socket(server, {
   path: '/socket',
-  origins: ['http://localhost:3000', 'https://witherview-webrtc.herokuapp.com/'],
+  origins: ['http://localhost:3000', 'https://witherview-test.herokuapp.com/'],
 
   handlePreflightRequest: (req, res) => {
     res.writeHead(200, {
@@ -25,35 +24,73 @@ const users = {};
 const socketToRoom = new Map();
 
 io.on('connection', (sock) => {
-  sock.on('join room', (roomID) => {
-    if (users[roomID]) {
-      const { length } = users[roomID];
-      if (length === 3) {
-        sock.emit('room full');
+  sock.on('join room', ({ roomId, email }) => {
+    if (users[roomId]) {
+      const { length } = users[roomId];
+      if (length === 6) {
+        sock.to(sock.id).emit('room_full');
         return;
       }
-      users[roomID].push(sock.id);
+      users[roomId].push({ id: sock.id, email });
     } else {
-      users[roomID] = [sock.id];
+      users[roomId] = [{ id: sock.id, email }];
     }
-    socketToRoom.set(sock.id, roomID);
-    const usersInThisRoom = users[roomID].filter((id) => id !== sock.id);
+    socketToRoom.set(sock.id, roomId);
 
-    sock.emit('all users', usersInThisRoom);
+    sock.join(roomId);
+
+    console.log(`[${socketToRoom.get(sock.id)}]: ${sock.id} entered`);
+
+    const usersInThisRoom = users[roomId].filter(({ id }) => id !== sock.id);
+
+    console.log(usersInThisRoom);
+
+    io.sockets.to(sock.id).emit('all users', usersInThisRoom);
   });
 
-  sock.on('sending signal', (payload) => {
-    io.to(payload.userToSignal).emit('user joined', {
-      signal: payload.signal,
-      callerID: payload.callerID,
+  sock.on('offer', ({
+    offerReceiveID, sdp, offerSendID, offerSendEmail,
+  }) => {
+    sock.to(offerReceiveID).emit('getOffer', {
+      sdp,
+      offerSendID,
+      offerSendEmail,
     });
   });
 
-  sock.on('returning signal', (payload) => {
-    io.to(payload.callerID).emit('receiving returned signal', {
-      signal: payload.signal,
-      id: sock.id,
+  sock.on('answer', ({ answerReceiveID, sdp, answerSendID }) => {
+    sock.to(answerReceiveID).emit('getAnswer', { sdp, answerSendID });
+  });
+
+  sock.on('candidate', ({ candidateReceiveID, candidate, candidateSendID }) => {
+    sock.to(candidateReceiveID).emit('getCandidate', {
+      candidate,
+      candidateSendID,
     });
+  });
+
+  sock.on('disconnect', () => {
+    const roomId = socketToRoom.get(sock.id);
+
+    if (roomId === undefined) {
+      return;
+    }
+
+    sock.broadcast.emit('user left', { id: sock.id });
+
+    socketToRoom.delete(sock.id);
+
+    const room = users[roomId];
+
+    if (room) {
+      const filteredRoom = room.filter(({ id }) => id !== sock.id);
+
+      users[roomId] = filteredRoom;
+
+      if (filteredRoom.length === 0) {
+        delete users[roomId];
+      }
+    }
   });
 
   sock.on('next', () => {
@@ -61,30 +98,10 @@ io.on('connection', (sock) => {
       users[socketToRoom.get(sock.id)]
       && users[socketToRoom.get(sock.id)].length <= 2
     ) {
-      users[socketToRoom.get(sock.id)].forEach((val) => {
-        io.to(val).emit('clicked');
+      users[socketToRoom.get(sock.id)].forEach(({ id }) => {
+        io.sockets.to(id).emit('clicked');
       });
     }
-  });
-
-  // todo: 브라우저 종료할 경우의 종료 로직.
-  // 커넥션을 종료할 때
-  sock.on('disconnect', () => {
-    const roomId = socketToRoom.get(sock.id);
-
-    if (roomId === undefined) {
-      // todo: 해당 방에 존재하지 않는 커넥션이 들어올 때. 예외처리가 필요할까?
-      return;
-    }
-    // 해당 방에 특정 유저가 떠났다는 user left 메시지를 보낸다.
-    sock.broadcast.emit('user left', sock.id);
-
-    // 서버에 저장된 데이터 삭제.
-    socketToRoom.delete(sock.id);
-
-    const idx = users[roomId].findIndex((item) => item === sock.id);
-
-    users[roomId].splice(idx, 1);
   });
 });
 
