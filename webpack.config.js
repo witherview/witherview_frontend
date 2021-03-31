@@ -124,7 +124,7 @@ module.exports = (env) => {
     devServer: {
       proxy: {
         '/socket': {
-          target: 'http://localhost:8000',
+          target: 'https://witherview-test.herokuapp.com',
           changeOrigin: true,
           ws: true,
           logLevel: 'debug',
