@@ -34,10 +34,8 @@ export default function PeerVideo({
   const ref = useRef();
 
   useEffect(() => {
-    peer.peer.on('stream', (stream) => {
-      ref.current.srcObject = stream;
-    });
-  }, []);
+    ref.current.srcObject = peer.stream;
+  }, [peer]);
 
   return (
     <Wrapper isTrain={isTrain}>

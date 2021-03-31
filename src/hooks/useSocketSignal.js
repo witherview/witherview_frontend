@@ -1,131 +1,217 @@
 import { useState, useEffect, useRef } from 'react';
-import Peer from 'simple-peer';
+
 import io from 'socket.io-client';
+
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { get } from '@utils/snippet';
 
 export default function useSocketSignal({ roomId, setStep }) {
   const [peers, setPeers] = useState([]);
-
-  // useEffect로 마운트 실행시 socket.on에서 useState로 바뀐 상태를 가져오지 못하는 문제가 있어서 아래와 같이 처리
-  // TODO: 더 좋은 방법이 있다면 그것을 사용
-  const peersStateTempRef = useRef();
-  useEffect(() => {
-    peersStateTempRef.current = peers;
-  }, [peers]);
 
   const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef(new Map());
   const history = useHistory();
 
-  function createPeer(userToSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: true,
-      trickle: true,
-      stream,
-    });
+  const { email } = useSelector(get('auth'));
 
-    peer.on('signal', (signal) => {
-      socketRef.current.emit('sending signal', {
-        userToSignal,
-        callerID,
-        signal,
-      });
-    });
-
-    return peer;
-  }
-
-  function addPeer(incomingSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: false,
-      trickle: true,
-      stream,
-    });
-
-    peer.on('signal', (signal) => {
-      socketRef.current.emit('returning signal', { signal, callerID });
-    });
-
-    peer.signal(incomingSignal);
-
-    return peer;
-  }
+  const PEER_CONNECTION_CONFIG = {
+    iceServers: [
+      {
+        urls: 'stun:stun.l.google.com:19302',
+      },
+    ],
+  };
 
   useEffect(() => {
-    socketRef.current = io.connect('/', {
-      transports: ['websocket'],
-      path: '/socket',
-    });
+    console.log(peers);
+  }, [peers]);
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        userVideo.current.srcObject = stream;
+  const createPeer = (incomingSocketID, userMail, callerID, stream) => {
+    const peer = new RTCPeerConnection(PEER_CONNECTION_CONFIG);
 
-        socketRef.current.emit('join room', roomId);
+    peersRef.current.set(incomingSocketID, peer);
 
-        socketRef.current.on('all users', (users) => {
-          setPeers([]);
-          users.forEach((userID) => {
-            const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.set(userID, peer);
-            peers.push({ userID, peer });
-          });
-          setPeers(peers);
+    peer.onicecandidate = ({ candidate }) => {
+      if (candidate) {
+        socketRef.current.emit('candidate', {
+          candidate,
+          candidateSendID: callerID,
+          candidateReceiveID: incomingSocketID,
         });
+      }
+    };
 
-        socketRef.current.on('room full', () => {
-          history.push('/peer-study');
-        });
+    peer.oniceconnectionstatechange = (e) => {
+      console.log(e);
+    };
 
-        socketRef.current.on('user joined', (payload) => {
-          const item = peersRef.current.get(payload.callerID);
-          if (item === undefined) {
-            const peer = addPeer(payload.signal, payload.callerID, stream);
-            const userID = payload.callerID;
-            peersRef.current.set(userID, peer);
-            setPeers((users) => [...users, { userID, peer }]);
-          }
-        });
+    peer.ontrack = ({ streams }) => {
+      setPeers((prevPeers) => prevPeers.filter((user) => user.id !== incomingSocketID));
+      setPeers((prevPeers) => [
+        ...prevPeers,
+        {
+          id: incomingSocketID,
+          eamil: userMail,
+          stream: streams[0],
+        },
+      ]);
+    };
 
-        socketRef.current.on('receiving returned signal', (payload) => {
-          const signalSenderId = payload.id;
-          const item = peersRef.current.get(signalSenderId);
-          if (item !== undefined) {
-            item.signal(payload.signal);
-          }
-        });
-        // 누군가가 방을 떠났다는 메시지를 받았을 때
-        socketRef.current.on('user left', (leftSocketId) => {
-          // 떠난 유저를 제외한 나머지 배열을 반환한 뒤 setPeers로 다시 세팅
-          if (peersRef.current.get(leftSocketId) !== undefined) {
-            peersRef.current.delete(leftSocketId);
-          }
-          // 연결한 peer connection 삭제
-          const remainingUsers = peersStateTempRef.current
-            .filter((user) => {
-              if (user.userID === leftSocketId) {
-                return undefined;
-              }
-              return user;
+    try {
+      stream.getTracks().forEach((track) => {
+        peer.addTrack(track, stream);
+      });
+    } catch (error) {
+      alert(`no local stream: ${error}`);
+    }
+
+    return peer;
+  };
+
+  const socketConnection = () => {
+    socketRef.current.on('all users', (users) => {
+      users.forEach(async ({ id, email: userMail }) => {
+        createPeer(
+          id,
+          userMail,
+          socketRef.current.id,
+          userVideo.current.srcObject,
+        );
+
+        const peer = peersRef.current.get(id);
+
+        if (peer) {
+          try {
+            const sdp = await peer.createOffer({
+              offerToReceiveAudio: true,
+              offerToReceiveVideo: true,
             });
 
-          setPeers(remainingUsers);
-        });
+            peer.setLocalDescription(new RTCSessionDescription(sdp));
 
-        // TODO: stomp 시그널링과 분리해서 stomp topic에 추가
-        socketRef.current.on('clicked', () => {
-          setStep((prev) => prev + 1);
-        });
+            socketRef.current.emit('offer', {
+              sdp,
+              offerSendID: socketRef.current.id,
+              offerSendEmail: userMail,
+              offerReceiveID: id,
+            });
+          } catch (error) {
+            alert(`create offer failed: ${error}`);
+          }
+        }
       });
+    });
+
+    socketRef.current.on('getOffer', async ({ offerSendID, offerSendEmail, sdp: receiveSdp }) => {
+      createPeer(
+        offerSendID,
+        offerSendEmail,
+        socketRef.current.id,
+        userVideo.current.srcObject,
+      );
+
+      const peer = peersRef.current.get(offerSendID);
+
+      if (peer) {
+        try {
+          await peer.setRemoteDescription(new RTCSessionDescription(receiveSdp));
+
+          const sdp = await peer.createAnswer({
+            offerToReceiveVideo: true,
+            offerToReceiveAudio: true,
+          });
+
+          peer.setLocalDescription(new RTCSessionDescription(sdp));
+
+          socketRef.current.emit('answer', {
+            sdp,
+            answerSendID: socketRef.current.id,
+            answerReceiveID: offerSendID,
+          });
+        } catch (error) {
+          alert(`error: ${error}`);
+        }
+      }
+    });
+
+    socketRef.current.on('getAnswer', ({ answerSendID, sdp }) => {
+      const peer = peersRef.current.get(answerSendID);
+
+      if (peer) {
+        peer.setRemoteDescription(new RTCSessionDescription(sdp));
+      }
+    });
+
+    socketRef.current.on('getCandidate', async ({ candidateSendID, candidate }) => {
+      const peer = peersRef.current.get(candidateSendID);
+
+      if (peer) {
+        try {
+          await peer.addIceCandidate(new RTCIceCandidate(candidate));
+        } catch (error) {
+          alert(`candidate failed: ${error}`);
+        }
+      }
+    });
+
+    socketRef.current.on('user left', ({ id }) => {
+      peersRef.current.get(id).close();
+      peersRef.current.delete(id);
+      setPeers((prevPeers) => prevPeers.filter((user) => user.id !== id));
+    });
+
+    socketRef.current.on('room full', () => {
+      history.push('/peer-study');
+    });
+
+    socketRef.current.on('clicked', () => {
+      setStep((prevStep) => prevStep + 1);
+    });
+  };
+
+  const getStream = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
+      });
+
+      if (userVideo.current) userVideo.current.srcObject = stream;
+
+      socketRef.current.emit('join room', {
+        roomId,
+        email,
+      });
+    } catch (error) {
+      alert(`getUserMedia error: ${error}`);
+    }
+  };
+
+  const connectToSocket = async (...func) => {
+    try {
+      socketRef.current = await io.connect('/', {
+        transports: ['websocket'],
+        path: '/socket',
+      });
+      if (socketRef.current) {
+        func.forEach((eachFunc) => {
+          eachFunc();
+        });
+      }
+    } catch (error) {
+      alert(`socket connect error: ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    connectToSocket(getStream, socketConnection);
   }, []);
 
   return {
-    createPeer,
-    addPeer,
     userVideo,
-    peersRef,
     socketRef,
     peers,
   };
