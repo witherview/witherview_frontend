@@ -124,6 +124,7 @@ module.exports = (env) => {
     devServer: {
       host: 'localhost',
       port,
+      stats: 'errors-only',
       open: true,
       historyApiFallback: true,
     },
