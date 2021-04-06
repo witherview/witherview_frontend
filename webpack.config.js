@@ -1,7 +1,5 @@
 const path = require('path');
 
-const port = process.env.PORT || 3000;
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -16,7 +14,7 @@ module.exports = (env) => {
   return {
     mode: isDevelopment ? 'development' : 'production',
     devtool: isDevelopment ? 'inline-source-map' : 'hidden-source-map',
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     optimization: isDevelopment ? {} : {
       minimizer: [
         new TerserWebpackPlugin({
@@ -24,13 +22,11 @@ module.exports = (env) => {
         }),
       ],
     },
-
     output: {
       filename: 'bundle.[hash].js',
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/',
     },
-
     module: {
       rules: [
         {
