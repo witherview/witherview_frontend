@@ -18,7 +18,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   plugins: ['react'],
@@ -33,6 +33,13 @@ module.exports = {
     'react/no-array-index-key': 0,
     'react/jsx-one-expression-per-line': 0,
     'react/jsx-curly-newline': 0,
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never', jsx: 'never', ts: 'never', tsx: 'never', json: 'never',
+      },
+    ],
   },
   settings: {
     'import/resolver': {
@@ -44,4 +51,25 @@ module.exports = {
       },
     },
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
+      rules: {
+        'no-use-before-define': 0,
+        '@typescript-eslint/no-use-before-define': 0,
+      },
+      settings: {
+        'import/resolver': {
+          node: {
+            extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          },
+          webpack: {
+            config: 'webpack.config.js',
+          },
+        },
+      },
+    },
+  ],
 };
