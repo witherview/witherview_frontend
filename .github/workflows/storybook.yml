@@ -14,16 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - run: npm ci
-      - run: npm run build-storybook
+      - name: Install dependencies
+        run: yarn install --prefer-offline --frozen-lockfile
+
+      - name: Build Storybook
+        run: yarn build-storybook
 
       - name: Get branch name (push)
         if: github.event_name != 'pull_request'
@@ -39,10 +39,7 @@ jobs:
         shell: bash
         run: echo "USER_NAME=${GITHUB_ACTOR}" >> $GITHUB_ENV
 
-      - name: Debug
-        run: echo ${{ env.BRANCH_NAME }} && echo ${{ env.USER_NAME }}
-
-      - name: Deploy to Github Pages(push)
+      - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         if: env.BRANCH_NAME != 'master'
         with:
