@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { getQuestionItemAPI } from '@repository/questionListRepository';
+
 import A from '@atoms';
 
 const Box = styled.div`
@@ -170,11 +172,12 @@ const Each = styled.div`
 
 export default function QuestionCardView({
   id,
-  number,
   title,
   description,
   handleDelete,
 }) {
+  const [number, setNumber] = useState();
+
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
 
@@ -183,6 +186,20 @@ export default function QuestionCardView({
   };
 
   const toggle = (set) => setIsOpen(set);
+
+  const fetch = async () => {
+    try {
+      const { data } = await getQuestionItemAPI(id);
+      setNumber(data.length);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
     <>
@@ -220,7 +237,6 @@ export default function QuestionCardView({
 
 QuestionCardView.propTypes = {
   id: PropTypes.number.isRequired,
-  number: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   handleDelete: PropTypes.func,
@@ -228,7 +244,6 @@ QuestionCardView.propTypes = {
 
 QuestionCardView.defaultProp = {
   id: 0,
-  number: 1,
   title: '예시 제목입니다.',
   description: '예시 내용입니다.',
   handleDelete: () => {},

@@ -19,21 +19,26 @@ export default function PeerStudyMainPage() {
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(0);
   const fetch = async (pages) => {
-    getGroupListApi(pages).then((res) => {
-      const unit = res.data.length === 6 ? 1 : 0;
-      res.data.forEach((val) => {
-        getGroupMemberApi(val.id).then((response) => {
-          setMember((members) => [
-            ...members,
-            { id: val.id, member: response.data.length },
-          ]);
-        });
+    try {
+      const { data } = await getGroupListApi(pages);
+      const unit = data.length === 6 ? 1 : 0;
+      data.forEach(async (val) => {
+        const {
+          data: { nowUserCnt },
+        } = await getGroupMemberApi(val.id);
+        setMember((members) => [
+          ...members,
+          { id: val.id, member: nowUserCnt },
+        ]);
       });
-      setGroupList((GroupList) => [...GroupList, ...res.data].filter(
+      setGroupList((GroupList) => [...GroupList, ...data].filter(
         (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
       ));
       setPage(pages + unit);
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   const handleStudyAddModal = () => {

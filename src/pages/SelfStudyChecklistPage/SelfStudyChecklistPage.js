@@ -102,10 +102,10 @@ const ControlWrapper = styled.div`
 
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
 
-  &[data-state="hidden"] {
+  &[data-state='hidden'] {
     display: none;
   }
-  &[data-state="visible"] {
+  &[data-state='visible'] {
     display: block;
   }
 `;
@@ -353,36 +353,38 @@ export default function SelfStudyChecklistPage({ match }) {
     setCheckListArray(Array(14).fill(false));
   }, []);
 
-  const saveInterviewVideo = useCallback(() => {
+  const saveInterviewVideo = useCallback(async () => {
     const formData = new FormData();
     // TODO: Repository 만들기
-    axios({
-      method: 'get',
-      responseType: 'blob',
-      url: localBlob,
-    }).then((responseFirst) => {
+    try {
+      const { data: blob } = await axios({
+        method: 'get',
+        responseType: 'blob',
+        url: localBlob,
+      });
       dispatch(setIsLoading({ isLoading: true }));
-      const blob = responseFirst.data;
 
       formData.append('videoFile', blob);
       formData.append('historyId', historyId);
-      postVideoApi(formData)
-        .then((responseSecond) => {
-          getVideoApi().then((resp) => {
-            dispatch(setIsLoading({ isLoading: false }));
-            const { savedLocation } = resp.data.find(
-              (elem) => elem.id === responseSecond.data.id,
-            );
-            dispatch(setUploadedLocation({ savedLocation }));
-            // TODO: 모달로 바꾸기?
-            alert('저장 완료!');
-          });
-        })
-        .catch((err) => {
-          dispatch(setIsLoading({ isLoading: false }));
-          alert(err);
-        });
-    });
+
+      const {
+        data: { id },
+      } = await postVideoApi(formData);
+
+      const { data } = await getVideoApi();
+
+      dispatch(setIsLoading({ isLoading: false }));
+
+      const { savedLocation } = data.find((elem) => elem.id === id);
+
+      dispatch(setUploadedLocation({ savedLocation }));
+      // TODO: 모달로 바꾸기?
+      alert('저장 완료!');
+    } catch (error) {
+      dispatch(setIsLoading({ isLoading: false }));
+      console.error(error);
+      alert(error);
+    }
   }, [localBlob]);
 
   return (

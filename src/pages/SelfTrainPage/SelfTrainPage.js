@@ -55,11 +55,10 @@ export default function SelfTrainPage({ match }) {
 
   const fetch = async (requestId) => {
     try {
-      await getQuestionItemAPI(requestId).then((response) => {
-        setQuestionList(sortObjectByOrder(response.data));
-      });
-    } catch (err) {
-      if (err.response.status === 401) {
+      const { data } = await getQuestionItemAPI(requestId);
+      setQuestionList(sortObjectByOrder(data));
+    } catch (error) {
+      if (error.response.status === 401) {
         dispatch(setLogout());
       }
       setQuestionList(QNA_LIST);
@@ -71,19 +70,28 @@ export default function SelfTrainPage({ match }) {
   }, []);
 
   const handleCancel = async () => {
-    await stopRecording();
-    transition.clear();
-    history.push('/self');
-    dispatch(handleReset({ keepTrain: false }));
+    try {
+      await stopRecording();
+      transition.clear();
+      history.push('/self');
+      dispatch(handleReset({ keepTrain: false }));
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
-  const handleChecklistPage = () => {
-    postPreVideoApi({ questionListId: id }).then((response) => {
-      dispatch(setHistoryId({ historyId: response.data.id }));
+  const handleChecklistPage = async () => {
+    try {
+      const { data } = await postPreVideoApi({ questionListId: id });
+      dispatch(setHistoryId({ historyId: data.id }));
       stopRecording();
       history.push(`/self-checklist/${id}`);
       dispatch(handleReset({ keepTrain: true }));
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   useEffect(() => {
@@ -191,7 +199,8 @@ export default function SelfTrainPage({ match }) {
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
                   <A.ToggleButton
-                    funcActive={() => dispatch(setStep({ step: TOGGLE_SCRIPT }))}
+                    funcActive={() => dispatch(setStep({ step: TOGGLE_SCRIPT }))
+                    }
                     funcDeactive={() => dispatch(setStep({ step: STEP_ING }))}
                   />
                 </>

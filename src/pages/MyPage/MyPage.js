@@ -11,7 +11,8 @@ export default function MyPage() {
   const email = sessionStorage.getItem('email');
   const [info, setInfo] = useState([]);
   const fetch = async () => {
-    getUserApi().then((response) => {
+    try {
+      const response = await getUserApi();
       const { data } = response;
       setInfo([
         {
@@ -45,8 +46,12 @@ export default function MyPage() {
           count: data?.failCnt,
         },
       ]);
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
+
   useEffect(() => {
     fetch();
   }, []);

@@ -153,16 +153,21 @@ export default function StudyCardView({
     setProfile('profile_blue');
   };
 
-  const handleClick = () => {
-    getGroupMemberApi(id).then((res) => {
-      res.data.forEach((val) => {
+  const handleClick = async () => {
+    try {
+      const { data } = await getGroupMemberApi(id);
+      data.forEach((val) => {
         if (val.email !== sessionStorage.getItem('email')) {
           postJoinStudyApi({ id });
         }
       });
-    });
-    history.push(`/peer/${id}`);
+      history.push(`/peer/${id}`);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
+
   return (
     <Wrapper>
       <Box onMouseEnter={hoverIn} onMouseLeave={hoverOut}>

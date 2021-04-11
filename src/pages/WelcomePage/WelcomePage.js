@@ -153,21 +153,20 @@ export default function WelcomePage({ history }) {
     get('auth'),
   );
 
-  const uploadButton = useCallback(() => {
-    if (nickname) {
-      putProfileInfoApi({
-        name: nickname || name,
-        mainIndustry,
-        mainJob,
-        subIndustry,
-        subJob,
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error(error));
+  const uploadButton = useCallback(async () => {
+    try {
+      if (nickname) {
+        await putProfileInfoApi({
+          name: nickname || name,
+          mainIndustry,
+          mainJob,
+          subIndustry,
+          subJob,
         });
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
     }
   }, [nickname, putProfileInfoApi]);
 

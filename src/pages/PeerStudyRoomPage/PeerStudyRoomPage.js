@@ -12,7 +12,12 @@ import UsersSection from './UsersSection';
 
 const DEFAULT_ID = 421;
 export default function PeerStudyRoomPage({
-  id, setStepSetting, setStepTrain, chat, handleClick, isConnectStomp,
+  id,
+  setStepSetting,
+  setStepTrain,
+  chat,
+  handleClick,
+  isConnectStomp,
 }) {
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
@@ -41,11 +46,16 @@ export default function PeerStudyRoomPage({
   };
 
   const fetchRoomInfo = async () => {
-    const { data } = await getInterviewStudyRoomAPI(id || DEFAULT_ID);
-    setRoomTitle(data.title);
-    const dateText = createDateInfo(data.date, data.time);
-    setDateInfoText(dateText);
-    setDescription(data.description);
+    try {
+      const { data } = await getInterviewStudyRoomAPI(id || DEFAULT_ID);
+      setRoomTitle(data.title);
+      const dateText = createDateInfo(data.date, data.time);
+      setDateInfoText(dateText);
+      setDescription(data.description);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   useEffect(() => {

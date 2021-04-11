@@ -42,22 +42,21 @@ export default function ProfileEdit({ src = profileDefault }) {
     const reader = new FileReader();
     const file = e.target.files[0];
     reader.readAsDataURL(file);
-    reader.onload = () => {
+    reader.onload = async () => {
       const formData = new FormData();
       formData.append('profileImg', file, file.name);
 
-      dispatch(setImage({ image: reader.result }));
-      console.log(reader.result);
-      postProfileImageApi(formData)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      try {
+        await postProfileImageApi(formData);
+        dispatch(setImage({ image: reader.result }));
+      } catch (error) {
+        console.error(error);
+        alert(error);
+      }
     };
     reader.onerror = (error) => {
       console.error(error);
+      alert(error);
     };
   };
 

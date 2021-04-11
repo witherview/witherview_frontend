@@ -34,28 +34,40 @@ export default function VideoPage({ match }) {
   const videoHlsJs = useRef();
   const { id } = match.params;
 
-  useEffect(() => {
-    getVideoApi().then((resp) => {
+  const fetch = async () => {
+    try {
+      const { data } = await getVideoApi();
+
       dispatch(setIsLoading({ isLoading: false }));
-      const { savedLocation } = resp.data.find(
+
+      const { savedLocation } = data.find(
         (elem) => elem.id === parseInt(id, 10),
       );
+
       dispatch(setUploadedLocation({ uploadedLocation: savedLocation }));
-    });
-    if (Hls.isSupported()) {
-      const hls = new Hls({
-        xhrSetup: (xhr, url) => {
-          xhr.withCredentials = true;
-        },
-      });
-      hls.attachMedia(videoHlsJs.current);
-      hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-        hls.loadSource(uploadedLocation);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          videoHlsJs.current.play();
+
+      if (Hls.isSupported()) {
+        const hls = new Hls({
+          xhrSetup: (xhr, url) => {
+            xhr.withCredentials = true;
+          },
         });
-      });
+        hls.attachMedia(videoHlsJs.current);
+        hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+          hls.loadSource(uploadedLocation);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            videoHlsJs.current.play();
+          });
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
     }
+  };
+
+  useEffect(() => {
+    fetch();
   }, [uploadedLocation]);
 
   return (
