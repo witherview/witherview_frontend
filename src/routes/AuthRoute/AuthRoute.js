@@ -3,26 +3,31 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get } from '@utils/snippet';
-import { setLogin, setAccessToken } from '@store/Auth/auth';
+import { setLogin } from '@store/Auth/auth';
+import { getUserInfoApi } from '@repository/userRepository';
 
 export default function AuthRoute({ component: Component, render, ...rest }) {
   const dispatch = useDispatch();
-  const authSelector = useSelector(get('auth'));
-  useEffect(() => {
-    const name = sessionStorage.getItem('name');
-    const email = sessionStorage.getItem('email');
-    const mainIndustry = sessionStorage.getItem('mainIndustry');
-    const mainJob = sessionStorage.getItem('mainJob');
-    const subIndustry = sessionStorage.getItem('subIndustry');
-    const subJob = sessionStorage.getItem('subJob');
+  const { isLogin } = useSelector(get('auth'));
+  const accessToken = sessionStorage.getItem('accessToken');
 
-    const image = sessionStorage.getItem('image');
+  const fetch = async () => {
+    try {
+      const {
+        data: {
+          email,
+          name,
+          mainIndustry,
+          mainJob,
+          subIndustry,
+          subJob,
+          profileImg: image,
+        },
+      } = await getUserInfoApi();
 
-    const accessToken = sessionStorage.getItem('accessToken');
-
-    if (name !== authSelector.name) {
       dispatch(
         setLogin({
+          isLogin: true,
           email,
           name,
           mainIndustry,
@@ -32,15 +37,25 @@ export default function AuthRoute({ component: Component, render, ...rest }) {
           image,
         }),
       );
+    } catch (error) {
+      if (error.response.status === 401) {
+        sessionStorage.removeItem('accessToken');
+      }
+
+      alert(error);
     }
-    if (accessToken !== authSelector.accessToken) {
-      dispatch(setAccessToken({ accessToken }));
+  };
+
+  useEffect(() => {
+    if (!isLogin && accessToken !== null) {
+      fetch();
     }
   }, []);
+
   return (
     <Route
       {...rest}
-      render={(props) => (authSelector.isLogin ? (
+      render={(props) => (isLogin || accessToken ? (
         render ? (
           render(props)
         ) : (
