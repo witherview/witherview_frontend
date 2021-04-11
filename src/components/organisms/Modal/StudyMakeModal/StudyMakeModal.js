@@ -221,7 +221,7 @@ export default function StudyStartModal({ func }) {
   const [select, setSelect] = useState(initSelect);
 
   const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
-  const [time, setTime] = useState(moment(new Date()).format('HH:mm'));
+  const [time, setTime] = useState(moment(new Date()).format('HH:mm:ss'));
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
@@ -244,35 +244,39 @@ export default function StudyStartModal({ func }) {
     setTime(e.target.value);
   };
 
-  const handleMakeStudy = () => {
+  const handleMakeStudy = async () => {
     if (
       title === ''
       || description === ''
       || jobList.indexOf(job) === -1
       || industryList.indexOf(industry) === -1
     ) {
-      alert('입력값을 확인해 주세요.');
-      return;
+      return alert('입력값을 확인해 주세요.');
     }
-    postStudyApi({
-      title,
-      description,
-      job,
-      industry,
-      date,
-      time,
-      category,
-    }).then(() => {
+    try {
+      await postStudyApi({
+        title,
+        description,
+        job,
+        industry,
+        date,
+        time,
+        category,
+      });
       func();
       dispatch(hideModal(MODALS.STUDY_MAKE_MODAL));
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+    return null;
   };
 
   const categoryRef = useRef();
   const industryRef = useRef();
   const jobRef = useRef();
 
-  function handleClickOutside({ target }) {
+  const handleClickOutside = ({ target }) => {
     if (
       !industryRef.current.contains(target)
       && !jobRef.current.contains(target)
@@ -280,7 +284,7 @@ export default function StudyStartModal({ func }) {
     ) {
       setSelect(initSelect);
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);

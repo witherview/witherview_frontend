@@ -18,7 +18,7 @@ export const deleteQuestionListAPI = async (param) => await api({
 });
 
 export const getQuestionItemAPI = async (param) => await api({
-  url: `/api/self/question?listId=${param}`,
+  url: `/api/self/question/${param}`,
   type: 'get',
 });
 

@@ -162,10 +162,11 @@ export default function EvaluationModal({ roomId }) {
 
   const handleButtonClick = async () => {
     const data = {
-      id: roomId,
+      studyRoomId: roomId,
       passOrFail: evaluate === 'pass',
       score,
-      targetUser: 0, // TODO: change this properly
+      studyHistoryId: '', // TODO: change this properly
+      receivedUser: 0, // TODO: change this properly
     };
 
     try {
