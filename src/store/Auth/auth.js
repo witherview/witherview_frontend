@@ -13,11 +13,21 @@ const authReducer = createSlice({
     subJob: '',
   },
   reducers: {
-    setLogin(state, {
-      payload: {
-        email, name, image, mainIndustry, mainJob, subIndustry, subJob,
+    setLogin(
+      state,
+      {
+        payload: {
+          isLogin,
+          email,
+          name,
+          image,
+          mainIndustry,
+          mainJob,
+          subIndustry,
+          subJob,
+        },
       },
-    }) {
+    ) {
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('image', image);
@@ -27,7 +37,7 @@ const authReducer = createSlice({
       sessionStorage.setItem('subJob', subJob);
       return {
         ...state,
-        isLogin: true,
+        isLogin,
         email,
         name,
         image,
@@ -38,12 +48,24 @@ const authReducer = createSlice({
       };
     },
     setLogout(state) {
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('name');
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('image');
+      sessionStorage.removeItem('mainIndustry');
+      sessionStorage.removeItem('mainJob');
+      sessionStorage.removeItem('subIndustry');
+      sessionStorage.removeItem('subJob');
       return {
         ...state,
         isLogin: false,
         email: '',
         name: '',
         image: '',
+        mainIndustry: '',
+        mainJob: '',
+        subIndustry: '',
+        subJob: '',
       };
     },
     setImage(state, { payload: { image } }) {
@@ -56,8 +78,6 @@ const authReducer = createSlice({
   },
 });
 
-export const {
-  setLogin, setLogout, setImage, setImageFile,
-} = authReducer.actions;
+export const { setLogin, setLogout, setImage } = authReducer.actions;
 
 export default authReducer.reducer;
