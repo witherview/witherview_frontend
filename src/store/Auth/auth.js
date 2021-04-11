@@ -11,7 +11,6 @@ const authReducer = createSlice({
     mainJob: '',
     subIndustry: '',
     subJob: '',
-    accessToken: '',
   },
   reducers: {
     setLogin(state, {
@@ -28,6 +27,7 @@ const authReducer = createSlice({
       sessionStorage.setItem('subJob', subJob);
       return {
         ...state,
+        isLogin: true,
         email,
         name,
         image,
@@ -35,14 +35,6 @@ const authReducer = createSlice({
         mainJob,
         subIndustry,
         subJob,
-      };
-    },
-    setAccessToken(state, { payload: { accessToken } }) {
-      sessionStorage.setItem('accessToken', accessToken);
-      return {
-        ...state,
-        isLogin: true,
-        accessToken,
       };
     },
     setLogout(state) {
@@ -65,10 +57,7 @@ const authReducer = createSlice({
 });
 
 export const {
-  setLogin,
-  setAccessToken,
-  setLogout,
-  setImage,
+  setLogin, setLogout, setImage, setImageFile,
 } = authReducer.actions;
 
 export default authReducer.reducer;
