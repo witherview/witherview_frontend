@@ -1,17 +1,15 @@
 /* eslint-disable no-useless-escape */
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { signUpApi } from '@repository/signUpRepository';
 import { loginApi } from '@repository/loginRepository';
-import { setLogin, setAccessToken } from '@store/Auth/auth';
+import { setLogin } from '@store/Auth/auth';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
-import { get } from '@utils/snippet';
 
 import A from '@atoms';
 
@@ -281,7 +279,6 @@ const initSelect = {
 
 export default function SignUpPage({ history }) {
   const dispatch = useDispatch();
-  const authSelector = useSelector(get('auth'));
 
   const { ratio } = useWindowSize();
 
@@ -323,7 +320,7 @@ export default function SignUpPage({ history }) {
     setSelect({ ...initSelect, [type]: !select[type] });
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (toggleCheckTerm.first === false || toggleCheckTerm.second === false) {
       return alert('약관에 모두 동의하셔야 합니다.');
     }
@@ -333,47 +330,40 @@ export default function SignUpPage({ history }) {
     if (Object.values(signUpForm).includes('')) {
       return alert('모든 항목을 입력/선택 해주세요.');
     }
-    return signUpApi(JSON.stringify(signUpForm))
-      .then((resUser) => {
-        console.log(resUser);
-        const email = JSON.stringify(resUser.data.email).replace(/\"/g, '');
-        const name = JSON.stringify(resUser.data.name).replace(/\"/g, '');
+    try {
+      const {
+        data: { email, name },
+      } = await signUpApi(JSON.stringify(signUpForm));
 
-        dispatch(
-          setLogin({
-            email,
-            name,
-            mainIndustry,
-            mainJob,
-            subIndustry,
-            subJob,
-          }),
-        );
-        const loginForm = {
+      dispatch(
+        setLogin({
           email,
-          password: signUpForm.password,
-        };
-        loginApi(JSON.stringify(loginForm))
-          .then((resToken) => {
-            const accessToken = JSON.stringify(
-              resToken.data.accessToken,
-            ).replace(/\"/g, '');
-            dispatch(setAccessToken({ accessToken }));
+          name,
+          mainIndustry,
+          mainJob,
+          subIndustry,
+          subJob,
+        }),
+      );
 
-            history.push('/welcome');
-          })
-          .catch(() => {
-            alert('로그인 실패');
-          });
-      })
-      .catch((err) => {
-        // TODO: 이부분 좀 더 좋은 방법으로 처리할 수 있도록 하기
-        let errors = '';
-        err.response.data.errors.forEach((val) => {
-          errors += `${val.reason}\n`;
-        });
-        alert(errors);
-      });
+      const loginForm = {
+        email,
+        password: signUpForm.password,
+      };
+
+      const {
+        data: { access_token: accessToken },
+      } = await loginApi(JSON.stringify(loginForm));
+
+      sessionStorage.setItem('accessToken', accessToken);
+
+      history.push('/welcome');
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+
+    return null;
   };
 
   const industryMainRef = useRef();
@@ -382,7 +372,7 @@ export default function SignUpPage({ history }) {
   const jobMainRef = useRef();
   const jobSubRef = useRef();
 
-  function handleClickOutside({ target }) {
+  const handleClickOutside = ({ target }) => {
     if (
       !industryMainRef.current.contains(target)
       && !industrySubRef.current.contains(target)
@@ -391,7 +381,7 @@ export default function SignUpPage({ history }) {
     ) {
       setSelect(initSelect);
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -400,7 +390,6 @@ export default function SignUpPage({ history }) {
 
   return (
     <Wrapper ratio={ratio > 1.675}>
-      {authSelector.isLogin && <Redirect to="/self" />}
       <WrapContent>
         <Logo src={witherviewLogo} alt="logo" />
         <WrapSubTitle>
