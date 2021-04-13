@@ -65,11 +65,11 @@ export default function SideBar() {
 
   useEffect(() => {
     const pathName = pathname.split('/')[1];
-    if (pathName === 'self' || pathName === 'peer-study' || pathName === 'myvideo' || pathName === 'mypage') {
-      return setPath(pathName);
+    if (pathName === 'self' || pathName === 'peer-study' || pathName === 'replay' || pathName === 'mypage') {
+      setPath(pathName);
+    } else {
+      history.push('/self');
     }
-    history.push('/self');
-    return null;
   }, []);
 
   const handleClick = (value) => {
@@ -94,9 +94,9 @@ export default function SideBar() {
           clicked={path === 'peer-study'}
         />
         <SidebarButton
-          func={() => handleClick('myvideo')}
-          type={path === 'myvideo' ? 'folder_blue' : 'folder_white'}
-          clicked={path === 'myvideo'}
+          func={() => handleClick('replay')}
+          type={path === 'replay' ? 'folder_blue' : 'folder_white'}
+          clicked={path === 'replay'}
         />
         <SidebarButton
           func={() => handleClick('mypage')}

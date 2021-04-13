@@ -52,7 +52,7 @@ export default function IsQuestionList({ questionList, handleDelete }) {
     <>
       <Wrapper>
         <ItemWrapper>
-          <Link to="/question/new" style={{ textDecoration: 'none' }}>
+          <Link to="/self/question/new" style={{ textDecoration: 'none' }}>
             <AddQuestionList>
               <IconWrapper>
                 <A.Icon type="add_black" alt="icon" />

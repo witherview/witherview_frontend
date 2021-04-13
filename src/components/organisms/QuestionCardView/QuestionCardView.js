@@ -179,7 +179,7 @@ export default function QuestionCardView({
   const history = useHistory();
 
   const handleMove = () => {
-    history.push(`/question/${id}`);
+    history.push(`/self/question/${id}`);
   };
 
   const toggle = (set) => setIsOpen(set);
