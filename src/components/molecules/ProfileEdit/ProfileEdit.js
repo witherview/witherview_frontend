@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { postProfileImageApi } from '@repository/updateProfile';
+import { postProfileImageApi } from '@repository/accountRepository';
 import A from '@atoms';
 import { setImage } from '@store/Auth/auth';
 import { get } from '@utils/snippet';

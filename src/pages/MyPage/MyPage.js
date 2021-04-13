@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import A from '@atoms';
 import M from '@molecules';
 
-import { getUserApi } from '@repository/loginRepository';
+import { getUserStatisticsApi } from '@repository/accountRepository';
 import S from './MyPage.style';
 import Box from './Box';
 
@@ -12,7 +12,7 @@ export default function MyPage() {
   const [info, setInfo] = useState([]);
   const fetch = async () => {
     try {
-      const response = await getUserApi();
+      const response = await getUserStatisticsApi();
       const { data } = response;
       setInfo([
         {

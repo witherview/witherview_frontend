@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import Hls from 'hls.js';
-import { getVideoApi } from '@repository/requestVideoRepository';
+import { getVideoApi } from '@repository/selfHistoryRepository';
 import { setUploadedLocation, setIsLoading } from '@store/Train/train';
 import { get } from '@utils/snippet';
 

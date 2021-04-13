@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { hideModal } from '@store/Modal/modal';
 import A from '@atoms';
-import { postStudyApi } from '@repository/groupRepository';
+import { postGroupRoomApi } from '@repository/groupRepository';
 import { MODALS } from '@utils/constant';
 
 const Wrapper = styled.div`
@@ -254,7 +254,7 @@ export default function StudyStartModal({ func }) {
       return alert('입력값을 확인해 주세요.');
     }
     try {
-      await postStudyApi({
+      await postGroupRoomApi({
         title,
         description,
         job,

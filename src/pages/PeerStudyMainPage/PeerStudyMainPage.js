@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  getGroupListApi,
-  getGroupMemberApi,
+  getGroupRoomApi,
+  getGroupRoomEachApi,
 } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
@@ -20,12 +20,13 @@ export default function PeerStudyMainPage() {
   const [page, setPage] = useState(0);
   const fetch = async (pages) => {
     try {
-      const { data } = await getGroupListApi(pages);
+      const { data } = await getGroupRoomApi(pages);
+      console.log(data);
       const unit = data.length === 6 ? 1 : 0;
-      data.forEach(async (val) => {
+      data?.forEach(async (val) => {
         const {
           data: { nowUserCnt },
-        } = await getGroupMemberApi(val.id);
+        } = await getGroupRoomEachApi(val.id);
         setMember((members) => [
           ...members,
           { id: val.id, member: nowUserCnt },
@@ -36,7 +37,7 @@ export default function PeerStudyMainPage() {
       ));
       setPage(pages + unit);
     } catch (error) {
-      console.error(error);
+      console.error(error, 'a');
       alert(error);
     }
   };

@@ -12,6 +12,8 @@ export const postQuestionListAPI = async (param) => await api({
   param,
 });
 
+// TODO: PATCH - /api/self/questionlist
+
 export const deleteQuestionListAPI = async (param) => await api({
   url: `/api/self/questionList/${param}`,
   type: 'delete',

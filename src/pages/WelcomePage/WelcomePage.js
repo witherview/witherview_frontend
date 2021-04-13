@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
 
-import { putProfileInfoApi } from '@repository/updateProfile';
+import { putProfileInfoApi } from '@repository/accountRepository';
 
 import { get } from '@utils/snippet';
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';

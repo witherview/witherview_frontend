@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get } from '@utils/snippet';
 import { setLogin } from '@store/Auth/auth';
-import { getUserInfoApi } from '@repository/userRepository';
+import { getUserInfoApi } from '@repository/accountRepository';
 
 export default function AuthRoute({ component: Component, render, ...rest }) {
   const dispatch = useDispatch();

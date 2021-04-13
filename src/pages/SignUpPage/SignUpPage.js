@@ -5,8 +5,7 @@ import styled from 'styled-components';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
 
-import { signUpApi } from '@repository/signUpRepository';
-import { loginApi } from '@repository/loginRepository';
+import { loginApi, registerApi } from '@repository/accountRepository';
 import { setLogin } from '@store/Auth/auth';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
@@ -333,7 +332,7 @@ export default function SignUpPage({ history }) {
     try {
       const {
         data: { email, name },
-      } = await signUpApi(JSON.stringify(signUpForm));
+      } = await registerApi(JSON.stringify(signUpForm));
 
       dispatch(
         setLogin({

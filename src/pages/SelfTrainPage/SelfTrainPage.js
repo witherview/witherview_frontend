@@ -17,7 +17,7 @@ import {
 import { setStep, setHistoryId } from '@store/Train/train';
 import { sortObjectByOrder, get } from '@utils/snippet';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
-import { postPreVideoApi } from '@repository/requestVideoRepository';
+import { postPreVideoApi } from '@repository/selfHistoryRepository';
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
 import A from '@atoms';

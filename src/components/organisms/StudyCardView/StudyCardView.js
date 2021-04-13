@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import A from '@atoms';
 import {
-  postJoinStudyApi,
-  getGroupMemberApi,
+  postGroupRoomParticipantsApi,
+  getGroupRoomParticipantsApi,
 } from '@repository/groupRepository';
 
 const Wrapper = styled.div`
@@ -155,12 +155,13 @@ export default function StudyCardView({
 
   const handleClick = async () => {
     try {
-      const { data } = await getGroupMemberApi(id);
-      data.forEach((val) => {
+      const { data } = await getGroupRoomParticipantsApi(id);
+      data?.forEach((val) => {
         if (val.email !== sessionStorage.getItem('email')) {
-          postJoinStudyApi({ id });
+          postGroupRoomParticipantsApi(id);
         }
       });
+
       history.push(`/peer/${id}`);
     } catch (error) {
       console.error(error);

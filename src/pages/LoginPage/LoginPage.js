@@ -7,7 +7,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import styled from 'styled-components';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
-import { loginApi } from '@repository/loginRepository';
+import { loginApi } from '@repository/accountRepository';
 
 import A from '@atoms';
 

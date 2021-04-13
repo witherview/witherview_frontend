@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { postVideoApi, getVideoApi } from '@repository/requestVideoRepository';
+import { postVideoApi, getVideoApi } from '@repository/selfHistoryRepository';
 import {
   setUploadedLocation,
   setToggleTrain,

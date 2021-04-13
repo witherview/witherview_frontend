@@ -14,7 +14,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { getVideoApi } from '@repository/requestVideoRepository';
+import { getVideoApi } from '@repository/selfHistoryRepository';
 
 const Wrapper = styled.div`
   flex: 1;
