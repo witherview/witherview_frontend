@@ -1,6 +1,6 @@
 /* eslint-disable indent */
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
@@ -56,21 +56,25 @@ const WrapBottomButton = styled.div`
 `;
 
 export default function SideBar() {
-  const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const history = useHistory();
-  const [click, setClick] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const [path, setPath] = useState('self');
+
+  useEffect(() => {
+    const pathName = pathname.split('/')[1];
+    if (pathName === 'self' || pathName === 'peer-study' || pathName === 'myvideo' || pathName === 'mypage') {
+      return setPath(pathName);
+    }
+    history.push('/self');
+    return null;
+  }, []);
 
   const handleClick = (value) => {
-    setClick(value);
-    history.push(
-      value === 0
-        ? '/self'
-        : value === 1
-        ? '/peer-study'
-        : value === 2
-        ? '/mypage'
-        : 'myvideo',
-    );
+    setPath(value);
+    history.push(`/${value}`);
   };
 
   return (
@@ -80,24 +84,24 @@ export default function SideBar() {
       </WrapTopButton>
       <WrapButtonContainer>
         <SidebarButton
-          func={() => handleClick(0)}
-          type={click === 0 ? 'bubble_black' : 'bubble_white'}
-          clicked={click === 0}
+          func={() => handleClick('self')}
+          type={path === 'self' ? 'bubble_black' : 'bubble_white'}
+          clicked={path === 'self'}
         />
         <SidebarButton
-          func={() => handleClick(1)}
-          type={click === 1 ? 'sound_black' : 'sound_white'}
-          clicked={click === 1}
+          func={() => handleClick('peer-study')}
+          type={path === 'peer-study' ? 'sound_black' : 'sound_white'}
+          clicked={path === 'peer-study'}
         />
         <SidebarButton
-          func={() => handleClick(4)}
-          type={click === 4 ? 'folder_blue' : 'folder_white'}
-          clicked={click === 4}
+          func={() => handleClick('myvideo')}
+          type={path === 'myvideo' ? 'folder_blue' : 'folder_white'}
+          clicked={path === 'myvideo'}
         />
         <SidebarButton
-          func={() => handleClick(2)}
-          type={click === 2 ? 'profile_black' : 'profile_white'}
-          clicked={click === 2}
+          func={() => handleClick('mypage')}
+          type={path === 'mypage' ? 'profile_black' : 'profile_white'}
+          clicked={path === 'mypage'}
         />
       </WrapButtonContainer>
       <WrapBottomButton>
@@ -106,8 +110,7 @@ export default function SideBar() {
             dispatch(setLogout());
             history.push('/');
           }}
-          type={click === 3 ? 'exit_blue' : 'exit_white'}
-          clicked={click === 3}
+          type="exit_white"
           title="나가기"
         />
       </WrapBottomButton>
