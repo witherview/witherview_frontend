@@ -1,6 +1,6 @@
 import api from '@context/serverContext';
 
-export const postGroupFeedback = async (param) => await api({
+export const postGroupFeedbackApi = async (param) => await api({
   url: '/api/group/feedback',
   type: 'post',
   param,
@@ -17,7 +17,7 @@ export const postGroupRoomApi = async (param) => await api({
   param,
 });
 
-export const getGroupRoomEachApi = async (param) => await api({
+export const getEachGroupRoomApi = async (param) => await api({
   url: `/api/group/room/${param}`,
   type: 'get',
 });

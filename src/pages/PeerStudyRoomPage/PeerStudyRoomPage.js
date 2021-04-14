@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  getGroupRoomEachApi,
+  getEachGroupRoomApi,
 } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
@@ -48,7 +48,7 @@ export default function PeerStudyRoomPage({
 
   const fetchRoomInfo = async () => {
     try {
-      const { data } = await getGroupRoomEachApi(id || DEFAULT_ID);
+      const { data } = await getEachGroupRoomApi(id || DEFAULT_ID);
       setRoomTitle(data.title);
       const dateText = createDateInfo(data.date, data.time);
       setDateInfoText(dateText);

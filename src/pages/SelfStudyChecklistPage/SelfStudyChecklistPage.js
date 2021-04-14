@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { postVideoApi, getVideoApi } from '@repository/selfHistoryRepository';
+import { postSelfVideoApi, getSelfVideoApi } from '@repository/selfHistoryRepository';
 import {
   setUploadedLocation,
   setToggleTrain,
@@ -369,9 +369,9 @@ export default function SelfStudyChecklistPage({ match }) {
 
       const {
         data: { id },
-      } = await postVideoApi(formData);
+      } = await postSelfVideoApi(formData);
 
-      const { data } = await getVideoApi();
+      const { data } = await getSelfVideoApi();
 
       dispatch(setIsLoading({ isLoading: false }));
 

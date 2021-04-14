@@ -7,7 +7,7 @@ import { hideModal } from '@store/Modal/modal';
 import A from '@atoms';
 
 import { MODALS } from '@utils/constant';
-import { postGroupFeedback } from '@repository/groupRepository';
+import { postGroupFeedbackApi } from '@repository/groupRepository';
 
 const Wrapper = styled.div`
   display: flex;
@@ -170,7 +170,7 @@ export default function EvaluationModal({ roomId }) {
     };
 
     try {
-      await postGroupFeedback(data);
+      await postGroupFeedbackApi(data);
 
       dispatch(hideModal(MODALS.EVALUATION_MODAL));
 
