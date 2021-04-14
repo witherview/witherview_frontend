@@ -13,6 +13,10 @@ export const postPreSelfVideoApi = async (param) => await api({
 });
 
 // TODO: DELETE - /api/self/history/{id}
+export const deleteSelfVideoApi = async (param) => await api({
+  url: `/api/self/history/${param}`,
+  type: 'delete',
+});
 
 export const postSelfVideoApi = async (param) => await api({
   url: '/api/self/history/video',

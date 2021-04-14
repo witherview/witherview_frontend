@@ -23,7 +23,16 @@ export const getEachGroupRoomApi = async (param) => await api({
 });
 
 // TODO: DELETE - /api/group/room/{id}
+export const deleteEachGroupRoomApi = async (param) => await api({
+  url: `/api/group/room/${param}`,
+  type: 'get',
+});
+
 // TODO: PATCH - /api/group/room/{id}
+export const patchEachGroupRoomApi = async (param) => await api({
+  url: `/api/group/room/${param}`,
+  type: 'patch',
+});
 
 export const getGroupRoomParticipantsApi = async (param) => await api({
   url: `/api/group/room/${param}/participants`,
@@ -37,3 +46,7 @@ export const postGroupRoomParticipantsApi = async (param) => await api({
 });
 
 // TODO: DELETE - /api/group/room/{id}/participants
+export const deleteEachGroupRoomParticipantsApi = async (param) => await api({
+  url: `/api/group/room/${param}/participants`,
+  type: 'delete',
+});
