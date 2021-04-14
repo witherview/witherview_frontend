@@ -1,49 +1,60 @@
 import React, { useState, useEffect } from 'react';
+
+import { useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
 
 import { getUserStatisticsApi } from '@repository/accountRepository';
+import { get } from '@utils/snippet';
 import S from './MyPage.style';
 import Box from './Box';
 
 export default function MyPage() {
-  const name = sessionStorage.getItem('name');
-  const email = sessionStorage.getItem('email');
+  const { name, email, phoneNumber } = useSelector(get('auth'));
+
   const [info, setInfo] = useState([]);
   const fetch = async () => {
     try {
-      const response = await getUserStatisticsApi();
-      const { data } = response;
+      const {
+        data: {
+          groupStudyCnt,
+          selfPracticeCnt,
+          questionListCnt,
+          interviewScore,
+          passCnt,
+          failCnt,
+        },
+      } = await getUserStatisticsApi();
       setInfo([
         {
           type: 'sound_big',
           title: '면접스터디 횟수',
-          count: data?.groupStudyCnt,
+          count: groupStudyCnt,
         },
         {
           type: 'bubble_big',
           title: '혼자연습 횟수',
-          count: data?.selfPracticeCnt,
+          count: selfPracticeCnt,
         },
         {
           type: 'memo_big',
           title: '질문 리스트 갯수',
-          count: data?.questionListCnt,
+          count: questionListCnt,
         },
         {
           type: 'star_big',
           title: '면접 평균 점수',
-          count: data?.interviewScore,
+          count: interviewScore,
         },
         {
           type: 'thumb_up_big',
           title: '합격 횟수',
-          count: data?.passCnt,
+          count: passCnt,
         },
         {
           type: 'thumb_down_big',
           title: '불합격 횟수',
-          count: data?.failCnt,
+          count: failCnt,
         },
       ]);
     } catch (error) {
@@ -86,7 +97,7 @@ export default function MyPage() {
           </S.Info>
           <S.Info>
             <S.Title>휴대전화</S.Title>
-            <S.Content>01012345678</S.Content>
+            <S.Content>{phoneNumber}</S.Content>
             <S.Title>관심 직무</S.Title>
             <S.Block>
               <S.BlockItem theme="orange">데이터 분석</S.BlockItem>

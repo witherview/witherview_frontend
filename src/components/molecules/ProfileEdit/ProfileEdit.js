@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { postProfileImageApi } from '@repository/accountRepository';
 import A from '@atoms';
-import { setImage } from '@store/Auth/auth';
+import { setProfileImg } from '@store/Auth/auth';
 import { get } from '@utils/snippet';
 import profileDefault from '@assets/images/profile_default.png';
 
@@ -35,7 +35,7 @@ const IconWrapper = styled.span`
 
 export default function ProfileEdit({ src = profileDefault }) {
   const dispatch = useDispatch();
-  const { image } = useSelector(get('auth'));
+  const { profileImg } = useSelector(get('auth'));
   const fileRef = useRef();
 
   const onChange = (e) => {
@@ -48,7 +48,7 @@ export default function ProfileEdit({ src = profileDefault }) {
 
       try {
         await postProfileImageApi(formData);
-        dispatch(setImage({ image: reader.result }));
+        dispatch(setProfileImg({ profileImg: reader.result }));
       } catch (error) {
         console.error(error);
         alert(error);
@@ -62,7 +62,7 @@ export default function ProfileEdit({ src = profileDefault }) {
 
   return (
     <Wrapper>
-      <Image src={image || src} alt="profile_image" />
+      <Image src={profileImg || src} alt="profile_image" />
       <IconWrapper onClick={() => fileRef.current.click()}>
         <input
           type="file"
