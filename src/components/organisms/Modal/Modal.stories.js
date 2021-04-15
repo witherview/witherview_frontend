@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { showModal } from '@store/Modal/modal';
+import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from './Modal';
 
@@ -13,10 +13,10 @@ export default {
 const modals = (args) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(showModal(MODALS.QUESTIONLIST_SAVE_MODAL));
-    dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
-    dispatch(showModal(MODALS.EVALUATION_MODAL));
-    dispatch(showModal(MODALS.STUDY_MAKE_MODAL));
+    dispatch(displayModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
+    dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
+    dispatch(displayModal({ modalName: MODALS.EVALUATION_MODAL }));
+    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
   });
 
   return (<Modal {...args} />);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideModal, showModal } from '@store/Modal/modal';
+import { displayModal, removeModal } from '@store/Modal/modal';
 import { setJob, setCompany, setSelectedQnaId } from '@store/Train/train';
 import A from '@atoms';
 import {
@@ -76,8 +76,8 @@ const QuestionListSaveModal = () => {
           if (qnaId !== 'new') {
             dispatch(setSelectedQnaId({ selectedQnaId: qnaId }));
           }
-          dispatch(hideModal(MODALS.QUESTIONLIST_SAVE_MODAL));
-          dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+          dispatch(removeModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
+          dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
         });
       },
     );
