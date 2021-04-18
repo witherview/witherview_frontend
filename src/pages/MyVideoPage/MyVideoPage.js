@@ -131,7 +131,7 @@ export default function MyVideoPage() {
                     role="checkbox"
                     tabIndex={-1}
                     key={row.code}
-                    onClick={() => history.push(`/video/${row.id}`)}
+                    onClick={() => history.push(`/replay/${row.id}`)}
                   >
                     {columns.map((column) => {
                       const value = row[column.id];

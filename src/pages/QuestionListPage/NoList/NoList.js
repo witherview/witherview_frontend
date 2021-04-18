@@ -49,7 +49,7 @@ export default function NoList() {
     <>
       <Image src={NoListImage} />
       <Text>등록된 질문 리스트가 없습니다.</Text>
-      <Link to="/question/new" style={{ textDecoration: 'none' }}>
+      <Link to="/self/question/new" style={{ textDecoration: 'none' }}>
         <Button>
           <A.Icon type="add_white" alt="" />
           <ButtonText>질문 리스트 등록하기</ButtonText>

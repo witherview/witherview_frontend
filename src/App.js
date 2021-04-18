@@ -82,25 +82,26 @@ export default function App() {
             <R.AuthRoute exact path="/self" component={SelfTrainEntryPage} />
             <R.AuthRoute
               exact
-              path="/questionlist"
+              path="/self/questionlist"
               component={QuestionListPage}
             />
-            <R.AuthRoute path="/question/:id" component={QuestionPage} />
+            <R.AuthRoute exact path="/self/question/:id" component={QuestionPage} />
             <R.AuthRoute
+              exact
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
             />
-            <R.AuthRoute path="/self-train/:id" component={SelfTrainPage} />
+            <R.AuthRoute exact path="/self/train/:id" component={SelfTrainPage} />
             <R.AuthRoute
               exact
-              path="/self-checklist/:roomId"
+              path="/self/checklist/:roomId"
               component={SelfStudyChecklist}
             />
-            <R.AuthRoute exact path="/myvideo" component={MyVideoPage} />
-            <R.AuthRoute exact path="/video/:id" component={VideoPage} />
-            <R.AuthRoute path="/peer-study" component={PeerStudyMainPage} />
-            <R.AuthRoute path="/peer/:id" component={R.PeerStudyRoute} />
-            <R.AuthRoute path="/mypage" component={MyPage} />
+            <R.AuthRoute exact path="/replay" component={MyVideoPage} />
+            <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
+            <R.AuthRoute exact path="/peer-study" component={PeerStudyMainPage} />
+            <R.AuthRoute exact path="/peer-study/:id" component={R.PeerStudyRoute} />
+            <R.AuthRoute exact path="/mypage" component={MyPage} />
           </WrapPage>
         </Wrapper>
         <R.AuthRoute component={NotFound} />

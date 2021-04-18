@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import A from '@atoms';
 
 const Wrapper = styled.button`
-  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
+  width: 100%;
   height: 7.1vh;
   background-color: ${({ clicked }) => (clicked ? 'white' : '#0c0c59')};
   display: flex;
@@ -21,22 +21,10 @@ const Wrapper = styled.button`
   cursor: pointer;
 `;
 
-const WrapText = styled.div`
-  width: 11.4vh;
-  padding-left: 1.9vh;
-  font-family: AppleSDGothicNeoB00;
-  font-size: 1.9vh;
-  text-align: left;
-  color: ${({ clicked }) => (clicked ? '#0c0c59' : 'white')};
-`;
-
-export default function SideBarButton({
-  type, clicked, func, hover, title,
-}) {
+export default function SideBarButton({ type, clicked, func }) {
   return (
-    <Wrapper onClick={func} clicked={clicked} hover={hover}>
+    <Wrapper onClick={func} clicked={clicked}>
       <A.Icon type={type} alt="icon" />
-      {hover && <WrapText clicked={clicked}>{title}</WrapText>}
     </Wrapper>
   );
 }
@@ -45,12 +33,8 @@ SideBarButton.propTypes = {
   type: PropTypes.string.isRequired,
   clicked: PropTypes.bool,
   func: PropTypes.func.isRequired,
-  hover: PropTypes.bool,
-  title: PropTypes.string,
 };
 
 SideBarButton.defaultProps = {
   clicked: false,
-  hover: false,
-  title: '',
 };

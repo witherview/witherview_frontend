@@ -346,7 +346,7 @@ export default function SelfStudyChecklistPage({ match }) {
   );
 
   const selfTraingAgain = useCallback(() => {
-    history.push(`/question/${roomId}`);
+    history.push(`/self/question/${roomId}`);
   }, [roomId]);
 
   const initCheckList = useCallback(() => {

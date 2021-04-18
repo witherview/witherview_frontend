@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { hideModal, showModal } from '@store/Modal/modal';
 import { setJob, setCompany, setSelectedQnaId } from '@store/Train/train';
 import A from '@atoms';
@@ -55,6 +56,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const QuestionListSaveModal = () => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const { questions } = useSelector(get('question'));
 

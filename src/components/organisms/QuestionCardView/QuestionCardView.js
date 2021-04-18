@@ -182,7 +182,7 @@ export default function QuestionCardView({
   const history = useHistory();
 
   const handleMove = () => {
-    history.push(`/question/${id}`);
+    history.push(`/self/question/${id}`);
   };
 
   const toggle = (set) => setIsOpen(set);
@@ -211,7 +211,14 @@ export default function QuestionCardView({
         </IconBox>
         <List isOpen={isOpen} onMouseLeave={() => toggle(false)}>
           <Item>
-            <Each onClick={() => handleDelete(id)}>삭제</Each>
+            <Each
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(id);
+              }}
+            >
+              삭제
+            </Each>
           </Item>
         </List>
         <Content>
