@@ -41,23 +41,30 @@ export default function ProfileEdit({ src = profileDefault }) {
   const onChange = (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    reader.readAsDataURL(file);
-    reader.onload = async () => {
-      const formData = new FormData();
-      formData.append('profileImg', file, file.name);
 
-      try {
+    try {
+      if (file.type.match('image.*')) {
+        throw new Error('이미지 파일 형식이 아닙니다.');
+      }
+      if (file.size < 5 * 1024 * 1024) {
+        throw new Error('5MB 이하의 이미지 파일만 업로드 가능합니다.');
+      }
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        const formData = new FormData();
+        formData.append('profileImg', file, file.name);
         await postProfileImageApi(formData);
         dispatch(setImage({ image: reader.result }));
-      } catch (error) {
+      };
+      reader.onerror = (error) => {
         console.error(error);
         alert(error);
-      }
-    };
-    reader.onerror = (error) => {
+        reader.abort();
+      };
+    } catch (error) {
       console.error(error);
       alert(error);
-    };
+    }
   };
 
   return (
