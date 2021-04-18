@@ -160,22 +160,25 @@ export default function EvaluationModal({ roomId }) {
     setEvaluate(val);
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     const data = {
-      id: roomId,
+      studyRoomId: roomId,
       passOrFail: evaluate === 'pass',
       score,
-      targetUser: 0, // TODO: change this properly
+      studyHistoryId: '', // TODO: change this properly
+      receivedUser: 0, // TODO: change this properly
     };
 
-    postGroupFeedback(data)
-      .then(() => {
-        dispatch(hideModal(MODALS.EVALUATION_MODAL));
-        history.push('/peer-study');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      await postGroupFeedback(data);
+
+      dispatch(hideModal(MODALS.EVALUATION_MODAL));
+
+      history.push('/peer-study');
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   const calScore = (val) => ((score + val) % 10) + 1;

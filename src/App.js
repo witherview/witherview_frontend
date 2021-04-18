@@ -68,7 +68,7 @@ export default function App() {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/sign-up" component={SignUpPage} />
-        <R.AuthRoute exact path="/welcome" component={WelcomePage} />
+        <Route exact path="/welcome" component={WelcomePage} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
@@ -79,7 +79,7 @@ export default function App() {
           {!toggleTrain && <O.SideBar />}
           {!toggleTrain && <O.ProfileMenuContainer name={name} />}
           <WrapPage toggleTrain={toggleTrain}>
-            <Route exact path="/self" component={SelfTrainEntryPage} />
+            <R.AuthRoute exact path="/self" component={SelfTrainEntryPage} />
             <R.AuthRoute
               exact
               path="/self/questionlist"

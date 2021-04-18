@@ -64,25 +64,36 @@ const QuestionListSaveModal = () => {
   const [enterprise, setEnterprise] = useState();
   const [position, setPosition] = useState();
 
-  const handleListMake = () => {
-    postQuestionListAPI({ title, enterprise, job: position }).then(
-      (response) => {
-        dispatch(setSelectedQnaId({ selectedQnaId: response.data.id }));
-        postQuestionItemAPI({
-          listId: response.data.id,
-          questions,
-        }).then(() => {
-          const qnaId = pathname.replace('/self/question/', '');
-          dispatch(setJob({ job: position }));
-          dispatch(setCompany({ company: enterprise }));
-          if (qnaId !== 'new') {
-            dispatch(setSelectedQnaId({ selectedQnaId: qnaId }));
-          }
-          dispatch(hideModal(MODALS.QUESTIONLIST_SAVE_MODAL));
-          dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
-        });
-      },
-    );
+  const handleListMake = async () => {
+    try {
+      const { data } = await postQuestionListAPI({
+        title,
+        enterprise,
+        job: position,
+      });
+
+      dispatch(setSelectedQnaId({ selectedQnaId: data.id }));
+
+      await postQuestionItemAPI({
+        listId: data.id,
+        questions,
+      });
+
+      const qnaId = window.location.pathname.replace('/question/', '');
+
+      dispatch(setJob({ job: position }));
+      dispatch(setCompany({ company: enterprise }));
+
+      if (qnaId !== 'new') {
+        dispatch(setSelectedQnaId({ selectedQnaId: qnaId }));
+      }
+
+      dispatch(hideModal(MODALS.QUESTIONLIST_SAVE_MODAL));
+      dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   const handleInputChange = (e, setState) => {

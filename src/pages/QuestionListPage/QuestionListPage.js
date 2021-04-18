@@ -57,10 +57,14 @@ export default function QuestionListPage() {
   const [loading, setLoading] = useState(false);
 
   const fetch = async () => {
-    getQuestionListAPI().then((response) => {
-      setQuestionList(response.data);
+    try {
+      const { data } = await getQuestionListAPI();
+      setQuestionList(data);
       setLoading(true);
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   useEffect(() => {
@@ -68,10 +72,14 @@ export default function QuestionListPage() {
   }, []);
 
   const handleDelete = async (id) => {
-    await deleteQuestionListAPI(id).then(async () => {
+    try {
+      await deleteQuestionListAPI(id);
       setLoading(false);
       await fetch();
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   return (

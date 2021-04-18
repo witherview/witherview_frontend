@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { get } from '@utils/snippet';
+
 import profileDefault from '@assets/images/profile_default.png';
 
 const Wrapper = styled.div`
@@ -16,7 +19,8 @@ const Wrapper = styled.div`
 `;
 
 export default function ProfileIcon({ src, isSmall }) {
-  return <Wrapper src={src} isSmall={isSmall} alt="profile_image" />;
+  const { image } = useSelector(get('auth'));
+  return <Wrapper src={src || image || profileDefault} isSmall={isSmall} alt="profile_image" />;
 }
 
 ProfileIcon.propTypes = {
@@ -25,6 +29,5 @@ ProfileIcon.propTypes = {
 };
 
 ProfileIcon.defaultProps = {
-  src: profileDefault,
   isSmall: false,
 };

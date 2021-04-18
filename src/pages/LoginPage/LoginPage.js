@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
@@ -8,9 +7,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import styled from 'styled-components';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
-import { get } from '@utils/snippet';
-import { setLogin } from '@store/Auth/auth';
-import { loginApi } from '@repository/loginRepository';
+import { loginApi } from '@repository/accountRepository';
 
 import A from '@atoms';
 
@@ -152,14 +149,11 @@ const EMPTY_FORM = {
 };
 
 const TEST_FORM = {
-  email: 'test@test.com',
+  email: 'test7@test.com',
   password: '123456',
 };
 
 export default function LoginPage({ history }) {
-  const dispatch = useDispatch();
-  const authSelector = useSelector(get('auth'));
-
   const { ratio } = useWindowSize();
 
   const [loginForm, setLoginForm] = useState(EMPTY_FORM);
@@ -173,16 +167,18 @@ export default function LoginPage({ history }) {
     });
   };
 
-  const handleLogin = () => {
-    loginApi(JSON.stringify(loginForm))
-      .then((response) => {
-        const email = JSON.stringify(response.data.email).replace(/\"/g, '');
-        const name = JSON.stringify(response.data.name).replace(/\"/g, '');
-        dispatch(setLogin({ email, name }));
-      })
-      .catch(() => {
-        alert('로그인 실패');
-      });
+  const handleLogin = async () => {
+    try {
+      const {
+        data: { access_token: accessToken },
+      } = await loginApi(JSON.stringify(loginForm));
+
+      sessionStorage.setItem('accessToken', accessToken);
+      history.push('/self');
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   const handleCheck = (e) => {
@@ -196,7 +192,7 @@ export default function LoginPage({ history }) {
 
   return (
     <Wrapper>
-      {authSelector.isLogin && <Redirect to="/self" />}
+      {sessionStorage.getItem('accessToken') !== null && <Redirect to="/self" />}
       <WrapContent>
         <Logo src={witherviewLogo} alt="logo" />
         <WrapSubTitle>위더뷰가 처음이신가요? 정보를 입력해주세요.</WrapSubTitle>

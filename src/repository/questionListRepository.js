@@ -1,4 +1,3 @@
-/* eslint-disable no-return-await */
 import api from '@context/serverContext';
 
 export const getQuestionListAPI = async (param) => await api({
@@ -13,13 +12,15 @@ export const postQuestionListAPI = async (param) => await api({
   param,
 });
 
+// TODO: PATCH - /api/self/questionlist
+
 export const deleteQuestionListAPI = async (param) => await api({
   url: `/api/self/questionList/${param}`,
   type: 'delete',
 });
 
 export const getQuestionItemAPI = async (param) => await api({
-  url: `/api/self/question?listId=${param}`,
+  url: `/api/self/question/${param}`,
   type: 'get',
 });
 

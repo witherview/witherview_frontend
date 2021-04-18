@@ -85,13 +85,17 @@ export default function SelfTrainSettingPage({ match, history }) {
   const { standardTime } = useSelector(get('train'));
 
   const fetch = async () => {
-    getQuestionListAPI().then((response) => {
+    try {
+      const response = await getQuestionListAPI();
       const exactData = response.data.filter(
         (each) => each.id === Number(id),
       )[0];
       dispatch(setCompany({ company: exactData.title }));
       dispatch(setJob({ job: exactData.job }));
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   useEffect(() => {
