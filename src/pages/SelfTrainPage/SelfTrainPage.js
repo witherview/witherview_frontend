@@ -81,7 +81,7 @@ export default function SelfTrainPage({ match }) {
     postPreVideoApi({ questionListId: id }).then((response) => {
       dispatch(setHistoryId({ historyId: response.data.id }));
       stopRecording();
-      history.push(`/self-checklist/${id}`);
+      history.push(`/self/checklist/${id}`);
       dispatch(handleReset({ keepTrain: true }));
     });
   };

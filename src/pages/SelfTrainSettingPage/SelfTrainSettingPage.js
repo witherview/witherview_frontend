@@ -142,7 +142,7 @@ export default function SelfTrainSettingPage({ match, history }) {
           <A.Button
             theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
             text="다음"
-            func={() => history.push(`/self-train/${selectedQnaId}`)}
+            func={() => history.push(`/self/train/${selectedQnaId}`)}
           />
         </WrapButton>
       </WrapContent>

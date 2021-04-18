@@ -1,44 +1,45 @@
 /* eslint-disable indent */
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { setLogout } from '@store/Auth/auth';
 
-import LogoWithTitle from '@assets/images/witherview_logo_title.png';
 import Logo from '@assets/images/witherview_logo.png';
 import SidebarButton from './SidebarButton';
 
 const Wrapper = styled.div`
   position: fixed;
-  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
-  min-width: 15.9vh;
-  max-width: 29.6vh;
+  width: 10vh;
+  min-width: 10vh;
+  max-width: 15.9vh;
   height: 100vh;
   min-height: 20vh;
   border: none;
   background-color: #0c0c59;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
   user-select: none;
   z-index: 10;
+  transition: all ease 0.1s 0.1s;
+
+  &:hover {
+    width: 15.9vh;
+    box-shadow: 0.3vh 0 1.1vh 0 rgba(50, 50, 50, 0.56);
+    transition: width ease 0.2s 0.5s;
+  }
 `;
 
 const WrapTopButton = styled.div`
   position: absolute;
-  top: 7.2vh;
-  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
+  top: 5vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const WrapImage = styled.img`
-  height: ${({ hover }) => (hover ? 3 : 5)}vh;
-  padding: ${({ hover }) => (hover ? 1 : 0)}vh;
+  height: 6vh;
 `;
 
 const WrapButtonContainer = styled.div`
@@ -46,92 +47,70 @@ const WrapButtonContainer = styled.div`
 `;
 
 const WrapBottomButton = styled.div`
-  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
+  width: 100%;
   position: absolute;
   align-items: center;
   justify-content: center;
   display: flex;
-  bottom: 9.79vh;
+  bottom: 8vh;
 `;
 
 export default function SideBar() {
-  const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const history = useHistory();
-  const [click, setClick] = useState(0);
-  const [hover, setHover] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const [path, setPath] = useState('self');
+
+  useEffect(() => {
+    const pathName = pathname.split('/')[1];
+    if (pathName === 'self' || pathName === 'peer-study' || pathName === 'replay' || pathName === 'mypage') {
+      setPath(pathName);
+    } else {
+      history.push('/self');
+    }
+  }, []);
 
   const handleClick = (value) => {
-    setClick(value);
-    history.push(
-      value === 0
-        ? '/self'
-        : value === 1
-        ? '/peer-study'
-        : value === 2
-        ? '/mypage'
-        : 'myvideo',
-    );
+    setPath(value);
+    history.push(`/${value}`);
   };
 
-  function hoverActive() {
-    setHover(true);
-  }
-  function hoverDeactive() {
-    setHover(false);
-  }
-
   return (
-    <Wrapper
-      onMouseEnter={hoverActive}
-      onMouseLeave={hoverDeactive}
-      hover={hover}
-    >
-      <WrapTopButton hover={hover}>
-        <WrapImage
-          src={hover ? LogoWithTitle : Logo}
-          hover={hover}
-          alt="logo"
-        />
+    <Wrapper>
+      <WrapTopButton>
+        <WrapImage src={Logo} alt="logo" />
       </WrapTopButton>
       <WrapButtonContainer>
         <SidebarButton
-          func={() => handleClick(0)}
-          type={click === 0 ? 'bubble_black' : 'bubble_white'}
-          clicked={click === 0}
-          hover={hover}
-          title="혼자연습"
+          func={() => handleClick('self')}
+          type={path === 'self' ? 'bubble_black' : 'bubble_white'}
+          clicked={path === 'self'}
         />
         <SidebarButton
-          func={() => handleClick(1)}
-          type={click === 1 ? 'sound_black' : 'sound_white'}
-          clicked={click === 1}
-          hover={hover}
-          title="면접스터디"
+          func={() => handleClick('peer-study')}
+          type={path === 'peer-study' ? 'sound_black' : 'sound_white'}
+          clicked={path === 'peer-study'}
         />
         <SidebarButton
-          func={() => handleClick(4)}
-          type={click === 4 ? 'folder_blue' : 'folder_white'}
-          clicked={click === 4}
-          hover={hover}
-          title="저장확인"
+          func={() => handleClick('replay')}
+          type={path === 'replay' ? 'folder_blue' : 'folder_white'}
+          clicked={path === 'replay'}
         />
         <SidebarButton
-          func={() => handleClick(2)}
-          type={click === 2 ? 'profile_black' : 'profile_white'}
-          clicked={click === 2}
-          hover={hover}
-          title="마이페이지"
+          func={() => handleClick('mypage')}
+          type={path === 'mypage' ? 'profile_black' : 'profile_white'}
+          clicked={path === 'mypage'}
         />
       </WrapButtonContainer>
-      <WrapBottomButton hover={hover}>
+      <WrapBottomButton>
         <SidebarButton
           func={() => {
             dispatch(setLogout());
             history.push('/');
           }}
-          type={click === 3 ? 'exit_blue' : 'exit_white'}
-          clicked={click === 3}
-          hover={hover}
+          type="exit_white"
           title="나가기"
         />
       </WrapBottomButton>
