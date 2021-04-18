@@ -46,7 +46,7 @@ export default function ProfileEdit({ src = profileDefault }) {
       if (file.type.match('image.*')) {
         throw new Error('이미지 파일 형식이 아닙니다.');
       }
-      if (file.size < 5120 * 1024) {
+      if (file.size < 5 * 1024 * 1024) {
         throw new Error('5MB 이하의 이미지 파일만 업로드 가능합니다.');
       }
       reader.readAsDataURL(file);
