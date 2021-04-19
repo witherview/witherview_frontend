@@ -54,13 +54,7 @@ const NumberText = styled.div`
   float: left;
   font-family: TitilliumWeb;
   font-size: 5.5vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.51;
-  letter-spacing: normal;
-  text-align: left;
-  color: #5f5fd9;
+  color: #6e6eff;
   margin-right: 2vh;
 `;
 
@@ -69,12 +63,8 @@ const SubText = styled.div`
   height: 5vh;
   float: left;
   font-family: AppleSDGothicNeoM00;
-  font-size: 1.5vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.3;
-  letter-spacing: normal;
+  font-size: 1.9vh;
+  line-height: 1.5;
   text-align: left;
   color: #3d3d3d;
 `;
@@ -88,25 +78,18 @@ const Line = styled.div`
 `;
 
 const Title = styled.div`
+  margin-bottom: 1.2vh;
   display: flex;
   align-items: center;
 `;
 
 const TitleText = styled.span`
+  margin-right: 1.5vh;
   max-width: 21vh;
   max-height: 3vh;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 1.9vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.46;
-  letter-spacing: normal;
-  text-align: left;
+  font-size: 2.2vh;
+  font-weight: bold;
   color: #000000;
 `;
 
@@ -114,18 +97,8 @@ const SubTitle = styled.div`
   display: inline-block;
   max-width: 25vh;
   max-height: 3vh;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
   font-family: AppleSDGothicNeoB00;
-  font-size: 2vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: normal;
-  text-align: left;
+  font-size: 1.8vh;
   color: #000000;
 `;
 
