@@ -148,7 +148,7 @@ export default function WelcomePage({ history }) {
   const [nickname, setNickname] = useState();
 
   const {
-    name, mainIndustry, mainJob, subIndustry, subJob,
+    name, mainIndustry, mainJob, subIndustry, subJob, phoneNumber,
   } = useSelector(
     get('auth'),
   );
@@ -162,6 +162,7 @@ export default function WelcomePage({ history }) {
           mainJob,
           subIndustry,
           subJob,
+          phoneNumber,
         });
       }
     } catch (error) {

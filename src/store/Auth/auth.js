@@ -6,11 +6,12 @@ const authReducer = createSlice({
     isLogin: false,
     email: '',
     name: '',
-    image: '',
+    profileImg: '',
     mainIndustry: '',
     mainJob: '',
     subIndustry: '',
     subJob: '',
+    phoneNumber: '',
   },
   reducers: {
     setLogin(
@@ -20,64 +21,69 @@ const authReducer = createSlice({
           isLogin,
           email,
           name,
-          image,
+          profileImg,
           mainIndustry,
           mainJob,
           subIndustry,
           subJob,
+          phoneNumber,
         },
       },
     ) {
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('email', email);
-      sessionStorage.setItem('image', image);
+      sessionStorage.setItem('profileImg', profileImg);
       sessionStorage.setItem('mainIndustry', mainIndustry);
       sessionStorage.setItem('mainJob', mainJob);
       sessionStorage.setItem('subIndustry', subIndustry);
       sessionStorage.setItem('subJob', subJob);
+      sessionStorage.setItem('phoneNumber', phoneNumber);
       return {
         ...state,
         isLogin,
         email,
         name,
-        image,
+        profileImg,
         mainIndustry,
         mainJob,
         subIndustry,
         subJob,
+        phoneNumber,
       };
     },
     setLogout(state) {
       sessionStorage.removeItem('accessToken');
       sessionStorage.removeItem('name');
       sessionStorage.removeItem('email');
-      sessionStorage.removeItem('image');
+      sessionStorage.removeItem('profileImg');
       sessionStorage.removeItem('mainIndustry');
       sessionStorage.removeItem('mainJob');
       sessionStorage.removeItem('subIndustry');
       sessionStorage.removeItem('subJob');
+      sessionStorage.removeItem('phoneNumber');
       return {
         ...state,
         isLogin: false,
         email: '',
         name: '',
-        image: '',
+        profileImg: '',
         mainIndustry: '',
         mainJob: '',
         subIndustry: '',
         subJob: '',
+        phoneNumber: '',
       };
     },
-    setImage(state, { payload: { image } }) {
-      sessionStorage.setItem('image', image);
+    setProfileImg(state, { payload: { profileImg } }) {
+      sessionStorage.setItem('profileImg', profileImg);
       return {
         ...state,
-        image,
+        profileImg,
       };
     },
   },
 });
 
-export const { setLogin, setLogout, setImage } = authReducer.actions;
+export const { setLogin, setLogout, setProfileImg } = authReducer.actions;
 
 export default authReducer.reducer;
