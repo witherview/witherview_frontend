@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
-
-import A from '@atoms';
+import { showModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
+import Modal from '@organisms/Modal/Modal';
 
 const Box = styled.div`
   position: relative;
@@ -148,7 +150,10 @@ export default function QuestionCardView({
   title,
   description,
   handleDelete,
+  job,
 }) {
+  const dispatch = useDispatch();
+  const [select, setSelect] = useState(false);
   const [number, setNumber] = useState();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -176,6 +181,17 @@ export default function QuestionCardView({
 
   return (
     <>
+      {select && (
+        <Modal
+          modalName={MODALS.QUESTIONLIST_EDIT_MODAL}
+          questionListEdit={{
+            id,
+            title,
+            description,
+            job,
+          }}
+        />
+      )}
       <Box onClick={() => handleMove()}>
         <IconBox isOpen={isOpen} onMouseOver={() => toggle(true)}>
           <IconEach />
@@ -193,6 +209,17 @@ export default function QuestionCardView({
               삭제
             </Each>
           </Item>
+          <Item>
+            <Each
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelect(true);
+                dispatch(showModal(MODALS.QUESTIONLIST_EDIT_MODAL));
+              }}
+            >
+              수정
+            </Each>
+          </Item>
         </List>
         <Content>
           <Number>
@@ -206,7 +233,6 @@ export default function QuestionCardView({
           <Line />
           <Title>
             <TitleText>{title}</TitleText>
-            <A.Icon type="post" alt="" />
           </Title>
           <SubTitle>{description}</SubTitle>
         </Content>
@@ -220,6 +246,7 @@ QuestionCardView.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   handleDelete: PropTypes.func,
+  job: PropTypes.string.isRequired,
 };
 
 QuestionCardView.defaultProp = {
