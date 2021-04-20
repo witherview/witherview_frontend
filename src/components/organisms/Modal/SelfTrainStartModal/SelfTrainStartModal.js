@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import A from '@atoms';
 import { removeModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
-import { ResetQuestions } from '@store/Question/question';
+import { resetQuestions } from '@store/Question/question';
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,7 +64,7 @@ export default function SelfTrainStartModal() {
 
   const handleStart = () => {
     history.push(`/self/setting/${selectedQnaId}`);
-    dispatch(ResetQuestions());
+    dispatch(resetQuestions());
     dispatch(removeModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
   };
 
