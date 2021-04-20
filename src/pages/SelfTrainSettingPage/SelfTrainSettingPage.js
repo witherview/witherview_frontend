@@ -85,13 +85,17 @@ export default function SelfTrainSettingPage({ match, history }) {
   const { standardTime } = useSelector(get('train'));
 
   const fetch = async () => {
-    getQuestionListAPI().then((response) => {
+    try {
+      const response = await getQuestionListAPI();
       const exactData = response.data.filter(
         (each) => each.id === Number(id),
       )[0];
       dispatch(setCompany({ company: exactData.title }));
       dispatch(setJob({ job: exactData.job }));
-    });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   useEffect(() => {
@@ -142,7 +146,7 @@ export default function SelfTrainSettingPage({ match, history }) {
           <A.Button
             theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
             text="다음"
-            func={() => history.push(`/self-train/${selectedQnaId}`)}
+            func={() => history.push(`/self/train/${selectedQnaId}`)}
           />
         </WrapButton>
       </WrapContent>

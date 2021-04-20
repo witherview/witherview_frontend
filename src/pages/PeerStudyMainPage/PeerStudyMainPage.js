@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  getGroupListApi,
-  getGroupMemberApi,
+  getGroupRoomApi,
+  getGroupRoomEachApi,
 } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
@@ -19,21 +19,27 @@ export default function PeerStudyMainPage() {
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(0);
   const fetch = async (pages) => {
-    getGroupListApi(pages).then((res) => {
-      const unit = res.data.length === 6 ? 1 : 0;
-      res.data.forEach((val) => {
-        getGroupMemberApi(val.id).then((response) => {
-          setMember((members) => [
-            ...members,
-            { id: val.id, member: response.data.length },
-          ]);
-        });
+    try {
+      const { data } = await getGroupRoomApi(pages);
+      console.log(data);
+      const unit = data.length === 6 ? 1 : 0;
+      data?.forEach(async (val) => {
+        const {
+          data: { nowUserCnt },
+        } = await getGroupRoomEachApi(val.id);
+        setMember((members) => [
+          ...members,
+          { id: val.id, member: nowUserCnt },
+        ]);
       });
-      setGroupList((GroupList) => [...GroupList, ...res.data].filter(
+      setGroupList((GroupList) => [...GroupList, ...data].filter(
         (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
       ));
       setPage(pages + unit);
-    });
+    } catch (error) {
+      console.error(error, 'a');
+      alert(error);
+    }
   };
 
   const handleStudyAddModal = () => {

@@ -131,10 +131,14 @@ export default function QuestionPage({ match }) {
   const [loading, setLoading] = useState(false);
   const { id } = match.params;
   const fetch = async () => {
-    if (id !== 'new') {
-      getQuestionItemAPI(id).then((response) => {
-        setQuestionList(sortObjectByOrder(response.data));
-      });
+    try {
+      if (id !== 'new') {
+        const { data } = await getQuestionItemAPI(id);
+        setQuestionList(sortObjectByOrder(data));
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
     }
   };
 
@@ -145,50 +149,53 @@ export default function QuestionPage({ match }) {
   }, []);
 
   const handleQuestionMake = async () => {
-    if (deletedItems) {
-      await deletedItems.map((eachId) => deleteQuestionItemAPI(eachId).then(() => {}));
-    }
+    try {
+      if (deletedItems) {
+        await deletedItems.map((eachId) => deleteQuestionItemAPI(eachId));
+      }
 
-    const questionListAsc = questionList.map((question, index) => ({
-      ...question,
-      order: index,
-    }));
+      const questionListAsc = questionList.map((question, index) => ({
+        ...question,
+        order: index,
+      }));
 
-    if (id === 'new') {
-      dispatch(addQuestions({ questions: questionListAsc }));
+      if (id === 'new') {
+        dispatch(addQuestions({ questions: questionListAsc }));
       dispatch(displayModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
-    } else {
-      const Old = questionListAsc
-        .filter((val) => val.id !== undefined && val.tempId === undefined)
-        .map((elem) => ({
-          id: elem.id,
-          answer: elem.answer,
-          order: elem.order,
-          question: elem.question,
-        }));
+      } else {
+        const Old = questionListAsc
+          .filter((val) => val.id !== undefined && val.tempId === undefined)
+          .map((elem) => ({
+            id: elem.id,
+            answer: elem.answer,
+            order: elem.order,
+            question: elem.question,
+          }));
 
-      const New = questionListAsc
-        .filter((val) => val.id === undefined && val.tempId !== undefined)
-        .map((elem) => ({
-          ...elem,
-          id: elem.tempId,
-        }));
+        const New = questionListAsc
+          .filter((val) => val.id === undefined && val.tempId !== undefined)
+          .map((elem) => ({
+            ...elem,
+            id: elem.tempId,
+          }));
 
-      if (New.length !== 0) {
-        await postQuestionItemAPI({
-          listId: id,
-          questions: New,
-        }).then(() => {
+        if (New.length !== 0) {
+          await postQuestionItemAPI({
+            listId: id,
+            questions: New,
+          });
           dispatch(setSelectedQnaId({ selectedQnaId: id }));
-        });
-      }
+        }
 
-      if (Old.length !== 0) {
-        await patchQuestionItemAPI(Old).then(() => {
+        if (Old.length !== 0) {
+          await patchQuestionItemAPI(Old);
           dispatch(setSelectedQnaId({ selectedQnaId: id }));
-        });
+        }
+        dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
       }
-      dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
+    } catch (error) {
+      console.error(error);
+      alert(error);
     }
   };
 
