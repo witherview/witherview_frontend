@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '@store/Modal/modal';
+import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
 
 import { MODALS } from '@utils/constant';
@@ -189,7 +189,7 @@ export default function EvaluationModal({ roomId }) {
         <A.Icon
           type="cancel_blue"
           alt=""
-          func={() => dispatch(hideModal(MODALS.EVALUATION_MODAL))}
+          func={() => dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))}
         />
       </IconWrapper>
       <ResultText>면접 최종 평가</ResultText>
