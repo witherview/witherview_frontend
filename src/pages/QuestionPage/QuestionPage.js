@@ -161,7 +161,7 @@ export default function QuestionPage({ match }) {
 
       if (id === 'new') {
         dispatch(addQuestions({ questions: questionListAsc }));
-      dispatch(displayModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
+        dispatch(displayModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
       } else {
         const Old = questionListAsc
           .filter((val) => val.id !== undefined && val.tempId === undefined)
