@@ -79,7 +79,7 @@ const QuestionListSaveModal = () => {
         questions,
       });
 
-      const qnaId = pathname.replace('/question/', '');
+      const qnaId = pathname.replace('/self/question/', '');
 
       dispatch(setJob({ job: position }));
       dispatch(setCompany({ company: enterprise }));
