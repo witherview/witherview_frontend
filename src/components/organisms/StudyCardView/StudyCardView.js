@@ -161,7 +161,7 @@ export default function StudyCardView({
           postGroupRoomParticipantsApi(id);
         }
       });
-      history.push(`/peer/${id}`);
+      history.push(`/peer-study/${id}`);
     } catch (error) {
       console.error(error);
       alert(error);

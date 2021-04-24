@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { getQuestionItemAPI } from '@repository/questionListRepository';
-import { showModal } from '@store/Modal/modal';
+import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from '@organisms/Modal/Modal';
 
@@ -214,7 +214,7 @@ export default function QuestionCardView({
               onClick={(e) => {
                 e.stopPropagation();
                 setSelect(true);
-                dispatch(showModal(MODALS.QUESTIONLIST_EDIT_MODAL));
+                dispatch(displayModal(MODALS.QUESTIONLIST_EDIT_MODAL));
               }}
             >
               수정

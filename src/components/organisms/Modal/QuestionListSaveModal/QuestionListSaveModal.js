@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { displayModal, removeModal } from '@store/Modal/modal';
 import { useLocation } from 'react-router-dom';
-import { hideModal, showModal } from '@store/Modal/modal';
 import { setJob, setCompany, setSelectedQnaId } from '@store/Train/train';
 import A from '@atoms';
 import {
@@ -79,7 +79,7 @@ const QuestionListSaveModal = () => {
         questions,
       });
 
-      const qnaId = pathname.replace('/question/', '');
+      const qnaId = pathname.replace('/self/question/', '');
 
       dispatch(setJob({ job: position }));
       dispatch(setCompany({ company: enterprise }));
@@ -88,8 +88,8 @@ const QuestionListSaveModal = () => {
         dispatch(setSelectedQnaId({ selectedQnaId: qnaId }));
       }
 
-      dispatch(hideModal(MODALS.QUESTIONLIST_SAVE_MODAL));
-      dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+      dispatch(removeModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
+      dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
     } catch (error) {
       console.error(error);
       alert(error);

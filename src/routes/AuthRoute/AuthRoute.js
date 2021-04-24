@@ -21,7 +21,8 @@ export default function AuthRoute({ component: Component, render, ...rest }) {
           mainJob,
           subIndustry,
           subJob,
-          profileImg: image,
+          profileImg,
+          phoneNumber,
         },
       } = await getUserInfoApi();
 
@@ -34,14 +35,14 @@ export default function AuthRoute({ component: Component, render, ...rest }) {
           mainJob,
           subIndustry,
           subJob,
-          image,
+          profileImg,
+          phoneNumber,
         }),
       );
     } catch (error) {
       if (error.response.status === 401) {
         sessionStorage.removeItem('accessToken');
       }
-
       alert(error);
     }
   };

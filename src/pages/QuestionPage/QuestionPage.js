@@ -15,12 +15,12 @@ import {
 } from '@repository/questionListRepository';
 
 import { setSelectedQnaId } from '@store/Train/train';
-import { AddQuestions, ResetQuestions } from '@store/Question/question';
+import { addQuestions, resetQuestions } from '@store/Question/question';
 
 import A from '@atoms';
 import O from '@organisms';
 
-import { showModal } from '@store/Modal/modal';
+import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 
 const PageWrapper = styled.div`
@@ -145,7 +145,7 @@ export default function QuestionPage({ match }) {
   useEffect(() => {
     fetch();
     setLoading(true);
-    return () => dispatch(ResetQuestions());
+    return () => dispatch(resetQuestions());
   }, []);
 
   const handleQuestionMake = async () => {
@@ -160,8 +160,8 @@ export default function QuestionPage({ match }) {
       }));
 
       if (id === 'new') {
-        dispatch(AddQuestions({ questions: questionListAsc }));
-        dispatch(showModal(MODALS.QUESTIONLIST_SAVE_MODAL));
+        dispatch(addQuestions({ questions: questionListAsc }));
+        dispatch(displayModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
       } else {
         const Old = questionListAsc
           .filter((val) => val.id !== undefined && val.tempId === undefined)
@@ -191,7 +191,7 @@ export default function QuestionPage({ match }) {
           await patchQuestionItemAPI(Old);
           dispatch(setSelectedQnaId({ selectedQnaId: id }));
         }
-        dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+        dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
       }
     } catch (error) {
       console.error(error);

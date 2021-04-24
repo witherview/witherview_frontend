@@ -6,7 +6,7 @@ import {
 } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
-import { showModal } from '@store/Modal/modal';
+import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from '@organisms/Modal/Modal';
 import usePageBottom from '@hooks/usePageBottom';
@@ -42,7 +42,7 @@ export default function PeerStudyMainPage() {
   };
 
   const handleStudyAddModal = () => {
-    dispatch(showModal(MODALS.STUDY_MAKE_MODAL));
+    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
   };
 
   const handleReload = () => {

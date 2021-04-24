@@ -26,14 +26,5 @@ const modalReducer = createSlice({
   },
 });
 
-const { displayModal, removeModal } = modalReducer.actions;
-
-export const showModal = (modalName) => (dispatch) => {
-  dispatch(displayModal({ modalName }));
-};
-
-export const hideModal = (modalName) => (dispatch) => {
-  dispatch(removeModal({ modalName }));
-};
-
+export const { displayModal, removeModal } = modalReducer.actions;
 export default modalReducer.reducer;

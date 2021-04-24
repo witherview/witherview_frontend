@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { hideModal } from '@store/Modal/modal';
+import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
 import { postGroupRoomApi } from '@repository/groupRepository';
 import { MODALS } from '@utils/constant';
@@ -264,7 +264,7 @@ export default function StudyStartModal({ func }) {
         category,
       });
       func();
-      dispatch(hideModal(MODALS.STUDY_MAKE_MODAL));
+      dispatch(removeModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
     } catch (error) {
       console.error(error);
       alert(error);

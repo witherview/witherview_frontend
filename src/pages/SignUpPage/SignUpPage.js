@@ -245,6 +245,7 @@ const EMPTY_FORM = {
   passwordConfirm: '',
   subIndustry: '',
   subJob: '',
+  phoneNumber: '',
 };
 
 const jobList = [
@@ -331,7 +332,7 @@ export default function SignUpPage({ history }) {
     }
     try {
       const {
-        data: { email, name },
+        data: { email, name, phoneNumber },
       } = await registerApi(JSON.stringify(signUpForm));
 
       dispatch(
@@ -342,6 +343,7 @@ export default function SignUpPage({ history }) {
           mainJob,
           subIndustry,
           subJob,
+          phoneNumber,
         }),
       );
 

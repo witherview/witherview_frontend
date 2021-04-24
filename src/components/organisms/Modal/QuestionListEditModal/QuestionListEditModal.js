@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '@store/Modal/modal';
+import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
 import { patchQuestionListAPI } from '@repository/questionListRepository';
 import { MODALS } from '@utils/constant';
@@ -72,7 +72,7 @@ export default function QuestionListEditModal({
         },
       ]);
 
-      dispatch(hideModal(MODALS.QUESTIONLIST_EDIT_MODAL));
+      dispatch(removeModal(MODALS.QUESTIONLIST_EDIT_MODAL));
       alert('수정 완료');
     } catch (error) {
       console.error(error);
