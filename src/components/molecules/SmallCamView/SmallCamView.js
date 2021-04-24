@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 
 import styled from 'styled-components';
 
+import { cleanUpStream } from '@utils/snippet';
+
 const Wrapper = styled.div`
   width: 22.6vh;
   height: 15.2vh;
@@ -23,12 +25,20 @@ const WrapVideo = styled.video`
 export default function SmallCamView() {
   const userVideo = useRef();
 
-  useEffect(() => {
+  const setupStream = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-        userVideo.current.srcObject = stream;
+        userVideo.current = stream;
+      })
+      .catch((error) => {
+        console.error(error);
       });
+  };
+
+  useEffect(() => {
+    setupStream();
+    return () => cleanUpStream(userVideo.current.srcObject);
   }, []);
 
   return (
