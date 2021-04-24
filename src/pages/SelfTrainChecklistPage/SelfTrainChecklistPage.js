@@ -271,7 +271,7 @@ const ChecklistEach = styled.li`
   }
 `;
 
-export default function SelfStudyChecklistPage({ match }) {
+export default function SelfTrainChecklistPage({ match }) {
   const { roomId } = match.params;
   const dispatch = useDispatch();
   const history = useHistory();

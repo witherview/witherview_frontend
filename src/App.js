@@ -20,7 +20,7 @@ import QuestionPage from '@pages/QuestionPage';
 import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
-import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
+import SelfTrainChecklistPage from '@pages/SelfTrainChecklistPage';
 import PeerStudyMainPage from '@pages/PeerStudyMainPage';
 
 import MyVideoPage from '@pages/MyVideoPage';
@@ -85,22 +85,38 @@ export default function App() {
               path="/self/questionlist"
               component={QuestionListPage}
             />
-            <R.AuthRoute exact path="/self/question/:id" component={QuestionPage} />
+            <R.AuthRoute
+              exact
+              path="/self/question/:id"
+              component={QuestionPage}
+            />
             <R.AuthRoute
               exact
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
             />
-            <R.AuthRoute exact path="/self/train/:id" component={SelfTrainPage} />
+            <R.AuthRoute
+              exact
+              path="/self/train/:id"
+              component={SelfTrainPage}
+            />
             <R.AuthRoute
               exact
               path="/self/checklist/:roomId"
-              component={SelfStudyChecklist}
+              component={SelfTrainChecklistPage}
             />
             <R.AuthRoute exact path="/replay" component={MyVideoPage} />
             <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
-            <R.AuthRoute exact path="/peer-study" component={PeerStudyMainPage} />
-            <R.AuthRoute exact path="/peer-study/:id" component={R.PeerStudyRoute} />
+            <R.AuthRoute
+              exact
+              path="/peer-study"
+              component={PeerStudyMainPage}
+            />
+            <R.AuthRoute
+              exact
+              path="/peer-study/:id"
+              component={R.PeerStudyRoute}
+            />
             <R.AuthRoute exact path="/mypage" component={MyPage} />
           </WrapPage>
         </Wrapper>
