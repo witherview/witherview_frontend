@@ -11,7 +11,11 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { postSelfVideoApi, getSelfVideoApi } from '@repository/selfHistoryRepository';
+import {
+  postSelfVideoApi,
+  getSelfVideoApi,
+} from '@repository/selfHistoryRepository';
+import { postSelfChecklistApi } from '@repository/selfCheckListRepository';
 import {
   setUploadedLocation,
   setToggleTrain,
@@ -292,6 +296,21 @@ export default function SelfTrainChecklistPage({ match }) {
     return () => dispatch(setToggleTrain({ toggleTrain: false }));
   }, []);
 
+  const postChecklist = async () => {
+    const checkLists = checkListArray.reduce(
+      (acc, cur, index) => [...acc, { checkListId: index, isChecked: cur }],
+      [],
+    );
+    const data = { checkLists, selfHistoryId: historyId };
+    console.log(data, data.checkLists);
+    try {
+      await postSelfChecklistApi(data);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
   const loadVideoMetaData = useCallback(
     () => progress.current.setAttribute('max', video.current.duration),
     [],
@@ -477,8 +496,7 @@ export default function SelfTrainChecklistPage({ match }) {
                 disabled
                 text="체크리스트 저장"
                 theme="white"
-                // TODO: 이부분 추후 API 완성되면 추가해야 함
-                func={() => alert('아직 구현되지 않았습니다.')}
+                func={postChecklist}
               />
             </ButtonsWrapper>
           </LeftContent>
