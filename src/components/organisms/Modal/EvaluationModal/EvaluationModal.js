@@ -172,7 +172,7 @@ export default function EvaluationModal({ roomId }) {
     try {
       await postGroupFeedback(data);
 
-      dispatch(hideModal(MODALS.EVALUATION_MODAL));
+      dispatch(removeModal(MODALS.EVALUATION_MODAL));
 
       history.push('/peer-study');
     } catch (error) {
