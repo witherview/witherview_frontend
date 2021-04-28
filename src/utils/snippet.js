@@ -11,3 +11,5 @@ export const sortObjectByOrder = (object) => object.sort((a, b) => {
   }
   return 0;
 });
+
+export const cleanUpStream = (stream) => stream.getTracks().forEach((track) => track.stop());
