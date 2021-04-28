@@ -250,7 +250,7 @@ const CheckListTitle = styled.h2`
 `;
 
 const CheckPoint = styled.div`
-  left: calc(${({ point }) => `${point}% - 0.9vh`});
+  left: calc(${({ point }) => `${point} * 97%`});
 `;
 
 const SmallCheckList = styled.div`
@@ -268,7 +268,7 @@ const SmallCheckList = styled.div`
 const ChecklistEach = styled.li`
   display: flex;
   flex-direction: row;
-  align-itmes: center;
+  align-items: center;
 
   > span {
     font-size: 1.9vh;
@@ -302,7 +302,6 @@ export default function SelfTrainChecklistPage({ match }) {
       [],
     );
     const data = { checkLists, selfHistoryId: historyId };
-    console.log(data, data.checkLists);
     try {
       await postSelfChecklistApi(data);
     } catch (error) {
@@ -347,19 +346,22 @@ export default function SelfTrainChecklistPage({ match }) {
     }
   }, []);
 
-  const onProgressClck = useCallback((evt) => {
-    const pos = (evt.pageX
-        - (progress.current.offsetLeft
-          + progress.current.offsetParent.offsetLeft))
-      / progress.current.offsetWidth;
-    video.current.currentTime = pos * video.current.duration;
-  }, []);
+  const onProgressClck = useCallback(
+    ({ pageX }) => {
+      const pos = (pageX
+          - (progress.current.offsetLeft
+            + progress.current.offsetParent.offsetLeft))
+        / progress.current.offsetWidth;
+      video.current.currentTime = pos * video.current.duration;
+    },
+    [progress, video],
+  );
 
   const onCheck = useCallback(
-    (evt) => {
-      // eslint-disable-next-line max-len
-      const newCheckList = checkListArray.map((item, idx) => (idx === parseInt(evt.target.parentNode.id, 10) ? !item : item));
-      setCheckListArray(newCheckList);
+    ({ target: { parentNode } }) => {
+      setCheckListArray(
+        checkListArray.map((item, idx) => (idx === Number(parentNode.id) ? !item : item)),
+      );
     },
     [checkListArray],
   );
