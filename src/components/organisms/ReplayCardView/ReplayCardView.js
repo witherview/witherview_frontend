@@ -7,8 +7,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  width: 334px;
-  height: 368px;
+  width: 35.3vh;
+  height: 36.8vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
 `;
 
@@ -19,19 +19,20 @@ const SnapshotArea = styled.div`
   position: relative;
 
   img {
-  width: 100%;
-  height: 100%;
-}
+    width: 100%;
+    height: 100%;
+  }
 
-i {
-  color: #6c72f6;
-  display: inline-block;
-  padding: 25px;
-  position: absolute;    
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+  i {
+    color: #6c72f6;
+    display: inline-block;
+    padding: 25px;
+    position: absolute;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+  }
 `;
 
 const DescriptionArea = styled.div`
@@ -45,22 +46,22 @@ const DescriptionArea = styled.div`
   box-sizing: border-box;
 }
 
-.recDate {
-  font-size: 18px;
-  color: #d3d3d3;
-}
+  .recDate {
+    font-size: 18px;
+    color: #d3d3d3;
+  }
 
-.titleArea {
-  display: flex;
-  padding-top: 16px;
-  padding-bottom: 10px;
-  font-size: 24px;
-}
+  .titleArea {
+    display: flex;
+    padding-top: 16px;
+    padding-bottom: 10px;
+    font-size: 24px;
+  }
 
-.videoTime {
-  font-size: 20px;
-  color: #9e9e9e;
-}
+  .videoTime {
+    font-size: 20px;
+    color: #9e9e9e;
+  }
 `;
 
 export default function ReplayCardView() {
@@ -72,7 +73,7 @@ export default function ReplayCardView() {
     <Wrapper>
       <SnapshotArea>
         <img src={tempImg} alt="temp" />
-        <A.Icon className="play-btn" type="play_pupple" />
+        <A.Icon type="play_pupple" />
       </SnapshotArea>
 
       <DescriptionArea>
