@@ -463,8 +463,11 @@ export default function SelfTrainChecklistPage({ match }) {
                     onClick={onProgressClck}
                   />
                   <CheckPointWrapper>
-                    {timeFlag.map((item) => (
-                      <CheckPoint point={item} key={`${item}point`}>
+                    {timeFlag.slice(0, timeFlag.length - 1)?.map((item) => (
+                      <CheckPoint
+                        point={item / timeFlag[timeFlag.length - 1]}
+                        key={`${item}point`}
+                      >
                         <A.Icon
                           type="arrow_up_blue"
                           alt="section"

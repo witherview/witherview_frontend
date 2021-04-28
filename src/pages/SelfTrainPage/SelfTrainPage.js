@@ -13,6 +13,7 @@ import {
   handleReset,
   handleNextButton,
   handleStepQuestion,
+  handleTimeFlag,
 } from '@store/Time/time';
 import { setStep, setHistoryId } from '@store/Train/train';
 import { sortObjectByOrder, get } from '@utils/snippet';
@@ -82,12 +83,14 @@ export default function SelfTrainPage({ match }) {
   };
 
   const handleChecklistPage = async () => {
+    dispatch(handleTimeFlag());
     try {
       const { data } = await postPreSelfVideoApi({ questionListId: id });
       dispatch(setHistoryId({ historyId: data.id }));
+      console.log(data, 'history');
       stopRecording();
       history.push(`/self/checklist/${id}`);
-      dispatch(handleReset({ keepTrain: true }));
+      dispatch(handleReset({ keepTrain: true, keepTimeFlag: true }));
     } catch (error) {
       console.error(error);
       alert(error);
@@ -166,8 +169,8 @@ export default function SelfTrainPage({ match }) {
             <O.CamView isShowAnswer={isShowAnswer} status={status} />
             {isShowAnswer && (
               <O.AnswerBox
-                answer={questionList[qnaStep].answer}
-                date={questionList[qnaStep].modifiedAt}
+                answer={questionList[qnaStep]?.answer}
+                date={questionList[qnaStep]?.modifiedAt}
               />
             )}
           </S.WrapCamView>
