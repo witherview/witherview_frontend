@@ -6,7 +6,7 @@ import A from '@atoms';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 1vh;
   width: 35.3vh;
   height: 36.8vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const SnapshotArea = styled.div`
   width: 100%;
   height: 50%;
-  border-radius: 10px 10px 0 0;
+  border-radius: 1vh 1vh 0 0;
   position: relative;
 
   img {
@@ -26,7 +26,6 @@ const SnapshotArea = styled.div`
   i {
     color: #6c72f6;
     display: inline-block;
-    padding: 25px;
     position: absolute;    
     top: 50%;
     left: 50%;
@@ -37,7 +36,7 @@ const SnapshotArea = styled.div`
 
 const DescriptionArea = styled.div`
   height: 50%;
-  padding: 10px 43px;
+  padding: 1vh 4.3vh;
   line-height: 1.5;
 
   div:first-child {
@@ -47,19 +46,19 @@ const DescriptionArea = styled.div`
 }
 
   .recDate {
-    font-size: 18px;
+    font-size: 2.0vh;
     color: #d3d3d3;
   }
 
   .titleArea {
     display: flex;
-    padding-top: 16px;
-    padding-bottom: 10px;
-    font-size: 24px;
+    padding-top: 1.6vh;
+    padding-bottom: 1vh;
+    font-size: 2.6vh;
   }
 
   .videoTime {
-    font-size: 20px;
+    font-size: 2.2vh;
     color: #9e9e9e;
   }
 `;
