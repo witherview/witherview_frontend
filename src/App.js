@@ -41,9 +41,10 @@ const Wrapper = styled.div`
 
 const WrapPage = styled.div`
   display: flex;
-  ${({ toggleTrain }) => (toggleTrain
-    ? 'width: 100vw;'
-    : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;')}
+  ${({ toggleTrain }) =>
+    toggleTrain
+      ? 'width: 100vw;'
+      : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;'}
 `;
 
 const WrapSpinner = styled.div`
@@ -85,13 +86,21 @@ export default function App() {
               path="/self/questionlist"
               component={QuestionListPage}
             />
-            <R.AuthRoute exact path="/self/question/:id" component={QuestionPage} />
+            <R.AuthRoute
+              exact
+              path="/self/question/:id"
+              component={QuestionPage}
+            />
             <R.AuthRoute
               exact
               path="/self/setting/:id"
               component={SelfTrainSettingPage}
             />
-            <R.AuthRoute exact path="/self/train/:id" component={SelfTrainPage} />
+            <R.AuthRoute
+              exact
+              path="/self/train/:id"
+              component={SelfTrainPage}
+            />
             <R.AuthRoute
               exact
               path="/self/checklist/:roomId"
@@ -99,8 +108,16 @@ export default function App() {
             />
             <R.AuthRoute exact path="/replay" component={MyVideoPage} />
             <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
-            <R.AuthRoute exact path="/peer-study" component={PeerStudyMainPage} />
-            <R.AuthRoute exact path="/peer-study/:id" component={R.PeerStudyRoute} />
+            <R.AuthRoute
+              exact
+              path="/peer-study"
+              component={PeerStudyMainPage}
+            />
+            <R.AuthRoute
+              exact
+              path="/peer-study/:id"
+              component={R.PeerStudyRoute}
+            />
             <R.AuthRoute exact path="/mypage" component={MyPage} />
           </WrapPage>
         </Wrapper>

@@ -74,7 +74,8 @@ const WrapText = styled.div`
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;
   color: #6e6eff;
-  ${({ padding }) => (padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh')};
+  ${({ padding }) =>
+    padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh'};
 `;
 
 const Text = styled.div`

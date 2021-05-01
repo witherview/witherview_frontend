@@ -87,7 +87,7 @@ const QuestionListSaveModal = () => {
       if (qnaId !== 'new') {
         dispatch(setSelectedQnaId({ selectedQnaId: qnaId }));
       }
-      
+
       dispatch(removeModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
       dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
     } catch (error) {

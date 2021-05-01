@@ -23,9 +23,7 @@ const WrapPadding = styled.div`
   padding: ${({ padding }) => padding && '0px 0 25px 0'};
 `;
 
-export default function TextBoxB({
-  height, header, content, summary,
-}) {
+export default function TextBoxB({ height, header, content, summary }) {
   return (
     <Wrapper height={height}>
       <WrapText lineHeight={false} size={17.5} bold color="#6e6eff">

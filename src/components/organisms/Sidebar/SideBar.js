@@ -65,7 +65,12 @@ export default function SideBar() {
 
   useEffect(() => {
     const pathName = pathname.split('/')[1];
-    if (pathName === 'self' || pathName === 'peer-study' || pathName === 'replay' || pathName === 'mypage') {
+    if (
+      pathName === 'self' ||
+      pathName === 'peer-study' ||
+      pathName === 'replay' ||
+      pathName === 'mypage'
+    ) {
       setPath(pathName);
     } else {
       history.push('/self');

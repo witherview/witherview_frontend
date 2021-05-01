@@ -63,8 +63,7 @@ export default function RemainTime({ time }) {
 
   return (
     <Wrapper highlight={toggle}>
-      <Minutes highlight={toggle}>{minute}</Minutes>
-      :
+      <Minutes highlight={toggle}>{minute}</Minutes>:
       <Seconds highlight={toggle}>{second}</Seconds>
     </Wrapper>
   );

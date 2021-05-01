@@ -32,9 +32,11 @@ export default function PeerStudyMainPage() {
           { id: val.id, member: nowUserCnt },
         ]);
       });
-      setGroupList((GroupList) => [...GroupList, ...data].filter(
-        (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
-      ));
+      setGroupList((GroupList) =>
+        [...GroupList, ...data].filter(
+          (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
+        ),
+      );
       setPage(pages + unit);
     } catch (error) {
       console.error(error, 'a');

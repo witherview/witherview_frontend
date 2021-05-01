@@ -192,7 +192,9 @@ export default function LoginPage({ history }) {
 
   return (
     <Wrapper>
-      {sessionStorage.getItem('accessToken') !== null && <Redirect to="/self" />}
+      {sessionStorage.getItem('accessToken') !== null && (
+        <Redirect to="/self" />
+      )}
       <WrapContent>
         <Logo src={witherviewLogo} alt="logo" />
         <WrapSubTitle>위더뷰가 처음이신가요? 정보를 입력해주세요.</WrapSubTitle>
