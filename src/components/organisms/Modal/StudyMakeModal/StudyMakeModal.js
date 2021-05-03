@@ -246,10 +246,10 @@ export default function StudyStartModal({ func }) {
 
   const handleMakeStudy = async () => {
     if (
-      title === ''
-      || description === ''
-      || jobList.indexOf(job) === -1
-      || industryList.indexOf(industry) === -1
+      title === '' ||
+      description === '' ||
+      jobList.indexOf(job) === -1 ||
+      industryList.indexOf(industry) === -1
     ) {
       return alert('입력값을 확인해 주세요.');
     }
@@ -278,9 +278,9 @@ export default function StudyStartModal({ func }) {
 
   const handleClickOutside = ({ target }) => {
     if (
-      !industryRef.current.contains(target)
-      && !jobRef.current.contains(target)
-      && !categoryRef.current.contains(target)
+      !industryRef.current.contains(target) &&
+      !jobRef.current.contains(target) &&
+      !categoryRef.current.contains(target)
     ) {
       setSelect(initSelect);
     }
@@ -323,7 +323,8 @@ export default function StudyStartModal({ func }) {
                   {categoryList.map((val) => (
                     <SelectItem>
                       <SelectText
-                        onClick={() => handleSelect(setCategory, val, 'category')
+                        onClick={() =>
+                          handleSelect(setCategory, val, 'category')
                         }
                       >
                         {val}
@@ -349,7 +350,8 @@ export default function StudyStartModal({ func }) {
                     {industryList.map((val) => (
                       <SelectItem>
                         <SelectText
-                          onClick={() => handleSelect(setIndustry, val, 'industry')
+                          onClick={() =>
+                            handleSelect(setIndustry, val, 'industry')
                           }
                         >
                           {val}

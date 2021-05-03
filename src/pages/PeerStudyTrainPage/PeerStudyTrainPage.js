@@ -70,9 +70,10 @@ export default function PeerStudyTrainPage({
   );
 
   const isStepFirst = peers.length === 0 && step === 0;
-  const isTrain = step === STEP_TRAIN_FIRST
-    || step === STEP_TRAIN_SECOND
-    || step === STEP_FINAL;
+  const isTrain =
+    step === STEP_TRAIN_FIRST ||
+    step === STEP_TRAIN_SECOND ||
+    step === STEP_FINAL;
 
   useEffect(() => {
     console.log('peer length', peers.length);
@@ -115,8 +116,8 @@ export default function PeerStudyTrainPage({
                 absolute={step >= 2}
               />
             )}
-            {peers
-              && peers.map((peer, index) => (
+            {peers &&
+              peers.map((peer, index) => (
                 <PeerVideo
                   key={index}
                   peer={peer}

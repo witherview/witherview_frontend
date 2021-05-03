@@ -12,7 +12,8 @@ const I = styled.i`
   display: inline-block;
   background-image: url(${iconImage});
   background-size: 123.7vh 87.6vh;
-  border-radius: ${({ circle, size }) => (circle
+  border-radius: ${({ circle, size }) =>
+    circle
       ? size === 'xsm'
         ? '1.4vh'
         : size === 'sm'
@@ -40,8 +41,9 @@ const I = styled.i`
         : size === 'xxlg'
         ? '9.6vh'
         : '117.3vh'
-      : 0)};
-  width: ${({ size }) => (size === 'xsm'
+      : 0};
+  width: ${({ size }) =>
+    size === 'xsm'
       ? '1.4vh'
       : size === 'sm'
       ? '2.1vh'
@@ -69,8 +71,9 @@ const I = styled.i`
       ? '6.3vh'
       : size === 'xxlg'
       ? '9.6vh'
-      : '117.3vh')};
-  height: ${({ size }) => (size === 'xsm'
+      : '117.3vh'};
+  height: ${({ size }) =>
+    size === 'xsm'
       ? '1.4vh'
       : size === 'sm'
       ? '2vh'
@@ -96,8 +99,9 @@ const I = styled.i`
       ? '7.5vh'
       : size === 'xxlg'
       ? '9.6vh'
-      : '87.6vh')};
-  background-position: ${({ type }) => (type === 'bubble_white'
+      : '87.6vh'};
+  background-position: ${({ type }) =>
+    type === 'bubble_white'
       ? '-4.4vh -3.6vh'
       : type === 'bubble_black'
       ? '-16vh -3.6vh'
@@ -223,31 +227,29 @@ const I = styled.i`
       ? '-96.6vh -71.2vh'
       : type === 'profile_big'
       ? '-112.5vh -71.2vh'
-      : '0 0')};
+      : '0 0'};
 `;
 
-export default function Icon({
- type, alt, isCircle, func,
-}) {
+export default function Icon({ type, alt, isCircle, func }) {
   const [size, setSize] = useState('md');
   useEffect(() => {
     if (
-      type === 'arrow_down_blue'
-      || type === 'arrow_down_grey'
-      || type === 'arrow_up_blue'
-      || type === 'drawer'
-      || type === 'check_off'
-      || type === 'check_on'
+      type === 'arrow_down_blue' ||
+      type === 'arrow_down_grey' ||
+      type === 'arrow_up_blue' ||
+      type === 'drawer' ||
+      type === 'check_off' ||
+      type === 'check_on'
     ) {
       setSize('xsm');
     }
     if (
-      type === 'cancel_white'
-      || type === 'add_orange'
-      || type === 'add_blue'
-      || type === 'check'
-      || type === 'check_off'
-      || type === 'check_on'
+      type === 'cancel_white' ||
+      type === 'add_orange' ||
+      type === 'add_blue' ||
+      type === 'check' ||
+      type === 'check_off' ||
+      type === 'check_on'
     ) {
       setSize('sm');
     }
@@ -258,41 +260,41 @@ export default function Icon({
       setSize('thin');
     }
     if (
-      type === 'add_white'
-      || type === 'add_black'
-      || type === 'folder_white'
-      || type === 'folder_blue'
+      type === 'add_white' ||
+      type === 'add_black' ||
+      type === 'folder_white' ||
+      type === 'folder_blue'
     ) {
       setSize('xmd');
     }
     if (
-      type === 'drawer'
-      || type === 'check_off'
-      || type === 'check_on'
-      || type === 'remove'
-      || type === 'check_circle_white'
-      || type === 'filter'
+      type === 'drawer' ||
+      type === 'check_off' ||
+      type === 'check_on' ||
+      type === 'remove' ||
+      type === 'check_circle_white' ||
+      type === 'filter'
     ) {
       setSize('lg');
     }
     if (
-      type === 'check_circle_white'
-      || type === 'check_circle_blue'
-      || type === 'next_rec'
-      || type === 'previous_rec'
-      || type === 'remove_rec'
-      || type === 'add_rec'
+      type === 'check_circle_white' ||
+      type === 'check_circle_blue' ||
+      type === 'next_rec' ||
+      type === 'previous_rec' ||
+      type === 'remove_rec' ||
+      type === 'add_rec'
     ) {
       setSize('xlg');
     }
     if (
-      type === 'play_pupple'
-      || type === 'cancel_circle'
-      || type === 'pause'
-      || type === 'play_blue'
-      || type === 'cam'
-      || type === 'audio'
-      || type === 'capture'
+      type === 'play_pupple' ||
+      type === 'cancel_circle' ||
+      type === 'pause' ||
+      type === 'play_blue' ||
+      type === 'cam' ||
+      type === 'audio' ||
+      type === 'capture'
     ) {
       setSize('mlg');
     }
@@ -300,15 +302,15 @@ export default function Icon({
       setSize('slg');
     }
     if (
-      type === 'sound_big'
-      || type === 'bubble_big'
-      || type === 'memo_big'
-      || type === 'star_big'
-      || type === 'thumb_up_big'
-      || type === 'thumb_down_big'
-      || type === 'profile_big'
-      || type === 'thumb_up_white'
-      || type === 'thumb_down_white'
+      type === 'sound_big' ||
+      type === 'bubble_big' ||
+      type === 'memo_big' ||
+      type === 'star_big' ||
+      type === 'thumb_up_big' ||
+      type === 'thumb_down_big' ||
+      type === 'profile_big' ||
+      type === 'thumb_up_white' ||
+      type === 'thumb_down_white'
     ) {
       setSize('xxlg');
     }

@@ -89,7 +89,9 @@ export default function MyVideoPage() {
       setRows(
         data
           .filter(
-            (val) => val.savedLocation !== null && val.savedLocation.includes('videos'),
+            (val) =>
+              val.savedLocation !== null &&
+              val.savedLocation.includes('videos'),
           )
           .sort((a, b) => -a.id + b.id),
       );

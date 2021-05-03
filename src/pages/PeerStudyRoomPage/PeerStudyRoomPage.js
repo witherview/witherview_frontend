@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import {
-  getGroupRoomEachApi,
-} from '@repository/groupRepository';
+import { getGroupRoomEachApi } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
 import S from './PeerStudyRoomPage.style';

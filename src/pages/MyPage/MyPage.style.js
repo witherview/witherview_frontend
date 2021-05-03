@@ -170,7 +170,8 @@ const BlockItem = styled.div`
   padding: 0.9vh 2vh;
   margin-right: 2vh;
   border-radius: 1vh;
-  background-color: ${({ theme }) => (theme === 'blue' ? '#6e6eff' : '#f2886b')};
+  background-color: ${({ theme }) =>
+    theme === 'blue' ? '#6e6eff' : '#f2886b'};
   font-family: AppleSDGothicNeoM00;
   font-size: 1.5vh;
   font-weight: normal;

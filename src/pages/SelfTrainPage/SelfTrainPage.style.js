@@ -61,7 +61,8 @@ const WrapCamView = styled.div`
   width: 132.6vh;
   display: flex;
   flex-direction: row;
-  justify-content: ${({ isShowAnswer }) => (isShowAnswer ? 'space-between' : 'center')};
+  justify-content: ${({ isShowAnswer }) =>
+    isShowAnswer ? 'space-between' : 'center'};
 `;
 
 const WrapButton = styled.div`

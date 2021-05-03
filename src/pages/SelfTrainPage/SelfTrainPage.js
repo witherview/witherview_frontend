@@ -47,9 +47,7 @@ export default function SelfTrainPage({ match }) {
   });
   const { name } = useSelector(get('auth'));
   const { time } = useSelector(get('time'));
-  const {
-    company, job, viewAnswer, qnaStep, step,
-  } = useSelector(get('train'));
+  const { company, job, viewAnswer, qnaStep, step } = useSelector(get('train'));
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
@@ -133,8 +131,8 @@ export default function SelfTrainPage({ match }) {
   const textBox = (
     <M.TextBox
       topText={
-        (step === STEP_LOADING_2 ? `${name}님은 ${company} ${job}` : '')
-        + Fixture[step]?.top
+        (step === STEP_LOADING_2 ? `${name}님은 ${company} ${job}` : '') +
+        Fixture[step]?.top
       }
       bottomText={Fixture[step]?.bottom || ''}
     />
@@ -183,13 +181,13 @@ export default function SelfTrainPage({ match }) {
                   text={Fixture[step].button}
                   func={
                     // TODO: 리펙토링 필요
-                    qnaStep === questionList.length - 1
-                    && questionList.length !== 1
+                    qnaStep === questionList.length - 1 &&
+                    questionList.length !== 1
                       ? () => handleChecklistPage()
                       : () => {
-                        if (step === STEP_START) startRecording();
-                        dispatch(handleNextButton());
-                      }
+                          if (step === STEP_START) startRecording();
+                          dispatch(handleNextButton());
+                        }
                   }
                 />
               </S.WrapButton>
@@ -199,7 +197,8 @@ export default function SelfTrainPage({ match }) {
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
                   <A.ToggleButton
-                    funcActive={() => dispatch(setStep({ step: TOGGLE_SCRIPT }))
+                    funcActive={() =>
+                      dispatch(setStep({ step: TOGGLE_SCRIPT }))
                     }
                     funcDeactive={() => dispatch(setStep({ step: STEP_ING }))}
                   />
