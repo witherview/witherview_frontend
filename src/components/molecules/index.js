@@ -1,3 +1,4 @@
+import Button from './Button';
 import ButtonGroup from './ButtonGroup';
 import ChatInput from './ChatInput';
 import NameLabel from './NameLabel';
@@ -11,6 +12,7 @@ import TextBox from './TextBox';
 import TimeButton from './TimeButton';
 
 export default {
+  Button,
   ButtonGroup,
   ChatInput,
   NameLabel,
