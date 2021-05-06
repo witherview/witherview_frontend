@@ -10,11 +10,17 @@ import { setLogout } from '@store/Auth/auth';
 
 import A from '@atoms';
 
+// const Wrapper = styled.div`
+//   position: absolute;
+//   top: 5.3vh;
+//   right: 10.5vh;
+//   height: 7.3vh;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+// `;
+
 const Wrapper = styled.div`
-  position: absolute;
-  top: 5.3vh;
-  right: 10.5vh;
-  height: 7.3vh;
   display: flex;
   flex-direction: row;
   align-items: center;

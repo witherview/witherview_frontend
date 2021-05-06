@@ -7,9 +7,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 1vh;
-  width: 35.3vh;
+  width: 28vh;
   height: 36.8vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  box-sizing: border-box;
 `;
 
 const SnapshotArea = styled.div`
@@ -17,6 +18,7 @@ const SnapshotArea = styled.div`
   height: 50%;
   border-radius: 1vh 1vh 0 0;
   position: relative;
+  box-sizing: border-box;
 
   img {
     width: 100%;
@@ -69,7 +71,7 @@ export default function ReplayCardView() {
   const [title] = useState('12월 1일 혼자연습');
 
   return (
-    <Wrapper>
+    <Wrapper className="replayCardItem">
       <SnapshotArea>
         <img src={tempImg} alt="temp" />
         <A.Icon type="play_pupple" />
