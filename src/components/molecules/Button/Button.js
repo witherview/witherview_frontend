@@ -86,6 +86,7 @@ export default function Button({
         : <span className="text">{text}</span>
       }
       {suffix}
+      test
     </Btn>
   );
 }
