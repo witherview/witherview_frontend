@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Plus = styled.div`
+  display: flex;
   &:after {
-    content: '\\002B';
+    content: '\\00d7';
     color: ${({ color }) => color};
     font-size: 17px;
+    transform: rotate(45deg);
   }
 `;
 
