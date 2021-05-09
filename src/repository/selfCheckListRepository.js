@@ -9,7 +9,7 @@ export const getSelfChecklistApi = async (param) => await api({
 
 // TODO: POST - /api/self/checklist
 export const postSelfChecklistApi = async (param) => await api({
-  url: '/api/self/checklist',
+  url: '/api/self/checklist/result',
   type: 'post',
   param,
 });

@@ -23,7 +23,7 @@ import {
 } from '@store/Train/train';
 
 import { get } from '@utils/snippet';
-import EvaluationListMock from '@mocks/EvaluationListMock';
+import { evaluation, flatEvaluation } from '@mocks/EvaluationListMock';
 import A from '@atoms';
 
 const CloseButton = styled.div`
@@ -282,7 +282,9 @@ export default function SelfTrainChecklistPage({ match }) {
   const { localBlob, historyId } = useSelector(get('train'));
   const { timeFlag } = useSelector(get('time'));
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
-  const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
+  const [checkListArray, setCheckListArray] = useState(
+    Array(flatEvaluation.length).fill(false),
+  );
   const video = useRef();
   const videoControls = useRef();
   const playpause = useRef();
@@ -298,12 +300,22 @@ export default function SelfTrainChecklistPage({ match }) {
 
   const postChecklist = async () => {
     const checkLists = checkListArray.reduce(
-      (acc, cur, index) => [...acc, { checkListId: index, isChecked: cur }],
+      (acc, cur, index) => [
+        ...acc,
+        {
+          checkListField: flatEvaluation[index].text,
+          checkListTypeId: flatEvaluation[index].checkListTypeId,
+          idx: index,
+          isChecked: cur,
+        },
+      ],
       [],
     );
+
     const data = { checkLists, selfHistoryId: historyId };
     try {
-      await postSelfChecklistApi(data);
+      await postSelfChecklistApi(JSON.stringify(data));
+      alert('체크리스트가 등록되었습니다.');
     } catch (error) {
       console.error(error);
       alert(error);
@@ -509,7 +521,7 @@ export default function SelfTrainChecklistPage({ match }) {
             <CheckListContainer>
               <CheckListTitle>답변내용 및 목소리 체크!</CheckListTitle>
               <ul>
-                {EvaluationListMock.evaluationList1.map(({ id, text }) => (
+                {evaluation.evaluationList1.map(({ id, text }) => (
                   <ChecklistEach id={id} key={id}>
                     <A.Icon
                       type={checkListArray[id] ? 'check_on' : 'check_off'}
@@ -525,7 +537,7 @@ export default function SelfTrainChecklistPage({ match }) {
               <CheckListContainer>
                 <CheckListTitle>비언어 내용 체크!</CheckListTitle>
                 <ul>
-                  {EvaluationListMock.evaluationList2.map(({ id, text }) => (
+                  {evaluation.evaluationList2.map(({ id, text }) => (
                     <ChecklistEach id={id} key={id}>
                       <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}
@@ -540,7 +552,7 @@ export default function SelfTrainChecklistPage({ match }) {
               <CheckListContainer>
                 <CheckListTitle>영상 환경 체크!</CheckListTitle>
                 <ul>
-                  {EvaluationListMock.evaluationList3.map(({ id, text }) => (
+                  {evaluation.evaluationList3.map(({ id, text }) => (
                     <ChecklistEach id={id} key={id}>
                       <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}
