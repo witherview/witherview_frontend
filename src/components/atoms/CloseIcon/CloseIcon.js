@@ -7,6 +7,7 @@ const Close = styled.div`
     content: '\\00d7';
     color: ${({ color }) => color};
     font-size: 17px;
+    display: flex;
   }
 `;
 
