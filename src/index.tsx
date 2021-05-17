@@ -1,22 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+/* eslint-disable quotes */
+import React from "react";
+import ReactDOM from "react-dom";
 
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
-import App from './App';
+import App from "./App";
 
-import store from './store';
-import theme from './style/theme';
+import store from "./store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter basename={process.env.BASE_PATH}>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter basename={process.env.BASE_PATH}>
+      <App />
+    </BrowserRouter>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById("root"),
 );

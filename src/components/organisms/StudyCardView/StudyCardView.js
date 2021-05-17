@@ -23,7 +23,7 @@ const Box = styled.div`
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: solid 0.1vh #f6f6f6;
-  background-color: white;
+  background-color: #ffffff;
   box-sizing: border-box;
   &:hover {
     border-radius: 2vh;
@@ -31,7 +31,7 @@ const Box = styled.div`
     box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
     & > div > div,
     & > div > div > span {
-      color: white;
+      color: #ffffff;
     }
     & > div > div > div {
       color: #0c0c59;

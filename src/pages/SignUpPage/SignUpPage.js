@@ -15,7 +15,7 @@ import A from '@atoms';
 import useWindowSize from '@hooks/useWindowSize';
 
 const Wrapper = styled.div`
-  height: ${({ ratio }) => (ratio ? '135vh;' : '195vh;')}
+  height: ${({ ratio }) => (ratio ? '135vh;' : '195vh;')};
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -50,7 +50,7 @@ const WrapBox = styled.div`
   width: 118.14vh;
   max-width: 80vw;
   height: auto;
-  background-color: white;
+  background-color: #ffffff;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;
@@ -119,7 +119,7 @@ const WrapInput = styled.div`
 
 const WrapMiddleContainer = styled.div`
   height: 12vh;
-  width: ${({ ratio }) => (!ratio ? '60vw;' : 'calc(100% - 12.44vh);')}
+  width: ${({ ratio }) => (!ratio ? '60vw;' : 'calc(100% - 12.44vh);')};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -529,6 +529,7 @@ export default function SignUpPage({ history }) {
                     )}
                   </SelectList>
                 </WrapInput>
+
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 직무_Sub</WrapText>
                   <SelectList ref={jobSubRef}>
@@ -554,6 +555,17 @@ export default function SignUpPage({ history }) {
                       </SelectItemListWrapper>
                     )}
                   </SelectList>
+                </WrapInput>
+
+                <WrapInput ratio={ratio > 1.675}>
+                  <WrapText>전화번호(임시)</WrapText>
+                  <A.InputBar
+                    autoFocus={ratio > 0.65}
+                    value={signUpForm.phoneNumber}
+                    placeholder="ex) 01012341234"
+                    onChange={handleInput}
+                    name="phoneNumber"
+                  />
                 </WrapInput>
               </WrapUpperContainer>
             </Wraping>

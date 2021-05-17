@@ -6,9 +6,14 @@ import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
+import { useDispatch } from 'react-redux';
+import { toggleViewMode } from '@store/ViewMode/viewMode';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
+
+  background-color: ${({ theme }) => theme.backgroundColor};
+  color: ${({ theme }) => theme.color};
   z-index: 2;
   position: fixed;
   top: 0;
@@ -20,7 +25,6 @@ const Wrapper = styled.div`
   -webkit-box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   -moz-box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
-  background-color: white;
 `;
 
 const WrapLeft = styled.img`
@@ -79,7 +83,20 @@ export default function LandingHeader({
   studyRef,
 }) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const executeScroll = (ref) => scrollToRef(ref);
+
+  const onToggle = (isChecked) => {
+    if (isChecked) {
+      // 다크모드 활성화
+      localStorage.setItem('viewMode', 'dark');
+      dispatch(toggleViewMode({ viewMode: 'dark' }));
+    } else {
+      // 라이트모드 활성화
+      localStorage.setItem('viewMode', 'light');
+      dispatch(toggleViewMode({ viewMode: 'light' }));
+    }
+  };
 
   return (
     <Wrapper>
@@ -113,6 +130,7 @@ export default function LandingHeader({
               func={() => history.push('/login')}
             />
           </WrapButton>
+          <A.ToggleButton cb={onToggle} />
         </WrapRightInner>
       </WrapContainer>
     </Wrapper>

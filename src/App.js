@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 import LandingPage from '@pages/LandingPage';
@@ -30,6 +30,8 @@ import MyPage from '@pages/MyPage';
 import FragileRatioPage from '@pages/FragileRatioPage';
 
 import useWindowSize from '@hooks/useWindowSize';
+import { toggleViewMode } from '@store/ViewMode/viewMode';
+import theme from './style/theme';
 
 import GlobalStyles from './style/globalStyles';
 
@@ -58,54 +60,71 @@ const WrapSpinner = styled.div`
 export default function App() {
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
+  const { viewMode } = useSelector(get('viewMode'));
   const { ratio } = useWindowSize();
+  const dispatch = useDispatch();
+  // const { colors: { dark, light } } = theme;
 
+  console.log('viewMode', viewMode);
+
+  useEffect(() => {
+    // dark, light mode 설정
+    if (localStorage.getItem('viewMode')) {
+      const currentViewMode = localStorage.getItem('viewMode');
+      if (currentViewMode === 'dark' || currentViewMode === 'light') {
+        dispatch(toggleViewMode({ viewMode: currentViewMode }));
+      }
+    }
+  }, [viewMode]);
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
-      <GlobalStyles />
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/sign-up" component={SignUpPage} />
-        <Route exact path="/welcome" component={WelcomePage} />
-        {isLoading && (
+      <ThemeProvider theme={viewMode === 'dark' ? theme.colors.dark : theme.colors.light}>
+
+        <GlobalStyles />
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/sign-up" component={SignUpPage} />
+          <Route exact path="/welcome" component={WelcomePage} />
+          {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
           </WrapSpinner>
-        )}
-        {ratio < 1.6 && <FragileRatioPage />}
-        <Wrapper>
-          {!toggleTrain && <O.SideBar />}
-          {!toggleTrain && <O.ProfileMenuContainer name={name} />}
-          <WrapPage toggleTrain={toggleTrain}>
-            <R.AuthRoute exact path="/self" component={SelfTrainEntryPage} />
-            <R.AuthRoute
-              exact
-              path="/self/questionlist"
-              component={QuestionListPage}
-            />
-            <R.AuthRoute exact path="/self/question/:id" component={QuestionPage} />
-            <R.AuthRoute
-              exact
-              path="/self/setting/:id"
-              component={SelfTrainSettingPage}
-            />
-            <R.AuthRoute exact path="/self/train/:id" component={SelfTrainPage} />
-            <R.AuthRoute
-              exact
-              path="/self/checklist/:roomId"
-              component={SelfStudyChecklist}
-            />
-            <R.AuthRoute exact path="/replay" component={MyVideoPage} />
-            <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
-            <R.AuthRoute exact path="/peer-study" component={PeerStudyMainPage} />
-            <R.AuthRoute exact path="/peer-study/:id" component={R.PeerStudyRoute} />
-            <R.AuthRoute exact path="/mypage" component={MyPage} />
-          </WrapPage>
-        </Wrapper>
-        <R.AuthRoute component={NotFound} />
-      </Switch>
+          )}
+          {ratio < 1.6 && <FragileRatioPage />}
+          <Wrapper>
+            {!toggleTrain && <O.SideBar />}
+            {!toggleTrain && <O.ProfileMenuContainer name={name} />}
+            <WrapPage toggleTrain={toggleTrain}>
+              <R.AuthRoute exact path="/self" component={SelfTrainEntryPage} />
+              <R.AuthRoute
+                exact
+                path="/self/questionlist"
+                component={QuestionListPage}
+              />
+              <R.AuthRoute exact path="/self/question/:id" component={QuestionPage} />
+              <R.AuthRoute
+                exact
+                path="/self/setting/:id"
+                component={SelfTrainSettingPage}
+              />
+              <R.AuthRoute exact path="/self/train/:id" component={SelfTrainPage} />
+              <R.AuthRoute
+                exact
+                path="/self/checklist/:roomId"
+                component={SelfStudyChecklist}
+              />
+              <R.AuthRoute exact path="/replay" component={MyVideoPage} />
+              <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
+              <R.AuthRoute exact path="/peer-study" component={PeerStudyMainPage} />
+              <R.AuthRoute exact path="/peer-study/:id" component={R.PeerStudyRoute} />
+              <R.AuthRoute exact path="/mypage" component={MyPage} />
+            </WrapPage>
+          </Wrapper>
+          <R.AuthRoute component={NotFound} />
+        </Switch>
+      </ThemeProvider>
     </>
   );
 }

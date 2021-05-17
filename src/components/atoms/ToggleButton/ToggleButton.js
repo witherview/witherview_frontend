@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import styled from 'styled-components';
 
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { get } from '@utils/snippet';
 
 const Switch = styled.label`
   position: relative;
@@ -52,17 +54,23 @@ const Slider = styled.span`
   }
 `;
 
-export default function ToggleButton({ className, funcActive, funcDeactive }) {
-  const handleFunction = (e) => {
-    if (e.target.checked) {
-      return funcActive();
-    }
-    return funcDeactive();
+export default function ToggleButton({ className = '', cb }) {
+  const { viewMode } = useSelector(get('viewMode'));
+
+  const checkedCondition = useMemo(() => viewMode === 'dark', [viewMode]);
+
+  const onCb = (e) => {
+    cb(e.target.checked);
   };
 
   return (
     <Switch>
-      <Input type="checkbox" className={className} onChange={handleFunction} />
+      <Input
+        type="checkbox"
+        checked={checkedCondition}
+        className={className}
+        onChange={onCb}
+      />
       <Slider />
     </Switch>
   );
@@ -70,12 +78,5 @@ export default function ToggleButton({ className, funcActive, funcDeactive }) {
 
 ToggleButton.propTypes = {
   className: PropTypes.string,
-  funcActive: PropTypes.func,
-  funcDeactive: PropTypes.func,
-};
-
-ToggleButton.defaultProps = {
-  className: '',
-  funcActive: () => {},
-  funcDeactive: () => {},
+  cb: PropTypes.func,
 };

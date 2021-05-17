@@ -13,10 +13,9 @@ const Text = styled.span`
   text-align: left;
   user-select: none;
   cursor: pointer;
-  &: hover {
+  &:hover {
     color: #6e6eff;
   }
-  color: black;
 `;
 
 export default function TextButtonProp({ text, onClick }) {

@@ -72,7 +72,7 @@ const Thumb = styled.div`
     width: 20px;
     height: 20px;
     background-image: linear-gradient(to bottom, #2323de -42%, #5f5fd9);
-    border: 6px solid white;
+    border: 6px solid #ffffff;
     border-radius: 50%;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
     transition: box-shadow 0.3s ease-in-out;

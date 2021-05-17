@@ -31,7 +31,7 @@ const WrapperContent = styled.div`
   width: 100%;
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    background-color: white;
+    background-color: #ffffff;
     width: 0;
   }
 `;

@@ -52,7 +52,7 @@ const WrapBox = styled.div`
   width: 68.6vh;
   max-width: 80vw;
   height: 52.6vh;
-  background-color: white;
+  background-color: #ffffff;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   -webkit-backdrop-filter: blur(0.53vh);
   backdrop-filter: blur(0.53vh);
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.04);
-  background-color: white;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-around;
