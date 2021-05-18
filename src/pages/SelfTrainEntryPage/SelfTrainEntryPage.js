@@ -10,6 +10,7 @@ import { handleReset } from '@store/Time/time';
 
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 import SelectCard from './SelectCard';
 
@@ -38,7 +39,7 @@ const WrapCardSection = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const SELECT_NOTHING = 0;

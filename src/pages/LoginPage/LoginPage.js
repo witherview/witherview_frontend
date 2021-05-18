@@ -10,6 +10,7 @@ import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { loginApi } from '@repository/accountRepository';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 
 import useWindowSize from '@hooks/useWindowSize';
 
@@ -81,7 +82,7 @@ const WrapUpperContainer = styled.div`
 const WrapInput = styled.div`
   margin-top: 1vh;
   margin-bottom: 5vh;
-  ${({ theme }) => theme.input}
+  ${commonStyles.input}
 `;
 
 const WrapMiddleContainer = styled.div`
@@ -118,7 +119,7 @@ const WrapMiddleTextRight = styled(WrapMiddleText)`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const WrapBottomContainer = styled.div`

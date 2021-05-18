@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 import { putProfileInfoApi } from '@repository/accountRepository';
 
@@ -101,11 +102,11 @@ const WrapName = styled.div`
 const WrapMail = styled.div`
   font-family: TitilliumWeb;
   font-size: 2vh;
-  color: ${({ theme }) => theme.colors.warmGrey};
+  color: ${commonStyles.colors.warmGrey};
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const WrapBottomContainer = styled.div`

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
 import { useHistory } from 'react-router-dom';
 import A from '@atoms';
+import { commonStyles } from '@style';
 import { removeModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import { resetQuestions } from '@store/Question/question';
@@ -51,8 +52,8 @@ const TextStart = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
-`;
+  ${commonStyles.button}
+  `;
 
 export default function SelfTrainStartModal() {
   const dispatch = useDispatch();

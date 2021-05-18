@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 import LandingBottomImage from '@assets/images/landing_bottom.png';
 import TextBoxB from './components/TextBoxB';
 
@@ -34,7 +35,7 @@ const Div = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.landingButton}
+  ${commonStyles.landingButton}
 `;
 
 export default function LandingBottom() {

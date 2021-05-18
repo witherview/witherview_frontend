@@ -10,6 +10,7 @@ import { get } from '@utils/snippet';
 import { getQuestionListAPI } from '@repository/questionListRepository';
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -75,7 +76,7 @@ const WrapText = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default function SelfTrainSettingPage({ match, history }) {

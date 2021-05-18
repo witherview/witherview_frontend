@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
+import { commonStyles } from '@style';
 import { postGroupRoomApi } from '@repository/groupRepository';
 import { MODALS } from '@utils/constant';
 
@@ -21,7 +22,7 @@ const Wrapper = styled.div`
 const InputWrapper = styled.div`
   width: 60vh;
   margin-top: ${({ first }) => (first ? '6vh' : '4.5vh')};
-  ${({ theme }) => theme.input}
+  ${commonStyles.input}
 `;
 
 const InputText = styled.div`
@@ -73,7 +74,7 @@ const RightWrapper = styled.div`
 
 const WrapButton = styled.div`
   margin-top: 4vh;
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const SelectList = styled.div`

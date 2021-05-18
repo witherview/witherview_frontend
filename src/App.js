@@ -63,9 +63,7 @@ export default function App() {
   const { viewMode } = useSelector(get('viewMode'));
   const { ratio } = useWindowSize();
   const dispatch = useDispatch();
-  // const { colors: { dark, light } } = theme;
-
-  console.log('viewMode', viewMode);
+  const { viewModeTheme: { dark, light } } = theme;
 
   useEffect(() => {
     // dark, light mode 설정
@@ -79,8 +77,7 @@ export default function App() {
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
-      <ThemeProvider theme={viewMode === 'dark' ? theme.colors.dark : theme.colors.light}>
-
+      <ThemeProvider theme={viewMode === 'dark' ? dark : light}>
         <GlobalStyles />
         <Switch>
           <Route exact path="/" component={LandingPage} />

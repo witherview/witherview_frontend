@@ -11,7 +11,6 @@ import { toggleViewMode } from '@store/ViewMode/viewMode';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
-
   background-color: ${({ theme }) => theme.backgroundColor};
   color: ${({ theme }) => theme.color};
   z-index: 2;

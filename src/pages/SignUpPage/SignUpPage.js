@@ -11,6 +11,7 @@ import { setLogin } from '@store/Auth/auth';
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 
 import useWindowSize from '@hooks/useWindowSize';
 
@@ -104,15 +105,15 @@ const WrapInput = styled.div`
     letter-spacing: 0.2vh;
     border-bottom: 0.2vh solid #9e9e9e;
     ::placeholder {
-      color: ${({ theme }) => theme.colors.warmGrey};
+      color: #9e9e9e;
     }
     :-ms-input-placeholder {
       font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
+      color: #9e9e9e;
     }
     ::-ms-input-placeholder {
       font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
+      color: #9e9e9e;
     }
   }
 `;
@@ -145,7 +146,7 @@ const WrapMiddleText = styled.div`
 
 const WrapButton = styled.div`
   margin-bottom: 6vh;
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const WrapBottomContainer = styled.div`
@@ -231,7 +232,6 @@ const SelectText = styled.div`
 `;
 
 const ClickableSelectText = styled.span`
-  color: ${({ theme }) => theme.colors.cornflower};
   font-family: AppleSDGothicNeoB00;
   cursor: pointer;
 `;
@@ -387,7 +387,7 @@ export default function SignUpPage({ history }) {
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [test]);
 
   return (
     <Wrapper ratio={ratio > 1.675}>

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
+import { commonStyles } from '@style';
 
 import { MODALS } from '@utils/constant';
 import { postGroupFeedback } from '@repository/groupRepository';
@@ -143,7 +144,7 @@ const EvaluateText = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default function EvaluationModal({ roomId }) {

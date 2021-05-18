@@ -5,6 +5,8 @@ import { displayModal, removeModal } from '@store/Modal/modal';
 import { useLocation } from 'react-router-dom';
 import { setJob, setCompany, setSelectedQnaId } from '@store/Train/train';
 import A from '@atoms';
+import { commonStyles } from '@style';
+
 import {
   postQuestionListAPI,
   postQuestionItemAPI,
@@ -35,7 +37,7 @@ const Text = styled.div`
 
 const InputWrapper = styled.div`
   margin-bottom: 7vh;
-  ${({ theme }) => theme.input}
+  ${commonStyles.input}
 `;
 
 const InputText = styled.div`
@@ -52,7 +54,7 @@ const InputText = styled.div`
 
 const ButtonWrapper = styled.div`
   margin-top: 4vh;
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const QuestionListSaveModal = () => {

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   height: 63vh;
@@ -76,7 +77,7 @@ const MessageText = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 2vh;
   line-height: 1.3;
-  color: ${({ theme }) => theme.colors.paleLiliac};
+  color: ${commonStyles.colors.paleLilac};
 `;
 
 const WrapChatInput = styled.div`

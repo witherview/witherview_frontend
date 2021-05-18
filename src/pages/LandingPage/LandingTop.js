@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 import LandingTopImage from '@assets/images/landing_top.png';
 import TextBoxA from './components/TextBoxA';
 
@@ -54,7 +55,7 @@ const WrapImage = styled.img`
 
 const WrapButton = styled.div`
   padding-top: 30px;
-  ${({ theme }) => theme.landingButton}
+  ${commonStyles.landingButton}
 `;
 
 export default function LandingTop({ myRef }) {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -49,7 +50,7 @@ const WrapBottomSide = styled.div`
 `;
 
 const WrapText = styled.div`
-  use-select: none;
+  user-select: none;
   padding-right: 2.5vh;
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;
@@ -65,7 +66,7 @@ const WrapCamView = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default {

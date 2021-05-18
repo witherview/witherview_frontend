@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -65,7 +66,7 @@ const BoxWrapper = styled.div`
   & div:first-child {
     margin-bottom: 2.5vh;
   }
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const UserInfoWrapper = styled.div`
