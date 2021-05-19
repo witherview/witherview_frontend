@@ -1,18 +1,15 @@
-/* eslint-disable indent */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const HeaderText = styled.div`
-  font-family: AppleSDGothicNeoB00;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  font-size: ${({ fontSize }) => fontSize}px;
-  line-height: 1.42;
-  letter-spacing: normal;
-  text-align: left;
-  color: ${({ color }) => color};
+const Container = styled.div`
+  display: inline-block;
+  .header-text {
+    font-family: AppleSDGothicNeoB00;
+    font-size: ${({ fontSize }) => fontSize}px;
+    line-height: 1.42;
+    color: ${({ color }) => color};
+  }
 `;
 
 export default function SubHeader({
@@ -20,11 +17,13 @@ export default function SubHeader({
 }) {
   return (
     <>
-      <HeaderText fontSize={fontSize} color={subTitleColor}>
-        {subHeaderText}
-        &nbsp;
-      </HeaderText>
-      {children}
+      <Container fontSize={fontSize} color={subTitleColor}>
+        <div className="header-text">
+          {subHeaderText}
+          &nbsp;
+        </div>
+        {children}
+      </Container>
     </>
   );
 }
