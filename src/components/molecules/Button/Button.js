@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -23,17 +22,7 @@ const Btn = styled.div`
   align-items: center;
   justify-content: center;
   user-select: none;
-  ${({ theme }) => theme === 'blue'
-    && `&: hover {
-    opacity: 70%;
-    }`}
-  ${({ theme, disabled }) => (
-    disabled ? 'background-color: #f6f6f6; pointer-events: none;'
-    : theme === 'blue' ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
-    : theme === 'outline' ? 'background-color: white; border: solid 2px #6e6eff;'
-    : theme === 'white' ? 'background-color: #ffffff;'
-    : '')
-  };
+  ${({ theme }) => theme};
   cursor: pointer;
   
   > .text {
@@ -45,13 +34,7 @@ const Btn = styled.div`
     font-style: normal;
     letter-spacing: normal;
     margin: 0 8px;
-    color: ${({ theme, disabled }) => (
-      disabled ? '#3d3d3d;'
-      : theme === 'blue' ? '#ffffff;'
-      : theme === 'outline' ? '#6e6eff;'
-      : theme === 'white' ? '#6e6eff;'
-      : '#3d3d3d;')
-    };
+    color: ${({ textColor }) => textColor};
   }
 `;
 
@@ -69,10 +52,23 @@ export default function Button({
   height = 60,
   size,
 }) {
+  const buttonTheme = {
+    disabled: 'background-color: #f6f6f6; pointer-events: none;',
+    blue: 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%); &: hover { opacity: 70%; };',
+    outline: 'background-color: white; border: solid 2px #6e6eff;',
+    white: 'background-color: #ffffff;',
+  };
+  const textColor = {
+    disabled: '#3d3d3d;',
+    blue: '#ffffff;',
+    outline: '#6e6eff;',
+    white: '#6e6eff;',
+  };
+
   return (
     <Btn
-      theme={theme}
-      disabled={disabled}
+      theme={disabled ? buttonTheme.disabled : buttonTheme[theme]}
+      textColor={disabled ? textColor.disabled : textColor[theme]}
       onClick={onClick}
       width={width}
       height={height}
@@ -82,11 +78,10 @@ export default function Button({
       {prefix}
       {
         icon
-        ? <Icon type={text} isCircle={isCircle} alt={alt} />
-        : <span className="text">{text}</span>
+          ? <Icon type={text} isCircle={isCircle} alt={alt} />
+          : <span className="text">{text}</span>
       }
       {suffix}
-      test
     </Btn>
   );
 }
