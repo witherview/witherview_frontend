@@ -90,7 +90,7 @@ module.exports = (env) => {
         '@store': path.resolve(__dirname, 'src/store'),
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@context': path.resolve(__dirname, 'src/context'),
-        '@style': path.resolve(__dirname, './src/style/'),
+        '@style': path.resolve(__dirname, 'src/style/'),
       },
     },
 
