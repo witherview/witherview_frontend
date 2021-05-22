@@ -15,7 +15,7 @@ import A from '@atoms';
 import useWindowSize from '@hooks/useWindowSize';
 
 const Wrapper = styled.div`
-  height: ${({ ratio }) => (ratio ? '135vh;' : '195vh;')}
+  height: ${({ ratio }) => (ratio ? '135vh' : '195vh')};
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -119,7 +119,7 @@ const WrapInput = styled.div`
 
 const WrapMiddleContainer = styled.div`
   height: 12vh;
-  width: ${({ ratio }) => (!ratio ? '60vw;' : 'calc(100% - 12.44vh);')}
+  width: ${({ ratio }) => (!ratio ? '60vw' : 'calc(100% - 12.44vh)')};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
