@@ -245,7 +245,7 @@ const EMPTY_FORM = {
   passwordConfirm: '',
   subIndustry: '',
   subJob: '',
-  phoneNumber: '',
+  phoneNumber: '01000000000',
 };
 
 const jobList = [
