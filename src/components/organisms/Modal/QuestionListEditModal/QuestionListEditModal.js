@@ -51,9 +51,7 @@ const ButtonWrapper = styled.div`
 `;
 
 export default function QuestionListEditModal({
-  props: {
-    id: propsId, title: propsTitle, description: propsDescription, job,
-  },
+  props: { id: propsId, title: propsTitle, description: propsDescription, job },
 }) {
   const dispatch = useDispatch();
 

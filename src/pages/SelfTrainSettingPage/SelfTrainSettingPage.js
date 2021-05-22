@@ -71,7 +71,8 @@ const WrapText = styled.div`
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;
   color: #6e6eff;
-  ${({ padding }) => (padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh')};
+  ${({ padding }) =>
+    padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh'};
 `;
 
 const WrapButton = styled.div`
@@ -120,7 +121,8 @@ export default function SelfTrainSettingPage({ match, history }) {
             <WrapText>답변 보기 허용</WrapText>
             <A.ToggleButton
               funcActive={() => dispatch(setViewAnswer({ viewAnswer: true }))}
-              funcDecative={() => dispatch(setViewAnswer({ viewAnswer: false }))
+              funcDecative={() =>
+                dispatch(setViewAnswer({ viewAnswer: false }))
               }
             />
           </WrapToggle>
@@ -128,7 +130,8 @@ export default function SelfTrainSettingPage({ match, history }) {
             <WrapText padding>기업 이름</WrapText>
             <A.InputBar
               value={company}
-              onChange={(e) => dispatch(setCompany({ company: e.target.value }))
+              onChange={(e) =>
+                dispatch(setCompany({ company: e.target.value }))
               }
               width={967}
             />

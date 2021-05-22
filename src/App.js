@@ -41,9 +41,10 @@ const Wrapper = styled.div`
 
 const WrapPage = styled.div`
   display: flex;
-  ${({ toggleTrain }) => (toggleTrain
-    ? 'width: 100vw;'
-    : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;')}
+  ${({ toggleTrain }) =>
+    toggleTrain
+      ? 'width: 100vw;'
+      : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;'}
 `;
 
 const WrapSpinner = styled.div`

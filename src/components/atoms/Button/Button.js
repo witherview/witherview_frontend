@@ -11,11 +11,13 @@ const Box = styled.div`
   height: 60px;
   border-radius: 10px;
   user-select: none;
-  ${({ theme }) => theme === 'blue'
-    && `&: hover {
+  ${({ theme }) =>
+    theme === 'blue' &&
+    `&: hover {
     opacity: 70%;
     }`}
-  ${({ theme }) => (theme === 'blue'
+  ${({ theme }) =>
+    theme === 'blue'
       ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
       : theme === 'gray'
       ? 'background-color: #f6f6f6; pointer-events: none;'
@@ -23,7 +25,7 @@ const Box = styled.div`
       ? 'background-color: white; border: solid 2px #6e6eff;'
       : theme === 'white'
       ? 'background-color: #ffffff;'
-      : '')};
+      : ''};
   cursor: pointer;
 `;
 
@@ -35,7 +37,8 @@ const Text = styled.p`
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  color: ${({ theme }) => (theme === 'blue'
+  color: ${({ theme }) =>
+    theme === 'blue'
       ? '#ffffff;'
       : theme === 'gray'
       ? '#3d3d3d;'
@@ -43,12 +46,10 @@ const Text = styled.p`
       ? '#6e6eff;'
       : theme === 'white'
       ? '#6e6eff;'
-      : '#3d3d3d;')};
+      : '#3d3d3d;'};
 `;
 
-export default function Button({
- text, theme, func, width = 296,
-}) {
+export default function Button({ text, theme, func, width = 296 }) {
   return (
     <Box theme={theme} onClick={func} width={width}>
       <Text theme={theme}>{text}</Text>

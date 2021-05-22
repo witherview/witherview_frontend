@@ -2,9 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable react/prop-types */
-import React, {
-  useState, useEffect, useCallback, useRef,
-} from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import axios from 'axios';
 import styled from 'styled-components';
@@ -358,22 +356,22 @@ export default function SelfTrainChecklistPage({ match }) {
     }
   }, []);
 
-  const onProgressClck = useCallback(
-    ({ pageX }) => {
-      const pos = (pageX
-          - (progress.current.offsetLeft
-            + progress.current.offsetParent.offsetLeft))
-        / progress.current.offsetWidth;
-      video.current.currentTime = pos * video.current.duration;
-    },
-    [progress, video],
-  );
+  const onProgressClck = useCallback((evt) => {
+    const pos =
+      (evt.pageX -
+        (progress.current.offsetLeft +
+          progress.current.offsetParent.offsetLeft)) /
+      progress.current.offsetWidth;
+    video.current.currentTime = pos * video.current.duration;
+  }, []);
 
   const onCheck = useCallback(
-    ({ target: { parentNode } }) => {
-      setCheckListArray(
-        checkListArray.map((item, idx) => (idx === Number(parentNode.id) ? !item : item)),
+    (evt) => {
+      // eslint-disable-next-line max-len
+      const newCheckList = checkListArray.map((item, idx) =>
+        idx === parseInt(evt.target.parentNode.id, 10) ? !item : item,
       );
+      setCheckListArray(newCheckList);
     },
     [checkListArray],
   );

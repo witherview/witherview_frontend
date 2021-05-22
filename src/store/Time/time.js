@@ -102,7 +102,8 @@ export const handleTimeFlag = () => (dispatch, getState) => {
   } = getState();
   if (step === STEP_ING || step === TOGGLE_SCRIPT) {
     const currentTime = standardTime - time;
-    const calcTime = qnaStep > 0 ? currentTime + timeFlag[qnaStep - 1] : currentTime;
+    const calcTime =
+      qnaStep > 0 ? currentTime + timeFlag[qnaStep - 1] : currentTime;
 
     dispatch(setTimeFlag({ timeFlag: [...timeFlag, calcTime] }));
   }

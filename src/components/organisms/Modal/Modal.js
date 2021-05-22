@@ -9,9 +9,7 @@ import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
 import QuestionListEditModal from './QuestionListEditModal';
 
-export default function Modal({
-  modalName, func, roomId, questionListEdit,
-}) {
+export default function Modal({ modalName, func, roomId, questionListEdit }) {
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: <QuestionListSaveModal />,

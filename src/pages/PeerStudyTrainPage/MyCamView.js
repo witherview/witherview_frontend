@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
 import M from '@molecules';
+
+import { cleanUpStream } from '@utils/snippet';
 
 const Wrapper = styled.div`
   width: ${({ peers }) => (peers ? '66.3vh;' : '77.3vh;')}
@@ -23,9 +25,9 @@ const WrapVideo = styled.video`
   position: relative;
 `;
 
-export default function MyCamView({
-  name, status, mediaBlobUrl, peers,
-}) {
+export default function MyCamView({ name, status, mediaBlobUrl, peers }) {
+  useEffect(() => () => cleanUpStream(mediaBlobUrl.current.srcObject), []);
+
   return (
     <Wrapper peers={peers}>
       {name ? <M.NameLabel name={name} /> : <></>}

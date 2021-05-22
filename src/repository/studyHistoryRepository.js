@@ -1,17 +1,19 @@
 import api from '@context/serverContext';
 
 // TODO: POST - /api/group/history
-export const postPreGroupVideoApi = async (param) => await api({
-  url: '/api/group/history',
-  type: 'post',
-  param,
-  contentType: 'multipart/form-data',
-});
+export const postPreGroupVideoApi = async (param) =>
+  await api({
+    url: '/api/group/history',
+    type: 'post',
+    param,
+    contentType: 'multipart/form-data',
+  });
 
 // TODO: POST - /api/group/history/video
-export const postGroupVideoApi = async (param) => await api({
-  url: '/api/group/history/video',
-  type: 'post',
-  param,
-  contentType: 'multipart/form-data',
-});
+export const postGroupVideoApi = async (param) =>
+  await api({
+    url: '/api/group/history/video',
+    type: 'post',
+    param,
+    contentType: 'multipart/form-data',
+  });

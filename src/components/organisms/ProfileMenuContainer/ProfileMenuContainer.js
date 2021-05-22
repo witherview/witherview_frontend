@@ -25,8 +25,9 @@ const WrapMenu = styled.div`
   position: relative;
   text-align: center;
   z-index: 101;
-  ${({ isOpen }) => isOpen
-    && `
+  ${({ isOpen }) =>
+    isOpen &&
+    `
     fill: #0b3895;
     transform: scale(1);
   `}

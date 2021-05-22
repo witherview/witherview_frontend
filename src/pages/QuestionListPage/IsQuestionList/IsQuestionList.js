@@ -60,9 +60,7 @@ export default function IsQuestionList({ questionList, handleDelete }) {
             </AddQuestionList>
           </Link>
         </ItemWrapper>
-        {questionList?.map(({
-          id, title, enterprise, job,
-        }, index) => (
+        {questionList?.map(({ id, title, enterprise, job }, index) => (
           <ItemWrapper key={`itemQ-${index}`}>
             <O.QuestionCardView
               id={id}

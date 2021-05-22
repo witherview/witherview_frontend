@@ -189,7 +189,9 @@ export default function EvaluationModal({ roomId }) {
         <A.Icon
           type="cancel_blue"
           alt=""
-          func={() => dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))}
+          func={() =>
+            dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))
+          }
         />
       </IconWrapper>
       <ResultText>면접 최종 평가</ResultText>
