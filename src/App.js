@@ -88,7 +88,7 @@ export default function App() {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/sign-up" component={SignUpPage} />
-        <Route exact path="/welcome" componaent={WelcomePage} />
+        <Route exact path="/welcome" component={WelcomePage} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
