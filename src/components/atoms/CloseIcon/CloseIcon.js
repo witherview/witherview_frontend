@@ -8,6 +8,7 @@ const Close = styled.div`
     color: ${({ color }) => color};
     font-size: 1.7vh;
     display: flex;
+    margin-top: 0.4vh;
   }
 `;
 

@@ -9,6 +9,8 @@ const Plus = styled.div`
     color: ${({ color }) => color};
     font-size: 1.7vh;
     transform: rotate(45deg);
+    margin-top: 0.4vh;
+    margin-left: -0.4vh;
   }
 `;
 
