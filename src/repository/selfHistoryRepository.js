@@ -1,13 +1,13 @@
 import api from '@context/serverContext';
 
-export const getVideoApi = async (param) =>
+export const getSelfVideoApi = async (param) =>
   await api({
     url: '/api/self/history',
     type: 'get',
     param,
   });
 
-export const postPreVideoApi = async (param) =>
+export const postPreSelfVideoApi = async (param) =>
   await api({
     url: '/api/self/history',
     type: 'post',
@@ -15,8 +15,13 @@ export const postPreVideoApi = async (param) =>
   });
 
 // TODO: DELETE - /api/self/history/{id}
+export const deleteSelfVideoApi = async (param) =>
+  await api({
+    url: `/api/self/history/${param}`,
+    type: 'delete',
+  });
 
-export const postVideoApi = async (param) =>
+export const postSelfVideoApi = async (param) =>
   await api({
     url: '/api/self/history/video',
     type: 'post',
