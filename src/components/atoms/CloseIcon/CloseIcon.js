@@ -6,7 +6,7 @@ const Close = styled.div`
   &:after {
     content: '\\00d7';
     color: ${({ color }) => color};
-    font-size: 17px;
+    font-size: 1.7vh;
     display: flex;
   }
 `;

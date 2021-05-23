@@ -8,14 +8,14 @@ const Wrapper = styled.div`
   display: inline-flex;
   background-color: ${({ backgroundColor }) => backgroundColor};
   border: solid 0.2vh ${({ backgroundColor }) => backgroundColor};
-  border-radius: 20px;
+  border-radius: 2vh;
   padding: 0.9vh 1.8vh;
 `;
 const Content = styled.p`
   color: ${({ contentColor }) => contentColor};
   display: inline-block;
   margin-right: 1.4vh;
-  font-size: 20px;
+  font-size: 2vh;
 `;
 
 export default function Tag({ func, backgroundColor, text, contentColor }) {
