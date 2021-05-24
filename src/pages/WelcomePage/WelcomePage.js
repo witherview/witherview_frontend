@@ -200,7 +200,7 @@ export default function WelcomePage({ history }) {
             </WrapMiddleContainer>
             <WrapButton>
               <A.Button
-                theme="blue"
+                btnTheme="blue"
                 func={() => {
                   uploadButton();
                   history.push('/self');

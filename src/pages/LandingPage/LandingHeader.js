@@ -11,7 +11,7 @@ import { toggleViewMode } from '@store/ViewMode/viewMode';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.backgroundColor};
+  background-color: ${({ theme }) => theme.bgColor};
   color: ${({ theme }) => theme.color};
   z-index: 2;
   position: fixed;
@@ -123,7 +123,7 @@ export default function LandingHeader({
           <WrapButton>
             <A.Button
               id="menu_btn"
-              theme="outline"
+              btnTheme="outline"
               width={140}
               text="LOG IN"
               func={() => history.push('/login')}

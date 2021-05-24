@@ -179,7 +179,7 @@ export default function SelfTrainPage({ match }) {
             {Fixture[step]?.button && (
               <S.WrapButton>
                 <A.Button
-                  theme="blue"
+                  btnTheme="blue"
                   text={Fixture[step].button}
                   func={
                     // TODO: 리펙토링 필요

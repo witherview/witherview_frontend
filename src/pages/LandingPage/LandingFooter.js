@@ -12,7 +12,8 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f6f6f6;
+  background-color: ${({ theme: { footerBgColor } }) => footerBgColor};
+  color: ${({ theme: { footerColor } }) => footerColor};
 `;
 
 const WrapLeft = styled.img`
@@ -44,7 +45,6 @@ const WrapText = styled.div`
     display: none;
   }
   font-size: 10px;
-  color: #3d3d3d;
 `;
 
 export default function LandingFooter() {

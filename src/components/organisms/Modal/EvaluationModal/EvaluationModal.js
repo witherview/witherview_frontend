@@ -233,7 +233,7 @@ export default function EvaluationModal({ roomId }) {
         </EvaluateBox>
       </EvaluateWrapper>
       <WrapButton>
-        <A.Button text="평가 완료" theme="blue" func={handleButtonClick} />
+        <A.Button text="평가 완료" btnTheme="blue" func={handleButtonClick} />
       </WrapButton>
     </Wrapper>
   );

@@ -1,7 +1,25 @@
 /* eslint-disable indent */
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+
+const BoxOption = {
+  blue: css`
+    background: linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);
+  `,
+  gray: css`
+    background: #f6f6f6;
+    pointer-events: none;
+
+  `,
+  white: css`
+    background: #fff;
+  `,
+  outline: css`
+    background: transparent; 
+    border: solid 2px #6e6eff;
+  `,
+};
 
 const Box = styled.div`
   display: flex;
@@ -11,21 +29,20 @@ const Box = styled.div`
   height: 60px;
   border-radius: 10px;
   user-select: none;
-  ${({ theme }) => theme === 'blue'
+  ${({ btnTheme }) => btnTheme === 'blue'
     && `&: hover {
-    opacity: 70%;
-    }`}
-  ${({ theme }) => (theme === 'blue'
-      ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
-      : theme === 'gray'
-      ? 'background-color: #f6f6f6; pointer-events: none;'
-      : theme === 'outline'
-      ? 'background-color: white; border: solid 2px #6e6eff;'
-      : theme === 'white'
-      ? 'background-color: #ffffff;'
-      : '')};
-  cursor: pointer;
+      opacity: 70%; 
+    }`
+  }
+  ${({ btnTheme }) => (BoxOption[btnTheme])}
 `;
+
+const TextOption = {
+  blue: '#fff',
+  gray: '#3d3d3d',
+  outline: '#6e6eff',
+  white: '#6e6eff',
+};
 
 const Text = styled.p`
   display: inline-block;
@@ -35,37 +52,25 @@ const Text = styled.p`
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  color: ${({ theme }) => (theme === 'blue'
-      ? '#ffffff;'
-      : theme === 'gray'
-      ? '#3d3d3d;'
-      : theme === 'outline'
-      ? '#6e6eff;'
-      : theme === 'white'
-      ? '#6e6eff;'
-      : '#3d3d3d;')};
+  color: ${({ btnTheme }) => (TextOption[btnTheme])};
 `;
 
 export default function Button({
- text, theme, func, width = 296,
+  text = '버튼',
+  btnTheme = 'blue',
+  func = () => {},
+  width = 296,
 }) {
   return (
-    <Box theme={theme} onClick={func} width={width}>
-      <Text theme={theme}>{text}</Text>
+    <Box btnTheme={btnTheme} onClick={func} width={width}>
+      <Text btnTheme={btnTheme}>{text}</Text>
     </Box>
   );
 }
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
-  theme: PropTypes.string.isRequired,
+  btnTheme: PropTypes.string.isRequired,
   func: PropTypes.func,
   width: PropTypes.number,
-};
-
-Button.defaultProp = {
-  text: '버튼',
-  theme: 'blue',
-  func: () => {},
-  width: 296,
 };

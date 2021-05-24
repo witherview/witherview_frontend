@@ -14,10 +14,10 @@ export const grayThemeButton = ButtonComponent.bind({});
 
 blueThemeButton.args = {
   text: '버튼',
-  theme: 'blue',
+  btnTheme: 'blue',
 };
 
 grayThemeButton.args = {
   text: '버튼',
-  theme: 'gray',
+  btnTheme: 'gray',
 };

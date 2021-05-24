@@ -606,7 +606,7 @@ export default function SignUpPage({ history }) {
           <WrapButton>
             {/* TODO: 회원가입 로직 추기 */}
             <A.Button
-              theme="blue"
+              btnTheme="blue"
               text="회원가입"
               func={() => handleSignUp()}
             />

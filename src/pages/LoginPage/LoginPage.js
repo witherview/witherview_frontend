@@ -238,7 +238,7 @@ export default function LoginPage({ history }) {
             </WrapMiddleContainer>
           </WrapContianer>
           <WrapButton>
-            <A.Button theme="blue" func={handleLogin} text="로그인" />
+            <A.Button btnTheme="blue" func={handleLogin} text="로그인" />
           </WrapButton>
         </WrapBox>
         <WrapBottomContainer>

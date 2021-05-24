@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   height: 100vh;
   min-height: 20vh;
   border: none;
-  background-color: #0c0c59;
+  background-color: ${({ theme: { sideBarBgColor } }) => sideBarBgColor};
   user-select: none;
   z-index: 10;
   transition: all ease 0.1s 0.1s;

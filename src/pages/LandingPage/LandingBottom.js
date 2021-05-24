@@ -55,7 +55,7 @@ export default function LandingBottom() {
           />
           <WrapButton>
             <A.Button
-              theme="blue"
+              btnTheme="blue"
               width={180}
               func={() => history.push('./login')}
               text="시작하기"

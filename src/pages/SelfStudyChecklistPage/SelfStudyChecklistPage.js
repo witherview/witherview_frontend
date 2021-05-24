@@ -460,23 +460,23 @@ export default function SelfStudyChecklistPage({ match }) {
             <ButtonsWrapper>
               <A.Button
                 text="다시 연습하기"
-                theme="blue"
+                btnTheme="blue"
                 func={selfTraingAgain}
               />
               <A.Button
                 text="연습 영상 저장"
-                theme="white"
+                btnTheme="white"
                 func={saveInterviewVideo}
               />
               <A.Button
                 text="체크리스트 초기화"
-                theme="white"
+                btnTheme="white"
                 func={initCheckList}
               />
               <A.Button
                 disabled
                 text="체크리스트 저장"
-                theme="white"
+                btnTheme="white"
                 // TODO: 이부분 추후 API 완성되면 추가해야 함
                 func={() => alert('아직 구현되지 않았습니다.')}
               />

@@ -131,7 +131,7 @@ const QuestionListSaveModal = () => {
           />
         </InputWrapper>
         <ButtonWrapper onClick={handleListMake}>
-          <A.Button text="저장" theme="blue" />
+          <A.Button text="저장" btnTheme="blue" />
         </ButtonWrapper>
       </Wrapper>
     </>

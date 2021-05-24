@@ -270,7 +270,7 @@ export default function QuestionPage({ match }) {
                 <A.Button
                   func={handleQuestionMake}
                   text={id === 'new' ? '저장' : '완료'}
-                  theme={isListEmpty ? 'gray' : 'blue'}
+                  btnTheme={isListEmpty ? 'gray' : 'blue'}
                 />
               </ButtonWrapper>
             </>

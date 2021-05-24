@@ -158,7 +158,7 @@ export default function PeerStudySettingPage({ setStepTrain }) {
           </WrapSubContainer>
         </WrapContainer>
         <A.Button
-          theme={first && standardTime > 0 ? 'blue' : 'gray'}
+          btnTheme={first && standardTime > 0 ? 'blue' : 'gray'}
           text="다음"
           func={setStepTrain}
         />

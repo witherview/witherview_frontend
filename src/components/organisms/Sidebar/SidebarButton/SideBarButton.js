@@ -9,7 +9,7 @@ import A from '@atoms';
 const Wrapper = styled.button`
   width: 100%;
   height: 7.1vh;
-  background-color: ${({ clicked }) => (clicked ? '#ffffff' : '#0c0c59')};
+  background-color: ${({ theme, clicked }) => (clicked ? '#ffffff' : theme.sideBarBgColor)};
   display: flex;
   align-items: center;
   justify-content: center;

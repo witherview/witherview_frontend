@@ -66,7 +66,7 @@ export default function FragileRatio() {
       <WrapImage source={StudyBackground} />
       <WrapButton>
         <A.Button
-          theme="blue"
+          btnTheme="blue"
           text="돌아가기"
           func={() => {
             dispatch(setLogout());

@@ -79,7 +79,7 @@ export default function SelfTrainStartModal() {
         <TextSave>질문 리스트가 저장되었습니다.</TextSave>
         <TextStart>이제 면접 연습을 시작해보세요!</TextStart>
         <WrapButton>
-          <A.Button text="면접 시작하기" theme="blue" func={handleStart} />
+          <A.Button text="면접 시작하기" btnTheme="blue" func={handleStart} />
         </WrapButton>
       </Wrapper>
     </>

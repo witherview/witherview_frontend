@@ -13,7 +13,7 @@ const Text = styled.span`
   text-align: left;
   user-select: none;
   cursor: pointer;
-  color: ${({ clicked }) => (clicked ? '#0c0c59' : '#3d3d3d')};
+  color: ${({ clicked, footerColor }) => (clicked ? '#0c0c59' : footerColor)};
 `;
 
 export default function TextButton({ text }) {

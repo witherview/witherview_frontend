@@ -418,7 +418,7 @@ export default function StudyStartModal({ func }) {
           </RightWrapper>
         </SelectWrapper>
         <WrapButton>
-          <A.Button text="방 개설" theme="blue" func={handleMakeStudy} />
+          <A.Button text="방 개설" btnTheme="blue" func={handleMakeStudy} />
         </WrapButton>
       </Wrapper>
     </>

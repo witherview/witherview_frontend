@@ -89,7 +89,7 @@ export default function SelfTrainEntryPage({ history }) {
                 ? () => history.push('/self/setting/3')
                 : () => history.push('/self/questionlist')
             }
-            theme={clicked ? 'blue' : 'gray'}
+            btnTheme={clicked ? 'blue' : 'gray'}
             text="다음"
           />
         </WrapButton>
