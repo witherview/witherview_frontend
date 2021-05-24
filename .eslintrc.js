@@ -33,6 +33,7 @@ module.exports = {
     'react/no-array-index-key': 0,
     'react/jsx-one-expression-per-line': 0,
     'react/jsx-curly-newline': 0,
+    'jsx-a11y/no-autofocus': 'off',
   },
   settings: {
     'import/resolver': {
