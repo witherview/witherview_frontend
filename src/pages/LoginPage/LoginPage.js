@@ -84,7 +84,7 @@ const WrapUpperContainer = styled.div`
 const WrapInput = styled.div`
   margin-top: 1vh;
   margin-bottom: 5vh;
-  ${({ theme }) => theme.input}
+  div { ${({ theme }) => theme.input} }
 `;
 
 const WrapMiddleContainer = styled.div`

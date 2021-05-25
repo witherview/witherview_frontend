@@ -99,7 +99,7 @@ const WrapUpperContainer = styled.div`
 
 const WrapInput = styled.div`
   padding: 3vh 5.5vh 3vh 5.5vh;
-  > input {
+  div > input {
     ${({ ratio }) => (ratio ? 'width: 45.8vh;' : 'width: 60vw;')}
     height: 5vh;
     font-size: 1.9vh;

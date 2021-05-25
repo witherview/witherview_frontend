@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 const InputWrapper = styled.div`
   width: 60vh;
   margin-top: ${({ first }) => (first ? '10vh' : '4.5vh')};
-  ${({ theme }) => theme.input}
+  div { ${({ theme }) => theme.input} }
 `;
 
 const InputText = styled.div`
