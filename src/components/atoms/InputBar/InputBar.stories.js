@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
+import React, { useEffect, useState } from 'react';
 import InputBar from './InputBar';
 
 export default {
@@ -9,15 +8,17 @@ export default {
 
 export const inputBar = (args) => {
   const [value, setValue] = useState('');
-  const test = () => {
-    console.log(123);
-  };
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    if (isValid) console.log(`유효성 값 변경 : ${isValid}`);
+  }, [isValid]);
   return (
     <InputBar
       {...args}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      submit={test}
+      isValid={setIsValid}
     />
   );
 };

@@ -33,7 +33,6 @@ export default function InputBar({
   disabled,
   autoFocus,
   isCheckImmediatelyRule,
-  // isValid,
   value,
   className,
   placeholder,
@@ -42,10 +41,9 @@ export default function InputBar({
   width,
   rules,
   onChange,
-  submit,
+  isValid,
 }) {
   const [errorMessage, setErrorMessage] = useState();
-  const [isValid, setIsValid] = useState();
 
   const validate = (val) => {
     setErrorMessage(null);
@@ -53,25 +51,15 @@ export default function InputBar({
     rules.every((rule) => {
       if (typeof rule(val) === 'string') {
         setErrorMessage(rule(val));
-        setIsValid(false);
-      } else setIsValid(true);
+        isValid(false);
+      } else isValid(true);
 
       return !!errorMessage || errorMessage === 0;
     });
   };
-  const validateSubmit = () => {
-    console.log('execute before');
-    // e.preventDefault();
-    if (rules.length > 0 && !rules.every((rule) => typeof rule(value) === 'boolean' && rule(value))) return;
-    console.log('rule is ok!');
-    submit();
-  };
   useEffect(() => {
     if (isCheckImmediatelyRule) validate(value);
   }, [isCheckImmediatelyRule]);
-  useEffect(() => {
-    if (isValid) validateSubmit();
-  }, [isValid]);
   return (
     <Input
       width={width}
@@ -87,7 +75,6 @@ export default function InputBar({
         autoFocus={autoFocus}
         onInput={(e) => validate(e.target.value)}
       />
-      {/* <input type="submit" hidden onSubmit={} /> */}
       {errorMessage && <span className="errorMessage">{errorMessage}</span>}
     </Input>
   );
@@ -97,7 +84,6 @@ InputBar.propTypes = {
   disabled: PropTypes.bool,
   autoFocus: PropTypes.bool,
   isCheckImmediatelyRule: PropTypes.bool,
-  // isValid: PropTypes.bool,
   value: PropTypes.string,
   className: PropTypes.string,
   placeholder: PropTypes.string,
@@ -107,14 +93,13 @@ InputBar.propTypes = {
   rules: PropTypes.array,
   // ts 컨버팅 이후 [() => {} || ''] 형태로 정의 변경 필요
   onChange: PropTypes.func,
-  submit: PropTypes.func,
+  isValid: PropTypes.func,
 };
 
 InputBar.defaultProps = {
   disabled: false,
   autoFocus: false,
   isCheckImmediatelyRule: false,
-  // isValid: false,
   value: '',
   className: '',
   placeholder: '',
@@ -123,5 +108,5 @@ InputBar.defaultProps = {
   width: 553,
   rules: [],
   onChange: () => {},
-  submit: () => {},
+  isValid: () => {},
 };
