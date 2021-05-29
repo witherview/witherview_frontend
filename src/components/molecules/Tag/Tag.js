@@ -30,23 +30,13 @@ export default function Tag({
   isAddingTag,
   closeTagText,
 }) {
-  if (isAddingTag) {
-    return (
-      <Wrapper onClick={func} tagColor={tagColor} isAddingTag={isAddingTag}>
-        <PlusIcon color={contentColor} />
-        <Content contentColor={contentColor} isAddingTag={isAddingTag}>
-          추가
-        </Content>
-      </Wrapper>
-    );
-  }
-
   return (
     <Wrapper onClick={func} tagColor={tagColor} isAddingTag={isAddingTag}>
+      {isAddingTag && <PlusIcon color={contentColor} />}
       <Content contentColor={contentColor} isAddingTag={isAddingTag}>
-        {closeTagText}
+        {!isAddingTag ? '추가' : closeTagText}
       </Content>
-      <CloseIcon color={contentColor} />
+      {!isAddingTag && <CloseIcon color={contentColor} />}
     </Wrapper>
   );
 }
