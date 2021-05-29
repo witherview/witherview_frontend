@@ -87,12 +87,9 @@ export default function SelfTrainSettingPage({ match, history }) {
 
   const fetch = async () => {
     try {
-      const response = await getQuestionListAPI();
-      const exactData = response.data.filter(
-        (each) => each.id === Number(id),
-      )[0];
-      dispatch(setCompany({ company: exactData.title }));
-      dispatch(setJob({ job: exactData.job }));
+      const { data } = await getQuestionListAPI(id);
+      dispatch(setCompany({ company: data.enterprise }));
+      dispatch(setJob({ job: data.job }));
     } catch (error) {
       console.error(error);
       alert(error);

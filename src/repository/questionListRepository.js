@@ -2,9 +2,8 @@ import api from '@context/serverContext';
 
 export const getQuestionListAPI = async (param) =>
   await api({
-    url: '/api/self/questionList',
+    url: `/api/self/questionList/${param}`,
     type: 'get',
-    param,
   });
 
 export const postQuestionListAPI = async (param) =>
