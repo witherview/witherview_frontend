@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import PlusIcon from '../../atoms/PlusIcon';
-import CloseIcon from '../../atoms/CloseIcon';
+import TagIcon from '../../atoms/TagIcon';
 import theme from '../../../style/theme';
 
 const Wrapper = styled.div`
@@ -32,11 +31,15 @@ export default function Tag({
 }) {
   return (
     <Wrapper onClick={func} tagColor={tagColor} isAddingTag={isAddingTag}>
-      {isAddingTag && <PlusIcon color={contentColor} />}
+      {isAddingTag && (
+        <TagIcon color={contentColor} isAddingTag={isAddingTag} />
+      )}
       <Content contentColor={contentColor} isAddingTag={isAddingTag}>
-        {!isAddingTag ? '추가' : closeTagText}
+        {isAddingTag ? '추가' : closeTagText}
       </Content>
-      {!isAddingTag && <CloseIcon color={contentColor} />}
+      {!isAddingTag && (
+        <TagIcon color={contentColor} isAddingTag={isAddingTag} />
+      )}
     </Wrapper>
   );
 }
