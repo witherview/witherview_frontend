@@ -199,7 +199,6 @@ export default function QuestionCardView({
               onClick={(e) => {
                 e.stopPropagation();
                 setSelect(true);
-                console.log('abc');
                 dispatch(displayModal(MODALS.QUESTIONLIST_EDIT_MODAL));
               }}
             >
