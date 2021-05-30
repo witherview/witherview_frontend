@@ -13,7 +13,6 @@ const Wrapper = styled.div`
   position: fixed;
   width: 10vh;
   min-width: 10vh;
-  max-width: 15.9vh;
   height: 100vh;
   min-height: 20vh;
   border: none;

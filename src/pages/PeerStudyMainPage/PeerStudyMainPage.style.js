@@ -4,8 +4,8 @@ const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin: 5.3vh 0 0 0;
   align-items: center;
+  height: 100%;
 `;
 
 const SearchWrapper = styled.div`

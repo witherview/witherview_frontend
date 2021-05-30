@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-image: url(${({ source }) => source});
   background-size: cover;
 `;
@@ -49,7 +50,7 @@ const WrapBottomSide = styled.div`
 `;
 
 const WrapText = styled.div`
-  use-select: none;
+  user-select: none;
   padding-right: 2.5vh;
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;

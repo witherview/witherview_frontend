@@ -12,8 +12,8 @@ import A from '@atoms';
 
 const Wrapper = styled.div`
   position: absolute;
-  top: 5.3vh;
-  right: 10.5vh;
+  top: 0;
+  right: 0;
   height: 7.3vh;
   display: flex;
   flex-direction: row;
