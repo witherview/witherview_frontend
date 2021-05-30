@@ -2,7 +2,7 @@ import api from '@context/serverContext';
 
 export const getQuestionListAPI = async (param) =>
   await api({
-    url: `/api/self/questionList/${param}`,
+    url: `/api/self/questionList/${param || ''}`,
     type: 'get',
   });
 
@@ -23,7 +23,7 @@ export const patchQuestionListAPI = async (param) =>
 
 export const deleteQuestionListAPI = async (param) =>
   await api({
-    url: `/api/self/questionList/${param}`,
+    url: `/api/self/questionList/${param || ''}`,
     type: 'delete',
   });
 
