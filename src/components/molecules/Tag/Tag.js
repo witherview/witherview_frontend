@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import TagIcon from '../../atoms/TagIcon';
-import theme from '../../../style/theme';
+import TagIcon from '@atoms/TagIcon';
+import theme from '@style/theme';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   background-color: ${({ isAddingTag, tagColor }) =>
     isAddingTag ? `white` : tagColor};
   border: ${({ isAddingTag, tagColor }) =>
-    isAddingTag ? `solid 0.2vh ${tagColor}` : ''};
+    isAddingTag && `solid 0.2vh ${tagColor}`};
 `;
 const Content = styled.p`
   color: ${({ contentColor }) => contentColor};
