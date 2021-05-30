@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { getQuestionItemAPI } from '@repository/questionListRepository';
 import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from '@organisms/Modal/Modal';
@@ -151,10 +150,10 @@ export default function QuestionCardView({
   description,
   handleDelete,
   job,
+  length,
 }) {
   const dispatch = useDispatch();
   const [select, setSelect] = useState(false);
-  const [number, setNumber] = useState();
 
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
@@ -164,20 +163,6 @@ export default function QuestionCardView({
   };
 
   const toggle = (set) => setIsOpen(set);
-
-  const fetch = async () => {
-    try {
-      const { data } = await getQuestionItemAPI(id);
-      setNumber(data.length);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
-
-  useEffect(() => {
-    fetch();
-  }, []);
 
   return (
     <>
@@ -214,6 +199,7 @@ export default function QuestionCardView({
               onClick={(e) => {
                 e.stopPropagation();
                 setSelect(true);
+                console.log('abc');
                 dispatch(displayModal(MODALS.QUESTIONLIST_EDIT_MODAL));
               }}
             >
@@ -223,7 +209,7 @@ export default function QuestionCardView({
         </List>
         <Content>
           <Number>
-            <NumberText>{number}</NumberText>
+            <NumberText>{length}</NumberText>
             <SubText>
               개의 질문이
               <br />
@@ -247,6 +233,7 @@ QuestionCardView.propTypes = {
   description: PropTypes.string.isRequired,
   handleDelete: PropTypes.func,
   job: PropTypes.string.isRequired,
+  length: PropTypes.number.isRequired,
 };
 
 QuestionCardView.defaultProp = {
