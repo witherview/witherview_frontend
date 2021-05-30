@@ -35,6 +35,7 @@ module.exports = async ({ config }) => {
     '@repository': path.resolve(__dirname, '../src/repository'),
     '@routes': path.resolve(__dirname, 'src/routes'),
     '@store': path.resolve(__dirname, '../src/store'),
+    '@style': path.resolve(__dirname, '../src/style'),
     '@utils': path.resolve(__dirname, '../src/utils'),
     '@context': path.resolve(__dirname, '../src/context'),
   };
