@@ -20,7 +20,7 @@ import QuestionPage from '@pages/QuestionPage';
 import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
-import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
+import SelfTrainChecklistPage from '@pages/SelfTrainChecklistPage';
 import PeerStudyMainPage from '@pages/PeerStudyMainPage';
 
 import MyVideoPage from '@pages/MyVideoPage';

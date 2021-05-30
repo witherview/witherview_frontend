@@ -22,6 +22,12 @@ export const postProfileImageApi = async (param) =>
   });
 
 // TODO: GET - /api/myinfo/rooms
+export const getParticipateRoomsApi = async (param) =>
+  await api({
+    url: '/api/myinfo/rooms',
+    type: 'get',
+    param,
+  });
 
 export const getUserInfoApi = async (param) =>
   await api({

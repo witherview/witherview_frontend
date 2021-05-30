@@ -14,7 +14,13 @@ export const postQuestionListAPI = async (param) =>
     param,
   });
 
-// TODO: PATCH - /api/self/questionlist
+// TODO: PATCH - /api/self/questionList
+export const patchQuestionListAPI = async (param) =>
+  await api({
+    url: '/api/self/questionList',
+    type: 'patch',
+    param,
+  });
 
 export const deleteQuestionListAPI = async (param) =>
   await api({
