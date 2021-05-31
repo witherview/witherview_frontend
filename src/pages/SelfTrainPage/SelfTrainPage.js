@@ -17,7 +17,7 @@ import {
 } from '@store/Time/time';
 import { setStep, setHistoryId } from '@store/Train/train';
 import { sortObjectByOrder, get } from '@utils/snippet';
-import { getQuestionItemAPI } from '@repository/questionListRepository';
+import { getEachQuestionItemAPI } from '@repository/questionListRepository';
 import { postPreSelfVideoApi } from '@repository/selfHistoryRepository';
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
@@ -54,7 +54,7 @@ export default function SelfTrainPage({ match }) {
 
   const fetch = async (requestId) => {
     try {
-      const { data } = await getQuestionItemAPI(requestId);
+      const { data } = await getEachQuestionItemAPI(requestId);
       setQuestionList(sortObjectByOrder(data));
     } catch (error) {
       if (error.response.status === 401) {
