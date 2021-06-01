@@ -214,7 +214,9 @@ export default function QuestionCardView({
               onClick={(e) => {
                 e.stopPropagation();
                 setSelect(true);
-                dispatch(displayModal(MODALS.QUESTIONLIST_EDIT_MODAL));
+                dispatch(
+                  displayModal({ modalName: MODALS.QUESTIONLIST_EDIT_MODAL }),
+                );
               }}
             >
               수정
