@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 import LandingPage from '@pages/LandingPage';
@@ -30,7 +30,6 @@ import MyPage from '@pages/MyPage';
 import FragileRatioPage from '@pages/FragileRatioPage';
 
 import useWindowSize from '@hooks/useWindowSize';
-import { toggleViewMode } from '@store/ViewMode/viewMode';
 import theme from './style/theme';
 
 import GlobalStyles from './style/globalStyles';
@@ -42,6 +41,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapPage = styled.div`
+  background: ${({ theme: { wrapPageBgColor } }) => wrapPageBgColor};
   display: flex;
   ${({ toggleTrain }) => (toggleTrain
     ? 'width: 100vw;'
@@ -62,18 +62,8 @@ export default function App() {
   const { toggleTrain, isLoading } = useSelector(get('train'));
   const { viewMode } = useSelector(get('viewMode'));
   const { ratio } = useWindowSize();
-  const dispatch = useDispatch();
   const { viewModeTheme: { dark, light } } = theme;
 
-  useEffect(() => {
-    // dark, light mode 설정
-    if (localStorage.getItem('viewMode')) {
-      const currentViewMode = localStorage.getItem('viewMode');
-      if (currentViewMode === 'dark' || currentViewMode === 'light') {
-        dispatch(toggleViewMode({ viewMode: currentViewMode }));
-      }
-    }
-  }, [viewMode]);
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
@@ -94,8 +84,8 @@ export default function App() {
             {!toggleTrain && <O.SideBar />}
             {!toggleTrain && <O.ProfileMenuContainer name={name} />}
             <WrapPage toggleTrain={toggleTrain}>
-              <R.AuthRoute exact path="/self" component={SelfTrainEntryPage} />
-              <R.AuthRoute
+              <Route exact path="/self" component={SelfTrainEntryPage} />
+              <Route
                 exact
                 path="/self/questionlist"
                 component={QuestionListPage}

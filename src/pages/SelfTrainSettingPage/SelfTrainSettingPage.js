@@ -91,11 +91,20 @@ export default function SelfTrainSettingPage({ match, history }) {
       const exactData = response.data.filter(
         (each) => each.id === Number(id),
       )[0];
+
       dispatch(setCompany({ company: exactData.title }));
       dispatch(setJob({ job: exactData.job }));
     } catch (error) {
       console.error(error);
       alert(error);
+    }
+  };
+
+  const onToggleBtn = (isChecked) => {
+    if (isChecked) {
+      dispatch(setViewAnswer({ viewAnswer: true }));
+    } else {
+      dispatch(setViewAnswer({ viewAnswer: false }));
     }
   };
 
@@ -119,11 +128,7 @@ export default function SelfTrainSettingPage({ match, history }) {
           </WrapSubContainer>
           <WrapToggle>
             <WrapText>답변 보기 허용</WrapText>
-            <A.ToggleButton
-              funcActive={() => dispatch(setViewAnswer({ viewAnswer: true }))}
-              funcDecative={() => dispatch(setViewAnswer({ viewAnswer: false }))
-              }
-            />
+            <A.ToggleButton cb={onToggleBtn} />
           </WrapToggle>
           <WrapInput>
             <WrapText padding>기업 이름</WrapText>
@@ -147,7 +152,10 @@ export default function SelfTrainSettingPage({ match, history }) {
           <A.Button
             btnTheme={company && job && standardTime > 0 ? 'blue' : 'gray'}
             text="다음"
-            func={() => history.push(`/self/train/${selectedQnaId}`)}
+            func={() => {
+              console.log('click');
+              history.push(`/self/train/${selectedQnaId}`);
+            }}
           />
         </WrapButton>
       </WrapContent>

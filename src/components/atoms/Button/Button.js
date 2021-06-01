@@ -10,7 +10,6 @@ const BoxOption = {
   gray: css`
     background: #f6f6f6;
     pointer-events: none;
-
   `,
   white: css`
     background: #fff;

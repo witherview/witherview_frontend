@@ -6,8 +6,6 @@ import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
-import { useDispatch } from 'react-redux';
-import { toggleViewMode } from '@store/ViewMode/viewMode';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
@@ -82,20 +80,7 @@ export default function LandingHeader({
   studyRef,
 }) {
   const history = useHistory();
-  const dispatch = useDispatch();
   const executeScroll = (ref) => scrollToRef(ref);
-
-  const onToggle = (isChecked) => {
-    if (isChecked) {
-      // 다크모드 활성화
-      localStorage.setItem('viewMode', 'dark');
-      dispatch(toggleViewMode({ viewMode: 'dark' }));
-    } else {
-      // 라이트모드 활성화
-      localStorage.setItem('viewMode', 'light');
-      dispatch(toggleViewMode({ viewMode: 'light' }));
-    }
-  };
 
   return (
     <Wrapper>
@@ -129,7 +114,6 @@ export default function LandingHeader({
               func={() => history.push('/login')}
             />
           </WrapButton>
-          <A.ToggleButton cb={onToggle} />
         </WrapRightInner>
       </WrapContainer>
     </Wrapper>

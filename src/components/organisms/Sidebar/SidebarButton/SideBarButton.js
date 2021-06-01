@@ -9,13 +9,13 @@ import A from '@atoms';
 const Wrapper = styled.button`
   width: 100%;
   height: 7.1vh;
-  background-color: ${({ theme, clicked }) => (clicked ? '#ffffff' : theme.sideBarBgColor)};
+  background: ${({ clicked }) => (clicked ? '#fff' : 'inherit')};
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   outline: none;
-  &: hover {
+  &:hover {
     opacity: ${({ clicked }) => (clicked ? '100%' : '60%')};
   }
   cursor: pointer;

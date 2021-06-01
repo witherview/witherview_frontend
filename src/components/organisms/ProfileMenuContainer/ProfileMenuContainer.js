@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLogout } from '@store/Auth/auth';
 
 import A from '@atoms';
+import { toggleViewMode } from '@store/ViewMode/viewMode';
+import { get } from '@utils/snippet';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -47,7 +49,7 @@ const Name = styled.div`
   padding-left: 2.9vh;
   padding-right: 1vh;
   user-select: none;
-  color: #3d3d3d;
+  color: ${({ theme: { profileNameColor } }) => profileNameColor};
 `;
 
 const List = styled.ul`
@@ -95,9 +97,24 @@ const Each = styled.div`
 export default function ProfileMenuContainer({ name, src }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { viewMode } = useSelector(get('viewMode'));
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = (set) => setIsOpen(set);
+
+  const onViewModeToggle = useCallback(() => {
+    if (viewMode === 'dark') {
+      // 라이트모드 활성화
+      localStorage.setItem('viewMode', 'light');
+      dispatch(toggleViewMode({ viewMode: 'light' }));
+    } else {
+      // 다크모드 활성화
+      localStorage.setItem('viewMode', 'dark');
+      dispatch(toggleViewMode({ viewMode: 'dark' }));
+    }
+  }, [viewMode]);
+
+  const viewModeSwitch = useMemo(() => viewMode === 'dark', [viewMode]) ? 'Light: ON' : 'Dark: ON';
 
   return (
     <Wrapper>
@@ -113,6 +130,10 @@ export default function ProfileMenuContainer({ name, src }) {
         <List isOpen={isOpen}>
           <Item>
             <Each onClick={() => history.push('/mypage')}>마이페이지</Each>
+          </Item>
+          {/* 라이트/다크모드 메뉴 */}
+          <Item>
+            <Each onClick={onViewModeToggle}>{viewModeSwitch}</Each>
           </Item>
           <Item>
             <Each

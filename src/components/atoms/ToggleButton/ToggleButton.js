@@ -1,10 +1,6 @@
-import React, { useMemo } from 'react';
-
+import React from 'react';
 import styled from 'styled-components';
-
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { get } from '@utils/snippet';
 
 const Switch = styled.label`
   position: relative;
@@ -55,10 +51,6 @@ const Slider = styled.span`
 `;
 
 export default function ToggleButton({ className = '', cb }) {
-  const { viewMode } = useSelector(get('viewMode'));
-
-  const checkedCondition = useMemo(() => viewMode === 'dark', [viewMode]);
-
   const onCb = (e) => {
     cb(e.target.checked);
   };
@@ -67,7 +59,6 @@ export default function ToggleButton({ className = '', cb }) {
     <Switch>
       <Input
         type="checkbox"
-        checked={checkedCondition}
         className={className}
         onChange={onCb}
       />
