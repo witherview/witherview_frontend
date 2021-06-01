@@ -101,15 +101,7 @@ const ControlWrapper = styled.div`
   margin-top: 1vh;
   padding: 1vh;
   box-sizing: border-box;
-
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-
-  &[data-state='hidden'] {
-    display: none;
-  }
-  &[data-state='visible'] {
-    display: block;
-  }
 `;
 
 const ButtonWrapper = styled.button`
@@ -156,7 +148,6 @@ const ProgressWrapper = styled.div`
     border-radius: 0.2vh;
     color: #6e6eff;
     cursor: pointer;
-
     &::-moz-progress-bar {
       background-color: #6e6eff;
     }
@@ -279,22 +270,85 @@ export default function SelfTrainChecklistPage({ match }) {
   const history = useHistory();
   const { localBlob, historyId } = useSelector(get('train'));
   const { timeFlag } = useSelector(get('time'));
-  const [playPauseBtn, setPlayPauseBtn] = useState(true);
+
+  const [currentTime, setCurrentTime] = useState(0);
+  const [nowPlaying, setNowPlaying] = useState(false);
+
+  const video = useRef();
+  const progress = useRef();
+
   const [checkListArray, setCheckListArray] = useState(
     Array(flatEvaluation.length).fill(false),
   );
-  const video = useRef();
-  const videoControls = useRef();
-  const playpause = useRef();
-  const progress = useRef();
+
+  const addTimeUpdate = () => {
+    const observedVideoElement = video && video.current;
+    if (observedVideoElement) {
+      observedVideoElement.addEventListener('timeupdate', () => {
+        setCurrentTime(observedVideoElement.currentTime);
+      });
+      setNowPlaying(false);
+    }
+  };
 
   useEffect(() => {
     dispatch(setToggleTrain({ toggleTrain: true }));
     video.current.controls = false;
-    videoControls.current.setAttribute('data-state', 'visible');
+    addTimeUpdate();
 
     return () => dispatch(setToggleTrain({ toggleTrain: false }));
   }, []);
+
+  useEffect(() => {
+    if (currentTime === video.current.duration) {
+      setNowPlaying(false);
+    }
+  }, [currentTime]);
+
+  const handleProgressChange = (percent) => {
+    if (video.current) {
+      const playingTime = video.current.duration * (percent / 100);
+
+      setCurrentTime(playingTime);
+    }
+  };
+
+  const handleClickProgress = (e) => {
+    const pos =
+      (e.pageX -
+        (progress.current.offsetLeft +
+          progress.current.offsetParent.offsetLeft)) /
+      progress.current.offsetWidth;
+
+    if (video.current) {
+      const playingTime = video.current.duration * pos;
+
+      setCurrentTime(playingTime);
+
+      video.current.currentTime = playingTime;
+    }
+  };
+
+  const handlePlayIconClick = () => {
+    if (nowPlaying) {
+      setNowPlaying(false);
+      video.current.pause();
+    } else {
+      setNowPlaying(true);
+      video.current.play();
+    }
+  };
+
+  const handleCheck = useCallback(
+    (evt) => {
+      // eslint-disable-next-line max-len
+      const newCheckList = checkListArray.map((item, idx) =>
+        idx === parseInt(evt.target.parentNode.id, 10) ? !item : item,
+      );
+      setCheckListArray(newCheckList);
+    },
+    [checkListArray],
+  );
 
   const postChecklist = async () => {
     const checkLists = checkListArray.reduce(
@@ -311,6 +365,7 @@ export default function SelfTrainChecklistPage({ match }) {
     );
 
     const data = { checkLists, selfHistoryId: historyId };
+
     try {
       await postSelfChecklistApi(JSON.stringify(data));
       alert('체크리스트가 등록되었습니다.');
@@ -319,62 +374,6 @@ export default function SelfTrainChecklistPage({ match }) {
       alert(error);
     }
   };
-
-  const loadVideoMetaData = useCallback(
-    () => progress.current.setAttribute('max', video.current.duration),
-    [],
-  );
-
-  const changeButtonState = useCallback(() => {
-    if (video.current.paused || video.current.ended) {
-      playpause.current.setAttribute('data-state', 'play');
-    } else {
-      playpause.current.setAttribute('data-state', 'pause');
-    }
-  }, []);
-
-  const onPlay = useCallback(() => changeButtonState(), []);
-
-  const onPause = useCallback(() => changeButtonState(), []);
-
-  const onPlayPause = useCallback(() => {
-    if (video.current.paused || video.current.ended) {
-      video.current.play();
-    } else {
-      video.current.pause();
-    }
-    setPlayPauseBtn(!playPauseBtn);
-  }, [playPauseBtn]);
-
-  const onTimeUpdate = useCallback(() => {
-    if (!progress.current.getAttribute('max')) {
-      progress.current.setAttribute('max', video.current.duration);
-    }
-    progress.current.value = video.current.currentTime;
-    if (progress.current.max === progress.current.value) {
-      setPlayPauseBtn(true);
-    }
-  }, []);
-
-  const onProgressClick = useCallback((evt) => {
-    const pos =
-      (evt.pageX -
-        (progress.current.offsetLeft +
-          progress.current.offsetParent.offsetLeft)) /
-      progress.current.offsetWidth;
-    video.current.currentTime = pos * video.current.duration;
-  }, []);
-
-  const onCheck = useCallback(
-    (evt) => {
-      // eslint-disable-next-line max-len
-      const newCheckList = checkListArray.map((item, idx) =>
-        idx === parseInt(evt.target.parentNode.id, 10) ? !item : item,
-      );
-      setCheckListArray(newCheckList);
-    },
-    [checkListArray],
-  );
 
   const selfTraingAgain = useCallback(() => {
     history.push(`/self/question/${roomId}`);
@@ -435,16 +434,7 @@ export default function SelfTrainChecklistPage({ match }) {
         <Content>
           <LeftContent>
             <VideoContainer>
-              <video
-                src={localBlob}
-                ref={video}
-                controls
-                preload="metadata"
-                onLoadedMetadata={loadVideoMetaData}
-                onPlay={onPlay}
-                onPause={onPause}
-                onTimeUpdate={onTimeUpdate}
-              >
+              <video src={localBlob} ref={video} controls preload="metadata">
                 <track
                   src=""
                   kind="captions"
@@ -454,15 +444,10 @@ export default function SelfTrainChecklistPage({ match }) {
                 {/* TODO: 지금은 로컬 blob을 보여주고 있으나 이부분 서버 HLS url을 적용하는 방식으로 처리해야 함 */}
                 <source type="video/mp4" />
               </video>
-              <ControlWrapper ref={videoControls} data-state="hidden">
-                <ButtonWrapper
-                  ref={playpause}
-                  type="button"
-                  data-state="play"
-                  onClick={onPlayPause}
-                >
+              <ControlWrapper>
+                <ButtonWrapper type="button" onClick={handlePlayIconClick}>
                   <A.Icon
-                    type={playPauseBtn ? 'play_blue' : 'pause'}
+                    type={nowPlaying ? 'pause' : 'play_blue'}
                     isCircle
                     alt="play/button"
                   />
@@ -470,20 +455,25 @@ export default function SelfTrainChecklistPage({ match }) {
                 <ProgressWrapper>
                   <progress
                     ref={progress}
-                    value="0"
+                    onChange={(e) =>
+                      handleProgressChange(parseInt(e.target.value, 10))
+                    }
+                    value={(currentTime / video.current?.duration || 0) * 100}
                     min="0"
-                    onClick={onProgressClick}
+                    max="100"
+                    step="1"
+                    onClick={handleClickProgress}
                   />
                   <CheckPointWrapper>
                     {timeFlag.slice(0, timeFlag.length - 1)?.map((item) => (
                       <CheckPoint
-                        point={item / timeFlag[timeFlag.length - 1]}
+                        point={item / video.current?.duration}
                         key={`${item}point`}
                       >
                         <A.Icon
                           type="arrow_up_blue"
                           alt="section"
-                          func={onProgressClick}
+                          func={handleClickProgress}
                         />
                       </CheckPoint>
                     ))}
@@ -524,7 +514,7 @@ export default function SelfTrainChecklistPage({ match }) {
                     <A.Icon
                       type={checkListArray[id] ? 'check_on' : 'check_off'}
                       alt="checkbox"
-                      func={onCheck}
+                      func={handleCheck}
                     />
                     <span>{text}</span>
                   </ChecklistEach>
@@ -540,7 +530,7 @@ export default function SelfTrainChecklistPage({ match }) {
                       <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}
                         alt="checkbox"
-                        func={onCheck}
+                        func={handleCheck}
                       />
                       <span>{text}</span>
                     </ChecklistEach>
@@ -555,7 +545,7 @@ export default function SelfTrainChecklistPage({ match }) {
                       <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}
                         alt="checkbox"
-                        func={onCheck}
+                        func={handleCheck}
                       />
                       <span>{text}</span>
                     </ChecklistEach>
