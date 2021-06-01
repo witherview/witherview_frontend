@@ -356,7 +356,7 @@ export default function SelfTrainChecklistPage({ match }) {
     }
   }, []);
 
-  const onProgressClck = useCallback((evt) => {
+  const onProgressClick = useCallback((evt) => {
     const pos =
       (evt.pageX -
         (progress.current.offsetLeft +
@@ -472,7 +472,7 @@ export default function SelfTrainChecklistPage({ match }) {
                     ref={progress}
                     value="0"
                     min="0"
-                    onClick={onProgressClck}
+                    onClick={onProgressClick}
                   />
                   <CheckPointWrapper>
                     {timeFlag.slice(0, timeFlag.length - 1)?.map((item) => (
@@ -483,7 +483,7 @@ export default function SelfTrainChecklistPage({ match }) {
                         <A.Icon
                           type="arrow_up_blue"
                           alt="section"
-                          func={onProgressClck}
+                          func={onProgressClick}
                         />
                       </CheckPoint>
                     ))}
