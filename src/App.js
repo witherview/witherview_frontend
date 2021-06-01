@@ -44,7 +44,7 @@ const WrapPage = styled.div`
   ${({ toggleTrain }) =>
     toggleTrain
       ? `
-        width: 100vw; 
+        width: 100vw;
         height: 100vh;
         .container {
           width: 100%;
@@ -125,7 +125,7 @@ export default function App() {
               <R.AuthRoute
                 exact
                 path="/self/checklist/:roomId"
-                component={SelfStudyChecklist}
+                component={SelfTrainChecklistPage}
               />
               <R.AuthRoute exact path="/replay" component={MyVideoPage} />
               <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
