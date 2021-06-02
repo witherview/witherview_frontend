@@ -2,9 +2,8 @@ import api from '@context/serverContext';
 
 export const getQuestionListAPI = async (param) =>
   await api({
-    url: '/api/self/questionList',
+    url: `/api/self/questionList/${param || ''}`,
     type: 'get',
-    param,
   });
 
 export const postQuestionListAPI = async (param) =>
@@ -24,11 +23,11 @@ export const patchQuestionListAPI = async (param) =>
 
 export const deleteQuestionListAPI = async (param) =>
   await api({
-    url: `/api/self/questionList/${param}`,
+    url: `/api/self/questionList/${param || ''}`,
     type: 'delete',
   });
 
-export const getQuestionItemAPI = async (param) =>
+export const getEachQuestionItemAPI = async (param) =>
   await api({
     url: `/api/self/question/${param}`,
     type: 'get',
@@ -48,7 +47,7 @@ export const patchQuestionItemAPI = async (param) =>
     param,
   });
 
-export const deleteQuestionItemAPI = async (param) =>
+export const deleteEachQuestionItemAPI = async (param) =>
   await api({
     url: `/api/self/question/${param}`,
     type: 'delete',
