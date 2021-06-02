@@ -225,18 +225,26 @@ export default function SelfTrainChecklistPage({ match }) {
                     onClick={handleClickProgress}
                   />
                   <S.CheckPointWrapper>
-                    {timeFlag.slice(0, timeFlag.length - 1)?.map((item) => (
-                      <S.CheckPoint
-                        point={item / video.current?.duration}
-                        key={`${item}point`}
-                      >
-                        <A.Icon
-                          type="arrow_up_blue"
-                          alt="section"
-                          func={handleClickProgress}
-                        />
-                      </S.CheckPoint>
-                    ))}
+                    {timeFlag
+                      .reduce((acc, cur) => {
+                        if (cur === acc[acc.length - 1]) {
+                          return [...acc];
+                        }
+                        return [...acc, cur];
+                      }, [])
+                      .slice(0, timeFlag.length - 1)
+                      ?.map((item) => (
+                        <S.CheckPoint
+                          point={item / video.current?.duration}
+                          key={`${item}point`}
+                        >
+                          <A.Icon
+                            type="arrow_up_blue"
+                            alt="section"
+                            func={handleClickProgress}
+                          />
+                        </S.CheckPoint>
+                      ))}
                   </S.CheckPointWrapper>
                 </S.ProgressWrapper>
               </S.ControlWrapper>
