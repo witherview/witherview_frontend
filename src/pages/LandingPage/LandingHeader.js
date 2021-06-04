@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
-import Logo from '@assets/images/witherview_logo_title_dark.png';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
@@ -24,12 +23,19 @@ const Wrapper = styled.div`
   box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
 `;
 
-const WrapLeft = styled.img`
+const MainLogo = styled.h1`
   width: 120px;
+  height: 100%;
+  background: url(${({ theme: { mainLogo } }) => mainLogo});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
 `;
 
 const WrapContainer = styled.div`
   width: 90%;
+  height: 100%;
   max-width: 1150px;
   min-width: 90%;
   display: flex;
@@ -85,7 +91,7 @@ export default function LandingHeader({
   return (
     <Wrapper>
       <WrapContainer>
-        <WrapLeft src={Logo} />
+        <MainLogo>메인로고</MainLogo>
         <WrapRightInner>
           <WrapTextButton>
             <TextButtonProps

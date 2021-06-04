@@ -49,7 +49,7 @@ const StudyText = styled.div`
     line-height: 1.44;
     letter-spacing: normal;
     text-align: left;
-    color: #000000;
+    color: ${({ theme: { studyTextColor } }) => studyTextColor};
 `;
 
 const ContentWrapper = styled.div`
@@ -61,6 +61,7 @@ const ButtonWrapper = styled.div`
     width: 100%;
     height: 3.5vh;
     align-items: center;
+    color: ${({ theme: { buttonWrapperColor } }) => buttonWrapperColor};
 `;
 
 const TextButtonWrapper = styled.div`
@@ -97,7 +98,7 @@ const PartiText = styled.div`
     line-height: 1.45;
     letter-spacing: normal;
     text-align: left;
-    color: #0c0c59;
+    color: ${({ theme: { partTextColor } }) => partTextColor};
 `;
 
 const StudyListWrapper = styled.div`

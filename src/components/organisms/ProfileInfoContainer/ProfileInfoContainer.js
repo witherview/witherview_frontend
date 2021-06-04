@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: ${({ theme: { profileInfoContainerWrapper } }) => profileInfoContainerWrapper};
 `;
 
 const Name = styled.div`
@@ -19,7 +20,6 @@ const Name = styled.div`
   font-size: 1.5vh;
   padding-left: 2.5vh;
   user-select: none;
-  color: #3d3d3d;
 `;
 
 const NameBelow = styled.div`

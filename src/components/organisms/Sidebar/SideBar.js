@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-
+import sideBarLogo from '@assets/images/symbol_white.png';
 import { setLogout } from '@store/Auth/auth';
 
-import Logo from '@assets/images/witherview_logo.png';
 import SidebarButton from './SidebarButton';
 
 const Wrapper = styled.div`
@@ -80,7 +79,9 @@ export default function SideBar() {
   return (
     <Wrapper>
       <WrapTopButton>
-        <WrapImage src={Logo} alt="logo" />
+        <h1>
+          <WrapImage src={sideBarLogo} alt="사이드바 로고" />
+        </h1>
       </WrapTopButton>
       <WrapButtonContainer>
         <SidebarButton

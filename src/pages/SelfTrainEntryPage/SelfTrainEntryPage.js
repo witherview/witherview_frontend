@@ -86,7 +86,7 @@ export default function SelfTrainEntryPage({ history }) {
             func={
               // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
               isGuide
-                ? () => history.push('/self/setting/15')
+                ? () => history.push('/self/setting/1')
                 : () => history.push('/self/questionlist')
             }
             btnTheme={clicked ? 'blue' : 'gray'}
