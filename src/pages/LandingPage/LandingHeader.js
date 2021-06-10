@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import { useSelector } from 'react-redux';
+import { get } from '@utils/snippet';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
@@ -47,6 +49,7 @@ const WrapTextButton = styled.div`
   @media only screen and (max-width: 1150px) {
     display: none;
   }
+  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) => landingFooterWrapLeftInnerColor};
   min-width: 350px;
   display: flex;
   align-items: center;
@@ -86,7 +89,46 @@ export default function LandingHeader({
   studyRef,
 }) {
   const history = useHistory();
+  const { viewMode } = useSelector(get('viewMode'));
+  const [activeMenu, setActiveMenu] = useState(0);
   const executeScroll = (ref) => scrollToRef(ref);
+
+  const textButtonPropsList = [
+    {
+      id: 0,
+      text: '홈',
+      scrollFuncRef: topRef,
+    },
+    {
+      id: 1,
+      text: '위더뷰란?',
+      scrollFuncRef: middleOneRef,
+    },
+    {
+      id: 2,
+      text: '혼자연습',
+      scrollFuncRef: aloneRef,
+    },
+    {
+      id: 3,
+      text: '면접스터디',
+      scrollFuncRef: studyRef,
+    },
+  ];
+
+  const btnRender = () => {
+    const currentBtnTheme = viewMode === 'dark' ? 'loginBtnDarkMode' : 'outline';
+
+    return (
+      <A.Button
+        id="menu_btn"
+        btnTheme={currentBtnTheme}
+        width={140}
+        text="LOG IN"
+        func={() => history.push('/login')}
+      />
+    );
+  };
 
   return (
     <Wrapper>
@@ -94,31 +136,20 @@ export default function LandingHeader({
         <MainLogo>메인로고</MainLogo>
         <WrapRightInner>
           <WrapTextButton>
-            <TextButtonProps
-              onClick={() => executeScroll(topRef)}
-              text="홈"
-            />
-            <TextButtonProps
-              onClick={() => executeScroll(middleOneRef)}
-              text="위더뷰란?"
-            />
-            <TextButtonProps
-              onClick={() => executeScroll(aloneRef)}
-              text="혼자연습"
-            />
-            <TextButtonProps
-              onClick={() => executeScroll(studyRef)}
-              text="면접스터디"
-            />
+            {textButtonPropsList.map(({ id, text, scrollFuncRef }) => (
+              <TextButtonProps
+                key={id}
+                onClick={() => {
+                  executeScroll(scrollFuncRef);
+                  setActiveMenu(id);
+                }}
+                text={text}
+                isClicked={activeMenu === id}
+              />
+            ))}
           </WrapTextButton>
           <WrapButton>
-            <A.Button
-              id="menu_btn"
-              btnTheme="outline"
-              width={140}
-              text="LOG IN"
-              func={() => history.push('/login')}
-            />
+            {btnRender()}
           </WrapButton>
         </WrapRightInner>
       </WrapContainer>

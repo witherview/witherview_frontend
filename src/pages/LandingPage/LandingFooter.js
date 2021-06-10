@@ -1,9 +1,6 @@
 import React from 'react';
-
 import styled from 'styled-components';
-
 import A from '@atoms';
-import Logo from '@assets/images/witherview_logo_title_dark.png';
 
 const Wrapper = styled.div`
   z-index: 2;
@@ -16,7 +13,9 @@ const Wrapper = styled.div`
   color: ${({ theme: { footerColor } }) => footerColor};
 `;
 
-const WrapLeft = styled.img`
+const WrapLeft = styled.img.attrs(({ theme: { mainLogo } }) => ({
+  src: mainLogo,
+}))`
   width: 120px;
 `;
 
@@ -29,6 +28,7 @@ const WrapContainer = styled.div`
 `;
 
 const WrapLeftInner = styled.div`
+  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) => landingFooterWrapLeftInnerColor};
   @media only screen and (max-width: 1150px) {
     width: 80%;
   }
@@ -52,7 +52,7 @@ export default function LandingFooter() {
     <Wrapper>
       <WrapContainer>
         <WrapLeftInner>
-          <WrapLeft src={Logo} />
+          <WrapLeft />
           <A.TextButton text="이용약관" />
           <A.TextButton text="개인정보처리방침" />
         </WrapLeftInner>

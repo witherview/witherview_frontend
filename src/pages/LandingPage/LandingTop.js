@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom';
 import A from '@atoms';
 import { commonStyles } from '@style';
 import LandingTopImage from '@assets/images/landing_top.png';
+import { useSelector } from 'react-redux';
+import { get } from '@utils/snippet';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
@@ -16,7 +18,6 @@ const Wrapper = styled.div`
   width: 100%;
   user-select: none;
   height: 700px;
-  background-color: #f9f9ff;
   padding-top: 60px;
   display: flex;
   align-items: center;
@@ -59,7 +60,22 @@ const WrapButton = styled.div`
 `;
 
 export default function LandingTop({ myRef }) {
+  const { viewMode } = useSelector(get('viewMode'));
   const history = useHistory();
+
+  const btnRender = () => {
+    const currentBtnTheme = viewMode === 'dark' ? 'outline' : 'blue';
+
+    return (
+      <A.Button
+        btnTheme={currentBtnTheme}
+        width={180}
+        func={() => history.push('/login')}
+        text="시작하기"
+      />
+    );
+  };
+
   return (
     <Wrapper ref={myRef}>
       <WrapContainer>
@@ -74,12 +90,7 @@ export default function LandingTop({ myRef }) {
             ]}
           />
           <WrapButton>
-            <A.Button
-              btnTheme="blue"
-              width={180}
-              func={() => history.push('./login')}
-              text="시작하기"
-            />
+            {btnRender()}
           </WrapButton>
         </WrapContent>
         <WrapImage src={LandingTopImage} />

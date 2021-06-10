@@ -8,13 +8,30 @@ const blueBlack = '#0c0c59';
 const darkGray = '#3d3d3d';
 const warmGray = '#9e9e9e';
 const lightGray = '#99a3ba';
+const purple1 = '#6e6eff';
 
 const theme = {
   viewModeTheme: {
     light: {
-      wrapPageBgColor: white,
+      wrapContentBgColor: white,
+      mainPageBoldColor: black,
+      wrapPaddingColor: black,
       bgColor: white,
       color: '#000000',
+      landingTopBtn: 'blue',
+      landingHeaderBtn: 'outline',
+      /* URL: / */
+      // landingHeader
+      landingHeaderWrapTextButtonColor: 'inherit',
+      textBtnPropsTextColor: black,
+      // landingMiddleOne
+      textBoxBHeaderColor: purple1,
+      textBoxBContentColor: 'inherit',
+      textBoxCWrapContentBorder: '#f6f6f6',
+      textBoxCWrapTextHeader: 'inherit',
+      textBoxCWrapTextSummary: '#99a3ba',
+      // landingFooter
+      landingFooterWrapLeftInnerColor: black,
       // assets
       mainLogo: mainLogoBlack,
       // sideBar
@@ -38,9 +55,24 @@ const theme = {
       profileInfoContainerWrapper: darkGray,
     },
     dark: {
-      wrapPageBgColor: '#171c28',
+      wrapContentBgColor: '#171c28',
+      mainPageBoldColor: '#e4ecfa',
+      wrapPaddingColor: lightGray,
       bgColor: darkBgColor,
       color: '#6c7486',
+      landingTopBtn: 'outline',
+      landingHeaderBtn: 'grayForDarkMode',
+      // landingHeader
+      landingHeaderWrapTextButtonColor: '#99a3ba',
+      textBtnPropsTextColor: '#e4ecfa',
+      // landingMiddleOne
+      textBoxBHeaderColor: purple1,
+      textBoxBContentColor: '#e4ecfa',
+      textBoxCWrapContentBorder: '#9e9e9e',
+      textBoxCWrapTextHeader: '#99a3ba',
+      textBoxCWrapTextSummary: '#99a3ba',
+      // landingFooter
+      landingFooterWrapLeftInnerColor: '#e4ecfa',
       // assets
       mainLogo: mainLogoWhite,
       // sideBar

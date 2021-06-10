@@ -6,17 +6,25 @@ import PropTypes from 'prop-types';
 const BoxOption = {
   blue: css`
     background: linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);
+    color: #fff;
   `,
   gray: css`
     background: #f6f6f6;
+    color: #3d3d3d;
     pointer-events: none;
+  `,
+  loginBtnDarkMode: css`
+    background: #e4ecfa;
+    color: #6e6eff;
   `,
   white: css`
     background: #fff;
+    color: #6e6eff;
   `,
   outline: css`
     background: transparent; 
     border: solid 2px #6e6eff;
+    color: #6e6eff;
   `,
 };
 
@@ -33,15 +41,8 @@ const Box = styled.div`
       opacity: 70%; 
     }`
   }
-  ${({ btnTheme }) => (BoxOption[btnTheme])}
+  ${({ btnTheme }) => BoxOption[btnTheme]};
 `;
-
-const TextOption = {
-  blue: '#fff',
-  gray: '#3d3d3d',
-  outline: '#6e6eff',
-  white: '#6e6eff',
-};
 
 const Text = styled.p`
   display: inline-block;
@@ -51,7 +52,6 @@ const Text = styled.p`
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  color: ${({ btnTheme }) => (TextOption[btnTheme])};
 `;
 
 export default function Button({
@@ -69,7 +69,7 @@ export default function Button({
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
-  btnTheme: PropTypes.string.isRequired,
+  btnTheme: PropTypes.string,
   func: PropTypes.func,
   width: PropTypes.number,
 };

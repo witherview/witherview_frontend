@@ -17,11 +17,12 @@ const WrapText = styled.div`
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
   font-size: ${({ size }) => size}px;
   ${({ bold }) => bold && 'font-family: AppleSDGothicNeoB00;'}
-  color: ${({ color }) => color};
+  color: ${({ color, theme: { mainPageBoldColor } }) => (color || mainPageBoldColor)};
 `;
 
 const WrapPadding = styled.div`
   padding: ${({ padding }) => padding && '15px 0 20px 0'};
+  color: ${({ theme: { wrapPaddingColor } }) => wrapPaddingColor};
 `;
 
 export default function TextBoxA({
@@ -42,7 +43,6 @@ export default function TextBoxA({
           lineHeight="80%"
           size={48}
           bold
-          color="black"
         >
           {each}
         </WrapText>
@@ -54,7 +54,6 @@ export default function TextBoxA({
             key={`${key}summary`}
             lineHeight="130%"
             size={15}
-            color="black"
           >
             {each}
           </WrapText>

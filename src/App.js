@@ -41,7 +41,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapPage = styled.div`
-  background: ${({ theme: { wrapPageBgColor } }) => wrapPageBgColor};
+  background: ${({ theme: { wrapContentBgColor } }) => wrapContentBgColor};
   display: flex;
   ${({ toggleTrain }) => (toggleTrain
     ? 'width: 100vw;'
