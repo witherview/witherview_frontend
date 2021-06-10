@@ -218,12 +218,13 @@ export default function IndustrySelectModal({ func, initialIndustries }) {
           </SelectList>
           <TagWrapper>
             {industries.map((value, key) => (
-              <M.Tag
-                key={`${key}tag`}
-                closeTagText={value}
-                style={{ margin: '0 1vh 1vh 0' }}
-                func={() => removeSelectedIndustry(value)}
-              />
+              <div style={{ margin: '0 1vh 1vh 0', display: 'inline-flex' }}>
+                <M.Tag
+                  key={`${key}tag`}
+                  closeTagText={value}
+                  func={() => removeSelectedIndustry(value)}
+                />
+              </div>
             ))}
           </TagWrapper>
           <ButtonWrapper>
