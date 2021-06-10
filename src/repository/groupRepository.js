@@ -59,3 +59,6 @@ export const deleteEachGroupRoomParticipantsApi = async (param) =>
     url: `/api/group/room/${param}/participants`,
     type: 'delete',
   });
+
+// TODO: set API
+export const postSelectedIndustriesApi = () => {};
