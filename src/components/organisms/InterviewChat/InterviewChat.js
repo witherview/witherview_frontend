@@ -80,11 +80,7 @@ const WrapperBottom = styled.div`
   justify-content: center;
 `;
 
-export default function InterviewChat({
-  setInterviewer,
-  chatData,
-  onClick,
-}) {
+export default function InterviewChat({ setInterviewer, chatData, onClick }) {
   const chatBoxRef = useRef();
 
   useEffect(() => {
@@ -104,10 +100,7 @@ export default function InterviewChat({
           <p>유통 및 데이터 분석</p>
         </UserInfo>
       </WrapperHeader>
-      <WrapperContent
-        ref={chatBoxRef}
-        setInterviewer={setInterviewer}
-      >
+      <WrapperContent ref={chatBoxRef} setInterviewer={setInterviewer}>
         {chatData?.map((chat) => (
           <ChatMessageWrapper>
             <TimeInfo>{chat.time}</TimeInfo>

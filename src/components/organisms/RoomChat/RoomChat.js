@@ -10,7 +10,8 @@ const Wrapper = styled.div`
   height: 63vh;
   display: flex;
   align-items: flex-end;
-  ${({ isConnectStomp }) => !isConnectStomp && 'pointer-events: none; opacity: 0.3;'}
+  ${({ isConnectStomp }) =>
+    !isConnectStomp && 'pointer-events: none; opacity: 0.3;'}
 `;
 
 const WrapContainer = styled.div`

@@ -24,11 +24,7 @@ const WrapPrefix = styled.span`
 export default function QuestionTextBox({ order, question }) {
   return (
     <Wrapper>
-      <WrapPrefix>
-        Q
-        {order}
-        .
-      </WrapPrefix>
+      <WrapPrefix>Q{order}.</WrapPrefix>
       {'\u00A0'}
       {question}
     </Wrapper>

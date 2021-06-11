@@ -20,7 +20,7 @@ import QuestionPage from '@pages/QuestionPage';
 import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
-import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
+import SelfTrainChecklistPage from '@pages/SelfTrainChecklistPage';
 import PeerStudyMainPage from '@pages/PeerStudyMainPage';
 
 import MyVideoPage from '@pages/MyVideoPage';
@@ -43,9 +43,29 @@ const Wrapper = styled.div`
 const WrapPage = styled.div`
   background: ${({ theme: { wrapContentBgColor } }) => wrapContentBgColor};
   display: flex;
-  ${({ toggleTrain }) => (toggleTrain
-    ? 'width: 100vw;'
-    : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;')}
+  ${({ toggleTrain }) =>
+    toggleTrain
+      ? `
+        width: 100vw;
+        height: 100vh;
+        .container {
+          width: 100%;
+        }
+      `
+      : `
+        height: 100vh;
+        width: calc(100vw - 15.9vh);
+        padding-left: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .container {
+          position: relative;
+          width: 100%;
+          max-width: 160vh;
+          height: 90%;
+        }
+    `}
 `;
 
 const WrapSpinner = styled.div`
@@ -62,7 +82,9 @@ export default function App() {
   const { toggleTrain, isLoading } = useSelector(get('train'));
   const { viewMode } = useSelector(get('viewMode'));
   const { ratio } = useWindowSize();
-  const { viewModeTheme: { dark, light } } = theme;
+  const {
+    viewModeTheme: { dark, light },
+  } = theme;
 
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
@@ -75,9 +97,9 @@ export default function App() {
           <Route exact path="/sign-up" component={SignUpPage} />
           <Route exact path="/welcome" component={WelcomePage} />
           {isLoading && (
-          <WrapSpinner>
-            <SyncLoader size={50} color="#123abc" />
-          </WrapSpinner>
+            <WrapSpinner>
+              <SyncLoader size={50} color="#123abc" />
+            </WrapSpinner>
           )}
           {ratio < 1.6 && <FragileRatioPage />}
           <Wrapper>
@@ -90,22 +112,38 @@ export default function App() {
                 path="/self/questionlist"
                 component={QuestionListPage}
               />
-              <R.AuthRoute exact path="/self/question/:id" component={QuestionPage} />
+              <R.AuthRoute
+                exact
+                path="/self/question/:id"
+                component={QuestionPage}
+              />
               <R.AuthRoute
                 exact
                 path="/self/setting/:id"
                 component={SelfTrainSettingPage}
               />
-              <R.AuthRoute exact path="/self/train/:id" component={SelfTrainPage} />
+              <R.AuthRoute
+                exact
+                path="/self/train/:id"
+                component={SelfTrainPage}
+              />
               <R.AuthRoute
                 exact
                 path="/self/checklist/:roomId"
-                component={SelfStudyChecklist}
+                component={SelfTrainChecklistPage}
               />
               <R.AuthRoute exact path="/replay" component={MyVideoPage} />
               <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
-              <R.AuthRoute exact path="/peer-study" component={PeerStudyMainPage} />
-              <R.AuthRoute exact path="/peer-study/:id" component={R.PeerStudyRoute} />
+              <R.AuthRoute
+                exact
+                path="/peer-study"
+                component={PeerStudyMainPage}
+              />
+              <R.AuthRoute
+                exact
+                path="/peer-study/:id"
+                component={R.PeerStudyRoute}
+              />
               <R.AuthRoute exact path="/mypage" component={MyPage} />
             </WrapPage>
           </Wrapper>

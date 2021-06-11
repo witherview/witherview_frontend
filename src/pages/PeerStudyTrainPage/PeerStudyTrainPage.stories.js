@@ -8,8 +8,9 @@ export default {
 };
 
 export const studyTrain = () => (
-  <PeerStudyTrainPage match={{
-    params: { id: 1 },
-  }}
+  <PeerStudyTrainPage
+    match={{
+      params: { id: 1 },
+    }}
   />
 );

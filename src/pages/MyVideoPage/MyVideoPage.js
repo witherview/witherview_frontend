@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import ReplayCardView from '../../components/organisms/ReplayCardView';
+import ReplayCardView from '@organisms/ReplayCardView';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -35,7 +35,7 @@ const HistoryMenuBox = styled.div`
     padding-right: 2vh;
   }
 
-  span:nth-child(n+2) {
+  span:nth-child(n + 2) {
     padding: 0 2vh;
   }
 
@@ -77,7 +77,6 @@ const CardListBox = styled.div`
 
   div.replayCardItem:nth-of-type(4n) {
     margin-right: 0;
-
   }
 `;
 
@@ -111,13 +110,10 @@ export default function MyVideoPage() {
     <Wrapper>
       <header>
         <HistoryMenuBox>
-          {
-            historyMenu.map((menu) => (
-              <span>{menu.name}</span>
-            ))
-          }
+          {historyMenu.map((menu) => (
+            <span>{menu.name}</span>
+          ))}
         </HistoryMenuBox>
-
       </header>
 
       <CardListBox>

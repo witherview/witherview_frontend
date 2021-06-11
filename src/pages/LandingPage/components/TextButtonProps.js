@@ -16,7 +16,8 @@ const Text = styled.span`
   &:hover {
     color: #6e6eff;
   }
-  color: ${({ clicked, theme: { textBtnPropsTextColor } }) => (clicked ? '#6e6eff' : textBtnPropsTextColor)};
+  color: ${({ clicked, theme: { textBtnPropsTextColor } }) =>
+    clicked ? '#6e6eff' : textBtnPropsTextColor};
 `;
 
 export default function TextButtonProp({
@@ -24,7 +25,11 @@ export default function TextButtonProp({
   onClick = () => {},
   isClicked = false,
 }) {
-  return <Text clicked={isClicked} onClick={onClick}>{text}</Text>;
+  return (
+    <Text clicked={isClicked} onClick={onClick}>
+      {text}
+    </Text>
+  );
 }
 
 TextButtonProp.propTypes = {

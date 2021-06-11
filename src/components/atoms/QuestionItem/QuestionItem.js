@@ -119,7 +119,8 @@ export default function QuestionItem({
         return;
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -178,10 +179,7 @@ export default function QuestionItem({
           </QuestionCard>
         </Wrapper>
         <AnswerBox clicked={clicked}>
-          <ContenText
-            onChange={(e) => handleQuestion(e, title)}
-            value={text}
-          />
+          <ContenText onChange={(e) => handleQuestion(e, title)} value={text} />
         </AnswerBox>
       </div>
     </>

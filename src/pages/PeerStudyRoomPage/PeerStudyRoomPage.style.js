@@ -127,7 +127,8 @@ const TagsWrapper = styled.div`
 `;
 
 const TagItem = styled.label`
-  background-color: ${({ color }) => (color === 'blue' ? '#eef0ff' : '#fff3ef')};
+  background-color: ${({ color }) =>
+    color === 'blue' ? '#eef0ff' : '#fff3ef'};
   font-size: 1vh;
   color: ${({ color }) => (color === 'blue' ? '#6e6eff' : '#f2886b')};
   border-radius: 0.5vh;

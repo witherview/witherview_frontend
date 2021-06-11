@@ -89,9 +89,7 @@ export default function LandingTop({ myRef }) {
               '화상 면접 스터디를 다양하게 체험해보세요.',
             ]}
           />
-          <WrapButton>
-            {btnRender()}
-          </WrapButton>
+          <WrapButton>{btnRender()}</WrapButton>
         </WrapContent>
         <WrapImage src={LandingTopImage} />
       </WrapContainer>

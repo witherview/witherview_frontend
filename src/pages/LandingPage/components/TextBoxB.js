@@ -45,18 +45,10 @@ export default function TextBoxB({
 }) {
   return (
     <Wrapper height={height}>
-      <WrapTextHeader
-        lineHeight="none"
-        size={17.5}
-        bold
-      >
+      <WrapTextHeader lineHeight="none" size={17.5} bold>
         {header}
       </WrapTextHeader>
-      <WrapTextContent
-        lineHeight="100%"
-        size={40}
-        bold
-      >
+      <WrapTextContent lineHeight="100%" size={40} bold>
         {content}
       </WrapTextContent>
       <WrapPadding padding>

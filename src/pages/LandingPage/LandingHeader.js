@@ -49,7 +49,8 @@ const WrapTextButton = styled.div`
   @media only screen and (max-width: 1150px) {
     display: none;
   }
-  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) => landingFooterWrapLeftInnerColor};
+  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) =>
+    landingFooterWrapLeftInnerColor};
   min-width: 350px;
   display: flex;
   align-items: center;
@@ -76,11 +77,12 @@ const WrapButton = styled.div`
   }
 `;
 
-const scrollToRef = (ref) => window.scrollTo({
-  top: ref.current.offsetTop - 60,
-  left: 0,
-  behavior: 'smooth',
-});
+const scrollToRef = (ref) =>
+  window.scrollTo({
+    top: ref.current.offsetTop - 60,
+    left: 0,
+    behavior: 'smooth',
+  });
 
 export default function LandingHeader({
   topRef,
@@ -117,7 +119,8 @@ export default function LandingHeader({
   ];
 
   const btnRender = () => {
-    const currentBtnTheme = viewMode === 'dark' ? 'loginBtnDarkMode' : 'outline';
+    const currentBtnTheme =
+      viewMode === 'dark' ? 'loginBtnDarkMode' : 'outline';
 
     return (
       <A.Button
@@ -148,9 +151,7 @@ export default function LandingHeader({
               />
             ))}
           </WrapTextButton>
-          <WrapButton>
-            {btnRender()}
-          </WrapButton>
+          <WrapButton>{btnRender()}</WrapButton>
         </WrapRightInner>
       </WrapContainer>
     </Wrapper>

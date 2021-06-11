@@ -29,7 +29,8 @@ const WrapContent = styled.div`
   width: 100%;
   height: 256px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: ${({ theme: { textBoxCWrapContentBorder } }) => `solid 1px ${textBoxCWrapContentBorder}`};
+  border: ${({ theme: { textBoxCWrapContentBorder } }) =>
+    `solid 1px ${textBoxCWrapContentBorder}`};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -64,11 +65,7 @@ const WrapPadding = styled.div`
   color: ${({ theme: { textBoxCWrapTextSummary } }) => textBoxCWrapTextSummary};
 `;
 
-export default function TextBoxC({
-  header = '',
-  summary = [],
-  icon = '',
-}) {
+export default function TextBoxC({ header = '', summary = [], icon = '' }) {
   return (
     <Wrapper>
       <WrapIcon src={icon} />

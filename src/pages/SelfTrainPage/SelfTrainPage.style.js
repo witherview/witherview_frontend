@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-image: url(${({ source }) => source});
   background-size: cover;
 `;
@@ -62,7 +63,8 @@ const WrapCamView = styled.div`
   width: 132.6vh;
   display: flex;
   flex-direction: row;
-  justify-content: ${({ isShowAnswer }) => (isShowAnswer ? 'space-between' : 'center')};
+  justify-content: ${({ isShowAnswer }) =>
+    isShowAnswer ? 'space-between' : 'center'};
 `;
 
 const WrapButton = styled.div`

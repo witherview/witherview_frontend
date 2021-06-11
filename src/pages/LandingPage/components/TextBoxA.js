@@ -17,7 +17,8 @@ const WrapText = styled.div`
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
   font-size: ${({ size }) => size}px;
   ${({ bold }) => bold && 'font-family: AppleSDGothicNeoB00;'}
-  color: ${({ color, theme: { mainPageBoldColor } }) => (color || mainPageBoldColor)};
+  color: ${({ color, theme: { mainPageBoldColor } }) =>
+    color || mainPageBoldColor};
 `;
 
 const WrapPadding = styled.div`
@@ -38,12 +39,7 @@ export default function TextBoxA({
         {header}
       </WrapText>
       {content.map((each, key) => (
-        <WrapText
-          key={`${key}content`}
-          lineHeight="80%"
-          size={48}
-          bold
-        >
+        <WrapText key={`${key}content`} lineHeight="80%" size={48} bold>
           {each}
         </WrapText>
       ))}

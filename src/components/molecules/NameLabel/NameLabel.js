@@ -23,12 +23,7 @@ const Wrapper = styled.div`
 `;
 
 export default function NameLabel({ name }) {
-  return (
-    <Wrapper>
-      {name}
-      님
-    </Wrapper>
-  );
+  return <Wrapper>{name}님</Wrapper>;
 }
 
 NameLabel.propTypes = {

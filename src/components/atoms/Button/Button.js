@@ -22,7 +22,7 @@ const BoxOption = {
     color: #6e6eff;
   `,
   outline: css`
-    background: transparent; 
+    background: transparent;
     border: solid 2px #6e6eff;
     color: #6e6eff;
   `,
@@ -36,11 +36,11 @@ const Box = styled.div`
   height: 60px;
   border-radius: 10px;
   user-select: none;
-  ${({ btnTheme }) => btnTheme === 'blue'
-    && `&: hover {
+  ${({ btnTheme }) =>
+    btnTheme === 'blue' &&
+    `&: hover {
       opacity: 70%; 
-    }`
-  }
+    }`}
   ${({ btnTheme }) => BoxOption[btnTheme]};
 `;
 

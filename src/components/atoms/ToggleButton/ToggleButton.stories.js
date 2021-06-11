@@ -20,10 +20,7 @@ export const ToggleWithFunction = (args) => {
 
   return (
     <>
-      <ToggleButton
-        {...args}
-        cb={onToggle}
-      />
+      <ToggleButton {...args} cb={onToggle} />
       <div>{state}</div>
     </>
   );

@@ -8,7 +8,7 @@ import A from '@atoms';
 import { commonStyles } from '@style';
 
 import { MODALS } from '@utils/constant';
-import { postGroupFeedback } from '@repository/groupRepository';
+import { postGroupFeedbackApi } from '@repository/groupRepository';
 
 const Wrapper = styled.div`
   display: flex;
@@ -171,7 +171,7 @@ export default function EvaluationModal({ roomId }) {
     };
 
     try {
-      await postGroupFeedback(data);
+      await postGroupFeedbackApi(data);
 
       dispatch(removeModal(MODALS.EVALUATION_MODAL));
 
@@ -190,7 +190,9 @@ export default function EvaluationModal({ roomId }) {
         <A.Icon
           type="cancel_blue"
           alt=""
-          func={() => dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))}
+          func={() =>
+            dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))
+          }
         />
       </IconWrapper>
       <ResultText>면접 최종 평가</ResultText>

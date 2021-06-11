@@ -53,7 +53,7 @@ const TextStart = styled.div`
 
 const WrapButton = styled.div`
   ${commonStyles.button}
-  `;
+`;
 
 export default function SelfTrainStartModal() {
   const dispatch = useDispatch();

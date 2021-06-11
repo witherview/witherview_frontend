@@ -149,10 +149,13 @@ export default function WelcomePage({ history }) {
   const [nickname, setNickname] = useState();
 
   const {
-    name, mainIndustry, mainJob, subIndustry, subJob, phoneNumber,
-  } = useSelector(
-    get('auth'),
-  );
+    name,
+    mainIndustry,
+    mainJob,
+    subIndustry,
+    subJob,
+    phoneNumber,
+  } = useSelector(get('auth'));
 
   const uploadButton = useCallback(async () => {
     try {

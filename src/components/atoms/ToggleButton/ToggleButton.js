@@ -29,7 +29,7 @@ const Slider = styled.span`
   transition: 0.4s;
   &::before {
     position: absolute;
-    content: "";
+    content: '';
     height: 3.6vh;
     width: 3.6vh;
     left: 0.4vh;
@@ -57,11 +57,7 @@ export default function ToggleButton({ className = '', cb }) {
 
   return (
     <Switch>
-      <Input
-        type="checkbox"
-        className={className}
-        onChange={onCb}
-      />
+      <Input type="checkbox" className={className} onChange={onCb} />
       <Slider />
     </Switch>
   );

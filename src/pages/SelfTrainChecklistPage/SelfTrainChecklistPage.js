@@ -2,16 +2,18 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable react/prop-types */
-import React, {
-  useState, useEffect, useCallback, useRef,
-} from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import axios from 'axios';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { postVideoApi, getVideoApi } from '@repository/selfHistoryRepository';
+import {
+  postSelfVideoApi,
+  getSelfVideoApi,
+} from '@repository/selfHistoryRepository';
+import { postSelfChecklistApi } from '@repository/selfCheckListRepository';
 import {
   setUploadedLocation,
   setToggleTrain,
@@ -19,7 +21,7 @@ import {
 } from '@store/Train/train';
 
 import { get } from '@utils/snippet';
-import EvaluationListMock from '@mocks/EvaluationListMock';
+import { evaluation, flatEvaluation } from '@mocks/EvaluationListMock';
 import A from '@atoms';
 
 const CloseButton = styled.div`
@@ -246,7 +248,7 @@ const CheckListTitle = styled.h2`
 `;
 
 const CheckPoint = styled.div`
-  left: calc(${({ point }) => `${point}% - 0.9vh`});
+  left: calc(${({ point }) => `${point} * 97%`});
 `;
 
 const SmallCheckList = styled.div`
@@ -264,21 +266,23 @@ const SmallCheckList = styled.div`
 const ChecklistEach = styled.li`
   display: flex;
   flex-direction: row;
-  align-itmes: center;
+  align-items: center;
 
   > span {
     font-size: 1.9vh;
   }
 `;
 
-export default function SelfStudyChecklistPage({ match }) {
+export default function SelfTrainChecklistPage({ match }) {
   const { roomId } = match.params;
   const dispatch = useDispatch();
   const history = useHistory();
   const { localBlob, historyId } = useSelector(get('train'));
   const { timeFlag } = useSelector(get('time'));
   const [playPauseBtn, setPlayPauseBtn] = useState(true);
-  const [checkListArray, setCheckListArray] = useState(Array(14).fill(false));
+  const [checkListArray, setCheckListArray] = useState(
+    Array(flatEvaluation.length).fill(false),
+  );
   const video = useRef();
   const videoControls = useRef();
   const playpause = useRef();
@@ -291,6 +295,30 @@ export default function SelfStudyChecklistPage({ match }) {
 
     return () => dispatch(setToggleTrain({ toggleTrain: false }));
   }, []);
+
+  const postChecklist = async () => {
+    const checkLists = checkListArray.reduce(
+      (acc, cur, index) => [
+        ...acc,
+        {
+          checkListField: flatEvaluation[index].text,
+          checkListTypeId: flatEvaluation[index].checkListTypeId,
+          idx: index,
+          isChecked: cur,
+        },
+      ],
+      [],
+    );
+
+    const data = { checkLists, selfHistoryId: historyId };
+    try {
+      await postSelfChecklistApi(JSON.stringify(data));
+      alert('체크리스트가 등록되었습니다.');
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
 
   const loadVideoMetaData = useCallback(
     () => progress.current.setAttribute('max', video.current.duration),
@@ -329,17 +357,20 @@ export default function SelfStudyChecklistPage({ match }) {
   }, []);
 
   const onProgressClck = useCallback((evt) => {
-    const pos = (evt.pageX
-        - (progress.current.offsetLeft
-          + progress.current.offsetParent.offsetLeft))
-      / progress.current.offsetWidth;
+    const pos =
+      (evt.pageX -
+        (progress.current.offsetLeft +
+          progress.current.offsetParent.offsetLeft)) /
+      progress.current.offsetWidth;
     video.current.currentTime = pos * video.current.duration;
   }, []);
 
   const onCheck = useCallback(
     (evt) => {
       // eslint-disable-next-line max-len
-      const newCheckList = checkListArray.map((item, idx) => (idx === parseInt(evt.target.parentNode.id, 10) ? !item : item));
+      const newCheckList = checkListArray.map((item, idx) =>
+        idx === parseInt(evt.target.parentNode.id, 10) ? !item : item,
+      );
       setCheckListArray(newCheckList);
     },
     [checkListArray],
@@ -369,9 +400,9 @@ export default function SelfStudyChecklistPage({ match }) {
 
       const {
         data: { id },
-      } = await postVideoApi(formData);
+      } = await postSelfVideoApi(formData);
 
-      const { data } = await getVideoApi();
+      const { data } = await getSelfVideoApi();
 
       dispatch(setIsLoading({ isLoading: false }));
 
@@ -444,8 +475,11 @@ export default function SelfStudyChecklistPage({ match }) {
                     onClick={onProgressClck}
                   />
                   <CheckPointWrapper>
-                    {timeFlag.map((item) => (
-                      <CheckPoint point={item} key={`${item}point`}>
+                    {timeFlag.slice(0, timeFlag.length - 1)?.map((item) => (
+                      <CheckPoint
+                        point={item / timeFlag[timeFlag.length - 1]}
+                        key={`${item}point`}
+                      >
                         <A.Icon
                           type="arrow_up_blue"
                           alt="section"
@@ -477,8 +511,7 @@ export default function SelfStudyChecklistPage({ match }) {
                 disabled
                 text="체크리스트 저장"
                 btnTheme="white"
-                // TODO: 이부분 추후 API 완성되면 추가해야 함
-                func={() => alert('아직 구현되지 않았습니다.')}
+                func={postChecklist}
               />
             </ButtonsWrapper>
           </LeftContent>
@@ -486,7 +519,7 @@ export default function SelfStudyChecklistPage({ match }) {
             <CheckListContainer>
               <CheckListTitle>답변내용 및 목소리 체크!</CheckListTitle>
               <ul>
-                {EvaluationListMock.evaluationList1.map(({ id, text }) => (
+                {evaluation.evaluationList1.map(({ id, text }) => (
                   <ChecklistEach id={id} key={id}>
                     <A.Icon
                       type={checkListArray[id] ? 'check_on' : 'check_off'}
@@ -502,7 +535,7 @@ export default function SelfStudyChecklistPage({ match }) {
               <CheckListContainer>
                 <CheckListTitle>비언어 내용 체크!</CheckListTitle>
                 <ul>
-                  {EvaluationListMock.evaluationList2.map(({ id, text }) => (
+                  {evaluation.evaluationList2.map(({ id, text }) => (
                     <ChecklistEach id={id} key={id}>
                       <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}
@@ -517,7 +550,7 @@ export default function SelfStudyChecklistPage({ match }) {
               <CheckListContainer>
                 <CheckListTitle>영상 환경 체크!</CheckListTitle>
                 <ul>
-                  {EvaluationListMock.evaluationList3.map(({ id, text }) => (
+                  {evaluation.evaluationList3.map(({ id, text }) => (
                     <ChecklistEach id={id} key={id}>
                       <A.Icon
                         type={checkListArray[id] ? 'check_on' : 'check_off'}

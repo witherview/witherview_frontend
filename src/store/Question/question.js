@@ -28,6 +28,10 @@ const questionReducer = createSlice({
   },
 });
 
-export const { addQuestions, resetQuestions, setReload } = questionReducer.actions;
+export const {
+  addQuestions,
+  resetQuestions,
+  setReload,
+} = questionReducer.actions;
 
 export default questionReducer.reducer;

@@ -1,6 +1,4 @@
-import {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
@@ -123,8 +121,8 @@ export default function useReactMediaRecorder({
     const [chunk] = mediaChunks.current;
     const blobProperty = {
       type: chunk.type,
-      ...(blobPropertyBag
-        || (video || screen
+      ...(blobPropertyBag ||
+        (video || screen
           ? { type: 'video/webm;codecs=vp8,opus' }
           : { type: 'audio/wav' })),
     };

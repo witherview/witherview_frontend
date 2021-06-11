@@ -15,13 +15,15 @@ module.exports = (env) => {
     mode: isDevelopment ? 'development' : 'production',
     devtool: isDevelopment ? 'inline-source-map' : 'hidden-source-map',
     entry: './src/index.tsx',
-    optimization: isDevelopment ? {} : {
-      minimizer: [
-        new TerserWebpackPlugin({
-          cache: true,
-        }),
-      ],
-    },
+    optimization: isDevelopment
+      ? {}
+      : {
+          minimizer: [
+            new TerserWebpackPlugin({
+              cache: true,
+            }),
+          ],
+        },
     output: {
       filename: 'bundle.[hash].js',
       path: path.resolve(__dirname, 'dist'),
@@ -88,6 +90,7 @@ module.exports = (env) => {
         '@repository': path.resolve(__dirname, 'src/repository'),
         '@routes': path.resolve(__dirname, 'src/routes'),
         '@store': path.resolve(__dirname, 'src/store'),
+        '@style': path.resolve(__dirname, 'src/style'),
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@context': path.resolve(__dirname, 'src/context'),
         '@style': path.resolve(__dirname, 'src/style/'),
@@ -97,14 +100,14 @@ module.exports = (env) => {
     plugins: isAnalyze
       ? [new BundleAnalyzerPlugin()]
       : [
-        new HtmlWebpackPlugin({
-          template: 'public/index.html',
-          favicon: 'favicon.png',
-        }),
-        new TsconfigPathsPlugin({
-          configFile: path.resolve(__dirname, './tsconfig.json'),
-        }),
-      ],
+          new HtmlWebpackPlugin({
+            template: 'public/index.html',
+            favicon: 'favicon.png',
+          }),
+          new TsconfigPathsPlugin({
+            configFile: path.resolve(__dirname, './tsconfig.json'),
+          }),
+        ],
 
     devServer: {
       host: 'localhost',

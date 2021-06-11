@@ -5,7 +5,12 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCompany, setJob, setViewAnswer } from '@store/Train/train';
+import {
+  setCompany,
+  setJob,
+  setSelectedQnaId,
+  setViewAnswer,
+} from '@store/Train/train';
 import { get } from '@utils/snippet';
 import { getQuestionListAPI } from '@repository/questionListRepository';
 import A from '@atoms';
@@ -18,7 +23,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
 `;
 
 const WrapContent = styled.div`
@@ -72,7 +77,8 @@ const WrapText = styled.div`
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;
   color: #6e6eff;
-  ${({ padding }) => (padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh')};
+  ${({ padding }) =>
+    padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh'};
 `;
 
 const WrapButton = styled.div`
@@ -82,18 +88,17 @@ const WrapButton = styled.div`
 export default function SelfTrainSettingPage({ match, history }) {
   const { id } = match.params;
   const dispatch = useDispatch();
-  const { selectedQnaId, job, company } = useSelector(get('train'));
-  const { standardTime } = useSelector(get('train'));
+  const { selectedQnaId, job, company, standardTime } = useSelector(
+    get('train'),
+  );
 
   const fetch = async () => {
     try {
-      const response = await getQuestionListAPI();
-      const exactData = response.data.filter(
-        (each) => each.id === Number(id),
-      )[0];
+      const { data } = await getQuestionListAPI(id);
 
-      dispatch(setCompany({ company: exactData.title }));
-      dispatch(setJob({ job: exactData.job }));
+      dispatch(setCompany({ company: data[0].enterprise }));
+      dispatch(setJob({ job: data[0].job }));
+      dispatch(setSelectedQnaId({ selectedQnaId: data[0].id }));
     } catch (error) {
       console.error(error);
       alert(error);
@@ -134,7 +139,8 @@ export default function SelfTrainSettingPage({ match, history }) {
             <WrapText padding>기업 이름</WrapText>
             <A.InputBar
               value={company}
-              onChange={(e) => dispatch(setCompany({ company: e.target.value }))
+              onChange={(e) =>
+                dispatch(setCompany({ company: e.target.value }))
               }
               width={967}
             />

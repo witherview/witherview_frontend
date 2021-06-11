@@ -28,7 +28,8 @@ const WrapContainer = styled.div`
 `;
 
 const WrapLeftInner = styled.div`
-  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) => landingFooterWrapLeftInnerColor};
+  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) =>
+    landingFooterWrapLeftInnerColor};
   @media only screen and (max-width: 1150px) {
     width: 80%;
   }
