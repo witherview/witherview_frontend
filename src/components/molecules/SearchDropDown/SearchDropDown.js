@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const WrapModal = styled.div`
+const WrapDropDownTop = styled.div`
   position: absolute;
   top: -0.2vh;
   right: 12vh;
@@ -18,7 +18,7 @@ const WrapModal = styled.div`
   border-top-right-radius: 2vh;
 `;
 
-const WrapModalBottom = styled.div`
+const WrapDropDownBottom = styled.div`
   position: absolute;
 
   top: 7.1vh;
@@ -29,7 +29,7 @@ const WrapModalBottom = styled.div`
   border-radius: 2vh;
 `;
 
-const Container = styled(WrapModalBottom)`
+const Container = styled(WrapDropDownBottom)`
   box-shadow: none;
 
   background-color: white;
@@ -39,8 +39,8 @@ const Container = styled(WrapModalBottom)`
 export default function SearchDropDown({ setToggle }) {
   return (
     <>
-      <WrapModal onClick={() => setToggle(false)} />
-      <WrapModalBottom />
+      <WrapDropDownTop onClick={() => setToggle(false)} />
+      <WrapDropDownBottom />
       <Container />
     </>
   );
