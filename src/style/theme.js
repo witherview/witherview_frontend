@@ -5,7 +5,7 @@ const theme = {
     black: '#000000',
     white: '#ffffff',
     lightWhite: '#f6f6f6',
-    lightGrey: '#d3d3d3',
+    grey1: '#d3d3d3',
     warmGrey: '#9e9e9e',
     darkIndigo: '#0c0c59',
     cornflower: '#6e6eff',
@@ -14,6 +14,18 @@ const theme = {
     palaLilac: '#eef0ff',
     greyishBrown: '#3d3d3d',
   },
+  flexCol: (justifyContent = 'center', alignItems = 'center') => css`
+    display: flex;
+    flex-direction: column;
+    justify-content: ${justifyContent};
+    align-items: ${alignItems};
+  `,
+  flexRow: (justifyContent = 'center', alignItems = 'center') => css`
+    display: flex;
+    flex-direction: row;
+    justify-content: ${justifyContent};
+    align-items: ${alignItems};
+  `,
   button: css`
     > div {
       height: 6vh;
