@@ -17,6 +17,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 5.2vh;
+  min-height: 39.5vh;
+  justify-content: space-between;
 `;
 
 const InputText = styled.div`
@@ -142,7 +144,7 @@ export default function IndustrySelectModal({ func, initialIndustries }) {
     if (industries.length < 2 && !industries.includes(value))
       setIndustries([...industries, value]);
     else {
-      // TODO:예외처리
+      // TODO: 알림같은 예외처리?
     }
   };
 
@@ -150,7 +152,7 @@ export default function IndustrySelectModal({ func, initialIndustries }) {
     setSelect({ [type]: !select[type] });
   };
 
-  const saveSelectedIndustry = () => {
+  const confirmSelectedIndustry = () => {
     if (industryList.indexOf(industry) === -1) {
       return alert('입력값을 확인해 주세요.');
     }
@@ -192,43 +194,45 @@ export default function IndustrySelectModal({ func, initialIndustries }) {
     <>
       <ModalContainer>
         <Wrapper>
-          <InputText>산업</InputText>
-          <SelectList ref={industryRef}>
-            <Select onClick={() => handleToggle('industry')}>
-              <SelectText>{industry}</SelectText>
-              <A.Icon type="arrow_down_blue" alt="" />
-            </Select>
-            {select.industry && (
-              <SelectItemListWrapper>
-                <SelectItemList>
-                  {industryList.map((val, key) => (
-                    <SelectItem key={`${key}item`}>
-                      <SelectText
-                        onClick={() =>
-                          handleSelect(setIndustry, val, 'industry')
-                        }
-                      >
-                        {val}
-                      </SelectText>
-                    </SelectItem>
-                  ))}
-                </SelectItemList>
-              </SelectItemListWrapper>
-            )}
-          </SelectList>
-          <TagWrapper>
-            {industries.map((value, key) => (
-              <div style={{ margin: '0 1vh 1vh 0', display: 'inline-flex' }}>
-                <M.Tag
-                  key={`${key}tag`}
-                  closeTagText={value}
-                  func={() => removeSelectedIndustry(value)}
-                />
-              </div>
-            ))}
-          </TagWrapper>
+          <div>
+            <InputText>산업</InputText>
+            <SelectList ref={industryRef}>
+              <Select onClick={() => handleToggle('industry')}>
+                <SelectText>{industry}</SelectText>
+                <A.Icon type="arrow_down_blue" alt="" />
+              </Select>
+              {select.industry && (
+                <SelectItemListWrapper>
+                  <SelectItemList>
+                    {industryList.map((val, key) => (
+                      <SelectItem key={`${key}item`}>
+                        <SelectText
+                          onClick={() =>
+                            handleSelect(setIndustry, val, 'industry')
+                          }
+                        >
+                          {val}
+                        </SelectText>
+                      </SelectItem>
+                    ))}
+                  </SelectItemList>
+                </SelectItemListWrapper>
+              )}
+            </SelectList>
+            <TagWrapper>
+              {industries.map((value, key) => (
+                <div style={{ margin: '0 1vh 1vh 0', display: 'inline-flex' }}>
+                  <M.Tag
+                    key={`${key}tag`}
+                    closeTagText={value}
+                    func={() => removeSelectedIndustry(value)}
+                  />
+                </div>
+              ))}
+            </TagWrapper>
+          </div>
           <ButtonWrapper>
-            <A.Button text="저장" theme="blue" func={saveSelectedIndustry} />
+            <A.Button text="확인" theme="blue" func={confirmSelectedIndustry} />
             <div style={{ width: '20px' }} />
             <A.Button text="취소" theme="gray" func={handleCancel} />
           </ButtonWrapper>
