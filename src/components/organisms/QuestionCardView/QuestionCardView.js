@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { getQuestionItemAPI } from '@repository/questionListRepository';
-
-import A from '@atoms';
+import { displayModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
+import Modal from '@organisms/Modal/Modal';
 
 const Box = styled.div`
   position: relative;
@@ -54,13 +55,7 @@ const NumberText = styled.div`
   float: left;
   font-family: TitilliumWeb;
   font-size: 5.5vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.51;
-  letter-spacing: normal;
-  text-align: left;
-  color: #5f5fd9;
+  color: #6e6eff;
   margin-right: 2vh;
 `;
 
@@ -69,12 +64,8 @@ const SubText = styled.div`
   height: 5vh;
   float: left;
   font-family: AppleSDGothicNeoM00;
-  font-size: 1.5vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.3;
-  letter-spacing: normal;
+  font-size: 1.9vh;
+  line-height: 1.5;
   text-align: left;
   color: #3d3d3d;
 `;
@@ -88,25 +79,18 @@ const Line = styled.div`
 `;
 
 const Title = styled.div`
+  margin-bottom: 1.2vh;
   display: flex;
   align-items: center;
 `;
 
 const TitleText = styled.span`
+  margin-right: 1.5vh;
   max-width: 21vh;
   max-height: 3vh;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
   font-family: AppleSDGothicNeoEB00;
-  font-size: 1.9vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.46;
-  letter-spacing: normal;
-  text-align: left;
+  font-size: 2.2vh;
+  font-weight: bold;
   color: #000000;
 `;
 
@@ -114,18 +98,8 @@ const SubTitle = styled.div`
   display: inline-block;
   max-width: 25vh;
   max-height: 3vh;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
   font-family: AppleSDGothicNeoB00;
-  font-size: 2vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: normal;
-  text-align: left;
+  font-size: 1.8vh;
   color: #000000;
 `;
 
@@ -175,8 +149,11 @@ export default function QuestionCardView({
   title,
   description,
   handleDelete,
+  job,
+  length,
 }) {
-  const [number, setNumber] = useState();
+  const dispatch = useDispatch();
+  const [select, setSelect] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
@@ -187,22 +164,19 @@ export default function QuestionCardView({
 
   const toggle = (set) => setIsOpen(set);
 
-  const fetch = async () => {
-    try {
-      const { data } = await getQuestionItemAPI(id);
-      setNumber(data.length);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
-
-  useEffect(() => {
-    fetch();
-  }, []);
-
   return (
     <>
+      {select && (
+        <Modal
+          modalName={MODALS.QUESTIONLIST_EDIT_MODAL}
+          questionListEdit={{
+            id,
+            title,
+            description,
+            job,
+          }}
+        />
+      )}
       <Box onClick={() => handleMove()}>
         <IconBox isOpen={isOpen} onMouseOver={() => toggle(true)}>
           <IconEach />
@@ -220,10 +194,23 @@ export default function QuestionCardView({
               삭제
             </Each>
           </Item>
+          <Item>
+            <Each
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelect(true);
+                dispatch(
+                  displayModal({ modalName: MODALS.QUESTIONLIST_EDIT_MODAL }),
+                );
+              }}
+            >
+              수정
+            </Each>
+          </Item>
         </List>
         <Content>
           <Number>
-            <NumberText>{number}</NumberText>
+            <NumberText>{length}</NumberText>
             <SubText>
               개의 질문이
               <br />
@@ -233,7 +220,6 @@ export default function QuestionCardView({
           <Line />
           <Title>
             <TitleText>{title}</TitleText>
-            <A.Icon type="post" alt="" />
           </Title>
           <SubTitle>{description}</SubTitle>
         </Content>
@@ -247,6 +233,8 @@ QuestionCardView.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   handleDelete: PropTypes.func,
+  job: PropTypes.string.isRequired,
+  length: PropTypes.number.isRequired,
 };
 
 QuestionCardView.defaultProp = {

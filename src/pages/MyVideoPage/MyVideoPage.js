@@ -14,7 +14,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { getVideoApi } from '@repository/selfHistoryRepository';
+import { getSelfVideoApi } from '@repository/selfHistoryRepository';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 `;
 
 const columns = [
@@ -84,12 +84,14 @@ export default function MyVideoPage() {
 
   const fetch = async () => {
     try {
-      const { data } = await getVideoApi();
+      const { data } = await getSelfVideoApi();
       // 삭제 API가 없어서 실제 동작 하지 않는 경우 (savedLocation가 없거나 savedLocation에 videos가 포함이 안된 경우)를 filter해줬습니다.
       setRows(
         data
           .filter(
-            (val) => val.savedLocation !== null && val.savedLocation.includes('videos'),
+            (val) =>
+              val.savedLocation !== null &&
+              val.savedLocation.includes('videos'),
           )
           .sort((a, b) => -a.id + b.id),
       );

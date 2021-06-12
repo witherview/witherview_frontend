@@ -25,9 +25,7 @@ const WrapVideo = styled.video`
   position: relative;
 `;
 
-export default function MyCamView({
-  name, status, mediaBlobUrl, peers,
-}) {
+export default function MyCamView({ name, status, mediaBlobUrl, peers }) {
   useEffect(() => () => cleanUpStream(mediaBlobUrl.current.srcObject), []);
 
   return (

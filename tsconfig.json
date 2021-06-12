@@ -54,6 +54,7 @@
       "@repository/*": ["./src/repository/*"],
       "@routes": ["./src/routes/"],
       "@store/*": ["./src/store/*"],
+      "@style/*": ["./src/style/*"],
       "@utils/*": ["./src/utils/*"],
       "@context/*": ["./src/context/*"]
     } /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,

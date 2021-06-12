@@ -7,7 +7,7 @@ import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
 
 import { MODALS } from '@utils/constant';
-import { postGroupFeedback } from '@repository/groupRepository';
+import { postGroupFeedbackApi } from '@repository/groupRepository';
 
 const Wrapper = styled.div`
   display: flex;
@@ -170,9 +170,9 @@ export default function EvaluationModal({ roomId }) {
     };
 
     try {
-      await postGroupFeedback(data);
+      await postGroupFeedbackApi(data);
 
-      dispatch(hideModal(MODALS.EVALUATION_MODAL));
+      dispatch(removeModal(MODALS.EVALUATION_MODAL));
 
       history.push('/peer-study');
     } catch (error) {
@@ -189,7 +189,9 @@ export default function EvaluationModal({ roomId }) {
         <A.Icon
           type="cancel_blue"
           alt=""
-          func={() => dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))}
+          func={() =>
+            dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))
+          }
         />
       </IconWrapper>
       <ResultText>면접 최종 평가</ResultText>

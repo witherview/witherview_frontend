@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import Hls from 'hls.js';
-import { getVideoApi } from '@repository/selfHistoryRepository';
+import { getSelfVideoApi } from '@repository/selfHistoryRepository';
 import { setUploadedLocation, setIsLoading } from '@store/Train/train';
 import { get } from '@utils/snippet';
 
@@ -36,7 +36,7 @@ export default function VideoPage({ match }) {
 
   const fetch = async () => {
     try {
-      const { data } = await getVideoApi();
+      const { data } = await getSelfVideoApi();
 
       dispatch(setIsLoading({ isLoading: false }));
 

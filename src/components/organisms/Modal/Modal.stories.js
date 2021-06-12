@@ -19,7 +19,7 @@ const modals = (args) => {
     dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
   });
 
-  return (<Modal {...args} />);
+  return <Modal {...args} />;
 };
 export const QuestionListSaveModal = modals.bind({});
 export const SelfTrainStartModal = modals.bind({});

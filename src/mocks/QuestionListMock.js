@@ -23,5 +23,4 @@ export const QuestionListMock = [
     enterprise: '리스트 직군4',
     job: '직업4',
   },
-
 ];

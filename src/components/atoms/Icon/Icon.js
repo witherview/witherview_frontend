@@ -132,21 +132,12 @@ export default function Icon({
       case 'arrow_down_blue':
       case 'arrow_down_grey':
       case 'arrow_up_blue':
-      // case 'drawer':
-      // setSize('lg'); 에도 중복으로 들어가 있음.
-      // 어떤 의도로 어디에 사용되는지 확인 필요
-      // case 'check_off':
-      // case 'check_on':
         setSize('xsm');
         break;
       case 'cancel_white':
       case 'add_orange':
       case 'add_blue':
       case 'check':
-      // case 'check_off':
-      // case 'check_on':
-      // setSize('xsm'); setSize('lg'); 에도 중복으로 들어가 있음.
-      // 어떤 의도로 어디에 사용되는지 확인 필요
         setSize('sm');
         break;
       case 'drop_up':

@@ -8,8 +8,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { sortObjectByOrder } from '@utils/snippet';
 import {
-  deleteQuestionItemAPI,
-  getQuestionItemAPI,
+  deleteEachQuestionItemAPI,
+  getEachQuestionItemAPI,
   postQuestionItemAPI,
   patchQuestionItemAPI,
 } from '@repository/questionListRepository';
@@ -29,7 +29,7 @@ const PageWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 `;
 
 const ContentWrapper = styled.div`
@@ -133,7 +133,7 @@ export default function QuestionPage({ match }) {
   const fetch = async () => {
     try {
       if (id !== 'new') {
-        const { data } = await getQuestionItemAPI(id);
+        const { data } = await getEachQuestionItemAPI(id);
         setQuestionList(sortObjectByOrder(data));
       }
     } catch (error) {
@@ -151,7 +151,7 @@ export default function QuestionPage({ match }) {
   const handleQuestionMake = async () => {
     try {
       if (deletedItems) {
-        await deletedItems.map((eachId) => deleteQuestionItemAPI(eachId));
+        await deletedItems.map((eachId) => deleteEachQuestionItemAPI(eachId));
       }
 
       const questionListAsc = questionList.map((question, index) => ({

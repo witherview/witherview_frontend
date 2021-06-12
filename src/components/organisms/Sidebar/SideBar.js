@@ -13,7 +13,6 @@ const Wrapper = styled.div`
   position: fixed;
   width: 10vh;
   min-width: 10vh;
-  max-width: 15.9vh;
   height: 100vh;
   min-height: 20vh;
   border: none;
@@ -65,7 +64,12 @@ export default function SideBar() {
 
   useEffect(() => {
     const pathName = pathname.split('/')[1];
-    if (pathName === 'self' || pathName === 'peer-study' || pathName === 'replay' || pathName === 'mypage') {
+    if (
+      pathName === 'self' ||
+      pathName === 'peer-study' ||
+      pathName === 'replay' ||
+      pathName === 'mypage'
+    ) {
       setPath(pathName);
     } else {
       history.push('/self');

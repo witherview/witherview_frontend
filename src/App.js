@@ -20,7 +20,7 @@ import QuestionPage from '@pages/QuestionPage';
 import SelfTrainEntryPage from '@pages/SelfTrainEntryPage';
 import SelfTrainSettingPage from '@pages/SelfTrainSettingPage';
 import SelfTrainPage from '@pages/SelfTrainPage';
-import SelfStudyChecklist from '@pages/SelfStudyChecklistPage';
+import SelfTrainChecklistPage from '@pages/SelfTrainChecklistPage';
 import PeerStudyMainPage from '@pages/PeerStudyMainPage';
 
 import MyVideoPage from '@pages/MyVideoPage';
@@ -41,9 +41,29 @@ const Wrapper = styled.div`
 
 const WrapPage = styled.div`
   display: flex;
-  ${({ toggleTrain }) => (toggleTrain
-    ? 'width: 100vw;'
-    : 'height: 100vh; width: calc(100vw - 15.9vh); padding-left: 15.9vh;')}
+  ${({ toggleTrain }) =>
+    toggleTrain
+      ? `
+        width: 100vw;
+        height: 100vh;
+        .container {
+          width: 100%;
+        }
+      `
+      : `
+        height: 100vh;
+        width: calc(100vw - 15.9vh);
+        padding-left: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .container {
+          position: relative;
+          width: 100%;
+          max-width: 160vh;
+          height: 90%;
+        }
+    `}
 `;
 
 const WrapSpinner = styled.div`
@@ -77,31 +97,50 @@ export default function App() {
         {ratio < 1.6 && <FragileRatioPage />}
         <Wrapper>
           {!toggleTrain && <O.SideBar />}
-          {!toggleTrain && <O.ProfileMenuContainer name={name} />}
           <WrapPage toggleTrain={toggleTrain}>
-            <R.AuthRoute exact path="/self" component={SelfTrainEntryPage} />
-            <R.AuthRoute
-              exact
-              path="/self/questionlist"
-              component={QuestionListPage}
-            />
-            <R.AuthRoute exact path="/self/question/:id" component={QuestionPage} />
-            <R.AuthRoute
-              exact
-              path="/self/setting/:id"
-              component={SelfTrainSettingPage}
-            />
-            <R.AuthRoute exact path="/self/train/:id" component={SelfTrainPage} />
-            <R.AuthRoute
-              exact
-              path="/self/checklist/:roomId"
-              component={SelfStudyChecklist}
-            />
-            <R.AuthRoute exact path="/replay" component={MyVideoPage} />
-            <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
-            <R.AuthRoute exact path="/peer-study" component={PeerStudyMainPage} />
-            <R.AuthRoute exact path="/peer-study/:id" component={R.PeerStudyRoute} />
-            <R.AuthRoute exact path="/mypage" component={MyPage} />
+            <div className="container">
+              {!toggleTrain && <O.ProfileMenuContainer name={name} />}
+
+              <R.AuthRoute exact path="/self" component={SelfTrainEntryPage} />
+              <R.AuthRoute
+                exact
+                path="/self/questionlist"
+                component={QuestionListPage}
+              />
+              <R.AuthRoute
+                exact
+                path="/self/question/:id"
+                component={QuestionPage}
+              />
+              <R.AuthRoute
+                exact
+                path="/self/setting/:id"
+                component={SelfTrainSettingPage}
+              />
+              <R.AuthRoute
+                exact
+                path="/self/train/:id"
+                component={SelfTrainPage}
+              />
+              <R.AuthRoute
+                exact
+                path="/self/checklist/:roomId"
+                component={SelfTrainChecklistPage}
+              />
+              <R.AuthRoute exact path="/replay" component={MyVideoPage} />
+              <R.AuthRoute exact path="/replay/:id" component={VideoPage} />
+              <R.AuthRoute
+                exact
+                path="/peer-study"
+                component={PeerStudyMainPage}
+              />
+              <R.AuthRoute
+                exact
+                path="/peer-study/:id"
+                component={R.PeerStudyRoute}
+              />
+              <R.AuthRoute exact path="/mypage" component={MyPage} />
+            </div>
           </WrapPage>
         </Wrapper>
         <R.AuthRoute component={NotFound} />

@@ -15,7 +15,7 @@ import A from '@atoms';
 import useWindowSize from '@hooks/useWindowSize';
 
 const Wrapper = styled.div`
-  height: ${({ ratio }) => (ratio ? '135vh;' : '195vh;')}
+  height: ${({ ratio }) => (ratio ? '135vh' : '195vh')};
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -119,7 +119,7 @@ const WrapInput = styled.div`
 
 const WrapMiddleContainer = styled.div`
   height: 12vh;
-  width: ${({ ratio }) => (!ratio ? '60vw;' : 'calc(100% - 12.44vh);')}
+  width: ${({ ratio }) => (!ratio ? '60vw' : 'calc(100% - 12.44vh)')};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -245,7 +245,7 @@ const EMPTY_FORM = {
   passwordConfirm: '',
   subIndustry: '',
   subJob: '',
-  phoneNumber: '',
+  phoneNumber: '01000000000',
 };
 
 const jobList = [
@@ -375,10 +375,10 @@ export default function SignUpPage({ history }) {
 
   const handleClickOutside = ({ target }) => {
     if (
-      !industryMainRef.current.contains(target)
-      && !industrySubRef.current.contains(target)
-      && !jobMainRef.current.contains(target)
-      && !jobSubRef.current.contains(target)
+      !industryMainRef.current.contains(target) &&
+      !industrySubRef.current.contains(target) &&
+      !jobMainRef.current.contains(target) &&
+      !jobSubRef.current.contains(target)
     ) {
       setSelect(initSelect);
     }
@@ -460,11 +460,12 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {industryList.map((val) => (
                             <SelectItem
-                              onClick={() => handleSelect(
-                                setMainIndustry,
-                                val,
-                                'mainIndustry',
-                              )
+                              onClick={() =>
+                                handleSelect(
+                                  setMainIndustry,
+                                  val,
+                                  'mainIndustry',
+                                )
                               }
                             >
                               <SelectText>{val}</SelectText>
@@ -490,7 +491,8 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {industryList.map((val) => (
                             <SelectItem
-                              onClick={() => handleSelect(setSubIndustry, val, 'subIndustry')
+                              onClick={() =>
+                                handleSelect(setSubIndustry, val, 'subIndustry')
                               }
                             >
                               <SelectText>{val}</SelectText>
@@ -518,7 +520,8 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {jobList.map((val) => (
                             <SelectItem
-                              onClick={() => handleSelect(setMainJob, val, 'mainJob')
+                              onClick={() =>
+                                handleSelect(setMainJob, val, 'mainJob')
                               }
                             >
                               <SelectText>{val}</SelectText>
@@ -544,7 +547,8 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {jobList.map((val) => (
                             <SelectItem
-                              onClick={() => handleSelect(setSubJob, val, 'subJob')
+                              onClick={() =>
+                                handleSelect(setSubJob, val, 'subJob')
                               }
                             >
                               <SelectText>{val}</SelectText>
@@ -562,10 +566,11 @@ export default function SignUpPage({ history }) {
               <WrapMiddlePart>
                 {/* TODO: Add function */}
                 <A.CheckBox
-                  func={() => setToggleCheckTerm({
-                    ...toggleCheckTerm,
-                    first: !toggleCheckTerm.first,
-                  })
+                  func={() =>
+                    setToggleCheckTerm({
+                      ...toggleCheckTerm,
+                      first: !toggleCheckTerm.first,
+                    })
                   }
                 />
                 <WrapMiddleText ratio={ratio > 1}>
@@ -577,10 +582,11 @@ export default function SignUpPage({ history }) {
               <WrapMiddlePart>
                 {/* TODO: Add function */}
                 <A.CheckBox
-                  func={() => setToggleCheckTerm({
-                    ...toggleCheckTerm,
-                    second: !toggleCheckTerm.second,
-                  })
+                  func={() =>
+                    setToggleCheckTerm({
+                      ...toggleCheckTerm,
+                      second: !toggleCheckTerm.second,
+                    })
                   }
                 />
                 <WrapMiddleText ratio={ratio > 1}>
