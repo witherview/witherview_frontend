@@ -6,7 +6,7 @@ export default {
   component: InputBar,
 };
 
-export const inputBar = (args) => {
+export const inputBar = () => {
   const [value, setValue] = useState('');
   const [isValid, setIsValid] = useState(false);
 
@@ -15,16 +15,10 @@ export const inputBar = (args) => {
   }, [isValid]);
   return (
     <InputBar
-      {...args}
+      rules={[(v) => !!(v) || '해당 데이터는 필수입니다.']}
       value={value}
       onChange={(e) => setValue(e.target.value)}
       isValid={setIsValid}
     />
   );
-};
-
-inputBar.args = {
-  rules: [
-    (v) => !!(v) || '해당 데이터는 필수입니다.',
-  ],
 };
