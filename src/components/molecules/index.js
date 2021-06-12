@@ -7,6 +7,7 @@ import RangeBar from './RangeBar';
 import RecLabel from './RecLabel';
 import RemainTime from './RemainTime';
 import SmallCamView from './SmallCamView';
+import SearchDropDown from './SearchDropDown';
 import TextBox from './TextBox';
 import TimeButton from './TimeButton';
 
@@ -19,6 +20,7 @@ export default {
   RangeBar,
   RecLabel,
   RemainTime,
+  SearchDropDown,
   SmallCamView,
   TextBox,
   TimeButton,
