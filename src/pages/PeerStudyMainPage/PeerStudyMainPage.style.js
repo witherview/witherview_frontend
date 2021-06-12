@@ -8,37 +8,6 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const SearchWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 79.8vh;
-  height: 7.3vh;
-  border-radius: 2vh;
-  box-shadow: 0 0.6vh 1.2vh 0 rgba(30, 30, 215, 0.04);
-  background-color: #f6f6f6;
-`;
-
-const IconWrapper = styled.div`
-  margin-left: 5.2vh;
-`;
-
-const Input = styled.input`
-  width: 65vh;
-  margin-left: 3vh;
-  border: none;
-  outline: none;
-  background-color: #f6f6f6;
-  font-family: TitilliumWeb;
-  font-size: 2vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.55;
-  letter-spacing: normal;
-  text-align: left;
-  color: #3d3d3d;
-`;
-
 const StudyText = styled.div`
   margin-top: 6vh;
   font-family: AppleSDGothicNeoEB00;
@@ -140,9 +109,6 @@ const AddText = styled.div`
 
 export default {
   Wrapper,
-  SearchWrapper,
-  IconWrapper,
-  Input,
   StudyText,
   ContentWrapper,
   ButtonWrapper,

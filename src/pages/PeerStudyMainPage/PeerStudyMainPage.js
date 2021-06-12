@@ -38,7 +38,7 @@ export default function PeerStudyMainPage() {
       );
       setPage(pages + unit);
     } catch (error) {
-      console.error(error, 'a');
+      console.error(error);
       alert(error);
     }
   };
@@ -118,12 +118,7 @@ export default function PeerStudyMainPage() {
     <S.Wrapper>
       <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload} />
       <div>
-        <S.SearchWrapper>
-          <S.IconWrapper>
-            <A.Icon type="search" alt="search" />
-          </S.IconWrapper>
-          <S.Input placeholder="Search" />
-        </S.SearchWrapper>
+        <O.SearchBar />
         <S.StudyText>현재 진행 중인 스터디 방</S.StudyText>
         <S.ContentWrapper>
           <S.BoxWrapper>
