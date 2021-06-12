@@ -74,7 +74,7 @@ export default function ReplayCardView() {
     <Wrapper className="replayCardItem">
       <SnapshotArea>
         <img src={tempImg} alt="temp" />
-        <A.Icon type="play_pupple" />
+        <A.Icon type="play_purple" />
       </SnapshotArea>
 
       <DescriptionArea>
