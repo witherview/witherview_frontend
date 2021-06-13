@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const Wrapper = styled.input`
   height: 50px;
-  width: ${({ width }) => width}px;
+  width: ${({ isFullWidth, width }) => (isFullWidth ? '100%' : `${width}px`)};
   border: none;
   border-bottom: 2px solid #9e9e9e;
   font-size: 20px;
@@ -24,6 +24,7 @@ const Wrapper = styled.input`
 export default function InputBar({
   disabled,
   autoFocus,
+  isFullWidth,
   value,
   className,
   placeholder,
@@ -36,6 +37,7 @@ export default function InputBar({
     <Wrapper
       disabled={disabled}
       autoFocus={autoFocus}
+      isFullWidth={isFullWidth}
       value={value}
       className={className}
       type={type}
@@ -50,6 +52,7 @@ export default function InputBar({
 InputBar.propTypes = {
   disabled: PropTypes.bool,
   autoFocus: PropTypes.bool,
+  isFullWidth: PropTypes.bool,
   value: PropTypes.string,
   className: PropTypes.string,
   placeholder: PropTypes.string,
@@ -62,6 +65,7 @@ InputBar.propTypes = {
 InputBar.defaultProps = {
   disabled: false,
   autoFocus: false,
+  isFullWidth: false,
   value: '',
   className: '',
   placeholder: '',

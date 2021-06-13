@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-top: 5vh;
 `;
 
 const ProfileWrapper = styled.div`
@@ -36,8 +37,11 @@ const NameWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1.2vh;
-  > i {
-    cursor: pointer;
+
+  input {
+    height: 3.1vh;
+    font-size: 2.4vh;
+    margin-right: 7.9vh;
   }
 `;
 
@@ -134,6 +138,12 @@ const Info = styled.div`
   flex-direction: column;
   margin-left: 7.7vh;
   flex: 0 0 40%;
+
+  input {
+    height: 30px;
+    font-size: 1.5vh;
+    margin-bottom: 2vh;
+  }
 `;
 
 const Title = styled.div`

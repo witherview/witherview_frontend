@@ -6,14 +6,17 @@ const Container = styled.div`
   display: inline-block;
   .header-text {
     font-family: AppleSDGothicNeoB00;
-    font-size: ${({ fontSize }) => fontSize}px;
+    font-size: ${({ fontSize }) => fontSize};
     line-height: 1.42;
     color: ${({ color }) => color};
   }
 `;
 
 export default function SubHeader({
-  subHeaderText, children, fontSize = 24, subTitleColor = '#6e6eff',
+  subHeaderText,
+  children,
+  fontSize = '24px',
+  subTitleColor = '#6e6eff',
 }) {
   return (
     <>
@@ -31,6 +34,6 @@ export default function SubHeader({
 SubHeader.propTypes = {
   subHeaderText: PropTypes.string,
   children: PropTypes.element.isRequired,
-  fontSize: PropTypes.number,
+  fontSize: PropTypes.string,
   subTitleColor: PropTypes.string,
 };

@@ -11,7 +11,7 @@ const unitGenerator = (num, unit = 'vh') => {
   if (Array.isArray(num)) {
     return num.reduce((res, val) => `${res} ${val}${unit} `, '');
   }
-    return `${num}${unit}`;
+  return `${num}${unit}`;
 };
 
 const basicSize = {
@@ -115,16 +115,16 @@ const I = styled.i`
   background-image: url(${iconImage});
   background-size: 123.7vh 87.6vh;
   border-radius: ${({ circle, size }) => (circle ? borderRadiusSize[size] : 0)};
-  width: ${({ size }) => (widthSize[size])};
-  height: ${({ size }) => (heightSize[size])};
-  background-position: ${({ type }) => (backgroundPositionType[type])};
+  width: ${({ size }) => widthSize[size]};
+  height: ${({ size }) => heightSize[size]};
+  background-position: ${({ type }) => backgroundPositionType[type]};
 `;
 
 export default function Icon({
- type = 'test',
- alt = '',
- isCircle = false,
- func = () => {},
+  type = 'test',
+  alt = '',
+  isCircle = false,
+  func = () => {},
 }) {
   const [size, setSize] = useState('md');
   useEffect(() => {
@@ -160,9 +160,9 @@ export default function Icon({
       case 'check_on':
       case 'remove':
       case 'filter':
-      // case 'check_circle_white':
-      // setSize('xlg'); 에도 중복으로 들어가 있음.
-      // 어떤 의도로 어디에 사용되는지 확인 필요
+        // case 'check_circle_white':
+        // setSize('xlg'); 에도 중복으로 들어가 있음.
+        // 어떤 의도로 어디에 사용되는지 확인 필요
         setSize('lg');
         break;
       case 'check_circle_white':
