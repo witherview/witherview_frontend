@@ -45,6 +45,7 @@ export default function MyPage() {
           type: 'star_big',
           title: '면접 평균 점수',
           count: interviewScore,
+          unit: '점',
         },
         {
           type: 'thumb_up_big',
@@ -112,6 +113,7 @@ export default function MyPage() {
             type={val.type}
             title={val.title}
             count={val.count !== null ? val.count : 0}
+            unit={val.unit}
           />
         ))}
       </S.BoxWrapper>
