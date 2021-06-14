@@ -11,11 +11,11 @@ const Wrapper = styled.div`
 
 const ProfileWrapper = styled.div`
   display: flex;
-  width: 120vh;
+  width: 151.8vh;
   height: 17.1vh;
-  padding: 3.66vh 5.1vh;
+  padding: 3.8vh 4.2vh;
   border-radius: 1vh;
-  box-shadow: 0 0.6vh 1.2vh 0 rgba(158, 158, 158, 0.1);
+  box-shadow: 0 0.6vh 2.4vh 0 rgba(158, 158, 158, 0.1);
   border: solid 0.1vh #f6f6f6;
   background-color: #ffffff;
 `;
@@ -138,14 +138,14 @@ const Info = styled.div`
 
 const Title = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 1.5vh;
-  font-weight: normal;
+  font-size: 2vh;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.4;
+  line-height: 1.2;
   letter-spacing: normal;
   text-align: left;
-  color: #3d3d3d;
+  color: #6e6eff;
 `;
 const Content = styled.div`
   margin-bottom: 3.3vh;
@@ -185,7 +185,7 @@ const BlockItem = styled.div`
 
 const BoxWrapper = styled.div`
   display: flex;
-  width: 130.2vh;
+  width: 160.2vh;
   justify-content: space-between;
   margin-top: 3.7vh;
   flex-wrap: wrap;
