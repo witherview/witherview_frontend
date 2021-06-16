@@ -137,7 +137,7 @@ export default function RoomChat({
 
 RoomChat.propTypes = {
   setInterviewer: PropTypes.bool,
-  chatData: PropTypes.object,
+  chatData: PropTypes.array,
   onClick: PropTypes.func,
   isConnectStomp: PropTypes.bool,
 };
