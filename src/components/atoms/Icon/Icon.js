@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import iconImage from '@assets/images/icons.png';
-
 const unitGenerator = (num, unit = 'vh') => {
   if (Array.isArray(num)) {
     return num.reduce((res, val) => `${res} ${val}${unit} `, '');
@@ -112,7 +110,7 @@ const backgroundPositionType = {
 const I = styled.i`
   margin: 0.2vh;
   display: inline-block;
-  background-image: url(${iconImage});
+  background-image: ${({ theme: { iconImage } }) => `url(${iconImage})`};
   background-size: 123.7vh 87.6vh;
   border-radius: ${({ circle, size }) => (circle ? borderRadiusSize[size] : 0)};
   width: ${({ size }) => widthSize[size]};
@@ -204,6 +202,9 @@ export default function Icon({
         break;
     }
   }, [type]);
+
+  console.log('type', type);
+  console.log('size', size);
 
   return (
     <I type={type} size={size} title={alt} onClick={func} circle={isCircle} />

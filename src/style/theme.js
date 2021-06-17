@@ -1,5 +1,7 @@
 import mainLogoBlack from '@assets/images/bi_black.png';
 import mainLogoWhite from '@assets/images/bi_white.png';
+import iconImageLight from '@assets/images/icon-light.png';
+// import iconImageDark from '@assets/images/icon-dark.png';
 
 const darkBgColor = '#2f3545';
 const white = '#fff';
@@ -32,8 +34,34 @@ const theme = {
       textBoxCWrapTextSummary: '#99a3ba',
       // landingFooter
       landingFooterWrapLeftInnerColor: black,
+      // timeButton
+      boxBorder: 'none',
+      boxColor: black,
+      // questionListPage
+      questionListPageTitle: black,
+      questionListPageSecondSelect: darkGray,
+      // isQuestionList
+      addQuestionListBgColor: '#f6f6f6',
+      addQuestionListColor: blueBlack,
+      // questionCardView
+      questionCardView: {
+        border: '#f6f6f6',
+        contentColor: black,
+        subTextColor: darkGray,
+        titleTextColor: black,
+        subTitleColor: black,
+      },
+      // questionPage
+      questionPage: {
+        titleColor: black,
+      },
+      // loginPage
+      loginPage: {
+        wrapSubTitle: darkGray,
+      },
       // assets
       mainLogo: mainLogoBlack,
+      iconImage: iconImageLight,
       // sideBar
       sideBarBgColor: blueBlack,
       // footer
@@ -73,8 +101,34 @@ const theme = {
       textBoxCWrapTextSummary: '#99a3ba',
       // landingFooter
       landingFooterWrapLeftInnerColor: '#e4ecfa',
+      // timeButton
+      boxBorder: 'solid 0.3vh #9e9e9e;',
+      boxColor: white,
+      // questionListPage
+      questionListPageTitle: white,
+      questionListPageSecondSelect: '#898d92',
+      // isQuestionList
+      addQuestionListBgColor: darkBgColor,
+      addQuestionListColor: '#d3d3d3',
+      // questionCardView
+      questionCardView: {
+        border: warmGray,
+        contentColor: white,
+        subTextColor: lightGray,
+        titleTextColor: lightGray,
+        subTitleColor: lightGray,
+      },
+      // questionPage
+      questionPage: {
+        titleColor: white,
+      },
+      // loginPage
+      loginPage: {
+        wrapSubTitle: lightGray,
+      },
       // assets
       mainLogo: mainLogoWhite,
+      iconImage: iconImageLight,
       // sideBar
       sideBarBgColor: darkBgColor,
       // footer

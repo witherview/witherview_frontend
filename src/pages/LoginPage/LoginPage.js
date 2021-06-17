@@ -6,7 +6,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 import styled from 'styled-components';
 
-import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
+// import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { loginApi } from '@repository/accountRepository';
 
 import A from '@atoms';
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #f9f9ff;
+  background: ${({ theme: { wrapContentBgColor } }) => wrapContentBgColor};
 `;
 
 const WrapContent = styled.div`
@@ -31,7 +31,9 @@ const WrapContent = styled.div`
   justify-content: space-between;
 `;
 
-const Logo = styled.img`
+const Logo = styled.img.attrs(({ theme: { mainLogo } }) => ({
+  src: mainLogo,
+}))`
   height: 6vh;
 `;
 
@@ -41,7 +43,11 @@ const WrapSubTitle = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 2.4vh;
   line-height: 3vh;
-  color: #3d3d3d;
+  color: ${({
+    theme: {
+      loginPage: { wrapSubTitle },
+    },
+  }) => wrapSubTitle};
   padding-top: 3.5vh;
   padding-bottom: 5.4vh;
   pointer-events: none;
@@ -197,7 +203,7 @@ export default function LoginPage({ history }) {
         <Redirect to="/self" />
       )}
       <WrapContent>
-        <Logo src={witherviewLogo} alt="logo" />
+        <Logo alt="logo" />
         <WrapSubTitle>위더뷰가 처음이신가요? 정보를 입력해주세요.</WrapSubTitle>
         <WrapBox>
           <WrapContianer>

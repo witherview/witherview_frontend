@@ -10,14 +10,15 @@ const Box = styled.div`
   height: 12.7vh;
   border-radius: 1vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  border: ${({ isClicked }) => (isClicked ? 'solid 0.3vh #5f5fd9;' : 'none')};
-  background-color: #ffffff;
+  border: ${({ clicked, theme: { boxBorder } }) =>
+    clicked ? 'solid 0.3vh #5f5fd9;' : boxBorder};
+  color: ${({ clicked, theme: { boxColor } }) =>
+    clicked ? '#5f5fd9;' : boxColor};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  color: ${({ isClicked }) => (isClicked ? '#5f5fd9;' : 'black')};
   cursor: pointer;
 `;
 
@@ -70,7 +71,7 @@ export default function TimeButton({ time, unit }) {
 
   return (
     <div>
-      <Box onClick={timeSet} isClicked={isClicked}>
+      <Box onClick={timeSet} clicked={isClicked}>
         <Time>{time}</Time>
         {unit && <Unit>{unit}</Unit>}
       </Box>

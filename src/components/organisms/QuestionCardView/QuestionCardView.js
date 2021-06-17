@@ -13,9 +13,11 @@ const Box = styled.div`
   height: 27vh;
   border-radius: 1vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  border: solid
-    ${({ clicked }) => (clicked ? '0.3vh #5f5fd9;' : '0.1vh #f6f6f6;')};
-  background-color: #ffffff;
+  border: ${({
+    theme: {
+      questionCardView: { border },
+    },
+  }) => `solid 1px ${border}`};
   box-sizing: content-box;
   user-select: none;
   cursor: pointer;
@@ -23,6 +25,11 @@ const Box = styled.div`
 
 const Content = styled.div`
   padding: 0 4.1vh;
+  color: ${({
+    theme: {
+      questionCardView: { contentColor },
+    },
+  }) => contentColor};
 `;
 
 const IconBox = styled.div`
@@ -67,7 +74,11 @@ const SubText = styled.div`
   font-size: 1.9vh;
   line-height: 1.5;
   text-align: left;
-  color: #3d3d3d;
+  color: ${({
+    theme: {
+      questionCardView: { subTextColor },
+    },
+  }) => subTextColor};
 `;
 
 const Line = styled.div`
@@ -91,7 +102,11 @@ const TitleText = styled.span`
   font-family: AppleSDGothicNeoEB00;
   font-size: 2.2vh;
   font-weight: bold;
-  color: #000000;
+  color: ${({
+    theme: {
+      questionCardView: { titleTextColor },
+    },
+  }) => titleTextColor};
 `;
 
 const SubTitle = styled.div`
@@ -100,7 +115,11 @@ const SubTitle = styled.div`
   max-height: 3vh;
   font-family: AppleSDGothicNeoB00;
   font-size: 1.8vh;
-  color: #000000;
+  color: ${({
+    theme: {
+      questionCardView: { subTitleColor },
+    },
+  }) => subTitleColor};
 `;
 
 const List = styled.ul`

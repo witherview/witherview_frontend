@@ -143,6 +143,7 @@ export default function SelfTrainSettingPage({ match, history }) {
                 dispatch(setCompany({ company: e.target.value }))
               }
               width={967}
+              placeholder="기본 질문 리스트"
             />
           </WrapInput>
           <WrapInput>
@@ -151,6 +152,7 @@ export default function SelfTrainSettingPage({ match, history }) {
               value={job}
               onChange={(e) => dispatch(setJob({ job: e.target.value }))}
               width={967}
+              placeholder="공통"
             />
           </WrapInput>
         </WrapContainer>

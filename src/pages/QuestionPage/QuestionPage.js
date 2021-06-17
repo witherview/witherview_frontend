@@ -58,7 +58,11 @@ const Title = styled.div`
   font-style: normal;
   line-height: 1.44;
   letter-spacing: normal;
-  color: #000000;
+  color: ${({
+    theme: {
+      questionPage: { titleColor },
+    },
+  }) => titleColor};
 `;
 
 const InputQuestion = styled.input`
