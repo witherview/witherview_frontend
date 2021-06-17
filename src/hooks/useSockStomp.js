@@ -3,16 +3,15 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import moment from 'moment';
 
-const HEADER = {
-  Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-};
-
 export default function useSockStomp({
   url = 'http://api.witherview.com/socket',
   roomId,
 }) {
   const [chat, setChat] = useState([]);
   const [isConnectStomp, setIsConnectStomp] = useState(false);
+  const [header, setHeader] = useState({
+    Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+  });
   const client = useRef(null);
 
   const handleClick = (payload) => {
@@ -22,9 +21,14 @@ export default function useSockStomp({
       userName: sessionStorage.getItem('name'),
       message: payload,
     };
-    client.current.send('/pub/chat.room', HEADER, JSON.stringify(newMessage));
+    client.current.send('/pub/chat.room', header, JSON.stringify(newMessage));
   };
 
+  useEffect(() => {
+    setHeader({
+      Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+    });
+  }, [sessionStorage.getItem('accessToken')]);
   useEffect(() => {
     (async () => {
       client.current = await Stomp.over(new SockJS(url));
@@ -32,7 +36,7 @@ export default function useSockStomp({
       // client.current.debug = null;
 
       await client.current.connect(
-        HEADER,
+        header,
         () => {
           setIsConnectStomp(true);
           client.current.subscribe(
@@ -48,7 +52,7 @@ export default function useSockStomp({
               };
               setChat((prev) => [...prev, chatData]);
             },
-            HEADER,
+            header,
           );
         },
         (err) => {
