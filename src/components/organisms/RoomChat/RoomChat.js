@@ -119,10 +119,10 @@ export default function RoomChat({
               </WrapProfileIcon>
               <WrapChat>
                 <WrapChatInfo>
-                  {val.name}
+                  {val.userName}
                   <span>{val.time}</span>
                 </WrapChatInfo>
-                <MessageText>{val.content}</MessageText>
+                <MessageText>{val.message}</MessageText>
               </WrapChat>
             </ChatMessageWrapper>
           ))}

@@ -18,9 +18,9 @@ export default function useSockStomp({
   const handleClick = (payload) => {
     const newMessage = {
       type: 'COMMENT',
-      roomId,
-      sender: sessionStorage.getItem('name'),
-      contents: payload,
+      studyRoomId: roomId,
+      userName: sessionStorage.getItem('name'),
+      message: payload,
     };
     client.current.send('/pub/chat.room', HEADER, JSON.stringify(newMessage));
   };
@@ -43,8 +43,8 @@ export default function useSockStomp({
 
               const chatData = {
                 time: moment(new Date()).format('HH:mm A'),
-                name: newMessage.sender,
-                content: newMessage.contents,
+                userName: newMessage.userName,
+                message: newMessage.message,
               };
               setChat((prev) => [...prev, chatData]);
             },
