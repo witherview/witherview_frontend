@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  flex: 1;
-  flex-direction: column;
+  height: 100%;
 `;
 
 const WrapperContent = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,11 +142,9 @@ const ItemInnerWrapper = styled.div`
 
 const ProgressBar = styled.progress`
   width: 24.5vh;
-  height: 0.8vh;
   margin-right: 2.2vh;
   border: none;
   overflow: hidden;
-  -moz-border-radius: 5vh;
   -webkit-border-radius: 5vh;
   border-radius: 5vh;
   &::-webkit-progress-value {
