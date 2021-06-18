@@ -20,7 +20,7 @@ export default function PeerStudyRoute({ match, history }) {
         id={id}
         history={history}
         setStepSetting={() => setStep(SETTING_PAGE)}
-        setStepTrain={() => setStep(SETTING_PAGE)}
+        setStepTrain={() => setStep(TRAIN_PAGE)}
         handleClick={handleClick}
         chat={chat}
         isConnectStomp={isConnectStomp}
