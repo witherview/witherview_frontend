@@ -102,6 +102,10 @@ const InnerText = styled.div`
   color: #000000;
 `;
 
+const WrapButton = styled.div`
+  ${({ theme: { button } }) => button}
+`;
+
 export default function PeerStudySettingPage({ setStepTrain }) {
   const [first, setFirst] = useState();
   const { standardTime } = useSelector(get('train'));
@@ -158,11 +162,13 @@ export default function PeerStudySettingPage({ setStepTrain }) {
             </TextButton>
           </WrapSubContainer>
         </WrapContainer>
-        <A.Button
-          theme={first && standardTime > 0 ? 'blue' : 'gray'}
-          text="다음"
-          func={setStepTrain}
-        />
+        <WrapButton>
+          <A.Button
+            theme={first && standardTime > 0 ? 'blue' : 'gray'}
+            text="다음"
+            func={setStepTrain}
+          />
+        </WrapButton>
       </WrapContent>
     </Wrapper>
   );
