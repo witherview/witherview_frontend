@@ -7,21 +7,26 @@ export default function useSockStomp({
   url = 'http://api.witherview.com/socket',
   roomId,
 }) {
-  const [chat, setChat] = useState([]);
+  const [roomChat, setRoomChat] = useState([]);
+  const [feedbackChat, setFeedbackChat] = useState([]);
   const [isConnectStomp, setIsConnectStomp] = useState(false);
   const [header, setHeader] = useState({
     Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
   });
   const client = useRef(null);
 
-  const handleClick = (payload) => {
+  const handleClick = (payload, isFeedback = false) => {
     const newMessage = {
       type: 'COMMENT',
       studyRoomId: roomId,
       userName: sessionStorage.getItem('name'),
       message: payload,
     };
-    client.current.send('/pub/chat.room', header, JSON.stringify(newMessage));
+    client.current.send(
+      `/pub/chat.${isFeedback ? 'feedback' : 'room'}`,
+      header,
+      JSON.stringify(newMessage),
+    );
   };
 
   useEffect(() => {
@@ -29,6 +34,7 @@ export default function useSockStomp({
       Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
     });
   }, [sessionStorage.getItem('accessToken')]);
+
   useEffect(() => {
     (async () => {
       client.current = await Stomp.over(new SockJS(url));
@@ -50,7 +56,22 @@ export default function useSockStomp({
                 userName: newMessage.userName,
                 message: newMessage.message,
               };
-              setChat((prev) => [...prev, chatData]);
+              setRoomChat((prev) => [...prev, chatData]);
+            },
+            header,
+          );
+          client.current.subscribe(
+            `/sub/feedback.${roomId}`,
+            (data) => {
+              const newMessage = JSON.parse(data.body);
+              console.log(newMessage);
+
+              const chatData = {
+                time: moment(new Date()).format('HH:mm A'),
+                userName: newMessage.userName,
+                message: newMessage.message,
+              };
+              setFeedbackChat((prev) => [...prev, chatData]);
             },
             header,
           );
@@ -69,7 +90,8 @@ export default function useSockStomp({
   return {
     client: client.current,
     handleClick,
-    chat,
+    feedbackChat,
+    roomChat,
     isConnectStomp,
   };
 }
