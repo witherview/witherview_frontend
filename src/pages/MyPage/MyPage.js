@@ -4,15 +4,30 @@ import { useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
 
-import { getUserStatisticsApi } from '@repository/accountRepository';
+import {
+  getUserStatisticsApi,
+  putProfileInfoApi,
+} from '@repository/accountRepository';
 import { get } from '@utils/snippet';
 import S from './MyPage.style';
 import Box from './Box';
 
 export default function MyPage() {
-  const { name, email, phoneNumber } = useSelector(get('auth'));
+  const {
+    name,
+    email,
+    phoneNumber,
+    mainIndustry,
+    mainJob,
+    subIndustry,
+    subJob,
+  } = useSelector(get('auth'));
 
   const [info, setInfo] = useState([]);
+  const [editName, setEditName] = useState();
+  const [editPhoneNumber, setEditPhoneNumber] = useState();
+  const [savedName, setSavedName] = useState();
+  const [savedPhoneNumber, setSavedPhoneNumber] = useState();
   const fetch = async () => {
     try {
       const {
@@ -63,10 +78,38 @@ export default function MyPage() {
       alert(error);
     }
   };
+  const updateUserInfo = async () => {
+    try {
+      if (savedName !== editName || savedPhoneNumber !== editPhoneNumber) {
+        // #53 에서 작업한 input validation 에서 validation 필요한 부분 적용 할 일감을 별도로 작성하여
+        // 전체적으로 추가 할 예정임.
+        await putProfileInfoApi({
+          mainIndustry,
+          mainJob,
+          name: editName,
+          phoneNumber: editPhoneNumber,
+          subIndustry,
+          subJob,
+        });
+
+        setSavedName(editName);
+        setSavedPhoneNumber(editPhoneNumber);
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
 
   useEffect(() => {
     fetch();
   }, []);
+  useEffect(() => {
+    setEditName(name);
+    setSavedName(name);
+    setEditPhoneNumber(phoneNumber);
+    setSavedPhoneNumber(phoneNumber);
+  }, [name, phoneNumber]);
 
   return (
     <S.Wrapper>
@@ -75,8 +118,11 @@ export default function MyPage() {
           <M.ProfileEdit />
           <S.ProfileInfo>
             <S.NameWrapper>
-              <S.NameText>{name}</S.NameText>
-              <A.Icon type="post" />
+              <A.InputBar
+                value={editName}
+                isFullWidth
+                onChange={(e) => setEditName(e.target.value)}
+              />
             </S.NameWrapper>
             <S.Jobs>화학 / 데이터 분석</S.Jobs>
             <S.Reliability>신뢰도</S.Reliability>
@@ -88,8 +134,9 @@ export default function MyPage() {
         </S.Profile>
         <S.InfoWrapper>
           <S.Info>
-            <S.Title>이메일 주소</S.Title>
-            <S.Content>{email}</S.Content>
+            <A.SubHeader subHeaderText="이메일 주소" fontSize="1.5vh">
+              <S.Content>{email}</S.Content>
+            </A.SubHeader>
             <S.Title>관심 산업</S.Title>
             <S.Block>
               <S.BlockItem theme="blue">화학</S.BlockItem>
@@ -97,8 +144,13 @@ export default function MyPage() {
             </S.Block>
           </S.Info>
           <S.Info>
-            <S.Title>휴대전화</S.Title>
-            <S.Content>{phoneNumber}</S.Content>
+            <A.SubHeader subHeaderText="휴대전화" fontSize="1.5vh">
+              <A.InputBar
+                value={editPhoneNumber}
+                isFullWidth
+                onChange={(e) => setEditPhoneNumber(e.target.value)}
+              />
+            </A.SubHeader>
             <S.Title>관심 직무</S.Title>
             <S.Block>
               <S.BlockItem theme="orange">데이터 분석</S.BlockItem>
@@ -117,6 +169,11 @@ export default function MyPage() {
           />
         ))}
       </S.BoxWrapper>
+      <A.Button
+        theme="blue"
+        text="저장"
+        func={async () => await updateUserInfo()}
+      />
     </S.Wrapper>
   );
 }
