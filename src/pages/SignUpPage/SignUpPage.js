@@ -95,25 +95,10 @@ const WrapUpperContainer = styled.div`
 `;
 
 const WrapInput = styled.div`
+  ${({ theme: { input } }) => input};
   padding: 3vh 5.5vh 3vh 5.5vh;
   > input {
-    ${({ ratio }) => (ratio ? 'width: 45.8vh;' : 'width: 60vw;')}
-    height: 5vh;
-    font-size: 1.9vh;
-    font-family: AppleSDGothicNeoM00;
-    letter-spacing: 0.2vh;
-    border-bottom: 0.2vh solid #9e9e9e;
-    ::placeholder {
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
-    :-ms-input-placeholder {
-      font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
-    ::-ms-input-placeholder {
-      font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
+    width: ${({ ratio }) => (ratio ? '45.8vh' : '60vw')};
   }
 `;
 
