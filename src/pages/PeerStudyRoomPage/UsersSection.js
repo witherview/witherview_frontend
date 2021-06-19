@@ -11,7 +11,7 @@ const SECOND_COLUMN = 420;
 const THIRD_COLUMN = 627;
 const FOURTH_COLUMN = 1023;
 
-export default function UsersSection({ host, nonHost }) {
+export default function UsersSection({ host, nonHost, isHost, setExit }) {
   return (
     <S.UserInfoWrapper>
       <S.UserInfoHeader>
@@ -50,7 +50,11 @@ export default function UsersSection({ host, nonHost }) {
             </S.ItemInnerWrapper>
           </S.TableColumn>
           <S.TableColumn color="blue" value={FOURTH_COLUMN}>
-            <A.ToggleButton />
+            <A.ToggleButton
+              disabled={!isHost}
+              funcActive={() => setExit(false)}
+              funcDeactive={() => setExit(true)}
+            />
           </S.TableColumn>
         </S.ContentRow>
         <S.ContentRow>
@@ -76,7 +80,11 @@ export default function UsersSection({ host, nonHost }) {
             </S.ItemInnerWrapper>
           </S.TableColumn>
           <S.TableColumn color="blue" value={FOURTH_COLUMN}>
-            <A.ToggleButton />
+            <A.ToggleButton
+              disabled={isHost}
+              funcActive={() => setExit(false)}
+              funcDeactive={() => setExit(true)}
+            />
           </S.TableColumn>
         </S.ContentRow>
       </S.UserInfoContent>
@@ -87,4 +95,6 @@ export default function UsersSection({ host, nonHost }) {
 UsersSection.propTypes = {
   host: PropTypes.object,
   nonHost: PropTypes.object,
+  isHost: PropTypes.bool,
+  setExit: PropTypes.func,
 };

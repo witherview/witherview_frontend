@@ -65,6 +65,9 @@ const BoxWrapper = styled.div`
     margin-bottom: 2.5vh;
   }
   ${({ theme }) => theme.button}
+  > div {
+    pointer-events: auto;
+  }
 `;
 
 const UserInfoWrapper = styled.div`
