@@ -127,6 +127,7 @@ export default function PeerStudyRoomPage({
               nonHost={NON_HOST}
               isHost={IS_HOST}
               setExit={setExit}
+              isAlone={users?.length === 1}
             />
           </S.InterviewRoomSection>
           <O.RoomChat

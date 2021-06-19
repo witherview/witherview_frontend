@@ -11,7 +11,13 @@ const SECOND_COLUMN = 420;
 const THIRD_COLUMN = 627;
 const FOURTH_COLUMN = 1023;
 
-export default function UsersSection({ host, nonHost, isHost, setExit }) {
+export default function UsersSection({
+  host,
+  nonHost,
+  isHost,
+  setExit,
+  isAlone,
+}) {
   return (
     <S.UserInfoWrapper>
       <S.UserInfoHeader>
@@ -57,36 +63,38 @@ export default function UsersSection({ host, nonHost, isHost, setExit }) {
             />
           </S.TableColumn>
         </S.ContentRow>
-        <S.ContentRow>
-          <S.TableColumn value={FIRST_COLUMN}>
-            <A.ProfileIcon isSmall />
-            <S.UserInfo>
-              <p>{nonHost?.name}</p>
-              <S.TagsWrapper>
-                <S.TagItem color="blue">화학</S.TagItem>
-                <S.TagItem color="orange">데이터 분석</S.TagItem>
-              </S.TagsWrapper>
-            </S.UserInfo>
-          </S.TableColumn>
-          <S.TableColumn value={SECOND_COLUMN}>
-            <S.ItemInnerWrapper>
-              {nonHost?.groupPracticeCnt}번
-            </S.ItemInnerWrapper>
-          </S.TableColumn>
-          <S.TableColumn color="blue" value={THIRD_COLUMN}>
-            <S.ItemInnerWrapper>
-              <S.ProgressBar max="100" value={nonHost?.reliability} />
-              {nonHost?.reliability}%
-            </S.ItemInnerWrapper>
-          </S.TableColumn>
-          <S.TableColumn color="blue" value={FOURTH_COLUMN}>
-            <A.ToggleButton
-              disabled={isHost}
-              funcActive={() => setExit(false)}
-              funcDeactive={() => setExit(true)}
-            />
-          </S.TableColumn>
-        </S.ContentRow>
+        {!isAlone && (
+          <S.ContentRow>
+            <S.TableColumn value={FIRST_COLUMN}>
+              <A.ProfileIcon isSmall />
+              <S.UserInfo>
+                <p>{nonHost?.name}</p>
+                <S.TagsWrapper>
+                  <S.TagItem color="blue">화학</S.TagItem>
+                  <S.TagItem color="orange">데이터 분석</S.TagItem>
+                </S.TagsWrapper>
+              </S.UserInfo>
+            </S.TableColumn>
+            <S.TableColumn value={SECOND_COLUMN}>
+              <S.ItemInnerWrapper>
+                {nonHost?.groupPracticeCnt}번
+              </S.ItemInnerWrapper>
+            </S.TableColumn>
+            <S.TableColumn color="blue" value={THIRD_COLUMN}>
+              <S.ItemInnerWrapper>
+                <S.ProgressBar max="100" value={nonHost?.reliability} />
+                {nonHost?.reliability}%
+              </S.ItemInnerWrapper>
+            </S.TableColumn>
+            <S.TableColumn color="blue" value={FOURTH_COLUMN}>
+              <A.ToggleButton
+                disabled={isHost}
+                funcActive={() => setExit(false)}
+                funcDeactive={() => setExit(true)}
+              />
+            </S.TableColumn>
+          </S.ContentRow>
+        )}
       </S.UserInfoContent>
     </S.UserInfoWrapper>
   );
@@ -97,4 +105,5 @@ UsersSection.propTypes = {
   nonHost: PropTypes.object,
   isHost: PropTypes.bool,
   setExit: PropTypes.func,
+  isAlone: PropTypes.func,
 };
