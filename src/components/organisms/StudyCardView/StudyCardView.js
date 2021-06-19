@@ -138,6 +138,7 @@ export default function StudyCardView({
   description,
   time,
   member,
+  canParticipate,
 }) {
   const history = useHistory();
   const [type, setType] = useState('clock_black');
@@ -154,13 +155,17 @@ export default function StudyCardView({
 
   const handleClick = async () => {
     try {
-      const { data } = await getGroupRoomParticipantsApi(id);
-      data?.forEach((val) => {
-        if (val.email !== sessionStorage.getItem('email')) {
-          postGroupRoomParticipantsApi(id);
-        }
-      });
-      history.push(`/peer-study/${id}`);
+      if (canParticipate) {
+        const { data } = await getGroupRoomParticipantsApi(id);
+        data?.forEach((val) => {
+          if (val.email !== sessionStorage.getItem('email')) {
+            postGroupRoomParticipantsApi(id);
+          }
+        });
+        history.push(`/peer-study/${id}`);
+      } else {
+        alert('참여할 수 없는 스터디입니다.');
+      }
     } catch (error) {
       console.error(error);
       alert(error);
@@ -199,6 +204,7 @@ StudyCardView.propTypes = {
   description: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   member: PropTypes.number,
+  canParticipate: PropTypes.bool,
 };
 
 StudyCardView.defaultProp = {

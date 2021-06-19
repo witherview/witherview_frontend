@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { get } from '@utils/snippet';
 import {
   getGroupRoomApi,
   getEachGroupRoomApi,
+  getGroupRoomParticipantsApi,
 } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
@@ -14,10 +16,17 @@ import S from './PeerStudyMainPage.style';
 
 export default function PeerStudyMainPage() {
   const dispatch = useDispatch();
+
+  const { email } = useSelector(get('auth'));
   const isPageBottom = usePageBottom();
   const [groupList, setGroupList] = useState([]);
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(0);
+
+  const handleStudyAddModal = () => {
+    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
+  };
+
   const fetch = async (pages) => {
     try {
       const { data } = await getGroupRoomApi(pages);
@@ -26,9 +35,14 @@ export default function PeerStudyMainPage() {
         const {
           data: { nowUserCnt },
         } = await getEachGroupRoomApi(val.id);
+        const { data: datas } = await getGroupRoomParticipantsApi(val.id);
         setMember((members) => [
           ...members,
-          { id: val.id, member: nowUserCnt },
+          {
+            id: val.id,
+            member: nowUserCnt,
+            emails: datas.reduce((acc, cur) => [...acc, cur.email], []),
+          },
         ]);
       });
       setGroupList((GroupList) =>
@@ -41,10 +55,6 @@ export default function PeerStudyMainPage() {
       console.error(error);
       alert(error);
     }
-  };
-
-  const handleStudyAddModal = () => {
-    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
   };
 
   const handleReload = () => {
@@ -130,16 +140,19 @@ export default function PeerStudyMainPage() {
                     <S.AddText>방 만들기</S.AddText>
                   </S.AddStudy>
                 </S.Wrap>
-                {groupList?.map((val) => {
-                  const count = member.filter((elem) => elem.id === val.id)[0];
+                {groupList?.map(({ id, title, description, time }) => {
+                  const roomInfo = member?.filter((elem) => elem.id === id)[0];
+                  const isParticipated = roomInfo?.emails.includes(email);
+
                   return (
                     <O.StudyCardView
-                      key={val.id}
-                      id={val.id}
-                      title={val.title}
-                      description={val.description}
-                      time={val.time}
-                      member={count && count.member}
+                      key={id}
+                      id={id}
+                      title={title}
+                      description={description}
+                      time={time}
+                      member={roomInfo && roomInfo?.member}
+                      canParticipate={isParticipated || roomInfo?.member === 1}
                     />
                   );
                 })}
