@@ -10,7 +10,6 @@ import {
 
 const Wrapper = styled.div`
   display: flex;
-  flex: 0 0 33.333%;
   margin-bottom: 5vh;
 `;
 
