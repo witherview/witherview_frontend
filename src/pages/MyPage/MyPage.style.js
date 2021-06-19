@@ -150,6 +150,7 @@ const Title = styled.div`
   text-align: left;
   color: #6e6eff;
 `;
+
 const Content = styled.div`
   margin-bottom: 3.3vh;
   font-family: TitilliumWeb;
@@ -201,8 +202,10 @@ const ButtonWrapper = styled.div`
 const InputWrapper = styled.div`
   ${({ theme }) => theme.input}
   > input {
+    width: 100%;
     ${({ noBorder }) =>
-      noBorder && 'color: black; font-weight: bold; border-color: white;'};
+      noBorder && 'color: black; font-weight: bold; border-color: white;'}
+
     &:disabled {
       background-color: white;
     }
