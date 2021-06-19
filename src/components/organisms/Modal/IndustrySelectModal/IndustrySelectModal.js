@@ -11,110 +11,110 @@ import { MODALS } from '@utils/constant';
 const ModalContainer = styled.div`
   width: 40vh;
   min-height: 39.5vh;
-`;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0 5.2vh;
-  min-height: 39.5vh;
-  justify-content: space-between;
-`;
-
-const InputText = styled.div`
-  font-family: AppleSDGothicNeoB00;
-  font-size: 2.4vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.42;
-  letter-spacing: normal;
-  text-align: left;
-  color: #6e6eff;
-  margin-top: 5.5vh;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  padding-bottom: 5.5vh;
-  ${({ theme }) => theme.button}
-`;
-
-const SelectList = styled.div`
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  width: 29.6vh;
-`;
-
-const Select = styled.div`
-  display: flex;
-  align-items: center;
-  width: 29.6vh;
-  height: 6vh;
-  box-sizing: border-box;
-  margin-top: 1.6vh;
-  border-radius: 1vh;
-  border: solid 0.1vh #9e9e9e;
-  background-color: #ffffff;
-`;
-
-const SelectItemListWrapper = styled.div`
-  position: absolute;
-  width: 29.6vh;
-  height: 25vh;
-  transform: translateY(5.6vh);
-  overflow-y: auto;
-  overflow-x: hidden;
-  border-radius: 1vh;
-  box-shadow: 0 1.2vh 3.6vh 0 rgba(4, 4, 161, 0.15);
-  background-color: #ffffff;
-  z-index: 2;
-`;
-
-const SelectItemList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow: visible;
-  z-index: 10;
-`;
-
-const SelectItem = styled.div`
-  display: flex;
-  width: 100%;
-  height: 5.2vh;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  &:first-child {
-    margin-top: 2vh;
+  div.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5.2vh;
+    min-height: 39.5vh;
+    justify-content: space-between;
   }
-  &:hover {
-    background-color: #eef0ff;
-    & > div {
-      color: #0c0c59;
+
+  div.input-text {
+    font-family: AppleSDGothicNeoB00;
+    font-size: 2.4vh;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.42;
+    letter-spacing: normal;
+    text-align: left;
+    color: #6e6eff;
+    margin-top: 5.5vh;
+  }
+
+  div.button-wrapper {
+    display: flex;
+    padding-bottom: 5.5vh;
+    ${({ theme }) => theme.button}
+  }
+
+  div.select-list {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 29.6vh;
+  }
+
+  div.select {
+    display: flex;
+    align-items: center;
+    width: 29.6vh;
+    height: 6vh;
+    box-sizing: border-box;
+    margin-top: 1.6vh;
+    border-radius: 1vh;
+    border: solid 0.1vh #9e9e9e;
+    background-color: #ffffff;
+  }
+
+  div.select-item-list-wrapper {
+    position: absolute;
+    width: 29.6vh;
+    height: 25vh;
+    transform: translateY(5.6vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1vh;
+    box-shadow: 0 1.2vh 3.6vh 0 rgba(4, 4, 161, 0.15);
+    background-color: #ffffff;
+    z-index: 2;
+  }
+
+  div.select-item-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: visible;
+    z-index: 10;
+  }
+
+  div.select-item {
+    display: flex;
+    width: 100%;
+    height: 5.2vh;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    &:first-child {
+      margin-top: 2vh;
+    }
+    &:hover {
+      background-color: #eef0ff;
+      & > div {
+        color: #0c0c59;
+      }
     }
   }
-`;
 
-const SelectText = styled.div`
-  width: 23vh;
-  margin-left: 2.2vh;
-  font-family: AppleSDGothicNeoM00;
-  font-size: 1.8vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.3;
-  letter-spacing: normal;
-  text-align: left;
-  color: #9e9e9e;
-`;
+  div.select-text {
+    width: 23vh;
+    margin-left: 2.2vh;
+    font-family: AppleSDGothicNeoM00;
+    font-size: 1.8vh;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-align: left;
+    color: #9e9e9e;
+  }
 
-const TagWrapper = styled.div`
-  margin-top: 2.5vh;
-  margin-bottom: 6vh;
+  div.tag-wrapper {
+    margin-top: 2.5vh;
+    margin-bottom: 6vh;
+  }
 `;
 
 const initSelect = {
@@ -193,33 +193,34 @@ export default function IndustrySelectModal({ func, initialIndustries }) {
   return (
     <>
       <ModalContainer>
-        <Wrapper>
+        <div className="wrapper">
           <div>
-            <InputText>산업</InputText>
-            <SelectList ref={industryRef}>
-              <Select onClick={() => handleToggle('industry')}>
-                <SelectText>{industry}</SelectText>
+            <div className="input-text">산업</div>
+            <div className="select-list" ref={industryRef}>
+              <div className="select" onClick={() => handleToggle('industry')}>
+                <div className="select-text">{industry}</div>
                 <A.Icon type="arrow_down_blue" alt="" />
-              </Select>
+              </div>
               {select.industry && (
-                <SelectItemListWrapper>
-                  <SelectItemList>
+                <div className="select-item-list-wrapper">
+                  <div className="select-item-list">
                     {industryList.map((val, key) => (
-                      <SelectItem key={`${key}item`}>
-                        <SelectText
+                      <div className="select-item" key={`${key}item`}>
+                        <div
+                          className="select-text"
                           onClick={() =>
                             handleSelect(setIndustry, val, 'industry')
                           }
                         >
                           {val}
-                        </SelectText>
-                      </SelectItem>
+                        </div>
+                      </div>
                     ))}
-                  </SelectItemList>
-                </SelectItemListWrapper>
+                  </div>
+                </div>
               )}
-            </SelectList>
-            <TagWrapper>
+            </div>
+            <div className="tag-wrapper">
               {industries.map((value, key) => (
                 <div style={{ margin: '0 1vh 1vh 0', display: 'inline-flex' }}>
                   <M.Tag
@@ -229,14 +230,14 @@ export default function IndustrySelectModal({ func, initialIndustries }) {
                   />
                 </div>
               ))}
-            </TagWrapper>
+            </div>
           </div>
-          <ButtonWrapper>
+          <div className="button-wrapper">
             <A.Button text="확인" theme="blue" func={confirmSelectedIndustry} />
             <div style={{ width: '20px' }} />
             <A.Button text="취소" theme="gray" func={handleCancel} />
-          </ButtonWrapper>
-        </Wrapper>
+          </div>
+        </div>
       </ModalContainer>
     </>
   );
