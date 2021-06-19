@@ -118,12 +118,6 @@ const BarText = styled.span`
   margin-left: 2.2vh;
   font-family: TitilliumWeb;
   font-size: 2vh;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.55;
-  letter-spacing: normal;
-  text-align: left;
   color: #6e6eff;
 `;
 
