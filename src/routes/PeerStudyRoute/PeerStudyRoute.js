@@ -12,7 +12,9 @@ const TRAIN_PAGE = 2;
 export default function PeerStudyRoute({ match, history }) {
   const [step, setStep] = useState(ROOM_PAGE);
   const { id } = match.params;
-  const { handleClick, chat, isConnectStomp } = useSockStomp({ roomId: id });
+  const { handleClick, roomChat, feedbackChat, isConnectStomp } = useSockStomp({
+    roomId: id,
+  });
 
   return {
     [ROOM_PAGE]: (
@@ -22,7 +24,7 @@ export default function PeerStudyRoute({ match, history }) {
         setStepSetting={() => setStep(SETTING_PAGE)}
         setStepTrain={() => setStep(TRAIN_PAGE)}
         handleClick={handleClick}
-        chat={chat}
+        chat={roomChat}
         isConnectStomp={isConnectStomp}
       />
     ),
@@ -34,7 +36,7 @@ export default function PeerStudyRoute({ match, history }) {
         roomId={id}
         history={history}
         handleClick={handleClick}
-        chat={chat}
+        chat={feedbackChat}
         isConnectStomp={isConnectStomp}
       />
     ),

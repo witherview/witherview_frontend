@@ -55,7 +55,6 @@ export default function QuestionListEditModal({
 }) {
   const dispatch = useDispatch();
 
-  console.log(propsId);
   const [title, setTitle] = useState(propsTitle);
   const [enterprise, setEnterprise] = useState(propsDescription);
 
