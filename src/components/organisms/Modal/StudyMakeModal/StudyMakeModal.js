@@ -321,14 +321,10 @@ export default function StudyStartModal({ func }) {
               <SelectItemListWrapper>
                 <SelectItemList>
                   {categoryList.map((val) => (
-                    <SelectItem>
-                      <SelectText
-                        onClick={() =>
-                          handleSelect(setCategory, val, 'category')
-                        }
-                      >
-                        {val}
-                      </SelectText>
+                    <SelectItem
+                      onClick={() => handleSelect(setCategory, val, 'category')}
+                    >
+                      <SelectText>{val}</SelectText>
                     </SelectItem>
                   ))}
                 </SelectItemList>
@@ -348,14 +344,12 @@ export default function StudyStartModal({ func }) {
                 <SelectItemListWrapper>
                   <SelectItemList>
                     {industryList.map((val) => (
-                      <SelectItem>
-                        <SelectText
-                          onClick={() =>
-                            handleSelect(setIndustry, val, 'industry')
-                          }
-                        >
-                          {val}
-                        </SelectText>
+                      <SelectItem
+                        onClick={() =>
+                          handleSelect(setIndustry, val, 'industry')
+                        }
+                      >
+                        <SelectText>{val}</SelectText>
                       </SelectItem>
                     ))}
                   </SelectItemList>
@@ -389,12 +383,10 @@ export default function StudyStartModal({ func }) {
                 <SelectItemListWrapper>
                   <SelectItemList>
                     {jobList.map((val) => (
-                      <SelectItem>
-                        <SelectText
-                          onClick={() => handleSelect(setJob, val, 'job')}
-                        >
-                          {val}
-                        </SelectText>
+                      <SelectItem
+                        onClick={() => handleSelect(setJob, val, 'job')}
+                      >
+                        <SelectText>{val}</SelectText>
                       </SelectItem>
                     ))}
                   </SelectItemList>

@@ -4,7 +4,7 @@ import Stomp from 'stompjs';
 import moment from 'moment';
 
 export default function useSockStomp({
-  url = 'http://api.witherview.com/socket',
+  url = 'https://api.witherview.com/socket',
   roomId,
 }) {
   const [roomChat, setRoomChat] = useState([]);
