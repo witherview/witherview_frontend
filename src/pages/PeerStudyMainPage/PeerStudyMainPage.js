@@ -64,14 +64,6 @@ export default function PeerStudyMainPage() {
     fetch(page);
   }, [isPageBottom]);
 
-  const ButtonList = [
-    '이공계_사기업',
-    '이공계_공기업',
-    '인문계_사기업',
-    '인문계_공기업',
-    '자유_기타',
-  ];
-
   const MockProfile = () => {
     const item = [];
     for (let i = 0; i < 2; i += 1) {
@@ -128,16 +120,6 @@ export default function PeerStudyMainPage() {
         <S.ContentWrapper>
           <S.BoxWrapper>
             <S.ListWrapper>
-              <S.ButtonWrapper>
-                {ButtonList.map((val, key) => (
-                  <S.TextButtonWrapper key={key}>
-                    <A.TextButton text={val} />
-                  </S.TextButtonWrapper>
-                ))}
-                <S.FilterWrapper>
-                  <A.Icon type="filter" alt="filter" />
-                </S.FilterWrapper>
-              </S.ButtonWrapper>
               <S.StudyListWrapper>
                 <S.Wrap onClick={handleStudyAddModal}>
                   <S.AddStudy>
