@@ -139,6 +139,15 @@ const AddText = styled.div`
   color: #0c0c59;
 `;
 
+const ButtonWrapper = styled.div`
+  ${({ theme }) => theme.button}
+  > div {
+    width: 100%;
+    height: 4.5vh;
+    border-width: 0.2vh;
+  }
+`;
+
 export default {
   Wrapper,
   SearchWrapper,
@@ -156,4 +165,5 @@ export default {
   AddStudy,
   AddText,
   Wrap,
+  ButtonWrapper,
 };

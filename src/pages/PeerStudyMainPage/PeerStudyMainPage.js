@@ -148,6 +148,9 @@ export default function PeerStudyMainPage() {
             <S.PartiWrapper>
               <S.PartiText>참여도 높은 유저</S.PartiText>
               {MockProfile()}
+              <S.ButtonWrapper>
+                <A.Button theme="outline" text="더보기" />
+              </S.ButtonWrapper>
             </S.PartiWrapper>
           </S.BoxWrapper>
         </S.ContentWrapper>
