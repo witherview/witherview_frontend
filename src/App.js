@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
@@ -41,6 +41,7 @@ const Wrapper = styled.div`
 
 const WrapPage = styled.div`
   display: flex;
+  ${({ isBackgroundGrey }) => isBackgroundGrey && 'background-color: #f6f6f6;'}
   ${({ toggleTrain }) =>
     toggleTrain
       ? `
@@ -52,7 +53,7 @@ const WrapPage = styled.div`
       `
       : `
         height: 100vh;
-        width: calc(100vw - 15.9vh);
+        width: calc(100vw - 10vh);
         padding-left: 10vh;
         display: flex;
         justify-content: center;
@@ -76,10 +77,13 @@ const WrapSpinner = styled.div`
 `;
 
 export default function App() {
+  const { pathname } = useLocation();
+
   const { name } = useSelector(get('auth'));
   const { toggleTrain, isLoading } = useSelector(get('train'));
   const { ratio } = useWindowSize();
 
+  const PATH = pathname.split('/')[1];
   // TIP: 새로고침에 랜딩페이지로 가지 않도록 할려면 AuthRoute를 Route로 바꾸면 된다.
   return (
     <>
@@ -97,7 +101,10 @@ export default function App() {
         {ratio < 1.6 && <FragileRatioPage />}
         <Wrapper>
           {!toggleTrain && <O.SideBar />}
-          <WrapPage toggleTrain={toggleTrain}>
+          <WrapPage
+            toggleTrain={toggleTrain}
+            isBackgroundGrey={PATH === 'mypage' || PATH === 'replay'}
+          >
             <div className="container">
               {!toggleTrain && <O.ProfileMenuContainer name={name} />}
 
