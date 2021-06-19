@@ -37,6 +37,9 @@ const theme = {
   `,
   input: css`
     > input {
+      width: 53.3vh;
+      max-width: 60vw;
+      height: 5vh;
       font-size: 1.9vh;
       font-family: AppleSDGothicNeoM00;
       letter-spacing: 0.2vh;
