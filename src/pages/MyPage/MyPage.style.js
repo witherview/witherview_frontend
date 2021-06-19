@@ -24,7 +24,12 @@ const ProfileWrapper = styled.div`
 const Profile = styled.div`
   display: flex;
   width: 55.5vh;
-  border-right: solid 0.1vh #d3d3d3;
+  border-right: solid 0.1vh
+    ${({
+      theme: {
+        colors: { lightWhite },
+      },
+    }) => lightWhite};
 `;
 
 const ProfileInfo = styled.div`
@@ -60,15 +65,9 @@ const NameText = styled.div`
 `;
 
 const Jobs = styled.div`
-  margin-bottom: 3.2vh;
-  font-family: AppleSDGothicNeoM00;
-  font-size: 2vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.55;
-  letter-spacing: normal;
-  text-align: left;
+  margin-bottom: 3vh;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 1.6vh;
   color: #0c0c59;
 `;
 
@@ -119,12 +118,6 @@ const BarText = styled.span`
   margin-left: 2.2vh;
   font-family: TitilliumWeb;
   font-size: 2vh;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.55;
-  letter-spacing: normal;
-  text-align: left;
   color: #6e6eff;
 `;
 
@@ -140,7 +133,7 @@ const Info = styled.div`
   flex: 0 0 40%;
 
   input {
-    height: 30px;
+    height: 3vh;
     font-size: 1.5vh;
     margin-bottom: 2vh;
   }
@@ -201,6 +194,21 @@ const BoxWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+const ButtonWrapper = styled.div`
+  ${({ theme }) => theme.button}
+`;
+
+const InputWrapper = styled.div`
+  ${({ theme }) => theme.input}
+  > input {
+    ${({ noBorder }) =>
+      noBorder && 'color: black; font-weight: bold; border-color: white;'};
+    &:disabled {
+      background-color: white;
+    }
+  }
+`;
+
 export default {
   Wrapper,
   ProfileWrapper,
@@ -220,4 +228,6 @@ export default {
   Block,
   BoxWrapper,
   BlockItem,
+  ButtonWrapper,
+  InputWrapper,
 };

@@ -28,56 +28,7 @@ export default function MyPage() {
   const [editPhoneNumber, setEditPhoneNumber] = useState();
   const [savedName, setSavedName] = useState();
   const [savedPhoneNumber, setSavedPhoneNumber] = useState();
-  const fetch = async () => {
-    try {
-      const {
-        data: {
-          groupStudyCnt,
-          selfPracticeCnt,
-          questionListCnt,
-          interviewScore,
-          passCnt,
-          failCnt,
-        },
-      } = await getUserStatisticsApi();
-      setInfo([
-        {
-          type: 'sound_big',
-          title: '면접스터디 횟수',
-          count: groupStudyCnt,
-        },
-        {
-          type: 'bubble_big',
-          title: '혼자연습 횟수',
-          count: selfPracticeCnt,
-        },
-        {
-          type: 'memo_big',
-          title: '질문 리스트 갯수',
-          count: questionListCnt,
-        },
-        {
-          type: 'star_big',
-          title: '면접 평균 점수',
-          count: interviewScore,
-          unit: '점',
-        },
-        {
-          type: 'thumb_up_big',
-          title: '합격 횟수',
-          count: passCnt,
-        },
-        {
-          type: 'thumb_down_big',
-          title: '불합격 횟수',
-          count: failCnt,
-        },
-      ]);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
+
   const updateUserInfo = async () => {
     try {
       if (savedName !== editName || savedPhoneNumber !== editPhoneNumber) {
@@ -94,6 +45,7 @@ export default function MyPage() {
 
         setSavedName(editName);
         setSavedPhoneNumber(editPhoneNumber);
+        alert('개인정보가 변경되었습니다.');
       }
     } catch (error) {
       console.error(error);
@@ -102,8 +54,58 @@ export default function MyPage() {
   };
 
   useEffect(() => {
-    fetch();
+    (async () => {
+      try {
+        const {
+          data: {
+            groupStudyCnt,
+            selfPracticeCnt,
+            questionListCnt,
+            interviewScore,
+            passCnt,
+            failCnt,
+          },
+        } = await getUserStatisticsApi();
+        setInfo([
+          {
+            type: 'sound_big',
+            title: '면접스터디 횟수',
+            count: groupStudyCnt,
+          },
+          {
+            type: 'bubble_big',
+            title: '혼자연습 횟수',
+            count: selfPracticeCnt,
+          },
+          {
+            type: 'memo_big',
+            title: '질문 리스트 갯수',
+            count: questionListCnt,
+          },
+          {
+            type: 'star_big',
+            title: '면접 평균 점수',
+            count: interviewScore,
+            unit: '점',
+          },
+          {
+            type: 'thumb_up_big',
+            title: '합격 횟수',
+            count: passCnt,
+          },
+          {
+            type: 'thumb_down_big',
+            title: '불합격 횟수',
+            count: failCnt,
+          },
+        ]);
+      } catch (error) {
+        console.error(error);
+        alert(error);
+      }
+    })();
   }, []);
+
   useEffect(() => {
     setEditName(name);
     setSavedName(name);
@@ -118,11 +120,13 @@ export default function MyPage() {
           <M.ProfileEdit />
           <S.ProfileInfo>
             <S.NameWrapper>
-              <A.InputBar
-                value={editName}
-                isFullWidth
-                onChange={(e) => setEditName(e.target.value)}
-              />
+              <S.InputWrapper noBorder>
+                <A.InputBar
+                  value={editName}
+                  isFullWidth
+                  onChange={(e) => setEditName(e.target.value)}
+                />
+              </S.InputWrapper>
             </S.NameWrapper>
             <S.Jobs>화학 / 데이터 분석</S.Jobs>
             <S.Reliability>신뢰도</S.Reliability>
@@ -134,8 +138,10 @@ export default function MyPage() {
         </S.Profile>
         <S.InfoWrapper>
           <S.Info>
-            <A.SubHeader subHeaderText="이메일 주소" fontSize="1.5vh">
-              <S.Content>{email}</S.Content>
+            <A.SubHeader subHeaderText="이메일 주소" fontSize="2vh">
+              <S.InputWrapper>
+                <A.InputBar value={email} isFullWidth disabled />
+              </S.InputWrapper>
             </A.SubHeader>
             <S.Title>관심 산업</S.Title>
             <S.Block>
@@ -144,12 +150,14 @@ export default function MyPage() {
             </S.Block>
           </S.Info>
           <S.Info>
-            <A.SubHeader subHeaderText="휴대전화" fontSize="1.5vh">
-              <A.InputBar
-                value={editPhoneNumber}
-                isFullWidth
-                onChange={(e) => setEditPhoneNumber(e.target.value)}
-              />
+            <A.SubHeader subHeaderText="휴대전화" fontSize="2vh">
+              <S.InputWrapper>
+                <A.InputBar
+                  value={editPhoneNumber}
+                  isFullWidth
+                  onChange={(e) => setEditPhoneNumber(e.target.value)}
+                />
+              </S.InputWrapper>
             </A.SubHeader>
             <S.Title>관심 직무</S.Title>
             <S.Block>
@@ -169,11 +177,13 @@ export default function MyPage() {
           />
         ))}
       </S.BoxWrapper>
-      <A.Button
-        theme="blue"
-        text="저장"
-        func={async () => await updateUserInfo()}
-      />
+      <S.ButtonWrapper>
+        <A.Button
+          theme="blue"
+          text="저장"
+          func={async () => await updateUserInfo()}
+        />
+      </S.ButtonWrapper>
     </S.Wrapper>
   );
 }

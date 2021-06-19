@@ -29,24 +29,13 @@ const ContentWrapper = styled.div`
 const Title = styled.div`
   font-family: AppleSDGothicNeoEB00;
   font-size: 2.4vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.46;
-  letter-spacing: normal;
-  text-align: left;
   color: #3d3d3d;
 `;
 
 const Count = styled.div`
-  font-family: TitilliumWeb;
+  font-family: TitilliumWebBold;
   font-size: 5.5vh;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.51;
-  letter-spacing: normal;
-  text-align: left;
+  line-height: 1.5;
   color: #0c0c59;
 `;
 
@@ -54,12 +43,6 @@ const Unit = styled.span`
   margin-left: 2.3vh;
   font-family: AppleSDGothicNeoM00;
   font-size: 2vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.3;
-  letter-spacing: normal;
-  text-align: left;
   color: #3d3d3d;
 `;
 
