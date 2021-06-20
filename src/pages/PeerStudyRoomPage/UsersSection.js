@@ -105,5 +105,5 @@ UsersSection.propTypes = {
   nonHost: PropTypes.object,
   isHost: PropTypes.bool,
   setExit: PropTypes.func,
-  isAlone: PropTypes.func,
+  isAlone: PropTypes.bool,
 };
