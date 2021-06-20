@@ -11,8 +11,9 @@ import {
   deleteEachGroupRoomParticipantsApi,
 } from '@repository/groupRepository';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
+import { setIsHost } from '@store/Train/train';
 
 import A from '@atoms';
 import O from '@organisms';
@@ -29,7 +30,10 @@ export default function PeerStudyRoomPage({
   handleClick,
   isConnectStomp,
 }) {
+  const dispatch = useDispatch();
+
   const { email } = useSelector(get('auth'));
+  const { isHost } = useSelector(get('train'));
 
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
@@ -39,14 +43,13 @@ export default function PeerStudyRoomPage({
 
   const HOST = users?.filter((each) => each.isHost)[0];
   const NON_HOST = users?.filter((each) => !each.isHost)[0];
-  const IS_HOST = HOST?.email === email;
 
   const [exit, setExit] = useState(false);
 
   const handleLeave = () => {
     if (exit) {
       // TODO: 잘 작동하는지 추후에 확인해야 함
-      if (IS_HOST) {
+      if (isHost) {
         patchPassRoomHostEachGroupRoomApi(id);
       }
       deleteEachGroupRoomParticipantsApi(id);
@@ -86,6 +89,13 @@ export default function PeerStudyRoomPage({
 
         setUsers(participants);
 
+        dispatch(
+          setIsHost({
+            isHost:
+              participants?.filter((each) => each?.isHost)[0]?.email === email,
+          }),
+        );
+
         const {
           data: { title, date, time, description },
         } = await getEachGroupRoomApi(id);
@@ -117,7 +127,7 @@ export default function PeerStudyRoomPage({
                 <A.Button text="방 나가기" theme="gray" func={handleLeave} />
                 <A.Button
                   text="스터디 시작하기"
-                  func={IS_HOST ? setStepSetting : setStepTrain}
+                  func={isHost ? setStepSetting : setStepTrain}
                   theme="blue"
                 />
               </S.BoxWrapper>
@@ -125,7 +135,7 @@ export default function PeerStudyRoomPage({
             <UsersSection
               host={HOST}
               nonHost={NON_HOST}
-              isHost={IS_HOST}
+              isHost={isHost}
               setExit={setExit}
               isAlone={users?.length === 1}
             />
