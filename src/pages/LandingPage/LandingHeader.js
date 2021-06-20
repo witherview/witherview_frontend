@@ -53,6 +53,10 @@ const Wrapper = styled.div`
     justify-content: flex-end;
   }
 
+  div.wrap-profile {
+    width: 143px; //button width 140px + border width 1.5px * 2
+  }
+
   div.wrap-button {
     > div {
       height: 35px;
@@ -103,10 +107,12 @@ export default function LandingHeader({
               text="면접스터디"
             />
           </div>
-          <div className="wrap-button">
-            {isLoggedIn ? (
-              <O.ProfileMenuContainer name={name} />
-            ) : (
+          {isLoggedIn ? (
+            <div className="wrap-profile">
+              <O.ProfileMenuContainer name={name} isSmall isAbsolute={false} />
+            </div>
+          ) : (
+            <div className="wrap-button">
               <A.Button
                 id="menu_btn"
                 theme="outline"
@@ -114,8 +120,8 @@ export default function LandingHeader({
                 text="LOG IN"
                 func={() => history.push('/login')}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </Wrapper>

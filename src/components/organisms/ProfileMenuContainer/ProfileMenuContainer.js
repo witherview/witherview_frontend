@@ -11,7 +11,7 @@ import { setLogout } from '@store/Auth/auth';
 import A from '@atoms';
 
 const Wrapper = styled.div`
-  position: absolute;
+  position: ${({ isAbsolute }) => isAbsolute && 'absolute'};
   top: 0;
   right: 0;
   height: 7.3vh;
@@ -39,7 +39,7 @@ const WrapMenu = styled.div`
 const Name = styled.div`
   font-family: AppleSDGothicNeoEB00;
   font-size: 1.5vh;
-  padding-left: 2.9vh;
+  padding-left: ${({ isSmall }) => (isSmall ? '1.5vh' : '2.9vh')};
   padding-right: 1vh;
   user-select: none;
   color: #3d3d3d;
@@ -87,7 +87,12 @@ const Each = styled.div`
   cursor: pointer;
 `;
 
-export default function ProfileMenuContainer({ name, src }) {
+export default function ProfileMenuContainer({
+  name,
+  src,
+  isSmall = false,
+  isAbsolute = true,
+}) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -95,14 +100,14 @@ export default function ProfileMenuContainer({ name, src }) {
   const toggle = (set) => setIsOpen(set);
 
   return (
-    <Wrapper>
+    <Wrapper isAbsolute={isAbsolute}>
       <WrapMenu
         isOpen={isOpen}
         onMouseOver={() => toggle(true)}
         onMouseLeave={() => toggle(false)}
       >
-        <A.ProfileIcon src={src} />
-        <Name>{name || 'Unknown'}</Name>
+        <A.ProfileIcon src={src} isSmall={isSmall} />
+        <Name isSmall={isSmall}>{name || 'Unknown'}</Name>
 
         <A.Icon type="arrow_down_grey" alt="arrow_down_grey" />
         <List isOpen={isOpen}>
@@ -128,8 +133,12 @@ export default function ProfileMenuContainer({ name, src }) {
 ProfileMenuContainer.propTypes = {
   name: PropTypes.string,
   src: PropTypes.string,
+  isSmall: PropTypes.bool,
+  isAbsolute: PropTypes.bool,
 };
 
 ProfileMenuContainer.defaultProps = {
   name: '홍길동',
+  isSmall: false,
+  isAbsolute: true,
 };
