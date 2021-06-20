@@ -43,7 +43,7 @@ export default function PeerStudyRoomPage({
 
   const [exit, setExit] = useState(false);
 
-  const handeLeave = () => {
+  const handleLeave = () => {
     if (exit) {
       // TODO: 잘 작동하는지 추후에 확인해야 함
       if (IS_HOST) {
@@ -114,7 +114,7 @@ export default function PeerStudyRoomPage({
                 <S.Description>{descript}</S.Description>
               </S.TextWrapper>
               <S.BoxWrapper>
-                <A.Button text="방 나가기" theme="gray" func={handeLeave} />
+                <A.Button text="방 나가기" theme="gray" func={handleLeave} />
                 <A.Button
                   text="스터디 시작하기"
                   func={IS_HOST ? setStepSetting : setStepTrain}
