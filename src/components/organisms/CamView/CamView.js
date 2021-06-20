@@ -6,9 +6,11 @@ import styled from 'styled-components';
 
 import M from '@molecules';
 
+import { cleanUpStream } from '@utils/snippet';
+
 const Wrapper = styled.div`
   height: 59vh;
-  width: 77.3vh;
+  width: ${({ isShowAnswer }) => (isShowAnswer ? '77.3' : '132.6')}vh;
   position: relative;
 `;
 
@@ -46,6 +48,8 @@ export default function CamView({
         console.error(error);
       });
   };
+
+  useEffect(() => () => cleanUpStream(videoRef.current.srcObject), []);
 
   useEffect(() => {
     setupStream();

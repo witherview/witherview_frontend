@@ -66,11 +66,12 @@ const WrapButton = styled.div`
   }
 `;
 
-const scrollToRef = (ref) => window.scrollTo({
-  top: ref.current.offsetTop - 60,
-  left: 0,
-  behavior: 'smooth',
-});
+const scrollToRef = (ref) =>
+  window.scrollTo({
+    top: ref.current.offsetTop - 60,
+    left: 0,
+    behavior: 'smooth',
+  });
 
 export default function LandingHeader({
   topRef,
@@ -87,10 +88,7 @@ export default function LandingHeader({
         <WrapLeft src={Logo} />
         <WrapRightInner>
           <WrapTextButton>
-            <TextButtonProps
-              onClick={() => executeScroll(topRef)}
-              text="홈"
-            />
+            <TextButtonProps onClick={() => executeScroll(topRef)} text="홈" />
             <TextButtonProps
               onClick={() => executeScroll(middleOneRef)}
               text="위더뷰란?"

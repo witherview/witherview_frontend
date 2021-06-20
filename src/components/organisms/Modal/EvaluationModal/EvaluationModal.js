@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '@store/Modal/modal';
+import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
 
 import { MODALS } from '@utils/constant';
-import { postGroupFeedback } from '@repository/groupRepository';
+import { postGroupFeedbackApi } from '@repository/groupRepository';
 
 const Wrapper = styled.div`
   display: flex;
@@ -160,22 +160,25 @@ export default function EvaluationModal({ roomId }) {
     setEvaluate(val);
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     const data = {
-      id: roomId,
+      studyRoomId: roomId,
       passOrFail: evaluate === 'pass',
       score,
-      targetUser: 0, // TODO: change this properly
+      studyHistoryId: '', // TODO: change this properly
+      receivedUser: 0, // TODO: change this properly
     };
 
-    postGroupFeedback(data)
-      .then(() => {
-        dispatch(hideModal(MODALS.EVALUATION_MODAL));
-        history.push('/peer-study');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      await postGroupFeedbackApi(data);
+
+      dispatch(removeModal(MODALS.EVALUATION_MODAL));
+
+      history.push('/peer-study');
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   const calScore = (val) => ((score + val) % 10) + 1;
@@ -186,7 +189,9 @@ export default function EvaluationModal({ roomId }) {
         <A.Icon
           type="cancel_blue"
           alt=""
-          func={() => dispatch(hideModal(MODALS.EVALUATION_MODAL))}
+          func={() =>
+            dispatch(removeModal({ modalName: MODALS.EVALUATION_MODAL }))
+          }
         />
       </IconWrapper>
       <ResultText>면접 최종 평가</ResultText>

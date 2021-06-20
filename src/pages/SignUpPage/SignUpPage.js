@@ -1,24 +1,21 @@
 /* eslint-disable no-useless-escape */
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import ReactRouterPropTypes from 'react-router-prop-types';
 
-import { signUpApi } from '@repository/signUpRepository';
-import { loginApi } from '@repository/loginRepository';
+import { loginApi, registerApi } from '@repository/accountRepository';
 import { setLogin } from '@store/Auth/auth';
 
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
-import { get } from '@utils/snippet';
 
 import A from '@atoms';
 
 import useWindowSize from '@hooks/useWindowSize';
 
 const Wrapper = styled.div`
-  height: ${({ ratio }) => (ratio ? '135vh;' : '195vh;')}
+  height: ${({ ratio }) => (ratio ? '135vh' : '195vh')};
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -98,31 +95,16 @@ const WrapUpperContainer = styled.div`
 `;
 
 const WrapInput = styled.div`
-  padding: 3vh 5.5vh 3vh 5.5vh;
-  input {
-    ${({ ratio }) => (ratio ? 'width: 45.8vh;' : 'width: 60vw;')}
-    height: 5vh;
-    font-size: 1.9vh;
-    font-family: AppleSDGothicNeoM00;
-    letter-spacing: 0.2vh;
-    border-bottom: 0.2vh solid #9e9e9e;
-    ::placeholder {
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
-    :-ms-input-placeholder {
-      font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
-    ::-ms-input-placeholder {
-      font-family: AppleSDGothicNeoB00;
-      color: ${({ theme }) => theme.colors.warmGrey};
-    }
+  ${({ theme: { input } }) => input};
+  padding: 3vh 5.5vh 1.1vh 5.5vh;
+  div > input {
+    width: ${({ ratio }) => (ratio ? '45.8vh' : '60vw')};
   }
 `;
 
 const WrapMiddleContainer = styled.div`
   height: 12vh;
-  width: ${({ ratio }) => (!ratio ? '60vw;' : 'calc(100% - 12.44vh);')}
+  width: ${({ ratio }) => (!ratio ? '60vw' : 'calc(100% - 12.44vh)')};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -248,9 +230,10 @@ const EMPTY_FORM = {
   passwordConfirm: '',
   subIndustry: '',
   subJob: '',
+  phoneNumber: '01000000000',
 };
 
-const industryList = [
+const jobList = [
   '경영/사무',
   '마케팅/MD',
   '영업',
@@ -261,7 +244,7 @@ const industryList = [
   '기타',
 ];
 
-const jobList = [
+const industryList = [
   '금융/은행',
   'IT',
   '서비스/교육',
@@ -281,7 +264,6 @@ const initSelect = {
 
 export default function SignUpPage({ history }) {
   const dispatch = useDispatch();
-  const authSelector = useSelector(get('auth'));
 
   const { ratio } = useWindowSize();
 
@@ -300,7 +282,9 @@ export default function SignUpPage({ history }) {
     mainJob: false,
     subJob: false,
   });
-  const [immediateValidations, setImmediateValidations] = useState(Array(6).fill(false));
+  const [immediateValidations, setImmediateValidations] = useState(
+    Array(6).fill(false),
+  );
 
   const handleInput = (e) => {
     setSignUpForm({});
@@ -324,47 +308,78 @@ export default function SignUpPage({ history }) {
     setSelect({ ...initSelect, [type]: !select[type] });
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     setImmediateValidations(Array(6).fill(true));
     if (toggleCheckTerm.first === false || toggleCheckTerm.second === false) {
       return alert('약관에 모두 동의하셔야 합니다.');
     }
-    // if (signUpForm.password !== signUpForm.passwordConfirm) {
-    //   return alert('비물번호가 일치하지 않습니다.');
-    // }
+    if (signUpForm.password !== signUpForm.passwordConfirm) {
+      return alert('비물번호가 일치하지 않습니다.');
+    }
     if (Object.values(signUpForm).includes('')) {
       return alert('모든 항목을 입력/선택 해주세요.');
     }
-    return signUpApi(JSON.stringify(signUpForm))
-      .then((response) => {
-        const loginForm = {
-          email: response.data.email,
-          password: signUpForm.password,
-        };
-        loginApi(JSON.stringify(loginForm))
-          .then((res) => {
-            const email = JSON.stringify(res.data.email).replace(/\"/g, '');
-            const name = JSON.stringify(res.data.name).replace(/\"/g, '');
-            dispatch(setLogin({ email, name }));
-            history.push('/welcome');
-          })
-          .catch(() => {
-            alert('로그인 실패');
-          });
-      })
-      .catch((err) => {
-        // TODO: 이부분 좀 더 좋은 방법으로 처리할 수 있도록 하기
-        let errors = '';
-        err.response.data.errors.forEach((val) => {
-          errors += `${val.reason}\n`;
-        });
-        alert(errors);
-      });
+    try {
+      const {
+        data: { email, name, phoneNumber },
+      } = await registerApi(JSON.stringify(signUpForm));
+
+      dispatch(
+        setLogin({
+          email,
+          name,
+          mainIndustry,
+          mainJob,
+          subIndustry,
+          subJob,
+          phoneNumber,
+        }),
+      );
+
+      const loginForm = {
+        email,
+        password: signUpForm.password,
+      };
+
+      const {
+        data: { access_token: accessToken },
+      } = await loginApi(JSON.stringify(loginForm));
+
+      sessionStorage.setItem('accessToken', accessToken);
+
+      history.push('/welcome');
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+
+    return null;
   };
+
+  const industryMainRef = useRef();
+  const industrySubRef = useRef();
+
+  const jobMainRef = useRef();
+  const jobSubRef = useRef();
+
+  const handleClickOutside = ({ target }) => {
+    if (
+      !industryMainRef.current.contains(target) &&
+      !industrySubRef.current.contains(target) &&
+      !jobMainRef.current.contains(target) &&
+      !jobSubRef.current.contains(target)
+    ) {
+      setSelect(initSelect);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   return (
     <Wrapper ratio={ratio > 1.675}>
-      {authSelector.isLogin && <Redirect to="/self" />}
       <WrapContent>
         <Logo src={witherviewLogo} alt="logo" />
         <WrapSubTitle>
@@ -445,10 +460,14 @@ export default function SignUpPage({ history }) {
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 산업_Main</WrapText>
-                  <SelectList>
+                  <SelectList ref={industryMainRef}>
                     <A.Validation
                       value={mainIndustry}
-                      rules={[(v) => v !== '산업을 선택해주세요.' || '관심 산업을 선택해 주세요.']}
+                      rules={[
+                        (v) =>
+                          v !== '산업을 선택해주세요.' ||
+                          '관심 산업을 선택해 주세요.',
+                      ]}
                       isCheckImmediatelyRule={immediateValidations[4]}
                     >
                       <Select
@@ -465,11 +484,13 @@ export default function SignUpPage({ history }) {
                           {industryList.map((val) => (
                             <SelectItem
                               key={`main-industry-${val}`}
-                              onClick={() => handleSelect(
-                                setMainIndustry,
-                                val,
-                                'mainIndustry',
-                              )}
+                              onClick={() =>
+                                handleSelect(
+                                  setMainIndustry,
+                                  val,
+                                  'mainIndustry',
+                                )
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -481,10 +502,14 @@ export default function SignUpPage({ history }) {
                 </WrapInput>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 직무_Main</WrapText>
-                  <SelectList>
+                  <SelectList ref={jobMainRef}>
                     <A.Validation
                       value={mainJob}
-                      rules={[(v) => v !== '직무를 선택해주세요.' || '관심 직무를 선택해 주세요.']}
+                      rules={[
+                        (v) =>
+                          v !== '직무를 선택해주세요.' ||
+                          '관심 직무를 선택해 주세요.',
+                      ]}
                       isCheckImmediatelyRule={immediateValidations[5]}
                     >
                       <Select
@@ -501,7 +526,9 @@ export default function SignUpPage({ history }) {
                           {jobList.map((val) => (
                             <SelectItem
                               key={`main-job-${val}`}
-                              onClick={() => handleSelect(setMainJob, val, 'mainJob')}
+                              onClick={() =>
+                                handleSelect(setMainJob, val, 'mainJob')
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -515,7 +542,7 @@ export default function SignUpPage({ history }) {
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 산업_Sub</WrapText>
-                  <SelectList>
+                  <SelectList ref={industrySubRef}>
                     <Select
                       onClick={() => handleToggle('subIndustry')}
                       ratio={ratio > 1.675}
@@ -529,7 +556,9 @@ export default function SignUpPage({ history }) {
                           {industryList.map((val) => (
                             <SelectItem
                               key={`sub-industry-${val}`}
-                              onClick={() => handleSelect(setSubIndustry, val, 'subIndustry')}
+                              onClick={() =>
+                                handleSelect(setSubIndustry, val, 'subIndustry')
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -541,7 +570,7 @@ export default function SignUpPage({ history }) {
                 </WrapInput>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 직무_Sub</WrapText>
-                  <SelectList>
+                  <SelectList ref={jobSubRef}>
                     <Select
                       onClick={() => handleToggle('subJob')}
                       ratio={ratio > 1.675}
@@ -555,7 +584,9 @@ export default function SignUpPage({ history }) {
                           {jobList.map((val) => (
                             <SelectItem
                               key={`sub-job-${val}`}
-                              onClick={() => handleSelect(setSubJob, val, 'subJob')}
+                              onClick={() =>
+                                handleSelect(setSubJob, val, 'subJob')
+                              }
                             >
                               <SelectText>{val}</SelectText>
                             </SelectItem>
@@ -572,30 +603,32 @@ export default function SignUpPage({ history }) {
               <WrapMiddlePart>
                 {/* TODO: Add function */}
                 <A.CheckBox
-                  func={() => setToggleCheckTerm({
-                    ...toggleCheckTerm,
-                    first: !toggleCheckTerm.first,
-                  })}
+                  func={() =>
+                    setToggleCheckTerm({
+                      ...toggleCheckTerm,
+                      first: !toggleCheckTerm.first,
+                    })
+                  }
                 />
                 <WrapMiddleText ratio={ratio > 1}>
                   {/* TODO: 병헌님이 작업해주시면 추가 */}
-                  <ClickableSelectText>이용약관</ClickableSelectText>
-                  에 모두
+                  <ClickableSelectText>이용약관</ClickableSelectText>에 모두
                   동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
               <WrapMiddlePart>
                 {/* TODO: Add function */}
                 <A.CheckBox
-                  func={() => setToggleCheckTerm({
-                    ...toggleCheckTerm,
-                    second: !toggleCheckTerm.second,
-                  })}
+                  func={() =>
+                    setToggleCheckTerm({
+                      ...toggleCheckTerm,
+                      second: !toggleCheckTerm.second,
+                    })
+                  }
                 />
                 <WrapMiddleText ratio={ratio > 1}>
                   {/* TODO: 병헌님이 작업해주시면 추가 */}
-                  <ClickableSelectText>개인정보처리방침</ClickableSelectText>
-                  에
+                  <ClickableSelectText>개인정보처리방침</ClickableSelectText>에
                   모두 동의합니다.
                 </WrapMiddleText>
               </WrapMiddlePart>
@@ -603,7 +636,11 @@ export default function SignUpPage({ history }) {
           </WrapContianer>
           <WrapButton>
             {/* TODO: 회원가입 로직 추기 */}
-            <A.Button theme="blue" text="회원가입" func={() => handleSignUp()} />
+            <A.Button
+              theme="blue"
+              text="회원가입"
+              func={() => handleSignUp()}
+            />
           </WrapButton>
         </WrapBox>
         <WrapBottomContainer>

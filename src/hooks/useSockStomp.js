@@ -7,45 +7,81 @@ export default function useSockStomp({
   url = 'https://api.witherview.com/socket',
   roomId,
 }) {
-  const [chat, setChat] = useState([]);
+  const [roomChat, setRoomChat] = useState([]);
+  const [feedbackChat, setFeedbackChat] = useState([]);
   const [isConnectStomp, setIsConnectStomp] = useState(false);
+  const [header, setHeader] = useState({
+    Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+  });
   const client = useRef(null);
 
-  const handleClick = (payload) => {
-    console.log(payload);
-
+  const handleClick = (payload, isFeedback = false) => {
     const newMessage = {
       type: 'COMMENT',
-      roomId,
-      sender: sessionStorage.getItem('name'),
-      contents: payload,
+      studyRoomId: roomId,
+      userName: sessionStorage.getItem('name'),
+      message: payload,
     };
-    client.current.send('/pub/chat', {}, JSON.stringify(newMessage));
+    client.current.send(
+      `/pub/chat.${isFeedback ? 'feedback' : 'room'}`,
+      header,
+      JSON.stringify(newMessage),
+    );
   };
 
   useEffect(() => {
-    client.current = Stomp.over(new SockJS(url));
-    client.current.debug = null;
-    client.current.connect(
-      {},
-      () => {
-        setIsConnectStomp(true);
-        client.current.subscribe(`/sub/room/${roomId}`, (data) => {
-          const newMessage = JSON.parse(data.body);
-          console.log(newMessage);
+    setHeader({
+      Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+    });
+  }, [sessionStorage.getItem('accessToken')]);
 
-          const chatData = {
-            time: moment(new Date()).format('HH:mm A'),
-            name: newMessage.sender,
-            content: newMessage.contents,
-          };
-          setChat((prev) => [...prev, chatData]);
-        });
-      },
-      (err) => {
-        console.error(err);
-      },
-    );
+  useEffect(() => {
+    (async () => {
+      client.current = await Stomp.over(new SockJS(url));
+
+      // client.current.debug = null;
+
+      await client.current.connect(
+        header,
+        () => {
+          setIsConnectStomp(true);
+          client.current.subscribe(
+            `/sub/room.${roomId}`,
+            (data) => {
+              const newMessage = JSON.parse(data.body);
+              console.log(newMessage);
+
+              const chatData = {
+                time: moment(new Date()).format('HH:mm A'),
+                userName: newMessage.userName,
+                message: newMessage.message,
+              };
+              setRoomChat((prev) => [...prev, chatData]);
+            },
+            header,
+          );
+          client.current.subscribe(
+            `/sub/feedback.${roomId}`,
+            (data) => {
+              const newMessage = JSON.parse(data.body);
+              console.log(newMessage);
+
+              const chatData = {
+                time: moment(new Date()).format('HH:mm A'),
+                userName: newMessage.userName,
+                message: newMessage.message,
+              };
+              setFeedbackChat((prev) => [...prev, chatData]);
+            },
+            header,
+          );
+        },
+        (err) => {
+          console.error(err);
+        },
+      );
+    })();
+
     return () => {
       client.current.disconnect();
     };
@@ -54,7 +90,8 @@ export default function useSockStomp({
   return {
     client: client.current,
     handleClick,
-    chat,
+    feedbackChat,
+    roomChat,
     isConnectStomp,
   };
 }

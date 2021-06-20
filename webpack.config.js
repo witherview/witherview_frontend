@@ -1,10 +1,11 @@
 const path = require('path');
 
-const port = process.env.PORT || 3000;
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
+
+const port = process.env.PORT || 3000;
 
 module.exports = (env) => {
   const isAnalyze = env === 'isAnalyze';
@@ -13,21 +14,21 @@ module.exports = (env) => {
   return {
     mode: isDevelopment ? 'development' : 'production',
     devtool: isDevelopment ? 'inline-source-map' : 'hidden-source-map',
-    entry: './src/index.js',
-    optimization: isDevelopment ? {} : {
-      minimizer: [
-        new TerserWebpackPlugin({
-          cache: true,
-        }),
-      ],
-    },
-
+    entry: './src/index.tsx',
+    optimization: isDevelopment
+      ? {}
+      : {
+          minimizer: [
+            new TerserWebpackPlugin({
+              cache: true,
+            }),
+          ],
+        },
     output: {
       filename: 'bundle.[hash].js',
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/',
     },
-
     module: {
       rules: [
         {
@@ -50,28 +51,10 @@ module.exports = (env) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
+          test: /\.(ts|js)x?$/,
+          include: path.resolve('src'),
           use: {
             loader: 'babel-loader',
-            options: {
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
-                    targets: {
-                      browsers: ['last 2 chrome versions'],
-                    },
-                    debug: true,
-                  },
-                ],
-                '@babel/preset-react',
-              ],
-              plugins: [
-                '@babel/plugin-proposal-class-properties',
-                '@babel/plugin-proposal-optional-chaining',
-              ],
-            },
           },
         },
         {
@@ -93,7 +76,7 @@ module.exports = (env) => {
     },
 
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
       alias: {
         '@atoms': path.resolve(__dirname, 'src/components/atoms'),
         '@molecules': path.resolve(__dirname, 'src/components/molecules'),
@@ -107,6 +90,7 @@ module.exports = (env) => {
         '@repository': path.resolve(__dirname, 'src/repository'),
         '@routes': path.resolve(__dirname, 'src/routes'),
         '@store': path.resolve(__dirname, 'src/store'),
+        '@style': path.resolve(__dirname, 'src/style'),
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@context': path.resolve(__dirname, 'src/context'),
       },
@@ -115,15 +99,19 @@ module.exports = (env) => {
     plugins: isAnalyze
       ? [new BundleAnalyzerPlugin()]
       : [
-        new HtmlWebpackPlugin({
-          template: 'public/index.html',
-          favicon: 'favicon.png',
-        }),
-      ],
+          new HtmlWebpackPlugin({
+            template: 'public/index.html',
+            favicon: 'favicon.png',
+          }),
+          new TsconfigPathsPlugin({
+            configFile: path.resolve(__dirname, './tsconfig.json'),
+          }),
+        ],
 
     devServer: {
       host: 'localhost',
       port,
+      stats: 'errors-only',
       open: true,
       historyApiFallback: true,
     },

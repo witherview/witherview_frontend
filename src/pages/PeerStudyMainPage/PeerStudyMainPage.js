@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  getGroupListApi,
-  getGroupMemberApi,
+  getGroupRoomApi,
+  getEachGroupRoomApi,
 } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
-import { showModal } from '@store/Modal/modal';
+import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import Modal from '@organisms/Modal/Modal';
 import usePageBottom from '@hooks/usePageBottom';
@@ -19,25 +19,32 @@ export default function PeerStudyMainPage() {
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(0);
   const fetch = async (pages) => {
-    getGroupListApi(pages).then((res) => {
-      const unit = res.data.length === 6 ? 1 : 0;
-      res.data.forEach((val) => {
-        getGroupMemberApi(val.id).then((response) => {
-          setMember((members) => [
-            ...members,
-            { id: val.id, member: response.data.length },
-          ]);
-        });
+    try {
+      const { data } = await getGroupRoomApi(pages);
+      const unit = data.length === 6 ? 1 : 0;
+      data?.forEach(async (val) => {
+        const {
+          data: { nowUserCnt },
+        } = await getEachGroupRoomApi(val.id);
+        setMember((members) => [
+          ...members,
+          { id: val.id, member: nowUserCnt },
+        ]);
       });
-      setGroupList((GroupList) => [...GroupList, ...res.data].filter(
-        (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
-      ));
+      setGroupList((GroupList) =>
+        [...GroupList, ...data].filter(
+          (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
+        ),
+      );
       setPage(pages + unit);
-    });
+    } catch (error) {
+      console.error(error, 'a');
+      alert(error);
+    }
   };
 
   const handleStudyAddModal = () => {
-    dispatch(showModal(MODALS.STUDY_MAKE_MODAL));
+    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
   };
 
   const handleReload = () => {

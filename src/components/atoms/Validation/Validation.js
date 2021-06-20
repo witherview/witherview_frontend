@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  
+
   .errorMessage {
-    font-size: ${(fontSize) => fontSize};
+    font-size: ${({ fontSize }) => fontSize};
     margin-top: 1vh;
     color: red;
   }
@@ -15,7 +15,6 @@ const Container = styled.div`
 
 export default function Validation({
   value,
-  width,
   rules,
   isValid,
   isCheckImmediatelyRule,
@@ -42,19 +41,15 @@ export default function Validation({
     else setLazyCheck(true);
   }, [isCheckImmediatelyRule, value]);
   return (
-    <Container
-      width={width}
-      fontSize={fontSize}
-    >
+    <Container fontSize={fontSize}>
       {children}
-      {errorMessage && <span className="errorMessage">{errorMessage}</span>}
+      <span className="errorMessage">{errorMessage} &nbsp;</span>
     </Container>
   );
 }
 
 Validation.propTypes = {
   value: PropTypes.any,
-  width: PropTypes.number,
   rules: PropTypes.array,
   // ts 컨버팅 이후 [() => {} || ''] 형태로 정의 변경 필요
   isValid: PropTypes.func,
@@ -64,7 +59,6 @@ Validation.propTypes = {
 };
 
 Validation.defaultProps = {
-  width: 553,
   rules: [],
   isValid: () => {},
   isCheckImmediatelyRule: false,

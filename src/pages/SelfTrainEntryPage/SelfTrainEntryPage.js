@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 `;
 
 const WrapContent = styled.div`
@@ -85,8 +85,8 @@ export default function SelfTrainEntryPage({ history }) {
             func={
               // TODO: 기본 질문목록 endpoint 재호님이 추가하면 바꿔야 함
               isGuide
-                ? () => history.push('/self/setting/3')
-                : () => history.push('/questionlist')
+                ? () => history.push('/self/setting/basic')
+                : () => history.push('/self/questionlist')
             }
             theme={clicked ? 'blue' : 'gray'}
             text="다음"

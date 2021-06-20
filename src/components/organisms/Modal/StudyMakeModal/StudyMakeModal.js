@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { hideModal } from '@store/Modal/modal';
+import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
-import { postStudyApi } from '@repository/groupRepository';
+import { postGroupRoomApi } from '@repository/groupRepository';
 import { MODALS } from '@utils/constant';
 
 const Wrapper = styled.div`
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 
 const InputWrapper = styled.div`
   width: 60vh;
-  margin-top: ${({ first }) => (first ? '10vh' : '4.5vh')};
+  margin-top: ${({ first }) => (first ? '6vh' : '4.5vh')};
   ${({ theme }) => theme.input}
 `;
 
@@ -39,7 +39,23 @@ const InputText = styled.div`
 const SelectWrapper = styled.div`
   display: flex;
   width: 60vh;
-  margin-top: 4.5vh;
+  margin-top: 3vh;
+`;
+
+const UpperWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 60vh;
+  margin-top: 3vh;
+  > div {
+    margin-bottom: 1vh;
+    > div {
+      width: 57vh;
+      > div {
+        width: 51vh;
+      }
+    }
+  }
 `;
 
 const LeftWrapper = styled.div`
@@ -52,10 +68,11 @@ const RightWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  justify-content: flex-end;
 `;
 
 const WrapButton = styled.div`
-  margin-top: 8.2vh;
+  margin-top: 4vh;
   ${({ theme }) => theme.button}
 `;
 
@@ -63,6 +80,7 @@ const SelectList = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 4.5vh;
+  cursor: pointer;
 `;
 
 const Select = styled.div`
@@ -75,7 +93,6 @@ const Select = styled.div`
   border-radius: 1vh;
   border: solid 0.1vh #9e9e9e;
   background-color: #ffffff;
-  z-index: 1000;
 `;
 
 const SelectItemListWrapper = styled.div`
@@ -88,6 +105,7 @@ const SelectItemListWrapper = styled.div`
   border-radius: 1vh;
   box-shadow: 0 1.2vh 3.6vh 0 rgba(4, 4, 161, 0.15);
   background-color: #ffffff;
+  z-index: 2;
 `;
 
 const SelectItemList = styled.div`
@@ -120,7 +138,7 @@ const SelectText = styled.div`
   width: 21vh;
   margin-left: 2.2vh;
   font-family: AppleSDGothicNeoM00;
-  font-size: 2vh;
+  font-size: 1.8vh;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -153,6 +171,45 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const initSelect = {
+  industry: false,
+  job: false,
+  category: false,
+};
+
+const industryList = [
+  '경영/사무',
+  '마케팅/MD',
+  '영업',
+  'IT/인터넷',
+  '연구개발/설계',
+  '생산/품질',
+  '디자인',
+  '기타',
+];
+
+const jobList = [
+  '금융/은행',
+  'IT',
+  '서비스/교육',
+  '보건/의약/바이오',
+  '제조',
+  '건설',
+  '예술/문화',
+  '기타',
+];
+
+const categoryList = [
+  '금융/은행',
+  'IT',
+  '서비스/교육',
+  '보건/의약/바이오',
+  '제조',
+  '건설',
+  '예술/문화',
+  '기타',
+];
+
 export default function StudyStartModal({ func }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -160,35 +217,11 @@ export default function StudyStartModal({ func }) {
   const [description, setDescription] = useState();
   const [industry, setIndustry] = useState('산업을 선택해주세요.');
   const [job, setJob] = useState('직무를 선택해주세요.');
-  const [select, setSelect] = useState({
-    industry: false,
-    job: false,
-  });
+  const [category, setCategory] = useState('카테고리를 선택해주세요.');
+  const [select, setSelect] = useState(initSelect);
+
   const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
-
-  const [time, setTime] = useState(moment(new Date()).format('HH:mm'));
-
-  const industryList = [
-    '경영/사무',
-    '마케팅/MD',
-    '영업',
-    'IT/인터넷',
-    '연구개발/설계',
-    '생산/품질',
-    '디자인',
-    '기타',
-  ];
-
-  const jobList = [
-    '금융/은행',
-    'IT',
-    '서비스/교육',
-    '보건/의약/바이오',
-    '제조',
-    '건설',
-    '예술/문화',
-    '기타',
-  ];
+  const [time, setTime] = useState(moment(new Date()).format('HH:mm:ss'));
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
@@ -200,7 +233,7 @@ export default function StudyStartModal({ func }) {
   };
 
   const handleToggle = (type) => {
-    setSelect({ ...select, [type]: !select[type] });
+    setSelect({ [type]: !select[type] });
   };
 
   const handleChangeDate = (e) => {
@@ -211,28 +244,52 @@ export default function StudyStartModal({ func }) {
     setTime(e.target.value);
   };
 
-  const handleMakeStudy = () => {
+  const handleMakeStudy = async () => {
     if (
-      title === ''
-      || description === ''
-      || jobList.indexOf(job) === -1
-      || industryList.indexOf(industry) === -1
+      title === '' ||
+      description === '' ||
+      jobList.indexOf(job) === -1 ||
+      industryList.indexOf(industry) === -1
     ) {
-      alert('입력값을 확인해 주세요.');
-      return;
+      return alert('입력값을 확인해 주세요.');
     }
-    postStudyApi({
-      title,
-      description,
-      job,
-      industry,
-      date,
-      time,
-    }).then(() => {
+    try {
+      await postGroupRoomApi({
+        title,
+        description,
+        job,
+        industry,
+        date,
+        time,
+        category,
+      });
       func();
-      dispatch(hideModal(MODALS.STUDY_MAKE_MODAL));
-    });
+      dispatch(removeModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+    return null;
   };
+
+  const categoryRef = useRef();
+  const industryRef = useRef();
+  const jobRef = useRef();
+
+  const handleClickOutside = ({ target }) => {
+    if (
+      !industryRef.current.contains(target) &&
+      !jobRef.current.contains(target) &&
+      !categoryRef.current.contains(target)
+    ) {
+      setSelect(initSelect);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -253,10 +310,32 @@ export default function StudyStartModal({ func }) {
             onChange={(e) => handleInputChange(e, setDescription)}
           />
         </InputWrapper>
+        <UpperWrapper>
+          <InputText>카테고리</InputText>
+          <SelectList ref={categoryRef}>
+            <Select onClick={() => handleToggle('category')}>
+              <SelectText>{category}</SelectText>
+              <A.Icon type="arrow_down_blue" alt="" />
+            </Select>
+            {select.category && (
+              <SelectItemListWrapper>
+                <SelectItemList>
+                  {categoryList.map((val) => (
+                    <SelectItem
+                      onClick={() => handleSelect(setCategory, val, 'category')}
+                    >
+                      <SelectText>{val}</SelectText>
+                    </SelectItem>
+                  ))}
+                </SelectItemList>
+              </SelectItemListWrapper>
+            )}
+          </SelectList>
+        </UpperWrapper>
         <SelectWrapper>
           <LeftWrapper>
             <InputText>산업</InputText>
-            <SelectList>
+            <SelectList ref={industryRef}>
               <Select onClick={() => handleToggle('industry')}>
                 <SelectText>{industry}</SelectText>
                 <A.Icon type="arrow_down_blue" alt="" />
@@ -265,12 +344,12 @@ export default function StudyStartModal({ func }) {
                 <SelectItemListWrapper>
                   <SelectItemList>
                     {industryList.map((val) => (
-                      <SelectItem>
-                        <SelectText
-                          onClick={() => handleSelect(setIndustry, val, 'industry')}
-                        >
-                          {val}
-                        </SelectText>
+                      <SelectItem
+                        onClick={() =>
+                          handleSelect(setIndustry, val, 'industry')
+                        }
+                      >
+                        <SelectText>{val}</SelectText>
                       </SelectItem>
                     ))}
                   </SelectItemList>
@@ -295,7 +374,7 @@ export default function StudyStartModal({ func }) {
           </LeftWrapper>
           <RightWrapper>
             <InputText>직무</InputText>
-            <SelectList>
+            <SelectList ref={jobRef}>
               <Select onClick={() => handleToggle('job')}>
                 <SelectText>{job}</SelectText>
                 <A.Icon type="arrow_down_blue" alt="" />
@@ -304,12 +383,10 @@ export default function StudyStartModal({ func }) {
                 <SelectItemListWrapper>
                   <SelectItemList>
                     {jobList.map((val) => (
-                      <SelectItem>
-                        <SelectText
-                          onClick={() => handleSelect(setJob, val, 'job')}
-                        >
-                          {val}
-                        </SelectText>
+                      <SelectItem
+                        onClick={() => handleSelect(setJob, val, 'job')}
+                      >
+                        <SelectText>{val}</SelectText>
                       </SelectItem>
                     ))}
                   </SelectItemList>

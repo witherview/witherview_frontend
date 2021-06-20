@@ -28,6 +28,4 @@ const answer = `안녕하십니까!
 열심히 노력할 것입니다. 또한 제 자신이
 `;
 
-export const answerBox = () => (
-  <AnswerBox height={590} answer={answer} />
-);
+export const answerBox = () => <AnswerBox height={590} answer={answer} />;
