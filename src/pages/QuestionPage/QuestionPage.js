@@ -239,6 +239,9 @@ export default function QuestionPage({ match }) {
                 placeholder="질문을 입력하세요."
                 value={title}
                 onChange={handleTitle}
+                onKeyDown={({ keyCode }) =>
+                  keyCode === 13 && handleQuestionAdd()
+                }
               />
               <IconWrapper>
                 <A.Icon
