@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import O from '@organisms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
 import TextButtonProps from './components/TextButtonProps';
 
@@ -80,7 +81,8 @@ export default function LandingHeader({
 }) {
   const history = useHistory();
   const executeScroll = (ref) => scrollToRef(ref);
-
+  const isLoggedIn = sessionStorage.getItem('isLogin') !== null;
+  const name = sessionStorage.getItem('name');
   return (
     <Wrapper>
       <div className="wrap-container">
@@ -102,13 +104,17 @@ export default function LandingHeader({
             />
           </div>
           <div className="wrap-button">
-            <A.Button
-              id="menu_btn"
-              theme="outline"
-              width={140}
-              text="LOG IN"
-              func={() => history.push('/login')}
-            />
+            {isLoggedIn ? (
+              <O.ProfileMenuContainer name={name} />
+            ) : (
+              <A.Button
+                id="menu_btn"
+                theme="outline"
+                width={140}
+                text="LOG IN"
+                func={() => history.push('/login')}
+              />
+            )}
           </div>
         </div>
       </div>

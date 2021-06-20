@@ -30,6 +30,7 @@ const authReducer = createSlice({
         },
       },
     ) {
+      sessionStorage.setItem('isLogin', true);
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('profileImg', profileImg);
@@ -52,6 +53,7 @@ const authReducer = createSlice({
       };
     },
     setLogout(state) {
+      sessionStorage.removeItem('isLogin');
       sessionStorage.removeItem('accessToken');
       sessionStorage.removeItem('name');
       sessionStorage.removeItem('email');
