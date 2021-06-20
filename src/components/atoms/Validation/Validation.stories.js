@@ -17,14 +17,11 @@ export const inputValidation = () => {
   }, [isValid]);
   return (
     <Validation
-      rules={[(v) => !!(v) || '해당 데이터는 필수입니다.']}
+      rules={[(v) => !!v || '해당 데이터는 필수입니다.']}
       value={value}
       isValid={setIsValid}
     >
-      <InputBar
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
+      <InputBar value={value} onChange={(e) => setValue(e.target.value)} />
     </Validation>
   );
 };

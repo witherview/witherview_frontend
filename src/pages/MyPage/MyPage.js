@@ -28,10 +28,16 @@ export default function MyPage() {
   const [editPhoneNumber, setEditPhoneNumber] = useState();
   const [savedName, setSavedName] = useState();
   const [savedPhoneNumber, setSavedPhoneNumber] = useState();
+  const [isValidationInfo, setIsValidationInfo] = useState(
+    Array(2).fill(false),
+  );
 
   const updateUserInfo = async () => {
     try {
-      if (savedName !== editName || savedPhoneNumber !== editPhoneNumber) {
+      if (
+        (savedName !== editName || savedPhoneNumber !== editPhoneNumber) &&
+        isValidationInfo.every((valid) => !!valid)
+      ) {
         await putProfileInfoApi({
           mainIndustry,
           mainJob,
@@ -122,6 +128,10 @@ export default function MyPage() {
                 <A.Validation
                   value={editName}
                   rules={[(v) => !!v || '이름을 입력해 주세요.']}
+                  isValid={(v) =>
+                    setIsValidationInfo(isValidationInfo.splice(0, 1, v))
+                  }
+                  isCheckImmediatelyRule
                   fontSize="1.6vh"
                 >
                   <A.InputBar
@@ -159,6 +169,10 @@ export default function MyPage() {
                 <A.Validation
                   value={editPhoneNumber}
                   rules={[(v) => !!v || '휴대전화를 입력해 주세요.']}
+                  isValid={(v) =>
+                    setIsValidationInfo(isValidationInfo.splice(1, 1, v))
+                  }
+                  isCheckImmediatelyRule
                   fontSize="1.3vh"
                 >
                   <A.InputBar
