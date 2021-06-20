@@ -34,14 +34,7 @@ const Text = styled.div`
 
 const InputWrapper = styled.div`
   margin-bottom: 7vh;
-  div { ${({ theme }) => theme.input} }
-  // REVIEW ME!!
-  // 기존 theme 의 input css 적용한 곳을
-  // input 에 validation message 를 추가하기 위해
-  // dom 을 추가하여, 그에 맞게 대응했습니다.
-  // input 은 기존 형태로 적용되지만,
-  // validation message 의 경우 스타일이 정의된 기획이 없어서
-  // 이상해 보이네요.
+  ${({ theme }) => theme.input}
 `;
 
 const InputText = styled.div`

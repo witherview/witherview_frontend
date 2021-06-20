@@ -50,7 +50,7 @@ const WrapToggle = styled.div`
 `;
 
 const WrapInput = styled.div`
-  div > input {
+  input {
     height: 5vh;
     width: 100vh;
     font-size: 1.5vh;
