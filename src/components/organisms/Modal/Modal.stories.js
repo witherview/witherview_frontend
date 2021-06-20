@@ -16,7 +16,16 @@ const modals = (args) => {
     dispatch(displayModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
     dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
     dispatch(displayModal({ modalName: MODALS.EVALUATION_MODAL }));
-    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
+    dispatch(
+      displayModal({
+        modalName: MODALS.STUDY_MAKE_MODAL,
+      }),
+    );
+    dispatch(
+      displayModal({
+        modalName: MODALS.INDUSTRY_SELECT_MODAL,
+      }),
+    );
   });
 
   return <Modal {...args} />;
@@ -25,6 +34,7 @@ export const QuestionListSaveModal = modals.bind({});
 export const SelfTrainStartModal = modals.bind({});
 export const StudyMakeModal = modals.bind({});
 export const EvaluationModal = modals.bind({});
+export const IndustrySelectModal = modals.bind({});
 
 QuestionListSaveModal.args = {
   modalName: MODALS.QUESTIONLIST_SAVE_MODAL,
@@ -40,4 +50,8 @@ StudyMakeModal.args = {
 
 EvaluationModal.args = {
   modalName: MODALS.EVALUATION_MODAL,
+};
+
+IndustrySelectModal.args = {
+  modalName: MODALS.INDUSTRY_SELECT_MODAL,
 };
