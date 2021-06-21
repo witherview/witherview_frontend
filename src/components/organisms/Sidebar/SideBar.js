@@ -28,13 +28,17 @@ const Wrapper = styled.div`
   }
 `;
 
-const WrapTopButton = styled.div`
+const WrapTopButton = styled.button`
   position: absolute;
   top: 5vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
 `;
 
 const WrapImage = styled.img`
@@ -83,7 +87,7 @@ export default function SideBar() {
 
   return (
     <Wrapper>
-      <WrapTopButton>
+      <WrapTopButton onClick={() => history.push('/')}>
         <WrapImage src={Logo} alt="logo" />
       </WrapTopButton>
       <WrapButtonContainer>
