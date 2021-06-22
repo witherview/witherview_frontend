@@ -26,32 +26,36 @@ const Wrapper = styled.div`
     box-shadow: 0.3vh 0 1.1vh 0 rgba(50, 50, 50, 0.56);
     transition: width ease 0.2s 0.5s;
   }
-`;
 
-const WrapTopButton = styled.div`
-  position: absolute;
-  top: 5vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+  button.wrap-top-button {
+    position: absolute;
+    top: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+  }
 
-const WrapImage = styled.img`
-  height: 6vh;
-`;
+  img.wrap-image {
+    height: 6vh;
+  }
 
-const WrapButtonContainer = styled.div`
-  padding-top: 20vh;
-`;
+  div.wrap-button-container {
+    padding-top: 20vh;
+  }
 
-const WrapBottomButton = styled.div`
-  width: 100%;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  bottom: 8vh;
+  div.wrap-bottom-button {
+    width: 100%;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    bottom: 8vh;
+  }
 `;
 
 export default function SideBar() {
@@ -87,10 +91,14 @@ export default function SideBar() {
       onMouseOver={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <WrapTopButton>
-        <WrapImage src={Logo} alt="logo" />
-      </WrapTopButton>
-      <WrapButtonContainer>
+      <button
+        type="button"
+        className="wrap-top-button"
+        onClick={() => history.push('/')}
+      >
+        <img className="wrap-image" src={Logo} alt="logo" />
+      </button>
+      <div className="wrap-button-container">
         <SidebarButton
           func={() => handleClick('self')}
           type={path === 'self' ? 'bubble_black' : 'bubble_white'}
@@ -119,8 +127,8 @@ export default function SideBar() {
           isHover={isHover}
           text="마이페이지"
         />
-      </WrapButtonContainer>
-      <WrapBottomButton>
+      </div>
+      <div className="wrap-bottom-button">
         <SidebarButton
           func={() => {
             dispatch(setLogout());
@@ -129,7 +137,7 @@ export default function SideBar() {
           type="exit_white"
           text="나가기"
         />
-      </WrapBottomButton>
+      </div>
     </Wrapper>
   );
 }
