@@ -29,6 +29,23 @@ export default function useSockStomp({
     );
   };
 
+  const handleFeedbackSubscribe = async (historyId) => {
+    client.current.subscribe(
+      `/sub/feedback.${historyId}`,
+      (data) => {
+        const newMessage = JSON.parse(data.body);
+        console.log(newMessage);
+        const chatData = {
+          time: moment(new Date()).format('HH:mm A'),
+          userName: newMessage.userName,
+          message: newMessage.message,
+        };
+        setFeedbackChat((prev) => [...prev, chatData]);
+      },
+      header,
+    );
+  };
+
   useEffect(() => {
     setHeader({
       Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
@@ -60,21 +77,6 @@ export default function useSockStomp({
             },
             header,
           );
-          client.current.subscribe(
-            `/sub/feedback.${roomId}`,
-            (data) => {
-              const newMessage = JSON.parse(data.body);
-              console.log(newMessage);
-
-              const chatData = {
-                time: moment(new Date()).format('HH:mm A'),
-                userName: newMessage.userName,
-                message: newMessage.message,
-              };
-              setFeedbackChat((prev) => [...prev, chatData]);
-            },
-            header,
-          );
         },
         (err) => {
           console.error(err);
@@ -90,6 +92,7 @@ export default function useSockStomp({
   return {
     client: client.current,
     handleClick,
+    handleFeedbackSubscribe,
     feedbackChat,
     roomChat,
     isConnectStomp,

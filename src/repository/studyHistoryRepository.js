@@ -6,7 +6,6 @@ export const postPreGroupVideoApi = async (param) =>
     url: '/api/group/history',
     type: 'post',
     param,
-    contentType: 'multipart/form-data',
   });
 
 // TODO: POST - /api/group/history/video
