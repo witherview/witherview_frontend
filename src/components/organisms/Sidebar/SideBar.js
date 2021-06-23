@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -86,10 +86,29 @@ export default function SideBar() {
     history.push(`/${value}`);
   };
 
+  const hoverTimeoutRef = useRef();
+
+  const hover = (value) => {
+    if (value && !hoverTimeoutRef.current)
+      hoverTimeoutRef.current = setTimeout(() => {
+        hoverTimeoutRef.current = undefined;
+        setIsHover(true);
+      }, 500);
+    else {
+      setIsHover(false);
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = undefined;
+    }
+  };
+
   return (
     <Wrapper
-      onMouseOver={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
+      onMouseLeave={() => {
+        hover(false);
+      }}
+      onMouseEnter={() => {
+        hover(true);
+      }}
     >
       <button
         type="button"
