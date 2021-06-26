@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   transition: all ease 0.1s 0.1s;
 
   &:hover {
-    width: 15.9vh;
+    width: 21vh;
     box-shadow: 0.3vh 0 1.1vh 0 rgba(50, 50, 50, 0.56);
     transition: width ease 0.2s 0.5s;
   }
@@ -65,6 +65,7 @@ export default function SideBar() {
   const dispatch = useDispatch();
 
   const [path, setPath] = useState('self');
+  const [isHover, setIsHover] = useState(false);
 
   useEffect(() => {
     const pathName = pathname.split('/')[1];
@@ -85,8 +86,30 @@ export default function SideBar() {
     history.push(`/${value}`);
   };
 
+  const hoverTimeoutRef = useRef();
+
+  const hover = (value) => {
+    if (value && !hoverTimeoutRef.current)
+      hoverTimeoutRef.current = setTimeout(() => {
+        hoverTimeoutRef.current = undefined;
+        setIsHover(true);
+      }, 500);
+    else {
+      setIsHover(false);
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = undefined;
+    }
+  };
+
   return (
-    <Wrapper>
+    <Wrapper
+      onMouseLeave={() => {
+        hover(false);
+      }}
+      onMouseEnter={() => {
+        hover(true);
+      }}
+    >
       <button
         type="button"
         className="wrap-top-button"
@@ -99,21 +122,29 @@ export default function SideBar() {
           func={() => handleClick('self')}
           type={path === 'self' ? 'bubble_black' : 'bubble_white'}
           clicked={path === 'self'}
+          isHover={isHover}
+          text="혼자연습"
         />
         <SidebarButton
           func={() => handleClick('peer-study')}
           type={path === 'peer-study' ? 'sound_black' : 'sound_white'}
           clicked={path === 'peer-study'}
+          isHover={isHover}
+          text="면접스터디"
         />
         <SidebarButton
           func={() => handleClick('replay')}
           type={path === 'replay' ? 'folder_blue' : 'folder_white'}
           clicked={path === 'replay'}
+          isHover={isHover}
+          text="저장확인"
         />
         <SidebarButton
           func={() => handleClick('mypage')}
           type={path === 'mypage' ? 'profile_black' : 'profile_white'}
           clicked={path === 'mypage'}
+          isHover={isHover}
+          text="마이페이지"
         />
       </div>
       <div className="wrap-bottom-button">
@@ -123,7 +154,7 @@ export default function SideBar() {
             history.push('/');
           }}
           type="exit_white"
-          title="나가기"
+          text="나가기"
         />
       </div>
     </Wrapper>
