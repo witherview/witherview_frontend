@@ -1,11 +1,16 @@
 import styled from 'styled-components';
+import commonStyles from '@style/commonStyles';
 
 const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   height: 100%;
+  .main-page-container {
+    width: 100%;
+  }
 `;
 
 const SearchWrapper = styled.div`
@@ -52,52 +57,48 @@ const StudyText = styled.div`
   color: ${({ theme: { studyTextColor } }) => studyTextColor};
 `;
 
-const ContentWrapper = styled.div`
-  margin-top: 1.5vh;
+const FilterWrapper = styled.div`
+  margin-left: auto;
 `;
 
-const ButtonWrapper = styled.div`
+const WrapTitleContainer = styled.div`
   display: flex;
-  width: 100%;
-  height: 3.5vh;
+  height: 10vh;
   align-items: center;
   color: ${({ theme: { buttonWrapperColor } }) => buttonWrapperColor};
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 127.8vh;
 `;
 
-const TextButtonWrapper = styled.div`
-  margin-right: 4.5vh;
+const ContentWrapper = styled.div`
+  margin-top: 1.5vh;
 `;
 
 const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 120vh;
-  margin-right: 6vh;
+  width: 127.8vh;
 `;
 
 const BoxWrapper = styled.div`
   display: flex;
-`;
-
-const FilterWrapper = styled.div`
-  margin-left: auto;
+  justify-content: space-between;
 `;
 
 const PartiWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  > div {
+    margin-bottom: 2vh;
+  }
 `;
 
 const PartiText = styled.div`
-  margin-bottom: 4vh;
-  font-family: AppleSDGothicNeoEB00;
+  margin-bottom: 4vh !important;
+  font-family: AppleSDGothicNeoB00;
   font-size: 2vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.45;
-  letter-spacing: normal;
-  text-align: left;
   color: ${({ theme: { partTextColor } }) => partTextColor};
 `;
 
@@ -106,11 +107,14 @@ const StudyListWrapper = styled.div`
   flex-wrap: wrap;
   width: 100%;
   margin-top: 4.1vh;
+
+  > div:not(:nth-child(3n)) {
+    margin-right: calc((100% - 112.2vh) / 2.15);
+  }
 `;
 
 const Wrap = styled.div`
   display: flex;
-  flex: 0 0 33.333%;
 `;
 
 const AddStudy = styled.div`
@@ -139,6 +143,19 @@ const AddText = styled.div`
   color: #0c0c59;
 `;
 
+const ButtonWrapper = styled.div`
+  ${commonStyles.button}
+  > div {
+    width: 100%;
+    height: 4.5vh;
+    border-width: 0.2vh;
+    border-radius: 1vh;
+    > p {
+      font-size: 2vh;
+    }
+  }
+`;
+
 export default {
   Wrapper,
   SearchWrapper,
@@ -146,15 +163,15 @@ export default {
   Input,
   StudyText,
   ContentWrapper,
-  ButtonWrapper,
-  TextButtonWrapper,
   BoxWrapper,
   PartiWrapper,
   ListWrapper,
   FilterWrapper,
+  WrapTitleContainer,
   PartiText,
   StudyListWrapper,
   AddStudy,
   AddText,
   Wrap,
+  ButtonWrapper,
 };

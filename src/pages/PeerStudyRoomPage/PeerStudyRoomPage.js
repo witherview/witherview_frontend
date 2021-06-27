@@ -1,26 +1,64 @@
 import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
-import { getEachGroupRoomApi } from '@repository/groupRepository';
+import {
+  getEachGroupRoomApi,
+  getGroupRoomParticipantsApi,
+  deleteEachGroupRoomApi,
+  patchPassRoomHostEachGroupRoomApi,
+  deleteEachGroupRoomParticipantsApi,
+} from '@repository/groupRepository';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { get } from '@utils/snippet';
+import { setIsHost } from '@store/Train/train';
+
 import A from '@atoms';
 import O from '@organisms';
 import S from './PeerStudyRoomPage.style';
 
 import UsersSection from './UsersSection';
 
-const DEFAULT_ID = 421;
 export default function PeerStudyRoomPage({
   id,
+  history,
   setStepSetting,
   setStepTrain,
   chat,
   handleClick,
   isConnectStomp,
 }) {
+  const dispatch = useDispatch();
+
+  const { email } = useSelector(get('auth'));
+  const { isHost } = useSelector(get('train'));
+
   const [roomTitle, setRoomTitle] = useState();
   const [dateInfoText, setDateInfoText] = useState();
-  const [description, setDescription] = useState();
+  const [descript, setDescript] = useState();
+
+  const [users, setUsers] = useState();
+
+  const HOST = users?.filter((each) => each.isHost)[0];
+  const NON_HOST = users?.filter((each) => !each.isHost)[0];
+
+  const [exit, setExit] = useState(false);
+
+  const handleLeave = () => {
+    if (exit) {
+      // TODO: 잘 작동하는지 추후에 확인해야 함
+      if (isHost) {
+        patchPassRoomHostEachGroupRoomApi(id);
+      }
+      deleteEachGroupRoomParticipantsApi(id);
+      if (users.length === 1) {
+        deleteEachGroupRoomApi(id);
+      }
+    }
+    history.push('/peer-study');
+  };
 
   const createDateInfo = (date, time) => {
     let filteredDate = date
@@ -44,23 +82,34 @@ export default function PeerStudyRoomPage({
     return filteredDate;
   };
 
-  const fetchRoomInfo = async () => {
-    try {
-      const { data } = await getEachGroupRoomApi(id || DEFAULT_ID);
-      setRoomTitle(data.title);
-      const dateText = createDateInfo(data.date, data.time);
-      setDateInfoText(dateText);
-      setDescription(data.description);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
-
   useEffect(() => {
-    // TODO: delete below line
-    console.log(setStepSetting);
-    fetchRoomInfo();
+    (async () => {
+      try {
+        const { data: participants } = await getGroupRoomParticipantsApi(id);
+
+        setUsers(participants);
+
+        dispatch(
+          setIsHost({
+            isHost:
+              participants?.filter((each) => each?.isHost)[0]?.email === email,
+          }),
+        );
+
+        const {
+          data: { title, date, time, description },
+        } = await getEachGroupRoomApi(id);
+        setRoomTitle(title);
+
+        const dateText = createDateInfo(date, time);
+
+        setDateInfoText(dateText);
+        setDescript(description);
+      } catch (error) {
+        console.error(error);
+        alert(error);
+      }
+    })();
   }, []);
 
   return (
@@ -72,19 +121,25 @@ export default function PeerStudyRoomPage({
               <S.TextWrapper>
                 <S.RoomTitle>{roomTitle}</S.RoomTitle>
                 <S.DateInfo>{dateInfoText}</S.DateInfo>
-                <S.Description>{description}</S.Description>
+                <S.Description>{descript}</S.Description>
               </S.TextWrapper>
               <S.BoxWrapper>
-                <A.Button text="방 나가기" btnTheme="gray" />
-                {/* TODO: 방장의 경우 Setting 설정으로 넘어가도록 해야 함 */}
+                <A.Button text="방 나가기" theme="gray" func={handleLeave} />
                 <A.Button
                   text="스터디 시작하기"
-                  func={setStepTrain}
-                  btnTheme="blue"
+                  func={isHost ? setStepSetting : setStepTrain}
+                  theme="blue"
                 />
               </S.BoxWrapper>
             </S.InterviewRoomInfo>
-            <UsersSection />
+            <UsersSection
+              host={HOST}
+              nonHost={NON_HOST}
+              isHost={isHost}
+              setExit={setExit}
+              exit={exit}
+              isAlone={users?.length === 1}
+            />
           </S.InterviewRoomSection>
           <O.RoomChat
             chatData={chat}
@@ -99,6 +154,7 @@ export default function PeerStudyRoomPage({
 
 PeerStudyRoomPage.propTypes = {
   id: PropTypes.string,
+  history: ReactRouterPropTypes.history.isRequired,
   setStepSetting: PropTypes.func,
   setStepTrain: PropTypes.func,
   chat: PropTypes.array,

@@ -88,7 +88,7 @@ const WrapButton = styled.div`
 export default function SelfTrainSettingPage({ match, history }) {
   const { id } = match.params;
   const dispatch = useDispatch();
-  const { selectedQnaId, job, company, standardTime } = useSelector(
+  const { selectedQnaId, job, company, standardTime, viewAnswer } = useSelector(
     get('train'),
   );
 
@@ -133,7 +133,7 @@ export default function SelfTrainSettingPage({ match, history }) {
           </WrapSubContainer>
           <WrapToggle>
             <WrapText>답변 보기 허용</WrapText>
-            <A.ToggleButton cb={onToggleBtn} />
+            <A.ToggleButton cb={onToggleBtn} checked={viewAnswer} />
           </WrapToggle>
           <WrapInput>
             <WrapText padding>기업 이름</WrapText>

@@ -17,14 +17,15 @@ const Wrapper = styled.div`
 `;
 
 const Name = styled.div`
-  font-family: AppleSDGothicNeoEB00;
-  font-size: 1.5vh;
+  font-family: AppleSDGothicNeoM00;
+  font-size: 2vh;
   padding-left: 2.5vh;
   user-select: none;
-`;
-
-const NameBelow = styled.div`
-  font-family: AppleSDGothicNeoM00;
+  color: #3d3d3d;
+  line-height: 1.5;
+  .name {
+    font-family: AppleSDGothicNeoB00;
+  }
 `;
 
 export default function ProfileInfoContainer({ name, participateRate, src }) {
@@ -32,11 +33,11 @@ export default function ProfileInfoContainer({ name, participateRate, src }) {
     <Wrapper>
       <A.ProfileIcon src={src} isSmall />
       <Name>
-        <div>{name}</div>
-        <NameBelow>
+        <div className="name">{name}</div>
+        <div>
           {participateRate}
           %의 참여도
-        </NameBelow>
+        </div>
       </Name>
     </Wrapper>
   );

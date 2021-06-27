@@ -93,7 +93,6 @@ module.exports = (env) => {
         '@style': path.resolve(__dirname, 'src/style'),
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@context': path.resolve(__dirname, 'src/context'),
-        '@style': path.resolve(__dirname, 'src/style/'),
       },
     },
 

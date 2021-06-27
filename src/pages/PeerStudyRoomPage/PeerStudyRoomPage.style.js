@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
-  flex: 1;
-  flex-direction: column;
+  height: 100%;
 `;
 
 const WrapperContent = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,6 +66,9 @@ const BoxWrapper = styled.div`
     margin-bottom: 2.5vh;
   }
   ${commonStyles.button}
+  > div {
+    pointer-events: auto;
+  }
 `;
 
 const UserInfoWrapper = styled.div`
@@ -144,11 +146,9 @@ const ItemInnerWrapper = styled.div`
 
 const ProgressBar = styled.progress`
   width: 24.5vh;
-  height: 0.8vh;
   margin-right: 2.2vh;
   border: none;
   overflow: hidden;
-  -moz-border-radius: 5vh;
   -webkit-border-radius: 5vh;
   border-radius: 5vh;
   &::-webkit-progress-value {

@@ -209,7 +209,7 @@ export default function SelfTrainPage({ match }) {
               {isShowToggle && viewAnswer && (
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
-                  <A.ToggleButton cb={onToggle} />
+                  <A.ToggleButton cb={onToggle} checked={step} />
                 </>
               )}
             </S.WrapBottomSide>

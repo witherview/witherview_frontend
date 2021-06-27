@@ -166,8 +166,8 @@ export default function EvaluationModal({ roomId }) {
       studyRoomId: roomId,
       passOrFail: evaluate === 'pass',
       score,
-      studyHistoryId: '', // TODO: change this properly
-      receivedUser: 0, // TODO: change this properly
+      studyHistoryId: roomId, // TODO: change this properly
+      receivedUser: '', // TODO: change this properly
     };
 
     try {
