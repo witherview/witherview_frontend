@@ -1,6 +1,18 @@
-// import api from '@context/serverContext';
+import api from '@context/serverContext';
 
-// TODO: GET - /api/self/history
-// TODO: POST - /api/self/history
-// TODO: DELETE - /api/self/history/{id}
-// TODO: POST - /api/self/history/video
+// TODO: POST - /api/group/history
+export const postPreGroupVideoApi = async (param) =>
+  await api({
+    url: '/api/group/history',
+    type: 'post',
+    param,
+  });
+
+// TODO: POST - /api/group/history/video
+export const postGroupVideoApi = async (param) =>
+  await api({
+    url: '/api/group/history/video',
+    type: 'post',
+    param,
+    contentType: 'multipart/form-data',
+  });

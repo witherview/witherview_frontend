@@ -66,8 +66,7 @@ const row = css`
   align-items: center;
 `;
 
-const Container = styled.div`
-`;
+const Container = styled.div``;
 
 const TopWrapper = styled.div`
   ${row}
@@ -83,9 +82,9 @@ const TopWrapper = styled.div`
 `;
 
 const ThisMonth = styled.div`
-   font-size: 24px;
-   font-weight: bold;
-   color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
 `;
 
 const ItemsWrapper = styled.div`

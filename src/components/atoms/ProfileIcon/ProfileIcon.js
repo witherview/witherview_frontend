@@ -20,7 +20,13 @@ const Wrapper = styled.div`
 
 export default function ProfileIcon({ src, isSmall }) {
   const { profileImg } = useSelector(get('auth'));
-  return <Wrapper src={src || profileImg || profileDefault} isSmall={isSmall} alt="profile_image" />;
+  return (
+    <Wrapper
+      src={src || profileImg || profileDefault}
+      isSmall={isSmall}
+      alt="profile_image"
+    />
+  );
 }
 
 ProfileIcon.propTypes = {

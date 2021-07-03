@@ -21,6 +21,10 @@ import A from '@atoms';
 // `;
 
 const Wrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 7.3vh;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -31,8 +35,9 @@ const WrapMenu = styled.div`
   position: relative;
   text-align: center;
   z-index: 101;
-  ${({ isOpen }) => isOpen
-    && `
+  ${({ isOpen }) =>
+    isOpen &&
+    `
     fill: #0b3895;
     transform: scale(1);
   `}

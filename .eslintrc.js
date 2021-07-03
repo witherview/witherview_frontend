@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -21,8 +21,9 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'prettier'],
   rules: {
+    'prettier/prettier': ['error'],
     'react/jsx-filename-extension': 0,
     'react/require-default-props': 0,
     'no-nested-ternary': 0,
@@ -39,7 +40,11 @@ module.exports = {
       'error',
       'ignorePackages',
       {
-        js: 'never', jsx: 'never', ts: 'never', tsx: 'never', json: 'never',
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+        json: 'never',
       },
     ],
   },

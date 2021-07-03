@@ -1,141 +1,151 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    margin: 5.3vh 0 0 0;
-    align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  .main-page-container {
+    width: 100%;
+  }
 `;
 
 const SearchWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    width: 79.8vh;
-    height: 7.3vh;
-    border-radius: 2vh;
-    box-shadow: 0 0.6vh 1.2vh 0 rgba(30, 30, 215, 0.04);
-    background-color: #f6f6f6;
+  display: flex;
+  align-items: center;
+  width: 79.8vh;
+  height: 7.3vh;
+  border-radius: 2vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(30, 30, 215, 0.04);
+  background-color: #f6f6f6;
 `;
 
 const IconWrapper = styled.div`
-    margin-left: 5.2vh;
+  margin-left: 5.2vh;
 `;
 
 const Input = styled.input`
-    width: 65vh;
-    margin-left: 3vh;
-    border: none;
-    outline: none;
-    background-color: #f6f6f6;
-    font-family: TitilliumWeb;
-    font-size: 2vh;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.55;
-    letter-spacing: normal;
-    text-align: left;
-    color: #3d3d3d;
+  width: 65vh;
+  margin-left: 3vh;
+  border: none;
+  outline: none;
+  background-color: #f6f6f6;
+  font-family: TitilliumWeb;
+  font-size: 2vh;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.55;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3d3d3d;
 `;
 
 const StudyText = styled.div`
-    margin-top: 6vh;
-    font-family: AppleSDGothicNeoEB00;
-    font-size: 3.1vh;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.44;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000000;
-`;
-
-const ContentWrapper = styled.div`
-    margin-top: 1.5vh;
-`;
-
-const ButtonWrapper = styled.div`
-    display: flex;
-    width: 100%;
-    height: 3.5vh;
-    align-items: center;
-`;
-
-const TextButtonWrapper = styled.div`
-    margin-right: 4.5vh;
-`;
-
-const ListWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 120vh;
-    margin-right: 6vh;
-`;
-
-const BoxWrapper = styled.div`
-    display: flex;
+  margin-top: 6vh;
+  font-family: AppleSDGothicNeoEB00;
+  font-size: 3.1vh;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
 `;
 
 const FilterWrapper = styled.div`
-    margin-left: auto;
+  margin-left: auto;
+`;
+
+const WrapTitleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 127.8vh;
+`;
+
+const ContentWrapper = styled.div`
+  margin-top: 1.5vh;
+`;
+
+const ListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 127.8vh;
+`;
+
+const BoxWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const PartiWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  > div {
+    margin-bottom: 2vh;
+  }
 `;
 
 const PartiText = styled.div`
-    margin-bottom: 4vh;
-    font-family: AppleSDGothicNeoEB00;
-    font-size: 2vh;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.45;
-    letter-spacing: normal;
-    text-align: left;
-    color: #0c0c59;
+  margin-bottom: 4vh !important;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 2vh;
+  color: #0c0c59;
 `;
 
 const StudyListWrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: 4.1vh;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 4.1vh;
+
+  > div:not(:nth-child(3n)) {
+    margin-right: calc((100% - 112.2vh) / 2.15);
+  }
 `;
 
 const Wrap = styled.div`
-    display: flex;
-    flex: 0 0 33.333%;
+  display: flex;
 `;
 
 const AddStudy = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 37.4vh;
-    height: 38.2vh;
-    border-radius: 2vh;
-    box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-    border: solid 0.1vh #f6f6f6;
-    background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 37.4vh;
+  height: 38.2vh;
+  border-radius: 2vh;
+  box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
+  border: solid 0.1vh #f6f6f6;
+  background-color: #f6f6f6;
 `;
 
 const AddText = styled.div`
-    margin-top: 3vh;
-    font-family: AppleSDGothicNeoB00;
-    font-size: 2.4vh;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.42;
-    letter-spacing: normal;
-    text-align: left;
-    color: #0c0c59;
+  margin-top: 3vh;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 2.4vh;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.42;
+  letter-spacing: normal;
+  text-align: left;
+  color: #0c0c59;
+`;
+
+const ButtonWrapper = styled.div`
+  ${({ theme }) => theme.button}
+  > div {
+    width: 100%;
+    height: 4.5vh;
+    border-width: 0.2vh;
+  }
 `;
 
 export default {
@@ -145,15 +155,15 @@ export default {
   Input,
   StudyText,
   ContentWrapper,
-  ButtonWrapper,
-  TextButtonWrapper,
   BoxWrapper,
   PartiWrapper,
   ListWrapper,
   FilterWrapper,
+  WrapTitleContainer,
   PartiText,
   StudyListWrapper,
   AddStudy,
   AddText,
   Wrap,
+  ButtonWrapper,
 };

@@ -73,6 +73,7 @@ export default function ChatInput({ onClick }) {
       <InputField
         placeholder="채팅을 입력해주세요."
         onChange={(e) => setValue(e.target.value)}
+        onKeyDown={({ keyCode }) => keyCode === 13 && onClick(value)}
       />
       <SubmitBtn
         onClick={() => {

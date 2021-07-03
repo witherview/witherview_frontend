@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
-const SERVER_URL = process.env.REACT_APP_API_SERVER_URL || 'http://15.164.232.147:8080';
+const SERVER_URL =
+  process.env.REACT_APP_API_SERVER_URL || 'https://api.witherview.com';
 
 const api = ({
   url,

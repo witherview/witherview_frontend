@@ -246,10 +246,10 @@ export default function StudyStartModal({ func }) {
 
   const handleMakeStudy = async () => {
     if (
-      title === ''
-      || description === ''
-      || jobList.indexOf(job) === -1
-      || industryList.indexOf(industry) === -1
+      title === '' ||
+      description === '' ||
+      jobList.indexOf(job) === -1 ||
+      industryList.indexOf(industry) === -1
     ) {
       return alert('입력값을 확인해 주세요.');
     }
@@ -278,9 +278,9 @@ export default function StudyStartModal({ func }) {
 
   const handleClickOutside = ({ target }) => {
     if (
-      !industryRef.current.contains(target)
-      && !jobRef.current.contains(target)
-      && !categoryRef.current.contains(target)
+      !industryRef.current.contains(target) &&
+      !jobRef.current.contains(target) &&
+      !categoryRef.current.contains(target)
     ) {
       setSelect(initSelect);
     }
@@ -321,13 +321,10 @@ export default function StudyStartModal({ func }) {
               <SelectItemListWrapper>
                 <SelectItemList>
                   {categoryList.map((val) => (
-                    <SelectItem>
-                      <SelectText
-                        onClick={() => handleSelect(setCategory, val, 'category')
-                        }
-                      >
-                        {val}
-                      </SelectText>
+                    <SelectItem
+                      onClick={() => handleSelect(setCategory, val, 'category')}
+                    >
+                      <SelectText>{val}</SelectText>
                     </SelectItem>
                   ))}
                 </SelectItemList>
@@ -347,13 +344,12 @@ export default function StudyStartModal({ func }) {
                 <SelectItemListWrapper>
                   <SelectItemList>
                     {industryList.map((val) => (
-                      <SelectItem>
-                        <SelectText
-                          onClick={() => handleSelect(setIndustry, val, 'industry')
-                          }
-                        >
-                          {val}
-                        </SelectText>
+                      <SelectItem
+                        onClick={() =>
+                          handleSelect(setIndustry, val, 'industry')
+                        }
+                      >
+                        <SelectText>{val}</SelectText>
                       </SelectItem>
                     ))}
                   </SelectItemList>
@@ -387,12 +383,10 @@ export default function StudyStartModal({ func }) {
                 <SelectItemListWrapper>
                   <SelectItemList>
                     {jobList.map((val) => (
-                      <SelectItem>
-                        <SelectText
-                          onClick={() => handleSelect(setJob, val, 'job')}
-                        >
-                          {val}
-                        </SelectText>
+                      <SelectItem
+                        onClick={() => handleSelect(setJob, val, 'job')}
+                      >
+                        <SelectText>{val}</SelectText>
                       </SelectItem>
                     ))}
                   </SelectItemList>

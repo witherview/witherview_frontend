@@ -28,7 +28,7 @@ const SnapshotArea = styled.div`
   i {
     color: #6c72f6;
     display: inline-block;
-    position: absolute;    
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -42,13 +42,13 @@ const DescriptionArea = styled.div`
   line-height: 1.5;
 
   div:first-child {
-  display: flex;
-  flex-direction: row-reverse;
-  box-sizing: border-box;
-}
+    display: flex;
+    flex-direction: row-reverse;
+    box-sizing: border-box;
+  }
 
   .recDate {
-    font-size: 2.0vh;
+    font-size: 2vh;
     color: #d3d3d3;
   }
 

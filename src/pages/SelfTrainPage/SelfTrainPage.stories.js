@@ -7,8 +7,9 @@ export default {
 };
 
 export const selfTrain = () => (
-  <SelfTrainPage match={{
-    params: { id: 1 },
-  }}
+  <SelfTrainPage
+    match={{
+      params: { id: 1 },
+    }}
   />
 );
