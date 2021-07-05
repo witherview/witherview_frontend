@@ -49,3 +49,10 @@ export const registerApi = async (param) =>
     type: 'post',
     param,
   });
+
+export const withdrawApi = async (param) =>
+  await api({
+    url: '/withdraw',
+    type: 'delete',
+    param,
+  });

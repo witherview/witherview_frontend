@@ -10,6 +10,7 @@ const modalReducer = createSlice({
     [MODALS.STUDY_MAKE_MODAL]: false,
     [MODALS.EVALUATION_MODAL]: false,
     [MODALS.INDUSTRY_SELECT_MODAL]: false,
+    [MODALS.WITHDRAW_CONFIRM_MODAL]: false,
   },
   reducers: {
     displayModal(state, { payload: { modalName } }) {

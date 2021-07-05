@@ -5,4 +5,5 @@ export const MODALS = {
   STUDY_MAKE_MODAL: 'studyMakeModal',
   EVALUATION_MODAL: 'evaluationModal',
   INDUSTRY_SELECT_MODAL: 'industrySelectModal',
+  WITHDRAW_CONFIRM_MODAL: 'withdrawConfirmModal',
 };
