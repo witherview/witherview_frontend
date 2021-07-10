@@ -57,10 +57,6 @@ export default function MyPage() {
     }
   };
 
-  const openWithdrawConfirmModal = () => {
-    dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }));
-  };
-
   useEffect(() => {
     (async () => {
       try {
@@ -192,7 +188,11 @@ export default function MyPage() {
           text="저장"
           func={async () => await updateUserInfo()}
         />
-        <S.WithdrawWrapper onClick={() => openWithdrawConfirmModal()}>
+        <S.WithdrawWrapper
+          onClick={() =>
+            dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }))
+          }
+        >
           회원 탈퇴 {'>'}
         </S.WithdrawWrapper>
       </S.ButtonWrapper>

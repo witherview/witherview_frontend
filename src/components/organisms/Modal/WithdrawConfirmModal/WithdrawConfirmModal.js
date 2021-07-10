@@ -112,7 +112,7 @@ export default function WithdrawConfirmModal() {
           탈퇴할 경우 계정 재사용 및 복구가 불가능합니다.
         </div>
         <div className="password-field">
-          <A.SubHeader subHeaderText="새 비밀번호" fontSize="2vh">
+          <A.SubHeader subHeaderText="비밀번호" fontSize="2vh">
             <A.InputBar
               value={password}
               isFullWidth
@@ -120,7 +120,7 @@ export default function WithdrawConfirmModal() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </A.SubHeader>
-          <A.SubHeader subHeaderText="새 비밀번호 확인" fontSize="2vh">
+          <A.SubHeader subHeaderText="비밀번호 확인" fontSize="2vh">
             <A.InputBar
               value={confirmPassword}
               isFullWidth
