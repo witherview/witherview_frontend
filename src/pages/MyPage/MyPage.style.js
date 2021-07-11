@@ -196,9 +196,10 @@ const BoxWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  display: flex;
   width: 100%;
   position: relative;
-  text-align: -webkit-center;
+  justify-content: center;
   ${({ theme }) => theme.button}
 `;
 
