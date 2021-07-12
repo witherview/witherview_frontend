@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   position: ${({ isAbsolute }) => isAbsolute && 'absolute'};
   top: 0;
   right: 0;
-  height: 7.3vh;
+  height: ${({ usePx }) => (usePx ? '73px' : '7.3vh')};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -40,26 +40,28 @@ const Wrapper = styled.div`
 
   div.name {
     font-family: AppleSDGothicNeoEB00;
-    font-size: 1.5vh;
-    padding-left: ${({ isSmall }) => (isSmall ? '1.5vh' : '2.9vh')};
-    padding-right: 1vh;
+    font-size: ${({ usePx }) => (usePx ? '15px' : '1.5vh')};
+    padding-left: ${({ isSmall, usePx }) =>
+      isSmall ? (usePx ? '15px' : '1.5vh') : usePx ? '29px' : '2.9vh'};
+    padding-right: ${({ usePx }) => (usePx ? '10px' : '1vh')};
     user-select: none;
     color: #3d3d3d;
   }
 
   ul.list {
-    width: 14.3vh;
-    padding: 1.85vh 0vh 1.85vh 0vh;
+    width: ${({ usePx }) => (usePx ? '143px' : '14.3vh')};
+    padding: ${({ usePx }) => (usePx ? '18.5px 0px' : '1.85vh 0vh')};
     position: absolute;
-    top: 7vh;
+    top: ${({ usePx }) => (usePx ? '70px' : '7vh')};
     right: 0;
     z-index: 101;
     background-color: #fff;
     transition: 0.25s ease all;
     transform: scale(0);
     transform-origin: 0 1;
-    border-radius: 1vh;
-    box-shadow: 0 1.2vh 2.4vh 0 rgba(4, 4, 161, 0.15);
+    border-radius: ${({ usePx }) => (usePx ? '10px' : '1vh')};
+    box-shadow: ${({ usePx }) =>
+      `${usePx ? '0 12px 24px 0' : '0 1.2vh 2.4vh 0'} rgba(4, 4, 161, 0.15)`};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -69,9 +71,9 @@ const Wrapper = styled.div`
   }
 
   li.item {
-    width: 8.7vh;
-    padding-top: 1.25vh;
-    padding-bottom: 1.25vh;
+    width: ${({ usePx }) => (usePx ? '87px' : '8.7vh')};
+    padding-top: ${({ usePx }) => (usePx ? '12.5px' : '1.25vh')};
+    padding-bottom: ${({ usePx }) => (usePx ? '12.5px' : '1.25vh')};
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -80,7 +82,7 @@ const Wrapper = styled.div`
   div.each {
     user-select: none;
     font-family: AppleSDGothicNeoM00;
-    font-size: 1.5vh;
+    font-size: ${({ usePx }) => (usePx ? '15px' : '1.5vh')};
     color: #9e9e9e;
     &:hover {
       color: #f2886b;
@@ -95,6 +97,7 @@ export default function ProfileMenuContainer({
   src,
   isSmall = false,
   isAbsolute = true,
+  usePx = false,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -103,7 +106,12 @@ export default function ProfileMenuContainer({
   const toggle = (set) => setIsOpen(set);
 
   return (
-    <Wrapper isAbsolute={isAbsolute} isOpen={isOpen} isSmall={isSmall}>
+    <Wrapper
+      isAbsolute={isAbsolute}
+      isOpen={isOpen}
+      isSmall={isSmall}
+      usePx={usePx}
+    >
       <div
         className="wrap-menu"
         onMouseOver={() => toggle(true)}
@@ -141,10 +149,11 @@ ProfileMenuContainer.propTypes = {
   src: PropTypes.string,
   isSmall: PropTypes.bool,
   isAbsolute: PropTypes.bool,
+  usePx: PropTypes.bool,
 };
 
 ProfileMenuContainer.defaultProps = {
   name: '홍길동',
   isSmall: false,
-  isAbsolute: true,
+  usePx: false,
 };

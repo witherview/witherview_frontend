@@ -109,7 +109,12 @@ export default function LandingHeader({
           </div>
           {isLoggedIn ? (
             <div className="wrap-profile">
-              <O.ProfileMenuContainer name={name} isSmall isAbsolute={false} />
+              <O.ProfileMenuContainer
+                name={name}
+                isSmall
+                isAbsolute={false}
+                usePx
+              />
             </div>
           ) : (
             <div className="wrap-button">
