@@ -10,9 +10,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   /* align-items: center; */
-  max-width: 100vw;
-  height: 100vh;
-  padding: 10vh 8.6vh 10vh 0;
+  width: 100%;
+  height: 100%;
 
   header {
     display: flex;
@@ -24,8 +23,8 @@ const Wrapper = styled.div`
 // --내역
 const HistoryMenuBox = styled.div`
   /* width: 35.3vh; */
-  font-size: 2.6vh;
-  background: red;
+  font-size: 2.2vh;
+  font-family: AppleSDGothicNeoB00;
 
   span {
     border-right: 1px solid #9e9e9e;
@@ -54,29 +53,18 @@ const historyMenu = [
     id: 1,
     name: '스터디 내역',
   },
-  {
-    id: 1,
-    name: '스터디 내역',
-  },
-  {
-    id: 1,
-    name: '스터디 내역',
-  },
 ];
 
 // cardList
 const CardListBox = styled.div`
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
 
-  .replayCardItem {
-    margin-right: 7vh;
-  }
-
-  div.replayCardItem:nth-of-type(4n) {
-    margin-right: 0;
+  > div {
+    margin-bottom: 6vh;
   }
 `;
 

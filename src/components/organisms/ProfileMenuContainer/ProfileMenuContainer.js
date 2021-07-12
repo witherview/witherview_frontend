@@ -22,7 +22,7 @@ import A from '@atoms';
 
 const Wrapper = styled.div`
   position: absolute;
-  top: 0;
+  top: -5.3vh;
   right: 0;
   height: 7.3vh;
   display: flex;
