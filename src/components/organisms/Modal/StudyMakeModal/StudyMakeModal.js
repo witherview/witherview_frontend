@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 
 const InputWrapper = styled.div`
   width: 60vh;
-  margin-top: ${({ first }) => (first ? '6vh' : '4.5vh')};
+  margin-top: ${({ first }) => (first ? '10vh' : '4.5vh')};
   ${({ theme }) => theme.input}
 `;
 
@@ -39,23 +39,7 @@ const InputText = styled.div`
 const SelectWrapper = styled.div`
   display: flex;
   width: 60vh;
-  margin-top: 3vh;
-`;
-
-const UpperWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 60vh;
-  margin-top: 3vh;
-  > div {
-    margin-bottom: 1vh;
-    > div {
-      width: 57vh;
-      > div {
-        width: 51vh;
-      }
-    }
-  }
+  margin-top: 4.6vh;
 `;
 
 const LeftWrapper = styled.div`
@@ -72,14 +56,14 @@ const RightWrapper = styled.div`
 `;
 
 const WrapButton = styled.div`
-  margin-top: 4vh;
+  margin-top: 8.2vh;
   ${({ theme }) => theme.button}
 `;
 
 const SelectList = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 4.5vh;
+  margin-bottom: 4.8vh;
   cursor: pointer;
 `;
 
@@ -177,7 +161,7 @@ const initSelect = {
   category: false,
 };
 
-const industryList = [
+const jobList = [
   '경영/사무',
   '마케팅/MD',
   '영업',
@@ -188,18 +172,7 @@ const industryList = [
   '기타',
 ];
 
-const jobList = [
-  '금융/은행',
-  'IT',
-  '서비스/교육',
-  '보건/의약/바이오',
-  '제조',
-  '건설',
-  '예술/문화',
-  '기타',
-];
-
-const categoryList = [
+const industryList = [
   '금융/은행',
   'IT',
   '서비스/교육',
@@ -217,11 +190,10 @@ export default function StudyStartModal({ func }) {
   const [description, setDescription] = useState();
   const [industry, setIndustry] = useState('산업을 선택해주세요.');
   const [job, setJob] = useState('직무를 선택해주세요.');
-  const [category, setCategory] = useState('카테고리를 선택해주세요.');
   const [select, setSelect] = useState(initSelect);
 
   const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
-  const [time, setTime] = useState(moment(new Date()).format('HH:mm:ss'));
+  const [time, setTime] = useState(moment(new Date()).format('HH:mm'));
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
@@ -261,7 +233,6 @@ export default function StudyStartModal({ func }) {
         industry,
         date,
         time,
-        category,
       });
       func();
       dispatch(removeModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
@@ -310,28 +281,6 @@ export default function StudyStartModal({ func }) {
             onChange={(e) => handleInputChange(e, setDescription)}
           />
         </InputWrapper>
-        <UpperWrapper>
-          <InputText>카테고리</InputText>
-          <SelectList ref={categoryRef}>
-            <Select onClick={() => handleToggle('category')}>
-              <SelectText>{category}</SelectText>
-              <A.Icon type="arrow_down_blue" alt="" />
-            </Select>
-            {select.category && (
-              <SelectItemListWrapper>
-                <SelectItemList>
-                  {categoryList.map((val) => (
-                    <SelectItem
-                      onClick={() => handleSelect(setCategory, val, 'category')}
-                    >
-                      <SelectText>{val}</SelectText>
-                    </SelectItem>
-                  ))}
-                </SelectItemList>
-              </SelectItemListWrapper>
-            )}
-          </SelectList>
-        </UpperWrapper>
         <SelectWrapper>
           <LeftWrapper>
             <InputText>산업</InputText>
