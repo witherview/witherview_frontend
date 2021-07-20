@@ -9,6 +9,8 @@ import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
 import { postGroupRoomApi } from '@repository/groupRepository';
 import { MODALS } from '@utils/constant';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Wrapper = styled.div`
   display: flex;
@@ -142,7 +144,7 @@ const PickerWrapper = styled.div`
   border-radius: 1vh;
   border: solid 0.1vh #9e9e9e;
   background-color: #ffffff;
-  > div > div > input {
+  > div input {
     font-size: 2vh;
   }
 `;
@@ -192,7 +194,7 @@ export default function StudyStartModal({ func }) {
   const [job, setJob] = useState('직무를 선택해주세요.');
   const [select, setSelect] = useState(initSelect);
 
-  const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
+  const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(moment(new Date()).format('HH:mm'));
 
   const handleInputChange = (e, setState) => {
@@ -208,8 +210,8 @@ export default function StudyStartModal({ func }) {
     setSelect({ [type]: !select[type] });
   };
 
-  const handleChangeDate = (e) => {
-    setDate(e.target.value);
+  const handleChangeDate = (newDate) => {
+    setDate(newDate);
   };
 
   const handleChangeTime = (e) => {
@@ -308,15 +310,19 @@ export default function StudyStartModal({ func }) {
             <InputText>진행 날짜</InputText>
             <PickerWrapper>
               {select.industry || (
-                <TextField
+                <DatePicker
                   id="date"
-                  type="date"
-                  value={date}
-                  className={classes.textField}
-                  onChange={handleChangeDate}
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
+                  onChange={(newDate) => handleChangeDate(newDate)}
+                  dateFormat="yyyy.MM.dd -eee"
+                  selected={date}
+                  customInput={
+                    <TextField
+                      className={classes.textField}
+                      InputProps={{
+                        disableUnderline: true,
+                      }}
+                    />
+                  }
                 />
               )}
             </PickerWrapper>
