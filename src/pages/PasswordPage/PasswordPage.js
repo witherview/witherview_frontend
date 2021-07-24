@@ -145,7 +145,7 @@ export default function FindPassword({ history, location }) {
     if (location.pathname.includes('reset')) setMode('reset');
     else if (location.pathname.includes('find')) setMode('find');
     else history.push('/');
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (mode === 'reset') {
