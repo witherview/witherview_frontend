@@ -30,12 +30,31 @@ const Wrapper = styled.div`
     ${({ isOpen }) =>
       isOpen &&
       `
-    fill: #0b3895;
-    transform: scale(1);
-  `}
+        fill: #0b3895;
+        transform: scale(1);
+      `}
     display: flex;
     flex-direction: row;
     align-items: center;
+    ${({ usePx }) =>
+      usePx &&
+      `
+       > div:nth-child(1) {
+          width: 45px;
+          height: 45px;
+        }
+        > i {
+          margin: 2px;
+          background-size: 1237px 876px;
+          background-position: -400.5px -45px;
+          width: 14px;
+          height: 14px;
+        }
+        > ul {
+          top: 40px;
+          right: -20px;
+        }
+    `};
   }
 
   div.name {
@@ -117,7 +136,7 @@ export default function ProfileMenuContainer({
         onMouseOver={() => toggle(true)}
         onMouseLeave={() => toggle(false)}
       >
-        <A.ProfileIcon src={src} isSmall={isSmall} />
+        <A.ProfileIcon src={src} isSmall={isSmall} isPx={usePx} />
         <div className="name">{name || 'Unknown'}</div>
 
         <A.Icon type="arrow_down_grey" alt="arrow_down_grey" />
