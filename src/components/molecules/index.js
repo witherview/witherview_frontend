@@ -1,5 +1,6 @@
 import ButtonGroup from './ButtonGroup';
 import ChatInput from './ChatInput';
+import HoverDropDown from './HoverDropDown';
 import NameLabel from './NameLabel';
 import ProfileEdit from './ProfileEdit';
 import QuestionTextBox from './QuestionTextBox';
@@ -14,6 +15,7 @@ import TimeButton from './TimeButton';
 export default {
   ButtonGroup,
   ChatInput,
+  HoverDropDown,
   NameLabel,
   ProfileEdit,
   QuestionTextBox,
