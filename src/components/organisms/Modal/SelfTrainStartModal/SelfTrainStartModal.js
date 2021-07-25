@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
 import { useHistory } from 'react-router-dom';
 import A from '@atoms';
-import { hideModal } from '@store/Modal/modal';
+import { removeModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
-import { ResetQuestions } from '@store/Question/question';
+import { resetQuestions } from '@store/Question/question';
 
 const Wrapper = styled.div`
   display: flex;
@@ -59,13 +59,13 @@ export default function SelfTrainStartModal() {
   const history = useHistory();
   const { selectedQnaId } = useSelector(get('train'));
   const handleHideModal = () => {
-    dispatch(hideModal(MODALS.SELF_TRAIN_START_MODAL));
+    dispatch(removeModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
   };
 
   const handleStart = () => {
     history.push(`/self/setting/${selectedQnaId}`);
-    dispatch(ResetQuestions());
-    dispatch(hideModal(MODALS.SELF_TRAIN_START_MODAL));
+    dispatch(resetQuestions());
+    dispatch(removeModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
   };
 
   return (

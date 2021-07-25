@@ -14,7 +14,9 @@ import {
   // handleNextButton,
   // handleStepQuestion,
 } from '@store/Time/time';
-import { setToggleTrain } from '@store/Train/train';
+import { setToggleTrain, setSelectedQnaId } from '@store/Train/train';
+import { postPreGroupVideoApi } from '@repository/studyHistoryRepository';
+
 import { get } from '@utils/snippet';
 // import { setStep, setHistoryId } from '@store/Train/train';
 // import { postPreVideoApi } from '@repository/requestVideoRepository';
@@ -27,7 +29,7 @@ import O from '@organisms';
 // import useWindowSize from '@hooks/useWindowSize';
 
 import Modal from '@organisms/Modal/Modal';
-import { showModal } from '@store/Modal/modal';
+import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 
 import MyCamView from './MyCamView';
@@ -48,6 +50,7 @@ export default function PeerStudyTrainPage({
   handleClick,
   chat,
   isConnectStomp,
+  onFeedbackSubscribe,
 }) {
   // TODO: 녹화부분 연동
   // const { status, startRecording, stopRecording } = useReactMediaRecorder({
@@ -57,25 +60,41 @@ export default function PeerStudyTrainPage({
   const dispatch = useDispatch();
 
   const { time } = useSelector(get('time'));
+  const { isHost } = useSelector(get('train'));
+
   const [step, setStep] = useState(0);
   const { peers, userVideo, socketRef } = useSocketSignal({
     setStep,
     roomId,
   });
 
-  useEffect(() => () => dispatch(setToggleTrain({ toggleTrain: false })), []);
+  useEffect(() => {
+    if (isHost) {
+      (async () => {
+        const {
+          data: { id },
+        } = await postPreGroupVideoApi({ id: roomId });
+        await dispatch(setSelectedQnaId({ selectedQnaId: id }));
+        // TODO: socket으로 history id를 emit하는 코드 삽입
+        onFeedbackSubscribe(id);
+      })();
+    } else {
+      // TODO: socket으로 emit된 history id를 가져오는 코드 삽입
+    }
+    return () => dispatch(setToggleTrain({ toggleTrain: false }));
+  }, []);
 
   const textBox = (
     <M.TextBox topText={Fixture[step].top} bottomText={Fixture[step].bottom} />
   );
 
   const isStepFirst = peers.length === 0 && step === 0;
-  const isTrain = step === STEP_TRAIN_FIRST
-    || step === STEP_TRAIN_SECOND
-    || step === STEP_FINAL;
+  const isTrain =
+    step === STEP_TRAIN_FIRST ||
+    step === STEP_TRAIN_SECOND ||
+    step === STEP_FINAL;
 
   useEffect(() => {
-    console.log('peer length', peers.length);
     if (peers.length === 1 && step === 0) {
       dispatch(setToggleTrain({ toggleTrain: true }));
       setStep(STEP_CONNECT);
@@ -85,7 +104,7 @@ export default function PeerStudyTrainPage({
       dispatch(startTime({ count: 1800 }));
     }
     if (peers.length === 1 && step === STEP_FINAL - 1) {
-      dispatch(showModal(MODALS.EVALUATION_MODAL));
+      dispatch(displayModal({ modalName: MODALS.EVALUATION_MODAL }));
     }
     return () => {};
   }, [peers, step, isConnectStomp, isTrain]);
@@ -115,8 +134,8 @@ export default function PeerStudyTrainPage({
                 absolute={step >= 2}
               />
             )}
-            {peers
-              && peers.map((peer, index) => (
+            {peers &&
+              peers.map((peer, index) => (
                 <PeerVideo
                   key={index}
                   peer={peer}
@@ -162,4 +181,5 @@ PeerStudyTrainPage.propTypes = {
   handleClick: PropTypes.func,
   chat: PropTypes.array,
   isConnectStomp: PropTypes.bool,
+  onFeedbackSubscribe: PropTypes.func,
 };

@@ -1,10 +1,10 @@
-import {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
 import { setLocalBlob } from '@store/Train/train';
+
+import { cleanUpStream } from '@utils/snippet';
 
 export default function useReactMediaRecorder({
   audio = true,
@@ -25,12 +25,15 @@ export default function useReactMediaRecorder({
   const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
   const [error, setError] = useState('NONE');
 
+  useEffect(() => () => cleanUpStream(mediaStream.current), []);
+
   const getMediaStream = useCallback(async () => {
     setStatus('acquiring_media');
     const requiredMedia = {
       audio: typeof audio === 'boolean' ? !!audio : audio,
       video: typeof video === 'boolean' ? !!video : video,
     };
+
     try {
       if (screen) {
         const stream = await window.navigator.mediaDevices.getDisplayMedia({
@@ -118,8 +121,8 @@ export default function useReactMediaRecorder({
     const [chunk] = mediaChunks.current;
     const blobProperty = {
       type: chunk.type,
-      ...(blobPropertyBag
-        || (video || screen
+      ...(blobPropertyBag ||
+        (video || screen
           ? { type: 'video/webm;codecs=vp8,opus' }
           : { type: 'audio/wav' })),
     };

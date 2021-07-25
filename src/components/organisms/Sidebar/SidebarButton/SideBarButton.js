@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import A from '@atoms';
 
 const Wrapper = styled.button`
-  width: ${({ hover }) => (hover ? 29.6 : 15.9)}vh;
+  position: relative;
+  width: 100%;
   height: 7.1vh;
   background-color: ${({ clicked }) => (clicked ? 'white' : '#0c0c59')};
   display: flex;
@@ -15,28 +16,34 @@ const Wrapper = styled.button`
   justify-content: center;
   border: none;
   outline: none;
+
+  i {
+    position: absolute;
+    left: 3.6vh;
+  }
+
+  div {
+    position: absolute;
+    left: 8.5vh;
+    color: ${({ clicked }) => (clicked ? '#0c0c59' : 'white')};
+
+    font-family: AppleSDGothicNeoB00;
+    font-size: 1.8vh;
+    word-break: keep-all;
+    text-overflow: clip;
+  }
+
   &: hover {
     opacity: ${({ clicked }) => (clicked ? '100%' : '60%')};
   }
   cursor: pointer;
 `;
 
-const WrapText = styled.div`
-  width: 11.4vh;
-  padding-left: 1.9vh;
-  font-family: AppleSDGothicNeoB00;
-  font-size: 1.9vh;
-  text-align: left;
-  color: ${({ clicked }) => (clicked ? '#0c0c59' : 'white')};
-`;
-
-export default function SideBarButton({
-  type, clicked, func, hover, title,
-}) {
+export default function SideBarButton({ type, clicked, func, isHover, text }) {
   return (
-    <Wrapper onClick={func} clicked={clicked} hover={hover}>
-      <A.Icon type={type} alt="icon" />
-      {hover && <WrapText clicked={clicked}>{title}</WrapText>}
+    <Wrapper onClick={func} clicked={clicked}>
+      <A.Icon className="icon" type={type} alt="icon" />
+      {isHover && <div className="sideText">{text}</div>}
     </Wrapper>
   );
 }
@@ -45,12 +52,10 @@ SideBarButton.propTypes = {
   type: PropTypes.string.isRequired,
   clicked: PropTypes.bool,
   func: PropTypes.func.isRequired,
-  hover: PropTypes.bool,
-  title: PropTypes.string,
+  isHover: PropTypes.bool,
+  text: PropTypes.string,
 };
 
 SideBarButton.defaultProps = {
   clicked: false,
-  hover: false,
-  title: '',
 };

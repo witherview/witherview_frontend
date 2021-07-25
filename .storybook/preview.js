@@ -31,6 +31,7 @@ const customViewports = {
 };
 
 addParameters({
+  layout: 'fullscreen',
   viewport: { viewports: customViewports, defaultViewport: 'landScapeDefault' },
 });
 

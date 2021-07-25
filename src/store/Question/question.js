@@ -28,18 +28,10 @@ const questionReducer = createSlice({
   },
 });
 
-const { addQuestions, resetQuestions, setReload } = questionReducer.actions;
-
-export const AddQuestions = ({ questions }) => async (dispatch) => {
-  dispatch(addQuestions({ questions }));
-};
-
-export const ResetQuestions = () => (dispatch) => {
-  dispatch(resetQuestions());
-};
-
-export const SetReload = () => (dispatch) => {
-  dispatch(setReload());
-};
+export const {
+  addQuestions,
+  resetQuestions,
+  setReload,
+} = questionReducer.actions;
 
 export default questionReducer.reducer;

@@ -4,29 +4,69 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get } from '@utils/snippet';
 import { setLogin } from '@store/Auth/auth';
+import { getUserInfoApi } from '@repository/accountRepository';
 
 export default function AuthRoute({ component: Component, render, ...rest }) {
   const dispatch = useDispatch();
-  const authSelector = useSelector(get('auth'));
+  const { isLogin } = useSelector(get('auth'));
+  const accessToken = sessionStorage.getItem('accessToken');
+
+  const fetch = async () => {
+    try {
+      const {
+        data: {
+          email,
+          name,
+          mainIndustry,
+          mainJob,
+          subIndustry,
+          subJob,
+          profileImg,
+          phoneNumber,
+        },
+      } = await getUserInfoApi();
+
+      dispatch(
+        setLogin({
+          isLogin: true,
+          email,
+          name,
+          mainIndustry,
+          mainJob,
+          subIndustry,
+          subJob,
+          profileImg,
+          phoneNumber,
+        }),
+      );
+    } catch (error) {
+      if (error.response.status === 401) {
+        sessionStorage.removeItem('accessToken');
+      }
+      alert(error);
+    }
+  };
+
   useEffect(() => {
-    const name = sessionStorage.getItem('name');
-    const email = sessionStorage.getItem('email');
-    if (name !== authSelector.name) {
-      dispatch(setLogin({ email, name }));
+    if (!isLogin && accessToken !== null) {
+      fetch();
     }
   }, []);
+
   return (
     <Route
       {...rest}
-      render={(props) => (authSelector.isLogin ? (
-        render ? (
-          render(props)
+      render={(props) =>
+        isLogin || accessToken ? (
+          render ? (
+            render(props)
+          ) : (
+            <Component {...props} />
+          )
         ) : (
-          <Component {...props} />
+          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
         )
-      ) : (
-        <Redirect to={{ pathname: '/', state: { from: props.location } }} />
-      ))}
+      }
     />
   );
 }

@@ -1,65 +1,137 @@
 import React, { useState, useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
+import O from '@organisms';
 
-import { getUserApi } from '@repository/loginRepository';
+import {
+  getUserStatisticsApi,
+  putProfileInfoApi,
+} from '@repository/accountRepository';
+import { get } from '@utils/snippet';
+import { displayModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
 import S from './MyPage.style';
 import Box from './Box';
 
 export default function MyPage() {
-  const name = sessionStorage.getItem('name');
-  const email = sessionStorage.getItem('email');
+  const dispatch = useDispatch();
+  const {
+    name,
+    email,
+    phoneNumber,
+    mainIndustry,
+    mainJob,
+    subIndustry,
+    subJob,
+  } = useSelector(get('auth'));
+
   const [info, setInfo] = useState([]);
-  const fetch = async () => {
-    getUserApi().then((response) => {
-      const { data } = response;
-      setInfo([
-        {
-          type: 'sound_big',
-          title: '면접스터디 횟수',
-          count: data?.groupStudyCnt,
-        },
-        {
-          type: 'bubble_big',
-          title: '혼자연습 횟수',
-          count: data?.selfPracticeCnt,
-        },
-        {
-          type: 'memo_big',
-          title: '질문 리스트 갯수',
-          count: data?.questionListCnt,
-        },
-        {
-          type: 'star_big',
-          title: '면접 평균 점수',
-          count: data?.interviewScore,
-        },
-        {
-          type: 'thumb_up_big',
-          title: '합격 횟수',
-          count: data?.passCnt,
-        },
-        {
-          type: 'thumb_down_big',
-          title: '불합격 횟수',
-          count: data?.failCnt,
-        },
-      ]);
-    });
+  const [editName, setEditName] = useState();
+  const [editPhoneNumber, setEditPhoneNumber] = useState();
+  const [savedName, setSavedName] = useState();
+  const [savedPhoneNumber, setSavedPhoneNumber] = useState();
+
+  const updateUserInfo = async () => {
+    try {
+      if (savedName !== editName || savedPhoneNumber !== editPhoneNumber) {
+        // #53 에서 작업한 input validation 에서 validation 필요한 부분 적용 할 일감을 별도로 작성하여
+        // 전체적으로 추가 할 예정임.
+        await putProfileInfoApi({
+          mainIndustry,
+          mainJob,
+          name: editName,
+          phoneNumber: editPhoneNumber,
+          subIndustry,
+          subJob,
+        });
+
+        setSavedName(editName);
+        setSavedPhoneNumber(editPhoneNumber);
+        alert('개인정보가 변경되었습니다.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
+
   useEffect(() => {
-    fetch();
+    (async () => {
+      try {
+        const {
+          data: {
+            groupStudyCnt,
+            selfPracticeCnt,
+            questionListCnt,
+            interviewScore,
+            passCnt,
+            failCnt,
+          },
+        } = await getUserStatisticsApi();
+        setInfo([
+          {
+            type: 'sound_big',
+            title: '면접스터디 횟수',
+            count: groupStudyCnt,
+          },
+          {
+            type: 'bubble_big',
+            title: '혼자연습 횟수',
+            count: selfPracticeCnt,
+          },
+          {
+            type: 'memo_big',
+            title: '질문 리스트 갯수',
+            count: questionListCnt,
+          },
+          {
+            type: 'star_big',
+            title: '면접 평균 점수',
+            count: interviewScore,
+            unit: '점',
+          },
+          {
+            type: 'thumb_up_big',
+            title: '합격 횟수',
+            count: passCnt,
+          },
+          {
+            type: 'thumb_down_big',
+            title: '불합격 횟수',
+            count: failCnt,
+          },
+        ]);
+      } catch (error) {
+        console.error(error);
+        alert(error);
+      }
+    })();
   }, []);
+
+  useEffect(() => {
+    setEditName(name);
+    setSavedName(name);
+    setEditPhoneNumber(phoneNumber);
+    setSavedPhoneNumber(phoneNumber);
+  }, [name, phoneNumber]);
 
   return (
     <S.Wrapper>
+      <O.Modal modalName={MODALS.WITHDRAW_CONFIRM_MODAL} />
       <S.ProfileWrapper>
         <S.Profile>
           <M.ProfileEdit />
           <S.ProfileInfo>
             <S.NameWrapper>
-              <S.NameText>{name}</S.NameText>
-              <A.Icon type="post" />
+              <S.InputWrapper noBorder>
+                <A.InputBar
+                  value={editName}
+                  isFullWidth
+                  onChange={(e) => setEditName(e.target.value)}
+                />
+              </S.InputWrapper>
             </S.NameWrapper>
             <S.Jobs>화학 / 데이터 분석</S.Jobs>
             <S.Reliability>신뢰도</S.Reliability>
@@ -71,8 +143,11 @@ export default function MyPage() {
         </S.Profile>
         <S.InfoWrapper>
           <S.Info>
-            <S.Title>이메일 주소</S.Title>
-            <S.Content>{email}</S.Content>
+            <A.SubHeader subHeaderText="이메일 주소" fontSize="2vh">
+              <S.InputWrapper>
+                <A.InputBar value={email} isFullWidth disabled />
+              </S.InputWrapper>
+            </A.SubHeader>
             <S.Title>관심 산업</S.Title>
             <S.Block>
               <S.BlockItem theme="blue">화학</S.BlockItem>
@@ -80,8 +155,15 @@ export default function MyPage() {
             </S.Block>
           </S.Info>
           <S.Info>
-            <S.Title>휴대전화</S.Title>
-            <S.Content>01012345678</S.Content>
+            <A.SubHeader subHeaderText="휴대전화" fontSize="2vh">
+              <S.InputWrapper>
+                <A.InputBar
+                  value={editPhoneNumber}
+                  isFullWidth
+                  onChange={(e) => setEditPhoneNumber(e.target.value)}
+                />
+              </S.InputWrapper>
+            </A.SubHeader>
             <S.Title>관심 직무</S.Title>
             <S.Block>
               <S.BlockItem theme="orange">데이터 분석</S.BlockItem>
@@ -96,9 +178,24 @@ export default function MyPage() {
             type={val.type}
             title={val.title}
             count={val.count !== null ? val.count : 0}
+            unit={val.unit}
           />
         ))}
       </S.BoxWrapper>
+      <S.ButtonWrapper>
+        <A.Button
+          theme="blue"
+          text="저장"
+          func={async () => await updateUserInfo()}
+        />
+        <S.WithdrawWrapper
+          onClick={() =>
+            dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }))
+          }
+        >
+          회원 탈퇴 {'>'}
+        </S.WithdrawWrapper>
+      </S.ButtonWrapper>
     </S.Wrapper>
   );
 }

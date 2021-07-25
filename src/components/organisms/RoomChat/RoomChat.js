@@ -9,7 +9,8 @@ const Wrapper = styled.div`
   height: 63vh;
   display: flex;
   align-items: flex-end;
-  ${({ isConnectStomp }) => !isConnectStomp && 'pointer-events: none; opacity: 0.3;'}
+  ${({ isConnectStomp }) =>
+    !isConnectStomp && 'pointer-events: none; opacity: 0.3;'}
 `;
 
 const WrapContainer = styled.div`
@@ -118,10 +119,10 @@ export default function RoomChat({
               </WrapProfileIcon>
               <WrapChat>
                 <WrapChatInfo>
-                  {val.name}
+                  {val.userName}
                   <span>{val.time}</span>
                 </WrapChatInfo>
-                <MessageText>{val.content}</MessageText>
+                <MessageText>{val.message}</MessageText>
               </WrapChat>
             </ChatMessageWrapper>
           ))}
@@ -136,7 +137,7 @@ export default function RoomChat({
 
 RoomChat.propTypes = {
   setInterviewer: PropTypes.bool,
-  chatData: PropTypes.object,
+  chatData: PropTypes.array,
   onClick: PropTypes.func,
   isConnectStomp: PropTypes.bool,
 };

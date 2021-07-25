@@ -74,7 +74,8 @@ const WrapText = styled.div`
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;
   color: #6e6eff;
-  ${({ padding }) => (padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh')};
+  ${({ padding }) =>
+    padding ? 'padding-bottom: 2vh' : 'padding-right: 2.5vh'};
 `;
 
 const Text = styled.div`
@@ -99,6 +100,10 @@ const InnerText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #000000;
+`;
+
+const WrapButton = styled.div`
+  ${({ theme: { button } }) => button}
 `;
 
 export default function PeerStudySettingPage({ setStepTrain }) {
@@ -157,11 +162,13 @@ export default function PeerStudySettingPage({ setStepTrain }) {
             </TextButton>
           </WrapSubContainer>
         </WrapContainer>
-        <A.Button
-          theme={first && standardTime > 0 ? 'blue' : 'gray'}
-          text="다음"
-          func={setStepTrain}
-        />
+        <WrapButton>
+          <A.Button
+            theme={first && standardTime > 0 ? 'blue' : 'gray'}
+            text="다음"
+            func={setStepTrain}
+          />
+        </WrapButton>
       </WrapContent>
     </Wrapper>
   );

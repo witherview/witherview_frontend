@@ -65,3 +65,4 @@ typings/
 .netlify
 
 .DS_Store
+.idea

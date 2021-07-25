@@ -8,19 +8,19 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { sortObjectByOrder } from '@utils/snippet';
 import {
-  deleteQuestionItemAPI,
-  getQuestionItemAPI,
+  deleteEachQuestionItemAPI,
+  getEachQuestionItemAPI,
   postQuestionItemAPI,
   patchQuestionItemAPI,
 } from '@repository/questionListRepository';
 
 import { setSelectedQnaId } from '@store/Train/train';
-import { AddQuestions, ResetQuestions } from '@store/Question/question';
+import { addQuestions, resetQuestions } from '@store/Question/question';
 
 import A from '@atoms';
 import O from '@organisms';
 
-import { showModal } from '@store/Modal/modal';
+import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 
 const PageWrapper = styled.div`
@@ -29,7 +29,7 @@ const PageWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 `;
 
 const ContentWrapper = styled.div`
@@ -131,64 +131,71 @@ export default function QuestionPage({ match }) {
   const [loading, setLoading] = useState(false);
   const { id } = match.params;
   const fetch = async () => {
-    if (id !== 'new') {
-      getQuestionItemAPI(id).then((response) => {
-        setQuestionList(sortObjectByOrder(response.data));
-      });
+    try {
+      if (id !== 'new') {
+        const { data } = await getEachQuestionItemAPI(id);
+        setQuestionList(sortObjectByOrder(data));
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
     }
   };
 
   useEffect(() => {
     fetch();
     setLoading(true);
-    return () => dispatch(ResetQuestions());
+    return () => dispatch(resetQuestions());
   }, []);
 
   const handleQuestionMake = async () => {
-    if (deletedItems) {
-      await deletedItems.map((eachId) => deleteQuestionItemAPI(eachId).then(() => {}));
-    }
-
-    const questionListAsc = questionList.map((question, index) => ({
-      ...question,
-      order: index,
-    }));
-
-    if (id === 'new') {
-      dispatch(AddQuestions({ questions: questionListAsc }));
-      dispatch(showModal(MODALS.QUESTIONLIST_SAVE_MODAL));
-    } else {
-      const Old = questionListAsc
-        .filter((val) => val.id !== undefined && val.tempId === undefined)
-        .map((elem) => ({
-          id: elem.id,
-          answer: elem.answer,
-          order: elem.order,
-          question: elem.question,
-        }));
-
-      const New = questionListAsc
-        .filter((val) => val.id === undefined && val.tempId !== undefined)
-        .map((elem) => ({
-          ...elem,
-          id: elem.tempId,
-        }));
-
-      if (New.length !== 0) {
-        await postQuestionItemAPI({
-          listId: id,
-          questions: New,
-        }).then(() => {
-          dispatch(setSelectedQnaId({ selectedQnaId: id }));
-        });
+    try {
+      if (deletedItems) {
+        await deletedItems.map((eachId) => deleteEachQuestionItemAPI(eachId));
       }
 
-      if (Old.length !== 0) {
-        await patchQuestionItemAPI(Old).then(() => {
+      const questionListAsc = questionList.map((question, index) => ({
+        ...question,
+        order: index,
+      }));
+
+      if (id === 'new') {
+        dispatch(addQuestions({ questions: questionListAsc }));
+        dispatch(displayModal({ modalName: MODALS.QUESTIONLIST_SAVE_MODAL }));
+      } else {
+        const Old = questionListAsc
+          .filter((val) => val.id !== undefined && val.tempId === undefined)
+          .map((elem) => ({
+            id: elem.id,
+            answer: elem.answer,
+            order: elem.order,
+            question: elem.question,
+          }));
+
+        const New = questionListAsc
+          .filter((val) => val.id === undefined && val.tempId !== undefined)
+          .map((elem) => ({
+            ...elem,
+            id: elem.tempId,
+          }));
+
+        if (New.length !== 0) {
+          await postQuestionItemAPI({
+            listId: id,
+            questions: New,
+          });
           dispatch(setSelectedQnaId({ selectedQnaId: id }));
-        });
+        }
+
+        if (Old.length !== 0) {
+          await patchQuestionItemAPI(Old);
+          dispatch(setSelectedQnaId({ selectedQnaId: id }));
+        }
+        dispatch(displayModal({ modalName: MODALS.SELF_TRAIN_START_MODAL }));
       }
-      dispatch(showModal(MODALS.SELF_TRAIN_START_MODAL));
+    } catch (error) {
+      console.error(error);
+      alert(error);
     }
   };
 
@@ -232,6 +239,9 @@ export default function QuestionPage({ match }) {
                 placeholder="질문을 입력하세요."
                 value={title}
                 onChange={handleTitle}
+                onKeyDown={({ keyCode }) =>
+                  keyCode === 13 && handleQuestionAdd()
+                }
               />
               <IconWrapper>
                 <A.Icon

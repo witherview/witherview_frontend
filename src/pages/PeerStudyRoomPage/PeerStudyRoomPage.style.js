@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  flex: 1;
-  flex-direction: column;
+  height: 100%;
 `;
 
 const WrapperContent = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,6 +65,9 @@ const BoxWrapper = styled.div`
     margin-bottom: 2.5vh;
   }
   ${({ theme }) => theme.button}
+  > div {
+    pointer-events: auto;
+  }
 `;
 
 const UserInfoWrapper = styled.div`
@@ -126,7 +128,8 @@ const TagsWrapper = styled.div`
 `;
 
 const TagItem = styled.label`
-  background-color: ${({ color }) => (color === 'blue' ? '#eef0ff' : '#fff3ef')};
+  background-color: ${({ color }) =>
+    color === 'blue' ? '#eef0ff' : '#fff3ef'};
   font-size: 1vh;
   color: ${({ color }) => (color === 'blue' ? '#6e6eff' : '#f2886b')};
   border-radius: 0.5vh;
@@ -142,11 +145,9 @@ const ItemInnerWrapper = styled.div`
 
 const ProgressBar = styled.progress`
   width: 24.5vh;
-  height: 0.8vh;
   margin-right: 2.2vh;
   border: none;
   overflow: hidden;
-  -moz-border-radius: 5vh;
   -webkit-border-radius: 5vh;
   border-radius: 5vh;
   &::-webkit-progress-value {

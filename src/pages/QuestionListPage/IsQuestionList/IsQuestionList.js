@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { getQuestionItemAPI } from '@repository/questionListRepository';
 import A from '@atoms';
 import O from '@organisms';
 
@@ -52,7 +51,7 @@ export default function IsQuestionList({ questionList, handleDelete }) {
     <>
       <Wrapper>
         <ItemWrapper>
-          <Link to="/question/new" style={{ textDecoration: 'none' }}>
+          <Link to="/self/question/new" style={{ textDecoration: 'none' }}>
             <AddQuestionList>
               <IconWrapper>
                 <A.Icon type="add_black" alt="icon" />
@@ -61,24 +60,19 @@ export default function IsQuestionList({ questionList, handleDelete }) {
             </AddQuestionList>
           </Link>
         </ItemWrapper>
-        {questionList?.map((val, index) => {
-          const [count, setCount] = useState(0);
-          getQuestionItemAPI(val.id).then((response) => {
-            setCount(response.data.length);
-          });
-          return (
-            <ItemWrapper key={`itemQ-${index}`}>
-              <O.QuestionCardView
-                id={val.id}
-                number={count}
-                title={val.title}
-                description={val.enterprise}
-                questionList={questionList}
-                handleDelete={handleDelete}
-              />
-            </ItemWrapper>
-          );
-        })}
+        {questionList?.map(({ id, title, enterprise, job, length }, index) => (
+          <ItemWrapper key={`itemQ-${index}`}>
+            <O.QuestionCardView
+              id={id}
+              title={title}
+              description={enterprise}
+              questionList={questionList}
+              handleDelete={handleDelete}
+              job={job}
+              length={length}
+            />
+          </ItemWrapper>
+        ))}
       </Wrapper>
     </>
   );

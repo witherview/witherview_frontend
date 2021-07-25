@@ -13,11 +13,12 @@ import {
   handleReset,
   handleNextButton,
   handleStepQuestion,
+  handleTimeFlag,
 } from '@store/Time/time';
 import { setStep, setHistoryId } from '@store/Train/train';
 import { sortObjectByOrder, get } from '@utils/snippet';
-import { getQuestionItemAPI } from '@repository/questionListRepository';
-import { postPreVideoApi } from '@repository/requestVideoRepository';
+import { getEachQuestionItemAPI } from '@repository/questionListRepository';
+import { postPreSelfVideoApi } from '@repository/selfHistoryRepository';
 import useReactMediaRecorder from '@hooks/useMediaRecorder';
 
 import A from '@atoms';
@@ -47,19 +48,16 @@ export default function SelfTrainPage({ match }) {
   });
   const { name } = useSelector(get('auth'));
   const { time } = useSelector(get('time'));
-  const {
-    company, job, viewAnswer, qnaStep, step,
-  } = useSelector(get('train'));
+  const { company, job, viewAnswer, qnaStep, step } = useSelector(get('train'));
 
   const [questionList, setQuestionList] = useState(QNA_LIST);
 
   const fetch = async (requestId) => {
     try {
-      await getQuestionItemAPI(requestId).then((response) => {
-        setQuestionList(sortObjectByOrder(response.data));
-      });
-    } catch (err) {
-      if (err.response.status === 401) {
+      const { data } = await getEachQuestionItemAPI(requestId);
+      setQuestionList(sortObjectByOrder(data));
+    } catch (error) {
+      if (error.response.status === 401) {
         dispatch(setLogout());
       }
       setQuestionList(QNA_LIST);
@@ -71,19 +69,30 @@ export default function SelfTrainPage({ match }) {
   }, []);
 
   const handleCancel = async () => {
-    await stopRecording();
-    transition.clear();
-    history.push('/self');
-    dispatch(handleReset({ keepTrain: false }));
+    try {
+      await stopRecording();
+      transition.clear();
+      history.push('/self');
+      dispatch(handleReset({ keepTrain: false }));
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
-  const handleChecklistPage = () => {
-    postPreVideoApi({ questionListId: id }).then((response) => {
-      dispatch(setHistoryId({ historyId: response.data.id }));
+  const handleChecklistPage = async () => {
+    dispatch(handleTimeFlag());
+    try {
+      const { data } = await postPreSelfVideoApi({ questionListId: id });
+      dispatch(setHistoryId({ historyId: data.id }));
+      console.log(data, 'history');
       stopRecording();
-      history.push(`/self-checklist/${id}`);
-      dispatch(handleReset({ keepTrain: true }));
-    });
+      history.push(`/self/checklist/${id}`);
+      dispatch(handleReset({ keepTrain: true, keepTimeFlag: true }));
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   useEffect(() => {
@@ -125,8 +134,8 @@ export default function SelfTrainPage({ match }) {
   const textBox = (
     <M.TextBox
       topText={
-        (step === STEP_LOADING_2 ? `${name}님은 ${company} ${job}` : '')
-        + Fixture[step]?.top
+        (step === STEP_LOADING_2 ? `${name}님은 ${company} ${job}` : '') +
+        Fixture[step]?.top
       }
       bottomText={Fixture[step]?.bottom || ''}
     />
@@ -158,8 +167,8 @@ export default function SelfTrainPage({ match }) {
             <O.CamView isShowAnswer={isShowAnswer} status={status} />
             {isShowAnswer && (
               <O.AnswerBox
-                answer={questionList[qnaStep].answer}
-                date={questionList[qnaStep].modifiedAt}
+                answer={questionList[qnaStep]?.answer}
+                date={questionList[qnaStep]?.modifiedAt}
               />
             )}
           </S.WrapCamView>
@@ -175,13 +184,13 @@ export default function SelfTrainPage({ match }) {
                   text={Fixture[step].button}
                   func={
                     // TODO: 리펙토링 필요
-                    qnaStep === questionList.length - 1
-                    && questionList.length !== 1
+                    qnaStep === questionList.length - 1 &&
+                    questionList.length !== 1
                       ? () => handleChecklistPage()
                       : () => {
-                        if (step === STEP_START) startRecording();
-                        dispatch(handleNextButton());
-                      }
+                          if (step === STEP_START) startRecording();
+                          dispatch(handleNextButton());
+                        }
                   }
                 />
               </S.WrapButton>
@@ -191,7 +200,9 @@ export default function SelfTrainPage({ match }) {
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
                   <A.ToggleButton
-                    funcActive={() => dispatch(setStep({ step: TOGGLE_SCRIPT }))}
+                    funcActive={() =>
+                      dispatch(setStep({ step: TOGGLE_SCRIPT }))
+                    }
                     funcDeactive={() => dispatch(setStep({ step: STEP_ING }))}
                   />
                 </>

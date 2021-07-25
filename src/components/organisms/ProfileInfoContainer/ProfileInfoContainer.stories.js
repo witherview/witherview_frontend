@@ -8,7 +8,8 @@ export default {
   description: '프로필 사진, 이름, 참여율',
 };
 
-const profileImage = 'https://avatars2.githubusercontent.com/u/16266103?s=460&u=46ab2774d38212f0d0050592ce02dbcf36a7a97a&v=4';
+const profileImage =
+  'https://avatars2.githubusercontent.com/u/16266103?s=460&u=46ab2774d38212f0d0050592ce02dbcf36a7a97a&v=4';
 
 export const profileInfoDefault = ({ src = profileImage }) => (
   <ProfileInfoContainer src={src} />

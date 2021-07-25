@@ -7,14 +7,30 @@ import QuestionListSaveModal from './QuestionListSaveModal';
 import SelfTrainStartModal from './SelfTrainStartModal';
 import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
+import QuestionListEditModal from './QuestionListEditModal';
+import IndustrySelectModal from './IndustrySelectModal';
+import WithdrawConfirmModal from './WithdrawConfirmModal';
 
-export default function Modal({ modalName, func, roomId }) {
+export default function Modal({
+  modalName,
+  func,
+  roomId,
+  questionListEdit,
+  initialIndustries,
+}) {
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
     [MODALS.QUESTIONLIST_SAVE_MODAL]: <QuestionListSaveModal />,
+    [MODALS.QUESTIONLIST_EDIT_MODAL]: (
+      <QuestionListEditModal props={questionListEdit} />
+    ),
     [MODALS.SELF_TRAIN_START_MODAL]: <SelfTrainStartModal />,
     [MODALS.STUDY_MAKE_MODAL]: <StudyMakeModal func={func} />,
     [MODALS.EVALUATION_MODAL]: <EvaluationModal roomId={roomId} />,
+    [MODALS.INDUSTRY_SELECT_MODAL]: (
+      <IndustrySelectModal func={func} initialIndustries={initialIndustries} />
+    ),
+    [MODALS.WITHDRAW_CONFIRM_MODAL]: <WithdrawConfirmModal />,
   };
   return (
     <>
@@ -31,10 +47,13 @@ Modal.propTypes = {
   modalName: PropTypes.string,
   func: PropTypes.func,
   roomId: PropTypes.string,
+  questionListEdit: PropTypes.object,
+  initialIndustries: PropTypes.array,
 };
 
 Modal.defaultProps = {
   modalName: '',
   func: () => {},
   roomId: '0',
+  initialIndustries: [],
 };

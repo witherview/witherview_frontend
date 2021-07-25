@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const WrapOops = styled.div`
+const WrapTitle = styled.div`
   height: 12vh;
   font-size: 6.5vh;
   font-family: TitilliumWebBold;
@@ -58,9 +58,9 @@ export default function FragileRatio() {
 
   return (
     <Wrapper>
-      <WrapOops>Ooops!</WrapOops>
+      <WrapTitle>화면 크기를 조절해주세요!</WrapTitle>
       <WrapText>
-        브라우저 창의 높이를 줄여주세요. 16:9 비율에 최적화 되어 있습니다.
+        화면의 높이를 줄여주세요. 16:9 비율에 최적화 되어 있습니다.
       </WrapText>
       <WrapImage source={StudyBackground} />
       <WrapButton>

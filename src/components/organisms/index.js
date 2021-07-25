@@ -1,4 +1,5 @@
 import AnswerBox from './AnswerBox';
+import Calendar from './Calendar';
 import CamView from './CamView';
 import InterviewChat from './InterviewChat';
 import Modal from './Modal';
@@ -22,4 +23,5 @@ export default {
   RoomChat,
   SideBar,
   StudyCardView,
+  Calendar,
 };

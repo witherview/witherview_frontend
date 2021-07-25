@@ -15,6 +15,7 @@ const { actions, reducer } = createSlice({
     isLoading: false,
     step: 0,
     qnaStep: 0,
+    isHost: false,
   },
   reducers: {
     setToggleTrain(state, { payload: { toggleTrain } }) {
@@ -89,6 +90,12 @@ const { actions, reducer } = createSlice({
         qnaStep,
       };
     },
+    setIsHost(state, { payload: { isHost } }) {
+      return {
+        ...state,
+        isHost,
+      };
+    },
   },
 });
 
@@ -105,6 +112,7 @@ export const {
   setIsLoading,
   setStep,
   setQnaStep,
+  setIsHost,
 } = actions;
 
 export default reducer;

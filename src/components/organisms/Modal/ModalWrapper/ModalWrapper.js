@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '@store/Modal/modal';
+import { removeModal } from '@store/Modal/modal';
 
 const Background = styled.div`
   position: fixed;
@@ -42,7 +42,7 @@ export default function ModalWrapper({ modalName, children }) {
   const dispatch = useDispatch();
   const handleCloseModal = (e) => {
     if (e.target === e.currentTarget) {
-      dispatch(hideModal(modalName));
+      dispatch(removeModal({ modalName }));
     }
   };
 

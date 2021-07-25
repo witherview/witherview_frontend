@@ -4,13 +4,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import A from '@atoms';
 import {
-  postJoinStudyApi,
-  getGroupMemberApi,
+  postGroupRoomParticipantsApi,
+  getGroupRoomParticipantsApi,
 } from '@repository/groupRepository';
 
 const Wrapper = styled.div`
   display: flex;
-  flex: 0 0 33.333%;
   margin-bottom: 5vh;
 `;
 
@@ -139,6 +138,7 @@ export default function StudyCardView({
   description,
   time,
   member,
+  canParticipate,
 }) {
   const history = useHistory();
   const [type, setType] = useState('clock_black');
@@ -153,16 +153,25 @@ export default function StudyCardView({
     setProfile('profile_blue');
   };
 
-  const handleClick = () => {
-    getGroupMemberApi(id).then((res) => {
-      res.data.forEach((val) => {
-        if (val.email !== sessionStorage.getItem('email')) {
-          postJoinStudyApi({ id });
-        }
-      });
-    });
-    history.push(`/peer/${id}`);
+  const handleClick = async () => {
+    try {
+      if (canParticipate) {
+        const { data } = await getGroupRoomParticipantsApi(id);
+        data?.forEach((val) => {
+          if (val.email !== sessionStorage.getItem('email')) {
+            postGroupRoomParticipantsApi(id);
+          }
+        });
+        history.push(`/peer-study/${id}`);
+      } else {
+        alert('참여할 수 없는 스터디입니다.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
+
   return (
     <Wrapper>
       <Box onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -195,6 +204,7 @@ StudyCardView.propTypes = {
   description: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   member: PropTypes.number,
+  canParticipate: PropTypes.bool,
 };
 
 StudyCardView.defaultProp = {
