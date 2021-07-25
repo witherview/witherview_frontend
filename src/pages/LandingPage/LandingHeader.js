@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import O from '@organisms';
 import Logo from '@assets/images/witherview_logo_title_dark.png';
 import TextButtonProps from './components/TextButtonProps';
 
@@ -21,47 +22,50 @@ const Wrapper = styled.div`
   -moz-box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   background-color: white;
-`;
 
-const WrapLeft = styled.img`
-  width: 120px;
-`;
-
-const WrapContainer = styled.div`
-  width: 90%;
-  max-width: 1150px;
-  min-width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const WrapTextButton = styled.div`
-  @media only screen and (max-width: 1150px) {
-    display: none;
+  img.wrap-left {
+    width: 120px;
   }
-  min-width: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 60px;
-`;
+  div.wrap-container {
+    width: 90%;
+    max-width: 1150px;
+    min-width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-const WrapRightInner = styled.div`
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
+  div.wrap-text-button {
+    @media only screen and (max-width: 1150px) {
+      display: none;
+    }
+    min-width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 60px;
+  }
 
-const WrapButton = styled.div`
-  > div {
-    height: 35px;
-    border-radius: 5px;
-    border-width: 1.5px;
-    > p {
-      font-size: 12px;
-      font-family: AppleSDGothicNeoEB00;
+  div.wrap-right-inner {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  div.wrap-profile {
+    width: 143px; //button width 140px + border width 1.5px * 2
+  }
+
+  div.wrap-button {
+    > div {
+      height: 35px;
+      border-radius: 5px;
+      border-width: 1.5px;
+      > p {
+        font-size: 12px;
+        font-family: AppleSDGothicNeoEB00;
+      }
     }
   }
 `;
@@ -81,13 +85,14 @@ export default function LandingHeader({
 }) {
   const history = useHistory();
   const executeScroll = (ref) => scrollToRef(ref);
-
+  const isLoggedIn = sessionStorage.getItem('isLogin') !== null;
+  const name = sessionStorage.getItem('name');
   return (
     <Wrapper>
-      <WrapContainer>
-        <WrapLeft src={Logo} />
-        <WrapRightInner>
-          <WrapTextButton>
+      <div className="wrap-container">
+        <img className="wrap-left" src={Logo} alt="witherview" />
+        <div className="wrap-right-inner">
+          <div className="wrap-text-button">
             <TextButtonProps onClick={() => executeScroll(topRef)} text="홈" />
             <TextButtonProps
               onClick={() => executeScroll(middleOneRef)}
@@ -101,18 +106,29 @@ export default function LandingHeader({
               onClick={() => executeScroll(studyRef)}
               text="면접스터디"
             />
-          </WrapTextButton>
-          <WrapButton>
-            <A.Button
-              id="menu_btn"
-              theme="outline"
-              width={140}
-              text="LOG IN"
-              func={() => history.push('/login')}
-            />
-          </WrapButton>
-        </WrapRightInner>
-      </WrapContainer>
+          </div>
+          {isLoggedIn ? (
+            <div className="wrap-profile">
+              <O.ProfileMenuContainer
+                name={name}
+                isSmall
+                isAbsolute={false}
+                usePx
+              />
+            </div>
+          ) : (
+            <div className="wrap-button">
+              <A.Button
+                id="menu_btn"
+                theme="outline"
+                width={140}
+                text="LOG IN"
+                func={() => history.push('/login')}
+              />
+            </div>
+          )}
+        </div>
+      </div>
     </Wrapper>
   );
 }
