@@ -60,7 +60,7 @@ const Wrapper = styled.div`
 
       .box-container {
         display: contents;
-        > div {
+        > div:not(:nth-last-child(1)) {
           padding-top: 2vh;
           ${({ theme }) => theme.input}
         }
@@ -69,8 +69,7 @@ const Wrapper = styled.div`
       .button-container {
         display: flex;
         justify-content: center;
-        padding-top: ${({ mode }) =>
-          `${mode === 'find' ? '8vh' : '5.5vh'} !important;`};
+        padding-top: ${({ mode }) => `${mode === 'find' ? '8vh' : '5.5vh'};`};
         ${({ theme }) => theme.button}
       }
     }
@@ -92,7 +91,10 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function FindPassword({ history, location }) {
+export default function PasswordPage({
+  history,
+  location: { pathname, search },
+}) {
   const { ratio } = useWindowSize();
 
   const [textObject, setTextObject] = useState({
@@ -106,6 +108,7 @@ export default function FindPassword({ history, location }) {
   const [confirmPassword, setConfirmPassword] = useState();
   // TODO - validation 기능 머지 후 해당 이메일 validation 기능 추가
 
+  // eslint-disable-next-line consistent-return
   const handleButtonEvent = async () => {
     if (mode === 'find') {
       try {
@@ -117,39 +120,42 @@ export default function FindPassword({ history, location }) {
         console.error(error);
         alert(error);
       }
-    } else if (!value || value === '') {
-      alert('새 비밀번호를 입력하세요.');
-    } else if (value !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
-    } else {
-      try {
-        const result = await passwordResetApi({
-          newPassword: value,
-          newPasswordConfirm: value,
-          token,
-        });
+    }
 
-        if (result.status !== 200) alert(result.response.data.message);
-        else {
-          alert('패스워드가 변경되었습니다.');
-          history.push('/login');
-        }
-      } catch (error) {
-        console.error(error);
-        alert(error);
-      }
+    if (!value || value === '') {
+      return alert('새 비밀번호를 입력하세요.');
+    }
+
+    if (value !== confirmPassword) {
+      return alert('비밀번호가 일치하지 않습니다.');
+    }
+
+    try {
+      const result = await passwordResetApi({
+        newPassword: value,
+        newPasswordConfirm: value,
+        token,
+      });
+
+      if (result.status !== 200) return alert(result.response.data.message);
+
+      alert('패스워드가 변경되었습니다.');
+      history.push('/login');
+    } catch (error) {
+      console.error(error);
+      alert(error);
     }
   };
 
   useEffect(() => {
-    if (location.pathname.includes('reset')) setMode('reset');
-    else if (location.pathname.includes('find')) setMode('find');
+    if (pathname.includes('reset')) setMode('reset');
+    else if (pathname.includes('find')) setMode('find');
     else history.push('/');
-  }, [location]);
+  }, [pathname]);
 
   useEffect(() => {
     if (mode === 'reset') {
-      const params = new URLSearchParams(location.search);
+      const params = new URLSearchParams(search);
       if (!params.has('token')) history.push('/');
 
       setToken(params.get('token'));
@@ -158,7 +164,9 @@ export default function FindPassword({ history, location }) {
         placeholder: '변경될 비밀번호를 입력해주세요.',
         buttonText: '비밀번호 변경하기',
       });
-    } else if (mode === 'find') {
+    }
+
+    if (mode === 'find') {
       setTextObject({
         subTitle: '이메일 주소',
         placeholder: '이메일 주소를 입력해주세요.',
@@ -218,7 +226,7 @@ export default function FindPassword({ history, location }) {
   );
 }
 
-FindPassword.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
+PasswordPage.propTypes = {
+  history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
 };
