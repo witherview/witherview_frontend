@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
@@ -10,94 +13,111 @@ import { setLogout } from '@store/Auth/auth';
 
 import A from '@atoms';
 
-// const Wrapper = styled.div`
-//   position: absolute;
-//   top: 5.3vh;
-//   right: 10.5vh;
-//   height: 7.3vh;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-// `;
-
 const Wrapper = styled.div`
-  position: absolute;
-  top: -5.3vh;
+  position: ${({ isAbsolute }) => isAbsolute && 'absolute'};
+  top: 0;
   right: 0;
-  height: 7.3vh;
+  height: ${({ usePx }) => (usePx ? '73px' : '7.3vh')};
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
 
-const WrapMenu = styled.div`
-  list-style-type: none;
-  position: relative;
-  text-align: center;
-  z-index: 101;
-  ${({ isOpen }) =>
-    isOpen &&
-    `
-    fill: #0b3895;
-    transform: scale(1);
-  `}
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Name = styled.div`
-  font-family: AppleSDGothicNeoEB00;
-  font-size: 1.5vh;
-  padding-left: 2.9vh;
-  padding-right: 1vh;
-  user-select: none;
-  color: #3d3d3d;
-`;
-
-const List = styled.ul`
-  width: 14.3vh;
-  padding: 1.85vh 0vh 1.85vh 0vh;
-  position: absolute;
-  top: 7vh;
-  right: 0;
-  z-index: 101;
-  background-color: #fff;
-  transition: 0.25s ease all;
-  transform: scale(0);
-  transform-origin: 0 1;
-  border-radius: 1vh;
-  box-shadow: 0 1.2vh 2.4vh 0 rgba(4, 4, 161, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  transform: ${({ isOpen }) => isOpen && 'scale(1)'};
-`;
-
-const Item = styled.li`
-  width: 8.7vh;
-  padding-top: 1.25vh;
-  padding-bottom: 1.25vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-const Each = styled.div`
-  user-select: none;
-  font-family: AppleSDGothicNeoM00;
-  font-size: 1.5vh;
-  color: #9e9e9e;
-  &:hover {
-    color: #f2886b;
-    text-decoration: none;
+  div.wrap-menu {
+    list-style-type: none;
+    position: relative;
+    text-align: center;
+    z-index: 101;
+    ${({ isOpen }) =>
+      isOpen &&
+      `
+        fill: #0b3895;
+        transform: scale(1);
+      `}
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    ${({ usePx }) =>
+      usePx &&
+      `
+       > div:nth-child(1) {
+          width: 45px;
+          height: 45px;
+        }
+        > i {
+          margin: 2px;
+          background-size: 1237px 876px;
+          background-position: -400.5px -45px;
+          width: 14px;
+          height: 14px;
+        }
+        > ul {
+          top: 40px;
+          right: -20px;
+        }
+    `};
   }
-  cursor: pointer;
+
+  div.name {
+    font-family: AppleSDGothicNeoEB00;
+    font-size: ${({ usePx }) => (usePx ? '15px' : '1.5vh')};
+    padding-left: ${({ isSmall, usePx }) =>
+      isSmall ? (usePx ? '15px' : '1.5vh') : usePx ? '29px' : '2.9vh'};
+    padding-right: ${({ usePx }) => (usePx ? '10px' : '1vh')};
+    user-select: none;
+    color: #3d3d3d;
+  }
+
+  ul.list {
+    width: ${({ usePx }) => (usePx ? '143px' : '14.3vh')};
+    padding: ${({ usePx }) => (usePx ? '18.5px 0px' : '1.85vh 0vh')};
+    position: absolute;
+    top: ${({ usePx }) => (usePx ? '70px' : '7vh')};
+    right: 0;
+    z-index: 101;
+    background-color: #fff;
+    transition: 0.25s ease all;
+    transform: scale(0);
+    transform-origin: 0 1;
+    border-radius: ${({ usePx }) => (usePx ? '10px' : '1vh')};
+    box-shadow: ${({ usePx }) =>
+      `${usePx ? '0 12px 24px 0' : '0 1.2vh 2.4vh 0'} rgba(4, 4, 161, 0.15)`};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transform: ${({ isOpen }) => isOpen && 'scale(1)'};
+  }
+
+  li.item {
+    width: ${({ usePx }) => (usePx ? '87px' : '8.7vh')};
+    padding-top: ${({ usePx }) => (usePx ? '12.5px' : '1.25vh')};
+    padding-bottom: ${({ usePx }) => (usePx ? '12.5px' : '1.25vh')};
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  div.each {
+    user-select: none;
+    font-family: AppleSDGothicNeoM00;
+    font-size: ${({ usePx }) => (usePx ? '15px' : '1.5vh')};
+    color: #9e9e9e;
+    &:hover {
+      color: #f2886b;
+      text-decoration: none;
+    }
+    cursor: pointer;
+  }
 `;
 
-export default function ProfileMenuContainer({ name, src }) {
+export default function ProfileMenuContainer({
+  name,
+  src,
+  isSmall = false,
+  isAbsolute = true,
+  usePx = false,
+}) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -105,32 +125,40 @@ export default function ProfileMenuContainer({ name, src }) {
   const toggle = (set) => setIsOpen(set);
 
   return (
-    <Wrapper>
-      <WrapMenu
-        isOpen={isOpen}
+    <Wrapper
+      isAbsolute={isAbsolute}
+      isOpen={isOpen}
+      isSmall={isSmall}
+      usePx={usePx}
+    >
+      <div
+        className="wrap-menu"
         onMouseOver={() => toggle(true)}
         onMouseLeave={() => toggle(false)}
       >
-        <A.ProfileIcon src={src} />
-        <Name>{name || 'Unknown'}</Name>
+        <A.ProfileIcon src={src} isSmall={isSmall} isPx={usePx} />
+        <div className="name">{name || 'Unknown'}</div>
 
         <A.Icon type="arrow_down_grey" alt="arrow_down_grey" />
-        <List isOpen={isOpen}>
-          <Item>
-            <Each onClick={() => history.push('/mypage')}>마이페이지</Each>
-          </Item>
-          <Item>
-            <Each
+        <ul className="list">
+          <li className="item">
+            <div className="each" onClick={() => history.push('/mypage')}>
+              마이페이지
+            </div>
+          </li>
+          <li className="item">
+            <div
+              className="each"
               onClick={() => {
                 dispatch(setLogout());
                 history.push('/');
               }}
             >
               로그아웃
-            </Each>
-          </Item>
-        </List>
-      </WrapMenu>
+            </div>
+          </li>
+        </ul>
+      </div>
     </Wrapper>
   );
 }
@@ -138,8 +166,13 @@ export default function ProfileMenuContainer({ name, src }) {
 ProfileMenuContainer.propTypes = {
   name: PropTypes.string,
   src: PropTypes.string,
+  isSmall: PropTypes.bool,
+  isAbsolute: PropTypes.bool,
+  usePx: PropTypes.bool,
 };
 
 ProfileMenuContainer.defaultProps = {
   name: '홍길동',
+  isSmall: false,
+  usePx: false,
 };
