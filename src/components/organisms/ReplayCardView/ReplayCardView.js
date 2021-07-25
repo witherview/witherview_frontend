@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import PropTypes, { number } from 'prop-types';
 import A from '@atoms';
+import M from '@molecules';
+import { numberPad } from '@utils/snippet';
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,6 +14,8 @@ const Wrapper = styled.div`
   height: 36.8vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   box-sizing: border-box;
+
+  user-select: none;
 `;
 
 const SnapshotArea = styled.div`
@@ -38,6 +44,8 @@ const SnapshotArea = styled.div`
     transform: translate(-50%, -50%);
     box-sizing: border-box;
   }
+
+  cursor: pointer;
 `;
 
 const DescriptionArea = styled.div`
@@ -53,8 +61,8 @@ const DescriptionArea = styled.div`
   i:first-child {
     position: absolute;
 
-    right: 2.5vh;
-    top: 1.7vh;
+    right: -2vh;
+    top: -3vh;
   }
 
   .recDate {
@@ -80,10 +88,20 @@ const DescriptionArea = styled.div`
   }
 `;
 
-const time = 1000;
-export default function ReplayCardView() {
-  const [recDate] = useState('12월 1일 PM 20:00');
-  const [title] = useState('12월 1일 혼자연습');
+export default function ReplayCardView({
+  id,
+  createdAt,
+  title,
+  thumbnail = 'https://www.solidbackgrounds.com/images/3840x2160/3840x2160-dark-gray-solid-color-background.jpg',
+  time = 1000,
+}) {
+  const history = useHistory();
+  const day = numberPad(`${createdAt.getDay()}`);
+  const month = numberPad(`${createdAt.getMonth()}`);
+
+  const hour = numberPad(`${createdAt.getHours()}`);
+  const minute = numberPad(`${createdAt.getMinutes()}`);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
 
   const [pt, setPt] = useState({ hour: '', min: '', sec: '' });
 
@@ -100,19 +118,24 @@ export default function ReplayCardView() {
 
   return (
     <Wrapper className="replayCardItem">
-      <SnapshotArea>
-        <div className="thumbnail" src="" alt="temp" />
-        <A.Icon type="play_pupple" />
+      <SnapshotArea onClick={() => history.push(`/replay/${id}`)}>
+        <img className="thumbnail" src={thumbnail} alt="thumbnail" />
+        <A.Icon type="play_pupple" alt="play_pupple" />
       </SnapshotArea>
-
       <DescriptionArea>
-        <A.Icon className="abc" type="dots" alt="" />
-
-        <p className="recDate">{recDate}</p>
+        <M.HoverDropDown
+          items={[
+            { id: 0, title: '수정', func: () => {} },
+            { id: 1, title: '삭제', func: () => {} },
+          ]}
+        >
+          <A.Icon type="dots" alt="dots" />
+        </M.HoverDropDown>
+        <p className="recDate">{`${month}월 ${day}일 ${ampm} ${hour}: ${minute}`}</p>
         <div className="titleArea">
-          <p>{title}</p>
+          <p>{title || '제목 없음'}</p>
         </div>
-
+        {/* TODO: 서버에 프로퍼티 추가되면 확인해보아야 함 */}
         <p className="videoTime">
           {pt.hour !== '' && (
             <>
@@ -137,3 +160,11 @@ export default function ReplayCardView() {
     </Wrapper>
   );
 }
+
+ReplayCardView.propTypes = {
+  id: PropTypes.number,
+  createdAt: PropTypes.instanceOf(Date),
+  title: PropTypes.string,
+  thumbnail: PropTypes.string,
+  time: number,
+};
