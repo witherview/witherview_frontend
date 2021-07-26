@@ -96,8 +96,8 @@ export default function ReplayCardView({
   time = 1000,
 }) {
   const history = useHistory();
-  const day = numberPad(`${createdAt.getDay()}`);
-  const month = numberPad(`${createdAt.getMonth()}`);
+  const day = numberPad(`${createdAt.getDate()}`);
+  const month = numberPad(`${createdAt.getMonth() + 1}`);
 
   const hour = numberPad(`${createdAt.getHours()}`);
   const minute = numberPad(`${createdAt.getMinutes()}`);
