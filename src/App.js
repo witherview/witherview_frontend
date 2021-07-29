@@ -12,6 +12,7 @@ import O from '@organisms';
 
 import NotFound from '@pages/404';
 import LoginPage from '@pages/LoginPage';
+import PasswordPage from '@pages/PasswordPage';
 import SignUpPage from '@pages/SignUpPage';
 import WelcomePage from '@pages/WelcomePage';
 import QuestionListPage from '@pages/QuestionListPage';
@@ -92,6 +93,8 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/password-find" component={PasswordPage} />
+        <Route exact path="/password-reset" component={PasswordPage} />
         <Route exact path="/sign-up" component={SignUpPage} />
         <Route exact path="/welcome" component={WelcomePage} />
         {isLoading && (
