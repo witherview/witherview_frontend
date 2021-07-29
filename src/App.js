@@ -53,12 +53,13 @@ const WrapPage = styled.div`
         }
       `
       : `
-        height: 100vh;
+        min-height: 90vh;
+        height: 100%;
         width: calc(100vw - 10vh);
         padding-left: 10vh;
         display: flex;
         justify-content: center;
-        align-items: center;
+        padding-top: 10vh;
         .container {
           position: relative;
           width: 100%;

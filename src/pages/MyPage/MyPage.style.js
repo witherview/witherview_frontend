@@ -196,6 +196,10 @@ const BoxWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  position: relative;
+  justify-content: center;
   ${({ theme }) => theme.button}
 `;
 
@@ -210,6 +214,16 @@ const InputWrapper = styled.div`
       background-color: white;
     }
   }
+`;
+
+const WithdrawWrapper = styled.span`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 2.1vh;
+  font-family: AppleSDGothicNeoM00;
+  color: #3d3d3d;
+  cursor: pointer;
 `;
 
 export default {
@@ -233,4 +247,5 @@ export default {
   BlockItem,
   ButtonWrapper,
   InputWrapper,
+  WithdrawWrapper,
 };

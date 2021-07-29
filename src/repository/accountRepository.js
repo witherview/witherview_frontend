@@ -63,3 +63,10 @@ export const passwordResetApi = async (param) =>
     type: 'patch',
     param,
   });
+
+export const withdrawApi = async (param) =>
+  await api({
+    url: '/withdraw',
+    type: 'delete',
+    param,
+  });
