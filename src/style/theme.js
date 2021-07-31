@@ -1,7 +1,7 @@
 import mainLogoBlack from '@assets/images/bi_black.png';
 import mainLogoWhite from '@assets/images/bi_white.png';
 import iconImageLight from '@assets/images/icon-light.png';
-// import iconImageDark from '@assets/images/icon-dark.png';
+import iconImageDark from '@assets/images/icon-dark.png';
 
 const darkBgColor = '#2f3545';
 const white = '#fff';
@@ -128,7 +128,7 @@ const theme = {
       },
       // assets
       mainLogo: mainLogoWhite,
-      iconImage: iconImageLight,
+      iconImage: iconImageDark,
       // sideBar
       sideBarBgColor: darkBgColor,
       // footer
