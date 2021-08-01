@@ -97,6 +97,7 @@ export default function App() {
         <Route exact path="/password-reset" component={PasswordPage} />
         <Route exact path="/sign-up" component={SignUpPage} />
         <Route exact path="/welcome" component={WelcomePage} />
+        <Route path="*" exact component={NotFound} />
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
