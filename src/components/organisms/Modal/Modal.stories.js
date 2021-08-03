@@ -26,6 +26,7 @@ const modals = (args) => {
         modalName: MODALS.INDUSTRY_SELECT_MODAL,
       }),
     );
+    dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }));
   });
 
   return <Modal {...args} />;
@@ -35,6 +36,7 @@ export const SelfTrainStartModal = modals.bind({});
 export const StudyMakeModal = modals.bind({});
 export const EvaluationModal = modals.bind({});
 export const IndustrySelectModal = modals.bind({});
+export const WithdrawConfirmModal = modals.bind({});
 
 QuestionListSaveModal.args = {
   modalName: MODALS.QUESTIONLIST_SAVE_MODAL,
@@ -54,4 +56,8 @@ EvaluationModal.args = {
 
 IndustrySelectModal.args = {
   modalName: MODALS.INDUSTRY_SELECT_MODAL,
+};
+
+WithdrawConfirmModal.args = {
+  modalName: MODALS.WITHDRAW_CONFIRM_MODAL,
 };

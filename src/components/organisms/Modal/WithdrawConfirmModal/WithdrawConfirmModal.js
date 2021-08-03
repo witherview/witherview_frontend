@@ -106,7 +106,7 @@ export default function WithdrawConfirmModal() {
         <div className="close">
           <A.Icon type="cancel_blue" alt="" func={handleHideModal} />
         </div>
-        <A.Icon type="check_large" alt="" />
+        <A.Icon type="alert_large" alt="" />
         <div className="title">정말 탈퇴하시겠습니까?</div>
         <div className="content">
           탈퇴할 경우 계정 재사용 및 복구가 불가능합니다.
