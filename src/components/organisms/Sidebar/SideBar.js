@@ -77,7 +77,7 @@ export default function SideBar() {
     ) {
       setPath(pathName);
     } else {
-      history.push('/self');
+      history.push('/404');
     }
   }, []);
 

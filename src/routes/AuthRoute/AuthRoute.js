@@ -64,7 +64,9 @@ export default function AuthRoute({ component: Component, render, ...rest }) {
             <Component {...props} />
           )
         ) : (
-          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          <Redirect
+            to={{ pathname: '/404', state: { from: props.location } }}
+          />
         )
       }
     />
