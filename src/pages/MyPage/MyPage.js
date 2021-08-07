@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
+import O from '@organisms';
 
 import {
   getUserStatisticsApi,
   putProfileInfoApi,
 } from '@repository/accountRepository';
 import { get } from '@utils/snippet';
+import { displayModal } from '@store/Modal/modal';
+import { MODALS } from '@utils/constant';
 import S from './MyPage.style';
 import Box from './Box';
 
 export default function MyPage() {
+  const dispatch = useDispatch();
   const {
     name,
     email,
@@ -115,6 +119,7 @@ export default function MyPage() {
 
   return (
     <S.Wrapper>
+      <O.Modal modalName={MODALS.WITHDRAW_CONFIRM_MODAL} />
       <S.ProfileWrapper>
         <S.Profile>
           <M.ProfileEdit />
@@ -183,6 +188,13 @@ export default function MyPage() {
           text="저장"
           func={async () => await updateUserInfo()}
         />
+        <S.WithdrawWrapper
+          onClick={() =>
+            dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }))
+          }
+        >
+          회원 탈퇴 {'>'}
+        </S.WithdrawWrapper>
       </S.ButtonWrapper>
     </S.Wrapper>
   );

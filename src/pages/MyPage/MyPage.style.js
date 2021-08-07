@@ -193,13 +193,17 @@ const BoxWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   ${commonStyles.button}
+  display: flex;
+  width: 100%;
+  position: relative;
+  justify-content: center;
 `;
 
 const InputWrapper = styled.div`
   ${commonStyles.input}
   > input {
     width: 100%;
-    border-bottom: 0.2vh solid #9e9e9e
+    border-bottom: 0.2vh solid #9e9e9e;
     ${({ noBorder }) =>
       noBorder && 'color: black; font-weight: bold; border-color: white;'}
 
@@ -207,6 +211,16 @@ const InputWrapper = styled.div`
       background-color: white;
     }
   }
+`;
+
+const WithdrawWrapper = styled.span`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 2.1vh;
+  font-family: AppleSDGothicNeoM00;
+  color: #3d3d3d;
+  cursor: pointer;
 `;
 
 export default {
@@ -230,4 +244,5 @@ export default {
   BlockItem,
   ButtonWrapper,
   InputWrapper,
+  WithdrawWrapper,
 };

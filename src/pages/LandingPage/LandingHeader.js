@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import A from '@atoms';
 import { useSelector } from 'react-redux';
 import { get } from '@utils/snippet';
+import O from '@organisms';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
@@ -23,56 +24,59 @@ const Wrapper = styled.div`
   -webkit-box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   -moz-box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
-`;
 
-const MainLogo = styled.h1`
-  width: 120px;
-  height: 100%;
-  background: url(${({ theme: { mainLogo } }) => mainLogo});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  text-indent: -9999px;
-`;
-
-const WrapContainer = styled.div`
-  width: 90%;
-  height: 100%;
-  max-width: 1150px;
-  min-width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const WrapTextButton = styled.div`
-  @media only screen and (max-width: 1150px) {
-    display: none;
+  h1.wrap-left {
+    width: 120px;
+    height: 100%;
+    background: url(${({ theme: { mainLogo } }) => mainLogo});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-indent: -9999px;
   }
-  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) =>
-    landingFooterWrapLeftInnerColor};
-  min-width: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 60px;
-`;
+  div.wrap-container {
+    width: 90%;
+    height: 100%;
+    max-width: 1150px;
+    min-width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-const WrapRightInner = styled.div`
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
+  div.wrap-text-button {
+    @media only screen and (max-width: 1150px) {
+      display: none;
+    }
+    min-width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 60px;
+    color: ${({ theme: { landingFooterWrapLeftInnerColor } }) =>
+      landingFooterWrapLeftInnerColor};
+  }
 
-const WrapButton = styled.div`
-  > div {
-    height: 35px;
-    border-radius: 5px;
-    border-width: 1.5px;
-    > p {
-      font-size: 12px;
-      font-family: AppleSDGothicNeoEB00;
+  div.wrap-right-inner {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  div.wrap-profile {
+    width: 143px; //button width 140px + border width 1.5px * 2
+  }
+
+  div.wrap-button {
+    > div {
+      height: 35px;
+      border-radius: 5px;
+      border-width: 1.5px;
+      > p {
+        font-size: 12px;
+        font-family: AppleSDGothicNeoEB00;
+      }
     }
   }
 `;
@@ -94,7 +98,8 @@ export default function LandingHeader({
   const { viewMode } = useSelector(get('viewMode'));
   const [activeMenu, setActiveMenu] = useState(0);
   const executeScroll = (ref) => scrollToRef(ref);
-
+  const isLoggedIn = sessionStorage.getItem('isLogin') !== null;
+  const name = sessionStorage.getItem('name');
   const textButtonPropsList = [
     {
       id: 0,
@@ -135,10 +140,10 @@ export default function LandingHeader({
 
   return (
     <Wrapper>
-      <WrapContainer>
-        <MainLogo>메인로고</MainLogo>
-        <WrapRightInner>
-          <WrapTextButton>
+      <div className="wrap-container">
+        <h1 className="wrap-left">메인로고</h1>
+        <div className="wrap-right-inner">
+          <div className="wrap-text-button">
             {textButtonPropsList.map(({ id, text, scrollFuncRef }) => (
               <TextButtonProps
                 key={id}
@@ -150,10 +155,21 @@ export default function LandingHeader({
                 isClicked={activeMenu === id}
               />
             ))}
-          </WrapTextButton>
-          <WrapButton>{btnRender()}</WrapButton>
-        </WrapRightInner>
-      </WrapContainer>
+          </div>
+          {isLoggedIn ? (
+            <div className="wrap-profile">
+              <O.ProfileMenuContainer
+                name={name}
+                isSmall
+                isAbsolute={false}
+                usePx
+              />
+            </div>
+          ) : (
+            <div className="wrap-button">{btnRender()}</div>
+          )}
+        </div>
+      </div>
     </Wrapper>
   );
 }

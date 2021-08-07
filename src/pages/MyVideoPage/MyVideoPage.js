@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { getSelfVideoApi } from '@repository/selfHistoryRepository';
 import ReplayCardView from '@organisms/ReplayCardView';
 
 const Wrapper = styled.div`
@@ -9,10 +9,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
-  max-width: 100vw;
-  height: 100vh;
-  padding: 10vh 8.6vh 10vh 0;
+  width: 100%;
+  height: 100%;
 
   header {
     display: flex;
@@ -21,11 +19,9 @@ const Wrapper = styled.div`
   }
 `;
 
-// --내역
 const HistoryMenuBox = styled.div`
-  /* width: 35.3vh; */
-  font-size: 2.6vh;
-  background: red;
+  font-size: 2.2vh;
+  font-family: AppleSDGothicNeoB00;
 
   span {
     border-right: 1px solid #9e9e9e;
@@ -43,6 +39,8 @@ const HistoryMenuBox = styled.div`
     border: none;
     padding-right: 0;
   }
+  cursor: default;
+  user-select: none;
 `;
 
 const historyMenu = [
@@ -54,75 +52,63 @@ const historyMenu = [
     id: 1,
     name: '스터디 내역',
   },
-  {
-    id: 1,
-    name: '스터디 내역',
-  },
-  {
-    id: 1,
-    name: '스터디 내역',
-  },
 ];
 
-// cardList
 const CardListBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  // TODO: column 마지막 오른쪽 margin처럼 보이는 부분 수정해야함
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 6vh;
+
   width: 100%;
   height: 100%;
-
-  .replayCardItem {
-    margin-right: 7vh;
-  }
-
-  div.replayCardItem:nth-of-type(4n) {
-    margin-right: 0;
-  }
 `;
 
 export default function MyVideoPage() {
-  // eslint-disable-next-line no-unused-vars
-  const history = useHistory();
-
-  const fetch = async () => {
-    // try {
-    //   const { data } = await getVideoApi();
-    // eslint-disable-next-line max-len
-    //   // 삭제 API가 없어서 실제 동작 하지 않는 경우 (savedLocation가 없거나 savedLocation에 videos가 포함이 안된 경우)를 filter해줬습니다.
-    //   setRows(
-    //     data
-    //       .filter(
-    //         (val) => val.savedLocation !== null && val.savedLocation.includes('videos'),
-    //       )
-    //       .sort((a, b) => -a.id + b.id),
-    //   );
-    // } catch (error) {
-    //   console.error(error);
-    //   alert(error);
-    // }
-  };
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    fetch();
+    (async () => {
+      try {
+        const { data } = await getSelfVideoApi();
+        setRows(data);
+        // 삭제 API가 없어서 실제 동작 하지 않는 경우 (savedLocation가 없거나 savedLocation에 videos가 포함이 안된 경우)를 filter해줬습니다.
+        // setRows(
+        //   data
+        //     .filter(
+        //       (val) =>
+        //         val.savedLocation !== null &&
+        //         val.savedLocation.includes('videos'),
+        //     )
+        //     .sort((a, b) => -a.id + b.id),
+        // );
+      } catch (error) {
+        console.error(error);
+        alert(error);
+      }
+    })();
   }, []);
 
   return (
     <Wrapper>
       <header>
         <HistoryMenuBox>
-          {historyMenu.map((menu) => (
-            <span>{menu.name}</span>
+          {historyMenu.map(({ id, name }) => (
+            <span key={id}>{name}</span>
           ))}
         </HistoryMenuBox>
       </header>
 
       <CardListBox>
-        {
-          // eslint-disable-next-line no-unused-vars
-          [...Array(12).keys()].map((_) => (
-            <ReplayCardView />
-          ))
-        }
+        {rows.map(({ id, createdAt, historyTitle, thumbnail }) => (
+          <ReplayCardView
+            key={id}
+            id={id}
+            createdAt={new Date(createdAt)}
+            title={historyTitle}
+            thumbnail={thumbnail}
+          />
+        ))}
       </CardListBox>
     </Wrapper>
   );

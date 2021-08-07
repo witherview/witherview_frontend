@@ -9,6 +9,7 @@ import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
 import QuestionListEditModal from './QuestionListEditModal';
 import IndustrySelectModal from './IndustrySelectModal';
+import WithdrawConfirmModal from './WithdrawConfirmModal';
 
 export default function Modal({
   modalName,
@@ -29,6 +30,7 @@ export default function Modal({
     [MODALS.INDUSTRY_SELECT_MODAL]: (
       <IndustrySelectModal func={func} initialIndustries={initialIndustries} />
     ),
+    [MODALS.WITHDRAW_CONFIRM_MODAL]: <WithdrawConfirmModal />,
   };
   return (
     <>

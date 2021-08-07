@@ -109,6 +109,14 @@ module.exports = (env) => {
         ],
 
     devServer: {
+      proxy: {
+        '/socket': {
+          target: 'https://witherview-test.herokuapp.com',
+          changeOrigin: true,
+          ws: true,
+          logLevel: 'debug',
+        },
+      },
       host: 'localhost',
       port,
       stats: 'errors-only',

@@ -113,11 +113,9 @@ const WrapMiddleText = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 2vh;
   color: #9e9e9e;
-  pointer-events: none;
 `;
 
 const WrapMiddleTextRight = styled(WrapMiddleText)`
-  user-select: none;
   &:hover {
     border-bottom: 0.1vh solid #9e9e9e;
   }
@@ -238,8 +236,9 @@ export default function LoginPage({ history }) {
                 <WrapMiddleText>테스트 계정 사용</WrapMiddleText>
               </WrapMiddlePart>
               {ratio > 0.65 && (
-                <WrapMiddleTextRight onClick={() => {}}>
-                  {/* TODO: onClick history.push로 이동하는 부분으로 변경 */}
+                <WrapMiddleTextRight
+                  onClick={() => history.push('/password-find')}
+                >
                   비밀번호 찾기
                 </WrapMiddleTextRight>
               )}
