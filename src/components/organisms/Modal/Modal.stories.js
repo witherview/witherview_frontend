@@ -26,7 +26,7 @@ const modals = (args) => {
         modalName: MODALS.INDUSTRY_SELECT_MODAL,
       }),
     );
-    dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }));
+    dispatch(displayModal({ modalName: MODALS.ALERT_MODAL }));
   });
 
   return <Modal {...args} />;
@@ -36,7 +36,7 @@ export const SelfTrainStartModal = modals.bind({});
 export const StudyMakeModal = modals.bind({});
 export const EvaluationModal = modals.bind({});
 export const IndustrySelectModal = modals.bind({});
-export const WithdrawConfirmModal = modals.bind({});
+export const AlertModal = modals.bind({});
 
 QuestionListSaveModal.args = {
   modalName: MODALS.QUESTIONLIST_SAVE_MODAL,
@@ -58,6 +58,8 @@ IndustrySelectModal.args = {
   modalName: MODALS.INDUSTRY_SELECT_MODAL,
 };
 
-WithdrawConfirmModal.args = {
-  modalName: MODALS.WITHDRAW_CONFIRM_MODAL,
+AlertModal.args = {
+  modalName: MODALS.ALERT_MODAL,
+  title: '제목',
+  children: <span>내용</span>,
 };

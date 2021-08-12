@@ -30,6 +30,8 @@ import MyPage from '@pages/MyPage';
 
 import FragileRatioPage from '@pages/FragileRatioPage';
 
+import WithdrawPage from '@pages/WithdrawPage';
+
 import useWindowSize from '@hooks/useWindowSize';
 
 import GlobalStyles from './style/globalStyles';
@@ -151,6 +153,7 @@ export default function App() {
                 component={R.PeerStudyRoute}
               />
               <R.AuthRoute exact path="/mypage" component={MyPage} />
+              <R.AuthRoute exact path="/withdraw" component={WithdrawPage} />
             </div>
           </WrapPage>
         </Wrapper>
