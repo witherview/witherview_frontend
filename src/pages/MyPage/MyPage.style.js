@@ -46,7 +46,7 @@ const NameWrapper = styled.div`
   input {
     height: 3.1vh;
     font-size: 2.4vh;
-    margin-right: 7.9vh;
+    margin-right: -9.5vh;
   }
 `;
 
@@ -133,9 +133,16 @@ const Info = styled.div`
   flex: 0 0 40%;
 
   input {
-    height: 3vh;
-    font-size: 1.5vh;
     margin-bottom: 2vh;
+  }
+
+  div > div > div > input {
+    height: 5vh;
+    font-size: 1.9vh;
+    font-family: AppleSDGothicNeoM00;
+    letter-spacing: 0.2vh;
+    border-bottom: 0.2vh solid #d3d3d3;
+    margin-bottom: inherit;
   }
 `;
 

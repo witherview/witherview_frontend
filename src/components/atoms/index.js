@@ -7,6 +7,7 @@ import QuestionItem from './QuestionItem';
 import TextButton from './TextButton';
 import ToggleButton from './ToggleButton';
 import SubHeader from './SubHeader';
+import Validation from './Validation';
 
 export default {
   Button,
@@ -18,4 +19,5 @@ export default {
   TextButton,
   ToggleButton,
   SubHeader,
+  Validation,
 };
