@@ -91,12 +91,14 @@ export default function App() {
     <>
       <GlobalStyles />
       <Switch>
+        <Route path="/404" component={NotFound} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/password-find" component={PasswordPage} />
         <Route exact path="/password-reset" component={PasswordPage} />
         <Route exact path="/sign-up" component={SignUpPage} />
         <Route exact path="/welcome" component={WelcomePage} />
+
         {isLoading && (
           <WrapSpinner>
             <SyncLoader size={50} color="#123abc" />
@@ -154,7 +156,6 @@ export default function App() {
             </div>
           </WrapPage>
         </Wrapper>
-        <R.AuthRoute component={NotFound} />
       </Switch>
     </>
   );
