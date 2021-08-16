@@ -18,7 +18,7 @@ const Box = styled.div`
     }`}
   ${({ theme }) =>
     theme === 'blue'
-      ? 'background-image : linear-gradient(to bottom, #2323de -16%, #5f5fd9 122%);'
+      ? 'background-image : linear-gradient(to top, #2323de -16%, #5f5fd9 122%);'
       : theme === 'gray'
       ? 'background-color: #f6f6f6; pointer-events: none;'
       : theme === 'outline'
