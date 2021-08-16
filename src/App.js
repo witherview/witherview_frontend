@@ -30,6 +30,8 @@ import MyPage from '@pages/MyPage';
 
 import FragileRatioPage from '@pages/FragileRatioPage';
 
+import WithdrawPage from '@pages/WithdrawPage';
+
 import useWindowSize from '@hooks/useWindowSize';
 
 import GlobalStyles from './style/globalStyles';
@@ -109,7 +111,9 @@ export default function App() {
           {!toggleTrain && <O.SideBar />}
           <WrapPage
             toggleTrain={toggleTrain}
-            isBackgroundGrey={PATH === 'mypage' || PATH === 'replay'}
+            isBackgroundGrey={
+              PATH === 'mypage' || PATH === 'replay' || PATH === 'withdraw'
+            }
           >
             <div className="container">
               {!toggleTrain && <O.ProfileMenuContainer name={name} />}
@@ -153,6 +157,7 @@ export default function App() {
                 component={R.PeerStudyRoute}
               />
               <R.AuthRoute exact path="/mypage" component={MyPage} />
+              <R.AuthRoute exact path="/withdraw" component={WithdrawPage} />
             </div>
           </WrapPage>
         </Wrapper>

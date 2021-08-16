@@ -100,6 +100,7 @@ const backgroundPositionType = {
   check_rec: unitGenerator([-54.1, -58.1]),
   thumb_up_white: unitGenerator([-69.5, -56.4]),
   thumb_down_white: unitGenerator([-87.1, -56.4]),
+  alert_large: unitGenerator([-103.8, -57.7]),
   sound_big: unitGenerator([-7.1, -71.2]),
   bubble_big: unitGenerator([-25, -71.2]),
   memo_big: unitGenerator([-42.9, -71.2]),
@@ -184,6 +185,7 @@ export default function Icon({
         break;
       case 'check_large':
       case 'check_rec':
+      case 'alert_large':
         setSize('slg');
         break;
       case 'sound_big':
@@ -271,6 +273,7 @@ Icon.propTypes = {
     'check_rec',
     'thumb_up_white',
     'thumb_down_white',
+    'alert_large',
     'sound_big',
     'bubble_big',
     'memo_big',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
 import O from '@organisms';
@@ -10,13 +10,13 @@ import {
   putProfileInfoApi,
 } from '@repository/accountRepository';
 import { get } from '@utils/snippet';
-import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
+import { useHistory } from 'react-router-dom';
 import S from './MyPage.style';
 import Box from './Box';
 
 export default function MyPage() {
-  const dispatch = useDispatch();
+  const history = useHistory();
   const {
     name,
     email,
@@ -212,11 +212,7 @@ export default function MyPage() {
           text="저장"
           func={async () => await updateUserInfo()}
         />
-        <S.WithdrawWrapper
-          onClick={() =>
-            dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }))
-          }
-        >
+        <S.WithdrawWrapper onClick={() => history.push('/withdraw')}>
           회원 탈퇴 {'>'}
         </S.WithdrawWrapper>
       </S.ButtonWrapper>
