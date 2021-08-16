@@ -49,7 +49,9 @@ export default function useSocketSignal({ roomId, setStep }) {
     };
 
     peer.ontrack = ({ streams }) => {
-      setPeers((prevPeers) => prevPeers.filter((user) => user.id !== incomingSocketID));
+      setPeers((prevPeers) =>
+        prevPeers.filter((user) => user.id !== incomingSocketID),
+      );
       setPeers((prevPeers) => [
         ...prevPeers,
         {
@@ -105,37 +107,42 @@ export default function useSocketSignal({ roomId, setStep }) {
       });
     });
 
-    socketRef.current.on('getOffer', async ({ offerSendID, offerSendEmail, sdp: receiveSdp }) => {
-      createPeer(
-        offerSendID,
-        offerSendEmail,
-        socketRef.current.id,
-        userVideo.current.srcObject,
-      );
+    socketRef.current.on(
+      'getOffer',
+      async ({ offerSendID, offerSendEmail, sdp: receiveSdp }) => {
+        createPeer(
+          offerSendID,
+          offerSendEmail,
+          socketRef.current.id,
+          userVideo.current.srcObject,
+        );
 
-      const peer = peersRef.current.get(offerSendID);
+        const peer = peersRef.current.get(offerSendID);
 
-      if (peer) {
-        try {
-          await peer.setRemoteDescription(new RTCSessionDescription(receiveSdp));
+        if (peer) {
+          try {
+            await peer.setRemoteDescription(
+              new RTCSessionDescription(receiveSdp),
+            );
 
-          const sdp = await peer.createAnswer({
-            offerToReceiveVideo: true,
-            offerToReceiveAudio: true,
-          });
+            const sdp = await peer.createAnswer({
+              offerToReceiveVideo: true,
+              offerToReceiveAudio: true,
+            });
 
-          peer.setLocalDescription(new RTCSessionDescription(sdp));
+            peer.setLocalDescription(new RTCSessionDescription(sdp));
 
-          socketRef.current.emit('answer', {
-            sdp,
-            answerSendID: socketRef.current.id,
-            answerReceiveID: offerSendID,
-          });
-        } catch (error) {
-          alert(`error: ${error}`);
+            socketRef.current.emit('answer', {
+              sdp,
+              answerSendID: socketRef.current.id,
+              answerReceiveID: offerSendID,
+            });
+          } catch (error) {
+            alert(`error: ${error}`);
+          }
         }
-      }
-    });
+      },
+    );
 
     socketRef.current.on('getAnswer', ({ answerSendID, sdp }) => {
       const peer = peersRef.current.get(answerSendID);
@@ -145,17 +152,20 @@ export default function useSocketSignal({ roomId, setStep }) {
       }
     });
 
-    socketRef.current.on('getCandidate', async ({ candidateSendID, candidate }) => {
-      const peer = peersRef.current.get(candidateSendID);
+    socketRef.current.on(
+      'getCandidate',
+      async ({ candidateSendID, candidate }) => {
+        const peer = peersRef.current.get(candidateSendID);
 
-      if (peer) {
-        try {
-          await peer.addIceCandidate(new RTCIceCandidate(candidate));
-        } catch (error) {
-          alert(`candidate failed: ${error}`);
+        if (peer) {
+          try {
+            await peer.addIceCandidate(new RTCIceCandidate(candidate));
+          } catch (error) {
+            alert(`candidate failed: ${error}`);
+          }
         }
-      }
-    });
+      },
+    );
 
     socketRef.current.on('user left', ({ id }) => {
       peersRef.current.get(id).close();

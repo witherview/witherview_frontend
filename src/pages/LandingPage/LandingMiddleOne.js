@@ -28,7 +28,7 @@ const WrapContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-top: 75px;
-  margin-bottom: 75px;
+  margin-bottom: 90px;
 `;
 
 const WrapBottomContent = styled.div`

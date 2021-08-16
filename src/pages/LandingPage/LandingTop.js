@@ -10,13 +10,13 @@ import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 1150px) {
-    height: 550px;
+    height: 600px;
   }
   width: 100%;
   user-select: none;
-  height: 700px;
+  height: 750px;
   background-color: #f9f9ff;
-  padding-top: 60px;
+  padding-top: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
