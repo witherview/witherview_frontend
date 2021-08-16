@@ -109,7 +109,9 @@ export default function App() {
           {!toggleTrain && <O.SideBar />}
           <WrapPage
             toggleTrain={toggleTrain}
-            isBackgroundGrey={PATH === 'mypage' || PATH === 'replay'}
+            isBackgroundGrey={
+              PATH === 'mypage' || PATH === 'replay' || PATH === 'withdraw'
+            }
           >
             <div className="container">
               {!toggleTrain && <O.ProfileMenuContainer name={name} />}

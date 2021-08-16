@@ -15,6 +15,8 @@ const StepOne = styled.div`
   .step-one-title {
     font-size: 3.6vh;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
   }
 
   .info-container {
@@ -23,7 +25,11 @@ const StepOne = styled.div`
     justify-content: center;
     margin-top: 5.4vh;
     padding: 3.2vh 5.4vh;
-    background-color: #eeeeee;
+    border-radius: 1vh;
+    box-shadow: 0 0.6vh 2.4vh 0 rgba(158, 158, 158, 0.1);
+    border: solid 0.1vh #f6f6f6;
+    background-color: #ffffff;
+    color: #3d3d3d;
 
     .info-title {
       font-size: 2.4vh;
@@ -32,18 +38,18 @@ const StepOne = styled.div`
     }
 
     .content {
-      font-size: 1.6vh;
+      font-size: 1.8vh;
       font-weight: normal;
       line-height: 1.44;
-      padding-left: 2.4vh;
 
-      .red-text {
-        color: red;
+      .highlight-text {
+        font-weight: bold;
+        color: #f2886b;
       }
     }
 
     .delete-info {
-      font-size: 1.6vh;
+      font-size: 1.8vh;
       font-weight: normal;
       line-height: 1.84;
       padding: 1.8vh 0 0 2.4vh;
@@ -51,11 +57,13 @@ const StepOne = styled.div`
       .item {
         display: flex;
         .kind {
+          font-weight: bold;
           width: 20%;
         }
 
         .info {
           width: 80%;
+          color: #9e9e9e;
         }
       }
     }
@@ -66,8 +74,11 @@ const StepOne = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-top: 3.4vh;
+    padding-top: 2.6vh;
     font-weight: bold;
+    font-size: 2.2vh;
+    line-height: 4.4vh;
+    color: #9e9e9e;
 
     label {
       margin-right: 6.2vh;
@@ -109,7 +120,7 @@ export default function One({ next }) {
         title="유의사항을 읽고 동의해 주시기 바랍니다."
       />
       <span className="step-one-title">
-        회원탈퇴에 앞서 안내사항을 꼭 숙지해 주시기 바랍니다!
+        회원탈퇴에 앞서 안내사항을 꼭 숙지해 주시기 바랍니다.
       </span>
       <div className="info-container">
         <span className="info-title">
@@ -117,9 +128,11 @@ export default function One({ next }) {
         </span>
         <span className="content">
           회원탈퇴 시 사용하고 계신 아이디는 타인을 포함해
-          <span className="red-text">재사용이나 복구가 불가능합니다.</span>
+          <span className="highlight-text">
+            &nbsp;재사용이나 복구가 불가능합니다.&nbsp;
+          </span>
+          신중히 생각하신 후 결정해주세요.
         </span>
-        <span className="content">신중히 생각하신 후 결정해주세요.</span>
       </div>
       <div className="info-container">
         <span className="info-title">
@@ -127,7 +140,9 @@ export default function One({ next }) {
         </span>
         <span className="content">
           다음 아래의 서비스 이용기록이 모두 삭제되며,
-          <span className="red-text"> 삭제된 데이터는 복구되지 않습니다.</span>
+          <span className="highlight-text">
+            &nbsp;삭제된 데이터는 복구되지 않습니다.
+          </span>
         </span>
         <div className="delete-info">
           <div className="item">
@@ -143,7 +158,7 @@ export default function One({ next }) {
           <div className="item">
             <span className="kind">혼자연습 영상</span>
             <span className="info">
-              면접복기 내 혼자연습 영상 과 체크리스트 기록 삭제
+              면접복기 내 혼자연습 영상과 체크리스트 기록 삭제
             </span>
           </div>
           <div className="item">
@@ -166,18 +181,8 @@ export default function One({ next }) {
         위의 회원탈퇴 시 주의사항에 동의합니다.
       </div>
       <div className="action">
-        <A.Button
-          theme="outline"
-          text="탈퇴취소"
-          width="180"
-          func={() => history.goBack()}
-        />
-        <A.Button
-          theme="outline"
-          text="다음"
-          width="180"
-          func={() => changeStep()}
-        />
+        <A.Button theme="blue" text="탈퇴취소" func={() => history.goBack()} />
+        <A.Button theme="outline" text="다음" func={() => changeStep()} />
       </div>
     </StepOne>
   );

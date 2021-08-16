@@ -17,7 +17,7 @@ const Withdraw = styled.div`
 `;
 
 export default function WithdrawPage() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
 
   const changeStep = (action) => {
     if (action === 'next') setStep(step + 1);
