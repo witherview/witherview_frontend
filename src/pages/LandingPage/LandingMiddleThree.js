@@ -12,7 +12,7 @@ import CircleButton from './components/CircleButton';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 1870px) {
-    min-height: 400px;
+    min-height: 500px;
   }
   width: 100%;
   user-select: none;
@@ -21,18 +21,18 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  min-height: 850px;
 `;
 
 const WrapContainer = styled.div`
   @media only screen and (max-width: 1870px) {
-    width: 80%;
-    height: 400px;
+    height: 500px;
     justify-content: flex-start;
   }
   position: relative;
   height: 700px;
-  max-width: 1100px;
-  width: 80%;
+  max-width: 1150px;
+  width: 85%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +40,7 @@ const WrapContainer = styled.div`
 
 const WrapImage = styled.img`
   @media only screen and (max-width: 1870px) {
-    height: 350px;
+    height: 400px;
     bottom: 0px;
     right: -70px;
   }
@@ -63,7 +63,7 @@ const WrapPadding = styled.div`
 const WrapStaticImage = styled.img`
   @media only screen and (max-width: 1870px) {
     height: 300px;
-    right: -200px;
+    right: -250px;
     top: 50px;
   }
 
@@ -72,7 +72,7 @@ const WrapStaticImage = styled.img`
   height: 600px;
   position: absolute;
   top: 50px;
-  right: -400px;
+  right: -500px;
 `;
 
 const WrapCarousel = styled.div`

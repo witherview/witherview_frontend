@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Text = styled.span`
   font-family: AppleSDGothicNeoEB00;
-  font-size: 13px;
+  font-size: 20px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
