@@ -155,7 +155,7 @@ export default function SelfTrainChecklistPage({ match }) {
       dispatch(setIsLoading({ isLoading: true }));
 
       formData.append('videoFile', blob);
-      formData.append('historyId', historyId);
+      formData.append('selfHistoryId', historyId);
 
       const {
         data: { id },
