@@ -233,8 +233,8 @@ export default function StudyStartModal({ func }) {
         description,
         job,
         industry,
-        date,
-        time,
+        date: moment(date).format('yyyy-MM-DD'),
+        time: `${time}:00`,
       });
       func();
       dispatch(removeModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
