@@ -13,7 +13,7 @@ import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 1150px) {
-    height: 550px;
+    height: 600px;
   }
   width: 100%;
   user-select: none;

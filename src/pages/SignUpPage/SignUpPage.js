@@ -96,9 +96,9 @@ const WrapUpperContainer = styled.div`
 `;
 
 const WrapInput = styled.div`
-  ${commonStyles.input};
-  padding: 3vh 5.5vh 3vh 5.5vh;
-  > input {
+  ${({ theme: { input } }) => input};
+  padding: 3vh 5.5vh 1.1vh 5.5vh;
+  div > input {
     width: ${({ ratio }) => (ratio ? '45.8vh' : '60vw')};
   }
 `;
@@ -282,6 +282,9 @@ export default function SignUpPage({ history }) {
     mainJob: false,
     subJob: false,
   });
+  const [immediateValidations, setImmediateValidations] = useState(
+    Array(6).fill(false),
+  );
 
   const handleInput = (e) => {
     setSignUpForm({});
@@ -306,6 +309,7 @@ export default function SignUpPage({ history }) {
   };
 
   const handleSignUp = async () => {
+    setImmediateValidations(Array(6).fill(true));
     if (toggleCheckTerm.first === false || toggleCheckTerm.second === false) {
       return alert('약관에 모두 동의하셔야 합니다.');
     }
@@ -387,64 +391,99 @@ export default function SignUpPage({ history }) {
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>이름</WrapText>
-                  <A.InputBar
-                    autoFocus={ratio > 0.65}
+                  <A.Validation
                     value={signUpForm.name}
-                    placeholder="이름을 입력해주세요."
-                    onChange={handleInput}
-                    name="name"
-                  />
+                    rules={[(v) => !!v || '이름을 입력해 주세요.']}
+                    isCheckImmediatelyRule={immediateValidations[0]}
+                  >
+                    <A.InputBar
+                      autoFocus={ratio > 0.65}
+                      value={signUpForm.name}
+                      placeholder="이름을 입력해주세요."
+                      onChange={handleInput}
+                      name="name"
+                    />
+                  </A.Validation>
                 </WrapInput>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>이메일주소</WrapText>
-                  <A.InputBar
+                  <A.Validation
                     value={signUpForm.email}
-                    placeholder="이메일 주소를 입력해주세요."
-                    onChange={handleInput}
-                    name="email"
-                  />
+                    rules={[(v) => !!v || '이메일 주소를 입력해 주세요.']}
+                    isCheckImmediatelyRule={immediateValidations[1]}
+                  >
+                    <A.InputBar
+                      value={signUpForm.email}
+                      placeholder="이메일 주소를 입력해주세요."
+                      onChange={handleInput}
+                      name="email"
+                    />
+                  </A.Validation>
                 </WrapInput>
               </WrapUpperContainer>
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>비밀번호</WrapText>
-                  <A.InputBar
-                    autoFocus={ratio > 0.65}
+                  <A.Validation
                     value={signUpForm.password}
-                    placeholder="비밀번호를 입력해주세요."
-                    onChange={handleInput}
-                    name="password"
-                    type="password"
-                  />
+                    rules={[(v) => !!v || '비밀번호를 입력해 주세요.']}
+                    isCheckImmediatelyRule={immediateValidations[2]}
+                  >
+                    <A.InputBar
+                      autoFocus={ratio > 0.65}
+                      value={signUpForm.password}
+                      placeholder="비밀번호를 입력해주세요."
+                      onChange={handleInput}
+                      name="password"
+                      type="password"
+                    />
+                  </A.Validation>
                 </WrapInput>
                 {/* TODO: 지역번호 선택하는 부분 추가 */}
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>비밀번호 확인</WrapText>
-                  <A.InputBar
+                  <A.Validation
                     value={signUpForm.passwordConfirm}
-                    placeholder="비밀번호를 한번 더 입력해주세요."
-                    onChange={handleInput}
-                    name="passwordConfirm"
-                    type="password"
-                  />
+                    rules={[(v) => !!v || '비밀번호를 입력해 주세요.']}
+                    isCheckImmediatelyRule={immediateValidations[3]}
+                  >
+                    <A.InputBar
+                      value={signUpForm.passwordConfirm}
+                      placeholder="비밀번호를 한번 더 입력해주세요."
+                      onChange={handleInput}
+                      name="passwordConfirm"
+                      type="password"
+                    />
+                  </A.Validation>
                 </WrapInput>
               </WrapUpperContainer>
               <WrapUpperContainer>
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 산업_Main</WrapText>
                   <SelectList ref={industryMainRef}>
-                    <Select
-                      onClick={() => handleToggle('mainIndustry')}
-                      ratio={ratio > 1.675}
+                    <A.Validation
+                      value={mainIndustry}
+                      rules={[
+                        (v) =>
+                          v !== '산업을 선택해주세요.' ||
+                          '관심 산업을 선택해 주세요.',
+                      ]}
+                      isCheckImmediatelyRule={immediateValidations[4]}
                     >
-                      <SelectText>{mainIndustry}</SelectText>
-                      <A.Icon type="arrow_down_blue" alt="" />
-                    </Select>
+                      <Select
+                        onClick={() => handleToggle('mainIndustry')}
+                        ratio={ratio > 1.675}
+                      >
+                        <SelectText>{mainIndustry}</SelectText>
+                        <A.Icon type="arrow_down_blue" alt="" />
+                      </Select>
+                    </A.Validation>
                     {select.mainIndustry && (
                       <SelectItemListWrapper ratio={ratio > 1.675}>
                         <SelectItemList>
                           {industryList.map((val) => (
                             <SelectItem
+                              key={`main-industry-${val}`}
                               onClick={() =>
                                 handleSelect(
                                   setMainIndustry,
@@ -462,6 +501,46 @@ export default function SignUpPage({ history }) {
                   </SelectList>
                 </WrapInput>
                 <WrapInput ratio={ratio > 1.675}>
+                  <WrapText>관심 직무_Main</WrapText>
+                  <SelectList ref={jobMainRef}>
+                    <A.Validation
+                      value={mainJob}
+                      rules={[
+                        (v) =>
+                          v !== '직무를 선택해주세요.' ||
+                          '관심 직무를 선택해 주세요.',
+                      ]}
+                      isCheckImmediatelyRule={immediateValidations[5]}
+                    >
+                      <Select
+                        onClick={() => handleToggle('mainJob')}
+                        ratio={ratio > 1.675}
+                      >
+                        <SelectText>{mainJob}</SelectText>
+                        <A.Icon type="arrow_down_blue" alt="" />
+                      </Select>
+                    </A.Validation>
+                    {select.mainJob && (
+                      <SelectItemListWrapper ratio={ratio > 1.675}>
+                        <SelectItemList>
+                          {jobList.map((val) => (
+                            <SelectItem
+                              key={`main-job-${val}`}
+                              onClick={() =>
+                                handleSelect(setMainJob, val, 'mainJob')
+                              }
+                            >
+                              <SelectText>{val}</SelectText>
+                            </SelectItem>
+                          ))}
+                        </SelectItemList>
+                      </SelectItemListWrapper>
+                    )}
+                  </SelectList>
+                </WrapInput>
+              </WrapUpperContainer>
+              <WrapUpperContainer>
+                <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 산업_Sub</WrapText>
                   <SelectList ref={industrySubRef}>
                     <Select
@@ -476,37 +555,9 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {industryList.map((val) => (
                             <SelectItem
+                              key={`sub-industry-${val}`}
                               onClick={() =>
                                 handleSelect(setSubIndustry, val, 'subIndustry')
-                              }
-                            >
-                              <SelectText>{val}</SelectText>
-                            </SelectItem>
-                          ))}
-                        </SelectItemList>
-                      </SelectItemListWrapper>
-                    )}
-                  </SelectList>
-                </WrapInput>
-              </WrapUpperContainer>
-              <WrapUpperContainer>
-                <WrapInput ratio={ratio > 1.675}>
-                  <WrapText>관심 직무_Main</WrapText>
-                  <SelectList ref={jobMainRef}>
-                    <Select
-                      onClick={() => handleToggle('mainJob')}
-                      ratio={ratio > 1.675}
-                    >
-                      <SelectText>{mainJob}</SelectText>
-                      <A.Icon type="arrow_down_blue" alt="" />
-                    </Select>
-                    {select.mainJob && (
-                      <SelectItemListWrapper ratio={ratio > 1.675}>
-                        <SelectItemList>
-                          {jobList.map((val) => (
-                            <SelectItem
-                              onClick={() =>
-                                handleSelect(setMainJob, val, 'mainJob')
                               }
                             >
                               <SelectText>{val}</SelectText>
@@ -533,6 +584,7 @@ export default function SignUpPage({ history }) {
                         <SelectItemList>
                           {jobList.map((val) => (
                             <SelectItem
+                              key={`sub-job-${val}`}
                               onClick={() =>
                                 handleSelect(setSubJob, val, 'subJob')
                               }

@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 60px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,11 +48,11 @@ const Wrapper = styled.div`
     @media only screen and (max-width: 1150px) {
       display: none;
     }
-    min-width: 350px;
+    min-width: 521px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-right: 60px;
+    padding-right: 110px;
     color: ${({ theme: { landingFooterWrapLeftInnerColor } }) =>
       landingFooterWrapLeftInnerColor};
   }
@@ -70,11 +70,9 @@ const Wrapper = styled.div`
 
   div.wrap-button {
     > div {
-      height: 35px;
-      border-radius: 5px;
       border-width: 1.5px;
       > p {
-        font-size: 12px;
+        font-size: 20px;
         font-family: AppleSDGothicNeoEB00;
       }
     }
@@ -166,7 +164,15 @@ export default function LandingHeader({
               />
             </div>
           ) : (
-            <div className="wrap-button">{btnRender()}</div>
+            <div className="wrap-button">
+              <A.Button
+                id="menu_btn"
+                theme="outline"
+                width={230}
+                text="LOG IN"
+                func={() => history.push('/login')}
+              />
+            </div>
           )}
         </div>
       </div>

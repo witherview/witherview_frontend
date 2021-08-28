@@ -9,7 +9,7 @@ import StudyMakeModal from './StudyMakeModal';
 import EvaluationModal from './EvaluationModal';
 import QuestionListEditModal from './QuestionListEditModal';
 import IndustrySelectModal from './IndustrySelectModal';
-import WithdrawConfirmModal from './WithdrawConfirmModal';
+import AlertModal from './AlertModal';
 
 export default function Modal({
   modalName,
@@ -17,6 +17,8 @@ export default function Modal({
   roomId,
   questionListEdit,
   initialIndustries,
+  title,
+  children,
 }) {
   const isShow = useSelector((state) => state.modal[modalName]);
   const modalList = {
@@ -30,7 +32,11 @@ export default function Modal({
     [MODALS.INDUSTRY_SELECT_MODAL]: (
       <IndustrySelectModal func={func} initialIndustries={initialIndustries} />
     ),
-    [MODALS.WITHDRAW_CONFIRM_MODAL]: <WithdrawConfirmModal />,
+    [MODALS.ALERT_MODAL]: (
+      <AlertModal title={title} callback={func}>
+        {children}
+      </AlertModal>
+    ),
   };
   return (
     <>
@@ -49,6 +55,8 @@ Modal.propTypes = {
   roomId: PropTypes.string,
   questionListEdit: PropTypes.object,
   initialIndustries: PropTypes.array,
+  title: PropTypes.string,
+  children: PropTypes.element,
 };
 
 Modal.defaultProps = {

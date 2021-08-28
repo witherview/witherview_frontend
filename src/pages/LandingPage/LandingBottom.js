@@ -10,7 +10,7 @@ import TextBoxB from './components/TextBoxB';
 
 const Wrapper = styled.div`
   user-select: none;
-  height: 650px;
+  height: 750px;
   display: flex;
   justify-content: center;
   align-items: center;
