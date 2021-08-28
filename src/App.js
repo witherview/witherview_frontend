@@ -30,6 +30,8 @@ import MyPage from '@pages/MyPage';
 
 import FragileRatioPage from '@pages/FragileRatioPage';
 
+import WithdrawPage from '@pages/WithdrawPage';
+
 import useWindowSize from '@hooks/useWindowSize';
 import theme from './style/theme';
 
@@ -99,6 +101,7 @@ export default function App() {
         <GlobalStyles />
 
         <Switch>
+          <Route path="/404" component={NotFound} />
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/password-find" component={PasswordPage} />
@@ -115,8 +118,9 @@ export default function App() {
             {!toggleTrain && <O.SideBar />}
             <WrapPage
               toggleTrain={toggleTrain}
-              isBackgroundGrey={PATH === 'mypage' || PATH === 'replay'}
-            >
+              isBackgroundGrey={
+                PATH === 'mypage' || PATH === 'replay' || PATH === 'withdraw'
+              }            >
               <div className="container">
                 {!toggleTrain && <O.ProfileMenuContainer name={name} />}
 
@@ -163,6 +167,7 @@ export default function App() {
                   component={R.PeerStudyRoute}
                 />
                 <R.AuthRoute exact path="/mypage" component={MyPage} />
+                <R.AuthRoute exact path="/withdraw" component={WithdrawPage} />
               </div>
             </WrapPage>
           </Wrapper>

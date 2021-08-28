@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputBar from './InputBar';
 
 export default {
@@ -6,4 +6,13 @@ export default {
   component: InputBar,
 };
 
-export const inputBar = (args) => <InputBar {...args} />;
+export const inputBar = () => {
+  const [value, setValue] = useState('');
+  return (
+    <InputBar
+      rules={[(v) => !!v || '해당 데이터는 필수입니다.']}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+};

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import A from '@atoms';
 import M from '@molecules';
 import O from '@organisms';
@@ -10,13 +10,13 @@ import {
   putProfileInfoApi,
 } from '@repository/accountRepository';
 import { get } from '@utils/snippet';
-import { displayModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
+import { useHistory } from 'react-router-dom';
 import S from './MyPage.style';
 import Box from './Box';
 
 export default function MyPage() {
-  const dispatch = useDispatch();
+  const history = useHistory();
   const {
     name,
     email,
@@ -32,12 +32,16 @@ export default function MyPage() {
   const [editPhoneNumber, setEditPhoneNumber] = useState();
   const [savedName, setSavedName] = useState();
   const [savedPhoneNumber, setSavedPhoneNumber] = useState();
+  const [isValidationInfo, setIsValidationInfo] = useState(
+    Array(2).fill(false),
+  );
 
   const updateUserInfo = async () => {
     try {
-      if (savedName !== editName || savedPhoneNumber !== editPhoneNumber) {
-        // #53 에서 작업한 input validation 에서 validation 필요한 부분 적용 할 일감을 별도로 작성하여
-        // 전체적으로 추가 할 예정임.
+      if (
+        (savedName !== editName || savedPhoneNumber !== editPhoneNumber) &&
+        isValidationInfo.every((valid) => !!valid)
+      ) {
         await putProfileInfoApi({
           mainIndustry,
           mainJob,
@@ -126,11 +130,21 @@ export default function MyPage() {
           <S.ProfileInfo>
             <S.NameWrapper>
               <S.InputWrapper noBorder>
-                <A.InputBar
+                <A.Validation
                   value={editName}
-                  isFullWidth
-                  onChange={(e) => setEditName(e.target.value)}
-                />
+                  rules={[(v) => !!v || '이름을 입력해 주세요.']}
+                  isValid={(v) =>
+                    setIsValidationInfo(isValidationInfo.splice(0, 1, v))
+                  }
+                  isCheckImmediatelyRule
+                  fontSize="1.6vh"
+                >
+                  <A.InputBar
+                    value={editName}
+                    isFullWidth
+                    onChange={(e) => setEditName(e.target.value)}
+                  />
+                </A.Validation>
               </S.InputWrapper>
             </S.NameWrapper>
             <S.Jobs>화학 / 데이터 분석</S.Jobs>
@@ -157,11 +171,21 @@ export default function MyPage() {
           <S.Info>
             <A.SubHeader subHeaderText="휴대전화" fontSize="2vh">
               <S.InputWrapper>
-                <A.InputBar
+                <A.Validation
                   value={editPhoneNumber}
-                  isFullWidth
-                  onChange={(e) => setEditPhoneNumber(e.target.value)}
-                />
+                  rules={[(v) => !!v || '휴대전화를 입력해 주세요.']}
+                  isValid={(v) =>
+                    setIsValidationInfo(isValidationInfo.splice(1, 1, v))
+                  }
+                  isCheckImmediatelyRule
+                  fontSize="1.3vh"
+                >
+                  <A.InputBar
+                    value={editPhoneNumber}
+                    isFullWidth
+                    onChange={(e) => setEditPhoneNumber(e.target.value)}
+                  />
+                </A.Validation>
               </S.InputWrapper>
             </A.SubHeader>
             <S.Title>관심 직무</S.Title>
@@ -188,11 +212,7 @@ export default function MyPage() {
           text="저장"
           func={async () => await updateUserInfo()}
         />
-        <S.WithdrawWrapper
-          onClick={() =>
-            dispatch(displayModal({ modalName: MODALS.WITHDRAW_CONFIRM_MODAL }))
-          }
-        >
+        <S.WithdrawWrapper onClick={() => history.push('/withdraw')}>
           회원 탈퇴 {'>'}
         </S.WithdrawWrapper>
       </S.ButtonWrapper>
