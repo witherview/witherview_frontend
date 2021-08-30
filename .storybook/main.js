@@ -8,5 +8,6 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-viewport',
+    'storybook-addon-styled-components-themes/register'
   ],
 };

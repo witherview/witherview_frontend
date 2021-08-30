@@ -9,6 +9,7 @@ import { get } from '@utils/snippet';
 
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -103,7 +104,7 @@ const InnerText = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme: { button } }) => button}
+  ${commonStyles.button}
 `;
 
 export default function PeerStudySettingPage({ setStepTrain }) {

@@ -9,6 +9,7 @@ import A from '@atoms';
 import M from '@molecules';
 import { postSelectedIndustriesApi } from '@repository/groupRepository';
 import { MODALS } from '@utils/constant';
+import commonStyles from '@style/commonStyles';
 
 const ModalContainer = styled.div`
   width: 40vh;
@@ -38,7 +39,7 @@ const ModalContainer = styled.div`
   div.button-wrapper {
     display: flex;
     padding-bottom: 5.5vh;
-    ${({ theme }) => theme.button}
+    ${commonStyles.button}
   }
 
   div.select-list {

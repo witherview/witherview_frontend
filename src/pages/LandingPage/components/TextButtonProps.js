@@ -13,21 +13,27 @@ const Text = styled.span`
   text-align: left;
   user-select: none;
   cursor: pointer;
-  &: hover {
+  &:hover {
     color: #6e6eff;
   }
-  color: black;
+  color: ${({ clicked, theme: { textBtnPropsTextColor } }) =>
+    clicked ? '#6e6eff' : textBtnPropsTextColor};
 `;
 
-export default function TextButtonProp({ text, onClick }) {
-  return <Text onClick={onClick}>{text}</Text>;
+export default function TextButtonProp({
+  text = 'temp',
+  onClick = () => {},
+  isClicked = false,
+}) {
+  return (
+    <Text clicked={isClicked} onClick={onClick}>
+      {text}
+    </Text>
+  );
 }
 
 TextButtonProp.propTypes = {
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func,
-};
-
-TextButtonProp.defaultProp = {
-  onClick: () => {},
+  isClicked: PropTypes.bool,
 };

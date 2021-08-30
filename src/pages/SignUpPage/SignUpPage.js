@@ -11,6 +11,7 @@ import { setLogin } from '@store/Auth/auth';
 import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 
 import useWindowSize from '@hooks/useWindowSize';
 
@@ -50,7 +51,7 @@ const WrapBox = styled.div`
   width: 118.14vh;
   max-width: 80vw;
   height: auto;
-  background-color: white;
+  background-color: #ffffff;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;
@@ -130,7 +131,7 @@ const WrapMiddleText = styled.div`
 
 const WrapButton = styled.div`
   margin-bottom: 6vh;
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const WrapBottomContainer = styled.div`
@@ -216,7 +217,6 @@ const SelectText = styled.div`
 `;
 
 const ClickableSelectText = styled.span`
-  color: ${({ theme }) => theme.colors.cornflower};
   font-family: AppleSDGothicNeoB00;
   cursor: pointer;
 `;
@@ -376,7 +376,7 @@ export default function SignUpPage({ history }) {
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [test]);
 
   return (
     <Wrapper ratio={ratio > 1.675}>
@@ -568,6 +568,7 @@ export default function SignUpPage({ history }) {
                     )}
                   </SelectList>
                 </WrapInput>
+
                 <WrapInput ratio={ratio > 1.675}>
                   <WrapText>관심 직무_Sub</WrapText>
                   <SelectList ref={jobSubRef}>
@@ -595,6 +596,17 @@ export default function SignUpPage({ history }) {
                       </SelectItemListWrapper>
                     )}
                   </SelectList>
+                </WrapInput>
+
+                <WrapInput ratio={ratio > 1.675}>
+                  <WrapText>전화번호(임시)</WrapText>
+                  <A.InputBar
+                    autoFocus={ratio > 0.65}
+                    value={signUpForm.phoneNumber}
+                    placeholder="ex) 01012341234"
+                    onChange={handleInput}
+                    name="phoneNumber"
+                  />
                 </WrapInput>
               </WrapUpperContainer>
             </Wraping>
@@ -637,7 +649,7 @@ export default function SignUpPage({ history }) {
           <WrapButton>
             {/* TODO: 회원가입 로직 추기 */}
             <A.Button
-              theme="blue"
+              btnTheme="blue"
               text="회원가입"
               func={() => handleSignUp()}
             />

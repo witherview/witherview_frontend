@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 import { setLogout } from '@store/Auth/auth';
 
 import StudyBackground from '@assets/images/fragile_ratio.png';
@@ -26,7 +27,7 @@ const WrapTitle = styled.div`
   height: 12vh;
   font-size: 6.5vh;
   font-family: TitilliumWebBold;
-  color: ${({ theme }) => theme.colors.cornflower};
+  color: ${commonStyles.colors.cornflower};
 `;
 
 const WrapText = styled.div`
@@ -49,7 +50,7 @@ const WrapImage = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default function FragileRatio() {
@@ -65,7 +66,7 @@ export default function FragileRatio() {
       <WrapImage source={StudyBackground} />
       <WrapButton>
         <A.Button
-          theme="blue"
+          btnTheme="blue"
           text="돌아가기"
           func={() => {
             dispatch(setLogout());

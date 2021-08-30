@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import { useSelector } from 'react-redux';
+import { get } from '@utils/snippet';
 import O from '@organisms';
-import Logo from '@assets/images/witherview_logo_title_dark.png';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
+  background-color: ${({
+    theme: {
+      common: { bgColor },
+    },
+  }) => bgColor};
+  color: ${({
+    theme: {
+      common: { color },
+    },
+  }) => color};
   z-index: 2;
   position: fixed;
   top: 0;
@@ -21,13 +32,19 @@ const Wrapper = styled.div`
   -webkit-box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   -moz-box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
   box-shadow: 0px -5px 44px -2px rgba(4, 4, 161, 0.27);
-  background-color: white;
 
-  img.wrap-left {
+  h1.wrap-left {
     width: 120px;
+    height: 100%;
+    background: url(${({ theme: { mainLogo } }) => mainLogo});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-indent: -9999px;
   }
   div.wrap-container {
     width: 90%;
+    height: 100%;
     max-width: 1150px;
     min-width: 90%;
     display: flex;
@@ -44,6 +61,11 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     padding-right: 110px;
+    color: ${({
+      theme: {
+        landingPage: { wrapTextButtonColor },
+      },
+    }) => wrapTextButtonColor};
   }
 
   div.wrap-right-inner {
@@ -82,28 +104,66 @@ export default function LandingHeader({
   studyRef,
 }) {
   const history = useHistory();
+  const { viewMode } = useSelector(get('viewMode'));
+  const [activeMenu, setActiveMenu] = useState(0);
   const executeScroll = (ref) => scrollToRef(ref);
   const isLoggedIn = sessionStorage.getItem('isLogin') !== null;
   const name = sessionStorage.getItem('name');
+  const textButtonPropsList = [
+    {
+      id: 0,
+      text: '홈',
+      scrollFuncRef: topRef,
+    },
+    {
+      id: 1,
+      text: '위더뷰란?',
+      scrollFuncRef: middleOneRef,
+    },
+    {
+      id: 2,
+      text: '혼자연습',
+      scrollFuncRef: aloneRef,
+    },
+    {
+      id: 3,
+      text: '면접스터디',
+      scrollFuncRef: studyRef,
+    },
+  ];
+
+  const btnRender = () => {
+    const currentBtnTheme =
+      viewMode === 'dark' ? 'loginBtnDarkMode' : 'outline';
+
+    return (
+      <A.Button
+        id="menu_btn"
+        btnTheme={currentBtnTheme}
+        width={140}
+        text="LOG IN"
+        func={() => history.push('/login')}
+      />
+    );
+  };
+
   return (
     <Wrapper>
       <div className="wrap-container">
-        <img className="wrap-left" src={Logo} alt="witherview" />
+        <h1 className="wrap-left">메인로고</h1>
         <div className="wrap-right-inner">
           <div className="wrap-text-button">
-            <TextButtonProps onClick={() => executeScroll(topRef)} text="홈" />
-            <TextButtonProps
-              onClick={() => executeScroll(middleOneRef)}
-              text="위더뷰란?"
-            />
-            <TextButtonProps
-              onClick={() => executeScroll(aloneRef)}
-              text="혼자연습"
-            />
-            <TextButtonProps
-              onClick={() => executeScroll(studyRef)}
-              text="면접스터디"
-            />
+            {textButtonPropsList.map(({ id, text, scrollFuncRef }) => (
+              <TextButtonProps
+                key={id}
+                onClick={() => {
+                  executeScroll(scrollFuncRef);
+                  setActiveMenu(id);
+                }}
+                text={text}
+                isClicked={activeMenu === id}
+              />
+            ))}
           </div>
           {isLoggedIn ? (
             <div className="wrap-profile">
@@ -115,15 +175,7 @@ export default function LandingHeader({
               />
             </div>
           ) : (
-            <div className="wrap-button">
-              <A.Button
-                id="menu_btn"
-                theme="outline"
-                width={230}
-                text="LOG IN"
-                func={() => history.push('/login')}
-              />
-            </div>
+            btnRender()
           )}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import commonStyles from '@style/commonStyles';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,9 +18,18 @@ const SearchWrapper = styled.div`
   align-items: center;
   width: 79.8vh;
   height: 7.3vh;
+  border: ${({
+    theme: {
+      peerStudy: { searchWrapperBorder },
+    },
+  }) => `1px solid ${searchWrapperBorder}`};
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(30, 30, 215, 0.04);
-  background-color: #f6f6f6;
+  background-color: ${({
+    theme: {
+      peerStudy: { searchWrapper },
+    },
+  }) => searchWrapper};
 `;
 
 const IconWrapper = styled.div`
@@ -53,7 +63,11 @@ const StudyText = styled.div`
   line-height: 1.44;
   letter-spacing: normal;
   text-align: left;
-  color: #000000;
+  color: ${({
+    theme: {
+      peerStudy: { studyTextColor },
+    },
+  }) => studyTextColor};
 `;
 
 const FilterWrapper = styled.div`
@@ -62,6 +76,13 @@ const FilterWrapper = styled.div`
 
 const WrapTitleContainer = styled.div`
   display: flex;
+  height: 10vh;
+  align-items: center;
+  color: ${({
+    theme: {
+      peerStudy: { buttonWrapperColor },
+    },
+  }) => buttonWrapperColor};
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
@@ -95,7 +116,11 @@ const PartiText = styled.div`
   margin-bottom: 4vh !important;
   font-family: AppleSDGothicNeoB00;
   font-size: 2vh;
-  color: #0c0c59;
+  color: ${({
+    theme: {
+      peerStudy: { partTextColor },
+    },
+  }) => partTextColor};
 `;
 
 const StudyListWrapper = styled.div`
@@ -122,8 +147,25 @@ const AddStudy = styled.div`
   height: 38.2vh;
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  border: solid 0.1vh #f6f6f6;
-  background-color: #f6f6f6;
+  border: ${({
+    theme: {
+      peerStudy: { addStudyBdColor },
+    },
+  }) => addStudyBdColor};
+  background-color: ${({
+    theme: {
+      peerStudy: { addStudyBgColor },
+    },
+  }) => addStudyBgColor};
+  color: ${({
+    theme: {
+      peerStudy: { addTextColor },
+    },
+  }) => addTextColor};
+
+  & > span {
+    font-size: 50px;
+  }
 `;
 
 const AddText = styled.div`
@@ -136,15 +178,18 @@ const AddText = styled.div`
   line-height: 1.42;
   letter-spacing: normal;
   text-align: left;
-  color: #0c0c59;
 `;
 
 const ButtonWrapper = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
   > div {
     width: 100%;
     height: 4.5vh;
     border-width: 0.2vh;
+    border-radius: 1vh;
+    > p {
+      font-size: 2vh;
+    }
   }
 `;
 

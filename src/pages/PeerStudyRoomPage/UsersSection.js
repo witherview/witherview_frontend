@@ -16,8 +16,18 @@ export default function UsersSection({
   nonHost,
   isHost,
   setExit,
+  exit,
   isAlone,
 }) {
+  const onToggle = (isChecked) => {
+    if (isChecked) {
+      // 답변보기 활성화
+      setExit(false);
+    } else {
+      // 답변보기 비활성화
+      setExit(true);
+    }
+  };
   return (
     <S.UserInfoWrapper>
       <S.UserInfoHeader>
@@ -58,8 +68,8 @@ export default function UsersSection({
           <S.TableColumn color="blue" value={FOURTH_COLUMN}>
             <A.ToggleButton
               disabled={!isHost}
-              funcActive={() => setExit(false)}
-              funcDeactive={() => setExit(true)}
+              cb={onToggle}
+              checked={!isHost ? !exit : true}
             />
           </S.TableColumn>
         </S.ContentRow>
@@ -89,8 +99,8 @@ export default function UsersSection({
             <S.TableColumn color="blue" value={FOURTH_COLUMN}>
               <A.ToggleButton
                 disabled={isHost}
-                funcActive={() => setExit(false)}
-                funcDeactive={() => setExit(true)}
+                cb={onToggle}
+                checked={isHost ? exit : true}
               />
             </S.TableColumn>
           </S.ContentRow>
@@ -105,5 +115,6 @@ UsersSection.propTypes = {
   nonHost: PropTypes.object,
   isHost: PropTypes.bool,
   setExit: PropTypes.func,
+  exit: PropTypes.bool,
   isAlone: PropTypes.bool,
 };

@@ -164,8 +164,8 @@ export default function MyPage() {
             </A.SubHeader>
             <S.Title>관심 산업</S.Title>
             <S.Block>
-              <S.BlockItem theme="blue">화학</S.BlockItem>
-              <S.BlockItem theme="blue">금융</S.BlockItem>
+              <S.BlockItem blockItemTheme="blue">화학</S.BlockItem>
+              <S.BlockItem blockItemTheme="blue">금융</S.BlockItem>
             </S.Block>
           </S.Info>
           <S.Info>
@@ -190,8 +190,8 @@ export default function MyPage() {
             </A.SubHeader>
             <S.Title>관심 직무</S.Title>
             <S.Block>
-              <S.BlockItem theme="orange">데이터 분석</S.BlockItem>
-              <S.BlockItem theme="orange">유통</S.BlockItem>
+              <S.BlockItem blockItemTheme="orange">데이터 분석</S.BlockItem>
+              <S.BlockItem blockItemTheme="orange">유통</S.BlockItem>
             </S.Block>
           </S.Info>
         </S.InfoWrapper>

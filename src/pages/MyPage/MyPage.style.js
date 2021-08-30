@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import commonStyles from '@style/commonStyles';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -24,12 +25,7 @@ const ProfileWrapper = styled.div`
 const Profile = styled.div`
   display: flex;
   width: 55.5vh;
-  border-right: solid 0.1vh
-    ${({
-      theme: {
-        colors: { lightWhite },
-      },
-    }) => lightWhite};
+  border-right: solid 0.1vh ${commonStyles.colors.lightWhite};
 `;
 
 const ProfileInfo = styled.div`
@@ -181,8 +177,8 @@ const BlockItem = styled.div`
   padding: 0.9vh 2vh;
   margin-right: 2vh;
   border-radius: 1vh;
-  background-color: ${({ theme }) =>
-    theme === 'blue' ? '#6e6eff' : '#f2886b'};
+  background-color: ${({ blockItemTheme }) =>
+    blockItemTheme === 'blue' ? '#6e6eff' : '#f2886b'};
   font-family: AppleSDGothicNeoM00;
   font-size: 1.5vh;
   font-weight: normal;
@@ -203,17 +199,18 @@ const BoxWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  ${commonStyles.button}
   display: flex;
   width: 100%;
   position: relative;
   justify-content: center;
-  ${({ theme }) => theme.button}
 `;
 
 const InputWrapper = styled.div`
-  ${({ theme }) => theme.input}
+  ${commonStyles.input}
   > input {
     width: 100%;
+    border-bottom: 0.2vh solid #9e9e9e;
     ${({ noBorder }) =>
       noBorder && 'color: black; font-weight: bold; border-color: white;'}
 

@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import styled from 'styled-components';
-
 import PropTypes from 'prop-types';
 
 const Switch = styled.label`
@@ -54,20 +52,13 @@ const Slider = styled.span`
 `;
 
 export default function ToggleButton({
-  className,
-  funcActive,
-  funcDeactive,
+  className = '',
+  cb,
   disabled,
+  checked,
 }) {
-  const [checked, setChecked] = useState(true);
-
-  const handleFunction = (e) => {
-    if (e.target.checked) {
-      setChecked(true);
-      return funcActive();
-    }
-    setChecked(false);
-    return funcDeactive();
+  const onCb = (e) => {
+    cb(e.target.checked);
   };
 
   return (
@@ -75,7 +66,7 @@ export default function ToggleButton({
       <Input
         type="checkbox"
         className={className}
-        onChange={handleFunction}
+        onChange={onCb}
         checked={checked}
       />
       <Slider />
@@ -85,13 +76,7 @@ export default function ToggleButton({
 
 ToggleButton.propTypes = {
   className: PropTypes.string,
-  funcActive: PropTypes.func,
-  funcDeactive: PropTypes.func,
+  cb: PropTypes.func,
   disabled: PropTypes.bool,
-};
-
-ToggleButton.defaultProps = {
-  className: '',
-  funcActive: () => {},
-  funcDeactive: () => {},
+  checked: PropTypes.bool,
 };

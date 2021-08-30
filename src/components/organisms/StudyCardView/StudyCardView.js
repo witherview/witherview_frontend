@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -7,6 +7,8 @@ import {
   postGroupRoomParticipantsApi,
   getGroupRoomParticipantsApi,
 } from '@repository/groupRepository';
+import { get } from '@utils/snippet';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,16 +23,26 @@ const Box = styled.div`
   height: 38.2vh;
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  border: solid 0.1vh #f6f6f6;
-  background-color: white;
+  border: solid 0.5px #9e9e9e;
+  background-color: ${({
+    theme: {
+      peerStudy: { boxBgColor },
+    },
+  }) => boxBgColor};
   box-sizing: border-box;
+  color: ${({
+    theme: {
+      peerStudy: { boxColor },
+    },
+  }) => boxColor};
+
   &:hover {
     border-radius: 2vh;
     background-image: linear-gradient(to bottom, #2323de, #4848da);
     box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
     & > div > div,
     & > div > div > span {
-      color: white;
+      color: #ffffff;
     }
     & > div > div > div {
       color: #0c0c59;
@@ -61,8 +73,12 @@ const Title = styled.div`
   line-height: 1.25;
   letter-spacing: normal;
   text-align: left;
-  color: black;
   justify-self: flex-start;
+  color: ${({
+    theme: {
+      peerStudy: { titleColor },
+    },
+  }) => titleColor};
 `;
 
 const Description = styled.div`
@@ -79,7 +95,6 @@ const Description = styled.div`
   line-height: 1.4;
   letter-spacing: normal;
   text-align: left;
-  color: black;
   word-break: break-all;
 `;
 
@@ -98,7 +113,6 @@ const Text = styled.span`
   font-style: normal;
   line-height: 2.25;
   letter-spacing: normal;
-  color: #3d3d3d;
   word-break: break-all;
   margin-left: 2vh;
 `;
@@ -129,9 +143,17 @@ const ButtonText = styled.div`
   line-height: 1.4;
   letter-spacing: normal;
   text-align: left;
-  color: #5f5fd9;
+  color: ${({
+    theme: {
+      peerStudy: { buttonTextColor },
+    },
+  }) => buttonTextColor};
 `;
 
+const getLocalStorage = (key) => localStorage.getItem(key);
+
+const iconClockOption = ['clock_white', 'clock_black'];
+const iconProfileOption = ['profile_white', 'profile_black'];
 export default function StudyCardView({
   id,
   title,
@@ -141,16 +163,32 @@ export default function StudyCardView({
   canParticipate,
 }) {
   const history = useHistory();
-  const [type, setType] = useState('clock_black');
-  const [profile, setProfile] = useState('profile_blue');
+  // viewMode 전환
+  const { viewMode } = useSelector(get('viewMode'));
+  const currentViewMode = (options) => {
+    if (getLocalStorage('viewMode') || !!viewMode) {
+      return getLocalStorage('viewMode') === 'dark' || viewMode === 'dark'
+        ? options[0]
+        : options[1];
+    }
+    return options[0];
+  };
+  const [type, setType] = useState('');
+  const [profile, setProfile] = useState('');
+
+  useEffect(() => {
+    setType(currentViewMode(iconClockOption));
+    setProfile(currentViewMode(iconProfileOption));
+  }, [viewMode]);
+
   const hoverIn = () => {
-    setType('clock_white');
-    setProfile('profile_white');
+    setType(iconClockOption[0]);
+    setProfile(iconProfileOption[0]);
   };
 
   const hoverOut = () => {
-    setType('clock_black');
-    setProfile('profile_blue');
+    setType(currentViewMode(iconClockOption));
+    setProfile(currentViewMode(iconProfileOption));
   };
 
   const handleClick = async () => {

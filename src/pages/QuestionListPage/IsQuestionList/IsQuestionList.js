@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   display: flex;
   width: 110.2vh;
   height: 63vh;
-  overflow: scroll;
+  overflow: auto;
   flex-wrap: wrap;
   margin-top: 7.1vh;
 `;
@@ -25,7 +25,20 @@ const AddQuestionList = styled.div`
   width: 33.4vh;
   height: 27vh;
   border-radius: 1vh;
-  background-color: #f6f6f6;
+  background-color: ${({
+    theme: {
+      self: {
+        questionlist: { addQuestionListBgColor },
+      },
+    },
+  }) => addQuestionListBgColor};
+  color: ${({
+    theme: {
+      self: {
+        questionlist: { addQuestionListColor },
+      },
+    },
+  }) => addQuestionListColor};
   align-items: center;
 `;
 
@@ -43,7 +56,7 @@ const AddText = styled.div`
   line-height: 1.42;
   letter-spacing: normal;
   text-align: left;
-  color: #0c0c59;
+  /* color: #0c0c59; */
 `;
 
 export default function IsQuestionList({ questionList, handleDelete }) {

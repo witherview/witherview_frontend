@@ -1,12 +1,10 @@
-/* eslint-disable indent */
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-
+import Logo from '@assets/images/symbol_white.png';
 import { setLogout } from '@store/Auth/auth';
 
-import Logo from '@assets/images/witherview_logo.png';
 import SidebarButton from './SidebarButton';
 
 const Wrapper = styled.div`
@@ -16,7 +14,11 @@ const Wrapper = styled.div`
   height: 100vh;
   min-height: 20vh;
   border: none;
-  background-color: #0c0c59;
+  background: ${({
+    theme: {
+      common: { sideBarBgColor },
+    },
+  }) => sideBarBgColor};
   user-select: none;
   z-index: 10;
   transition: all ease 0.1s 0.1s;
@@ -41,7 +43,7 @@ const Wrapper = styled.div`
   }
 
   img.wrap-image {
-    height: 6vh;
+    height: 3vh;
   }
 
   div.wrap-button-container {
@@ -141,7 +143,7 @@ export default function SideBar() {
         />
         <SidebarButton
           func={() => handleClick('mypage')}
-          type={path === 'mypage' ? 'profile_black' : 'profile_white'}
+          type={path === 'mypage' ? 'profile_blue' : 'profile_white'}
           clicked={path === 'mypage'}
           isHover={isHover}
           text="마이페이지"

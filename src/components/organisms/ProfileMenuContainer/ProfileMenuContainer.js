@@ -1,17 +1,19 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLogout } from '@store/Auth/auth';
 
 import A from '@atoms';
+import { toggleViewMode } from '@store/ViewMode/viewMode';
+import { get } from '@utils/snippet';
 
 const Wrapper = styled.div`
   position: ${({ isAbsolute }) => isAbsolute && 'absolute'};
@@ -64,7 +66,11 @@ const Wrapper = styled.div`
       isSmall ? (usePx ? '15px' : '1.5vh') : usePx ? '29px' : '2.9vh'};
     padding-right: ${({ usePx }) => (usePx ? '10px' : '1vh')};
     user-select: none;
-    color: #3d3d3d;
+    color: ${({
+      theme: {
+        common: { profileNameColor },
+      },
+    }) => profileNameColor};
   }
 
   ul.list {
@@ -120,9 +126,26 @@ export default function ProfileMenuContainer({
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { viewMode } = useSelector(get('viewMode'));
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = (set) => setIsOpen(set);
+
+  const onViewModeToggle = useCallback(() => {
+    if (viewMode === 'dark') {
+      // 라이트모드 활성화
+      localStorage.setItem('viewMode', 'light');
+      dispatch(toggleViewMode({ viewMode: 'light' }));
+    } else {
+      // 다크모드 활성화
+      localStorage.setItem('viewMode', 'dark');
+      dispatch(toggleViewMode({ viewMode: 'dark' }));
+    }
+  }, [viewMode]);
+
+  const viewModeSwitch = useMemo(() => viewMode === 'dark', [viewMode])
+    ? 'Light: ON'
+    : 'Dark: ON';
 
   return (
     <Wrapper
@@ -144,6 +167,11 @@ export default function ProfileMenuContainer({
           <li className="item">
             <div className="each" onClick={() => history.push('/mypage')}>
               마이페이지
+            </div>
+          </li>
+          <li className="item">
+            <div className="each" onClick={onViewModeToggle}>
+              {viewModeSwitch}
             </div>
           </li>
           <li className="item">

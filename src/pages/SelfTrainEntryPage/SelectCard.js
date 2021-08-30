@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   width: 39vh;
   height: 49.5vh;
   display: flex;
-  align-itmes: center;
+  align-items: center;
   justify-content: center;
   margin: 1.7vh;
   cursor: pointer;
@@ -27,7 +27,13 @@ const WrapContainer = styled.div`
   height: 47.9vh;
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  ${({ clicked }) => clicked && 'border: solid 0.4vh #6e6eff;'}
+  box-sizing: border-box;
+  ${({
+    theme: {
+      self: { wrapContainerBorder },
+    },
+  }) => wrapContainerBorder};
+  ${({ clicked }) => clicked && 'border: solid 0.4vh #6e6eff;'};
 `;
 
 const WrapIcon = styled.div`
@@ -43,14 +49,24 @@ const WrapImage = styled.img`
 const WrapMiddleText = styled.div`
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;
-  ${({ clicked }) => clicked && 'color: #6e6eff;'}
+  color: ${({
+    clicked,
+    theme: {
+      self: { wrapMiddleText },
+    },
+  }) => (clicked ? '#6e6eff' : wrapMiddleText)};
   padding: 2.7vh;
 `;
 
 const WrapBottomText = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 1.5vh;
-  color: #3d3d3d;
+  color: ${({
+    clicked,
+    theme: {
+      self: { wrapBottomText },
+    },
+  }) => (clicked ? '#6e6eff' : wrapBottomText)};
   padding: 0.3vh;
   white-space: pre;
   text-align: center;
@@ -75,7 +91,7 @@ export default function SelectCard({ kind, clicked, func }) {
         <WrapMiddleText clicked={clicked}>
           {kind === GUIDE_IMAGE ? '위더뷰 면접 가이드' : '면접 질문 만들기'}
         </WrapMiddleText>
-        <WrapBottomText>
+        <WrapBottomText clicked={clicked}>
           {kind === GUIDE_IMAGE
             ? '위더뷰가 제시하는\n핵심 면접 질문으로 연습해보세요.'
             : '직접 면접 질문을 만들고\n면접을 대비 할 수 있어요.'}

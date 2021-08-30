@@ -14,7 +14,7 @@ const Text = styled.span`
   text-align: left;
   user-select: none;
   cursor: pointer;
-  color: ${({ clicked }) => (clicked ? '#0c0c59' : '#3d3d3d')};
+  color: ${({ clicked }) => (clicked ? '#6e6eff' : 'inherit')};
 `;
 
 export default function TextButton({ text }) {

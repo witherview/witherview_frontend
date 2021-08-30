@@ -58,7 +58,13 @@ const Title = styled.div`
   font-style: normal;
   line-height: 1.44;
   letter-spacing: normal;
-  color: #000000;
+  color: ${({
+    theme: {
+      self: {
+        questionId: { titleColor },
+      },
+    },
+  }) => titleColor};
 `;
 
 const InputQuestion = styled.input`
@@ -273,7 +279,7 @@ export default function QuestionPage({ match }) {
                 <A.Button
                   func={handleQuestionMake}
                   text={id === 'new' ? '저장' : '완료'}
-                  theme={isListEmpty ? 'gray' : 'blue'}
+                  btnTheme={isListEmpty ? 'gray' : 'blue'}
                 />
               </ButtonWrapper>
             </>

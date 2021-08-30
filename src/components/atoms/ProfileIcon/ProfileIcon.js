@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { get } from '@utils/snippet';
-
 import profileDefault from '@assets/images/profile_default.png';
+import { commonStyles } from '@style';
+
+const { colors } = commonStyles;
 
 const Wrapper = styled.div`
   ${({ isPx, isSmall }) =>
@@ -25,7 +27,7 @@ const Wrapper = styled.div`
   background-image: url(${({ src }) => src});
   background-position: center center;
   background-size: cover;
-  background-color: ${({ theme }) => theme.colors.lightGrey};
+  background-color: ${colors};
 `;
 
 export default function ProfileIcon({ src, isSmall, isPx }) {

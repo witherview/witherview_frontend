@@ -10,7 +10,7 @@ const Wrapper = styled.button`
   position: relative;
   width: 100%;
   height: 7.1vh;
-  background-color: ${({ clicked }) => (clicked ? 'white' : '#0c0c59')};
+  background: ${({ clicked }) => (clicked ? '#fff' : 'inherit')};
   display: flex;
   align-items: center;
   justify-content: center;

@@ -6,10 +6,11 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 import styled from 'styled-components';
 
-import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
+// import witherviewLogo from '@assets/images/witherview_logo_title_dark.png';
 import { loginApi } from '@repository/accountRepository';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 
 import useWindowSize from '@hooks/useWindowSize';
 
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #f9f9ff;
+  background: ${({ theme: { wrapContentBgColor } }) => wrapContentBgColor};
 `;
 
 const WrapContent = styled.div`
@@ -30,7 +31,9 @@ const WrapContent = styled.div`
   justify-content: space-between;
 `;
 
-const Logo = styled.img`
+const Logo = styled.img.attrs(({ theme: { mainLogo } }) => ({
+  src: mainLogo,
+}))`
   height: 6vh;
 `;
 
@@ -40,7 +43,11 @@ const WrapSubTitle = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 2.4vh;
   line-height: 3vh;
-  color: #3d3d3d;
+  color: ${({
+    theme: {
+      login: { wrapSubTitle },
+    },
+  }) => wrapSubTitle};
   padding-top: 3.5vh;
   padding-bottom: 5.4vh;
   pointer-events: none;
@@ -50,7 +57,7 @@ const WrapBox = styled.div`
   width: 68.6vh;
   max-width: 80vw;
   height: 60vh;
-  background-color: white;
+  background-color: #ffffff;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;
@@ -81,7 +88,7 @@ const WrapUpperContainer = styled.div`
 const WrapInput = styled.div`
   margin-top: 1vh;
   margin-bottom: 5vh;
-  ${({ theme }) => theme.input}
+  ${commonStyles.input}
 `;
 
 const WrapMiddleContainer = styled.div`
@@ -116,7 +123,7 @@ const WrapMiddleTextRight = styled(WrapMiddleText)`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const WrapBottomContainer = styled.div`
@@ -194,7 +201,7 @@ export default function LoginPage({ history }) {
         <Redirect to="/self" />
       )}
       <WrapContent>
-        <Logo src={witherviewLogo} alt="logo" />
+        <Logo alt="logo" />
         <WrapSubTitle>위더뷰가 처음이신가요? 정보를 입력해주세요.</WrapSubTitle>
         <WrapBox>
           <WrapContianer>
@@ -238,7 +245,7 @@ export default function LoginPage({ history }) {
             </WrapMiddleContainer>
           </WrapContianer>
           <WrapButton>
-            <A.Button theme="blue" func={handleLogin} text="로그인" />
+            <A.Button btnTheme="blue" func={handleLogin} text="로그인" />
           </WrapButton>
         </WrapBox>
         <WrapBottomContainer>

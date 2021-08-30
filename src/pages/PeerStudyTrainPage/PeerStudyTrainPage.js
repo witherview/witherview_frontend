@@ -157,7 +157,7 @@ export default function PeerStudyTrainPage({
             </S.WrapBottomSide>
             <S.WrapButton>
               <A.Button
-                theme={step === STEP_FIRST ? 'gray' : 'blue'}
+                btnTheme={step === STEP_FIRST ? 'gray' : 'blue'}
                 text={Fixture[step].button}
                 socketRef
                 func={

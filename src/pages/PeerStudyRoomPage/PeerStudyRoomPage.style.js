@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -64,7 +65,7 @@ const BoxWrapper = styled.div`
   & div:first-child {
     margin-bottom: 2.5vh;
   }
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
   > div {
     pointer-events: auto;
   }

@@ -76,6 +76,11 @@ const DescriptionArea = styled.div`
     padding-bottom: 1vh;
     font-size: 2.2vh;
     font-family: AppleSDGothicNeoB00;
+    color: ${({
+      theme: {
+        replay: { titleAreaColor },
+      },
+    }) => titleAreaColor};
   }
 
   .videoTime {

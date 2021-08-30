@@ -10,20 +10,17 @@ export const Toggle = (args) => <ToggleButton {...args} />;
 export const ToggleWithFunction = (args) => {
   const [state, setState] = useState('Deactive');
 
-  const handleClickActive = () => {
-    setState('Active');
+  const onToggle = (isChecked) => {
+    if (isChecked) {
+      setState('Active');
+    } else {
+      setState('Decative');
+    }
   };
 
-  const handleClickDeactive = () => {
-    setState('Decative');
-  };
   return (
     <>
-      <ToggleButton
-        {...args}
-        funcActive={handleClickActive}
-        funcDeactive={handleClickDeactive}
-      />
+      <ToggleButton {...args} cb={onToggle} />
       <div>{state}</div>
     </>
   );

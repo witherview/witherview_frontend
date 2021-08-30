@@ -70,12 +70,12 @@ export default createGlobalStyle`
     }
 
     ::-webkit-scrollbar {
-        background-color:white;
+        background-color: #ffffff;
         width: 14px;
     }
 
     ::-webkit-scrollbar-track {
-        background-color:white
+        background-color: #ffffff;
     }
 
     ::-webkit-scrollbar-thumb {

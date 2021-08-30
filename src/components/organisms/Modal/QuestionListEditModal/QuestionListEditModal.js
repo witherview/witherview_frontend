@@ -6,6 +6,7 @@ import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
 import { patchQuestionListAPI } from '@repository/questionListRepository';
 import { MODALS } from '@utils/constant';
+import commonStyles from '@style/commonStyles';
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ const Text = styled.div`
 
 const InputWrapper = styled.div`
   margin-bottom: 7vh;
-  ${({ theme }) => theme.input}
+  ${commonStyles.input}
 `;
 
 const InputText = styled.div`
@@ -47,7 +48,7 @@ const InputText = styled.div`
 
 const ButtonWrapper = styled.div`
   margin-top: 4vh;
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default function QuestionListEditModal({

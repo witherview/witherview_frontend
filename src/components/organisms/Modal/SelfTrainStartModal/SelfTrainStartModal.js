@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { get } from '@utils/snippet';
 import { useHistory } from 'react-router-dom';
 import A from '@atoms';
+import { commonStyles } from '@style';
 import { removeModal } from '@store/Modal/modal';
 import { MODALS } from '@utils/constant';
 import { resetQuestions } from '@store/Question/question';
@@ -51,7 +52,7 @@ const TextStart = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default function SelfTrainStartModal() {
@@ -78,7 +79,7 @@ export default function SelfTrainStartModal() {
         <TextSave>질문 리스트가 저장되었습니다.</TextSave>
         <TextStart>이제 면접 연습을 시작해보세요!</TextStart>
         <WrapButton>
-          <A.Button text="면접 시작하기" theme="blue" func={handleStart} />
+          <A.Button text="면접 시작하기" btnTheme="blue" func={handleStart} />
         </WrapButton>
       </Wrapper>
     </>
