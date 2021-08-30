@@ -11,8 +11,16 @@ import O from '@organisms';
 import TextButtonProps from './components/TextButtonProps';
 
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.bgColor};
-  color: ${({ theme }) => theme.color};
+  background-color: ${({
+    theme: {
+      common: { bgColor },
+    },
+  }) => bgColor};
+  color: ${({
+    theme: {
+      common: { color },
+    },
+  }) => color};
   z-index: 2;
   position: fixed;
   top: 0;
@@ -53,8 +61,11 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     padding-right: 110px;
-    color: ${({ theme: { landingFooterWrapLeftInnerColor } }) =>
-      landingFooterWrapLeftInnerColor};
+    color: ${({
+      theme: {
+        landingPage: { wrapTextButtonColor },
+      },
+    }) => wrapTextButtonColor};
   }
 
   div.wrap-right-inner {
@@ -164,15 +175,7 @@ export default function LandingHeader({
               />
             </div>
           ) : (
-            <div className="wrap-button">
-              <A.Button
-                id="menu_btn"
-                theme="outline"
-                width={230}
-                text="LOG IN"
-                func={() => history.push('/login')}
-              />
-            </div>
+            btnRender()
           )}
         </div>
       </div>
