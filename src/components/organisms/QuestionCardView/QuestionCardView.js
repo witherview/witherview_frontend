@@ -15,7 +15,9 @@ const Box = styled.div`
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: ${({
     theme: {
-      questionCardView: { border },
+      self: {
+        questionlist: { border },
+      },
     },
   }) => `solid 1px ${border}`};
   box-sizing: content-box;
@@ -27,7 +29,9 @@ const Content = styled.div`
   padding: 0 4.1vh;
   color: ${({
     theme: {
-      questionCardView: { contentColor },
+      self: {
+        questionlist: { contentColor },
+      },
     },
   }) => contentColor};
 `;
@@ -76,7 +80,9 @@ const SubText = styled.div`
   text-align: left;
   color: ${({
     theme: {
-      questionCardView: { subTextColor },
+      self: {
+        questionlist: { subTextColor },
+      },
     },
   }) => subTextColor};
 `;
@@ -104,7 +110,9 @@ const TitleText = styled.span`
   font-weight: bold;
   color: ${({
     theme: {
-      questionCardView: { titleTextColor },
+      self: {
+        questionlist: { titleTextColor },
+      },
     },
   }) => titleTextColor};
 `;
@@ -117,7 +125,9 @@ const SubTitle = styled.div`
   font-size: 1.8vh;
   color: ${({
     theme: {
-      questionCardView: { subTitleColor },
+      self: {
+        questionlist: { subTitleColor },
+      },
     },
   }) => subTitleColor};
 `;

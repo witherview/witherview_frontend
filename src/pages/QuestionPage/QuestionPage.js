@@ -60,7 +60,9 @@ const Title = styled.div`
   letter-spacing: normal;
   color: ${({
     theme: {
-      questionPage: { titleColor },
+      self: {
+        questionId: { titleColor },
+      },
     },
   }) => titleColor};
 `;

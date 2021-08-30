@@ -22,9 +22,15 @@ const Wrapper = styled.div`
 const HistoryMenuBox = styled.div`
   font-size: 2.2vh;
   font-family: AppleSDGothicNeoB00;
+  color: #fff;
 
   span {
     border-right: 1px solid #9e9e9e;
+    color: ${({
+      theme: {
+        replay: { historyMenuBoxColor },
+      },
+    }) => historyMenuBoxColor};
   }
 
   span:first-child {

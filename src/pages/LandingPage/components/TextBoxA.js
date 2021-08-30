@@ -17,13 +17,25 @@ const WrapText = styled.div`
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
   font-size: ${({ size }) => size}px;
   ${({ bold }) => bold && 'font-family: AppleSDGothicNeoB00;'}
-  color: ${({ color, theme: { mainPageBoldColor } }) =>
-    color || mainPageBoldColor};
+  color: ${({
+    color,
+    theme: {
+      landingPage: {
+        textBoxA: { mainPageBoldColor },
+      },
+    },
+  }) => color || mainPageBoldColor};
 `;
 
 const WrapPadding = styled.div`
   padding: ${({ padding }) => padding && '15px 0 20px 0'};
-  color: ${({ theme: { wrapPaddingColor } }) => wrapPaddingColor};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxA: { wrapPaddingColor },
+      },
+    },
+  }) => wrapPaddingColor};
 `;
 
 export default function TextBoxA({

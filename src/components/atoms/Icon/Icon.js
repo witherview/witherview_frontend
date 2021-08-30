@@ -42,16 +42,16 @@ const heightSize = {
 };
 
 const backgroundPositionType = {
-  bubble_white: unitGenerator([-4, -3.6]),
-  bubble_black: unitGenerator([-14.5, -3.6]),
+  bubble_white: unitGenerator([-4.5, -3.6]),
+  bubble_black: unitGenerator([-15.8, -3.6]),
   arrow_down_blue: unitGenerator([-28.4, -4.5]),
   arrow_down_grey: unitGenerator([-25.5, -4.5]),
-  arrow_up_blue: unitGenerator([-51.7, -4.55]),
+  arrow_up_blue: unitGenerator([-51.5, -4.55]),
   cancel_white: unitGenerator([-63.05, -4.25]),
   add_orange: unitGenerator([-74.7, -4.25]),
-  add_blue: unitGenerator([-86.3, -4.25]), // TODO: 기존 -86.3.5 였음
-  folder_white: unitGenerator([-98.6, -3.5]),
-  folder_blue: unitGenerator([-108.8, -3.5]),
+  add_blue: unitGenerator([-86, -4.25]),
+  folder_white: unitGenerator([-108.6, -3.5]),
+  folder_blue: unitGenerator([-120, -3.5]),
   post: unitGenerator([-4.3, -14]),
   cancel_blue: unitGenerator([-16, -14]),
   cancel_black: unitGenerator([-27.6, -14]),
@@ -61,16 +61,16 @@ const backgroundPositionType = {
   calendar_black: unitGenerator([-74, -13.95]),
   clock_gray: unitGenerator([-85.6, -13.95]),
   clock_black: unitGenerator([-97.2, -13.95]),
-  profile_blue: unitGenerator([-108.8, -13.95]),
-  profile_white: unitGenerator([-4.1, -24.6]),
-  profile_black: unitGenerator([-14.5, -24.6]),
+  profile_blue: unitGenerator([-15.8, -24.6]),
+  profile_white: unitGenerator([-4.3, -24.6]),
+  profile_black: unitGenerator([-108.7, -14]),
   drop_up: unitGenerator([-27.6, -25.1]),
   drop_down: unitGenerator([-39.2, -25.1]),
   drawer: unitGenerator([-50.3, -24.3]),
   check_off: unitGenerator([-61.9, -24.3]),
   check_on: unitGenerator([-73.5, -24.3]),
   remove: unitGenerator([-85.1, -24.3]),
-  check_circle_white: unitGenerator([-97.5, -24.1]),
+  check_circle_white: unitGenerator([-96.4, -24.1]),
   dots: unitGenerator([-108, -25.3]),
   check_circle_blue: unitGenerator([-3.7, -34.2]),
   next_white: unitGenerator([-15.55, -34.8]),
@@ -80,11 +80,11 @@ const backgroundPositionType = {
   next_rec: unitGenerator([-56.2, -34.5]),
   previous_rec: unitGenerator([-66.7, -34.6]),
   add_white: unitGenerator([-77.65, -34.9]),
-  add_black: unitGenerator([-89.2, -34.9]),
+  add_black: unitGenerator([-88.2, -34.9]),
   remove_rec: unitGenerator([-98.15, -34.6]),
   add_rec: unitGenerator([-108.65, -34.65]),
-  sound_white: unitGenerator([-4, -46.9]),
-  sound_black: unitGenerator([-14.5, -46.9]),
+  sound_white: unitGenerator([-4.2, -46.9]),
+  sound_black: unitGenerator([-16, -46.9]),
   play_purple: unitGenerator([-26.55, -46.05]),
   cancel_circle: unitGenerator([-38.2, -46.05]),
   pause: unitGenerator([-49.85, -46.05]),
@@ -112,7 +112,7 @@ const I = styled.i`
   margin: 0.2vh;
   display: inline-block;
   background-image: ${({ theme: { iconImage } }) => `url(${iconImage})`};
-  background-size: 123.7vh 87.6vh;
+  background-size: 136.4vh 87.6vh;
   border-radius: ${({ circle, size }) => (circle ? borderRadiusSize[size] : 0)};
   width: ${({ size }) => widthSize[size]};
   height: ${({ size }) => heightSize[size]};
@@ -204,9 +204,6 @@ export default function Icon({
         break;
     }
   }, [type]);
-
-  console.log('type', type);
-  console.log('size', size);
 
   return (
     <I type={type} size={size} title={alt} onClick={func} circle={isCircle} />

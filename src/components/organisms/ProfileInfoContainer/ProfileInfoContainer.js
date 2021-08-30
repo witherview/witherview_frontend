@@ -12,8 +12,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: ${({ theme: { profileInfoContainerWrapper } }) =>
-    profileInfoContainerWrapper};
+  color: ${({
+    theme: {
+      peerStudy: { profileInfoContainerWrapper },
+    },
+  }) => profileInfoContainerWrapper};
 `;
 
 const Name = styled.div`

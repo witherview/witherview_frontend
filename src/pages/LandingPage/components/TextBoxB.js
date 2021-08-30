@@ -20,17 +20,35 @@ const wrapTextBasic = css`
 
 const WrapTextHeader = styled.div`
   ${wrapTextBasic}
-  color: ${({ theme: { textBoxBHeaderColor } }) => textBoxBHeaderColor};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxB: { wrapTextHeaderColor },
+      },
+    },
+  }) => wrapTextHeaderColor};
 `;
 
 const WrapTextContent = styled.div`
   ${wrapTextBasic}
-  color: ${({ theme: { textBoxBContentColor } }) => textBoxBContentColor};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxB: { WrapTextContentColor },
+      },
+    },
+  }) => WrapTextContentColor};
 `;
 
 const WrapTextSummary = styled.div`
   ${wrapTextBasic}
-  color: ${({ theme: { textBoxBContentColor } }) => textBoxBContentColor};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxB: { wrapTextSummaryColor },
+      },
+    },
+  }) => wrapTextSummaryColor};
 `;
 
 const WrapPadding = styled.div`

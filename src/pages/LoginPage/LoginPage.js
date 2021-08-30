@@ -45,7 +45,7 @@ const WrapSubTitle = styled.div`
   line-height: 3vh;
   color: ${({
     theme: {
-      loginPage: { wrapSubTitle },
+      login: { wrapSubTitle },
     },
   }) => wrapSubTitle};
   padding-top: 3.5vh;

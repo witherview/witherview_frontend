@@ -36,7 +36,13 @@ const Title = styled.div`
   font-style: normal;
   line-height: 1.44;
   letter-spacing: normal;
-  color: ${({ theme: { questionListPageTitle } }) => questionListPageTitle};
+  color: ${({
+    theme: {
+      self: {
+        questionlist: { questionListPageTitle },
+      },
+    },
+  }) => questionListPageTitle};
 `;
 
 const Select = styled.div`
@@ -48,8 +54,13 @@ const Select = styled.div`
   font-style: normal;
   line-height: 1.33;
   letter-spacing: normal;
-  color: ${({ theme: questionListPageSecondSelect }) =>
-    questionListPageSecondSelect};
+  color: ${({
+    theme: {
+      self: {
+        questionlist: { questionListPageSecondSelect },
+      },
+    },
+  }) => questionListPageSecondSelect};
 `;
 
 export default function QuestionListPage() {

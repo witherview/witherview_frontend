@@ -66,7 +66,11 @@ const Wrapper = styled.div`
       isSmall ? (usePx ? '15px' : '1.5vh') : usePx ? '29px' : '2.9vh'};
     padding-right: ${({ usePx }) => (usePx ? '10px' : '1vh')};
     user-select: none;
-    color: ${({ theme: { profileNameColor } }) => profileNameColor};
+    color: ${({
+      theme: {
+        common: { profileNameColor },
+      },
+    }) => profileNameColor};
   }
 
   ul.list {

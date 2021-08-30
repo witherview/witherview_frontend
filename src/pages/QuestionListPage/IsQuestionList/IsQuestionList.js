@@ -25,9 +25,20 @@ const AddQuestionList = styled.div`
   width: 33.4vh;
   height: 27vh;
   border-radius: 1vh;
-  background-color: ${({ theme: { addQuestionListBgColor } }) =>
-    addQuestionListBgColor};
-  color: ${({ theme: { addQuestionListColor } }) => addQuestionListColor};
+  background-color: ${({
+    theme: {
+      self: {
+        questionlist: { addQuestionListBgColor },
+      },
+    },
+  }) => addQuestionListBgColor};
+  color: ${({
+    theme: {
+      self: {
+        questionlist: { addQuestionListColor },
+      },
+    },
+  }) => addQuestionListColor};
   align-items: center;
 `;
 

@@ -10,10 +10,18 @@ const Box = styled.div`
   height: 12.7vh;
   border-radius: 1vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  border: ${({ clicked, theme: { boxBorder } }) =>
-    clicked ? 'solid 0.3vh #5f5fd9;' : boxBorder};
-  color: ${({ clicked, theme: { boxColor } }) =>
-    clicked ? '#5f5fd9;' : boxColor};
+  border: ${({
+    clicked,
+    theme: {
+      common: { boxBorder },
+    },
+  }) => (clicked ? 'solid 0.3vh #5f5fd9;' : boxBorder)};
+  color: ${({
+    clicked,
+    theme: {
+      common: { boxColor },
+    },
+  }) => (clicked ? '#5f5fd9;' : boxColor)};
   display: flex;
   align-items: center;
   justify-content: center;

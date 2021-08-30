@@ -28,7 +28,11 @@ const WrapContainer = styled.div`
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   box-sizing: border-box;
-  ${({ theme: { wrapContainerBorder } }) => wrapContainerBorder};
+  ${({
+    theme: {
+      self: { wrapContainerBorder },
+    },
+  }) => wrapContainerBorder};
   ${({ clicked }) => clicked && 'border: solid 0.4vh #6e6eff;'};
 `;
 
@@ -45,16 +49,24 @@ const WrapImage = styled.img`
 const WrapMiddleText = styled.div`
   font-family: AppleSDGothicNeoB00;
   font-size: 1.9vh;
-  color: ${({ clicked, theme: { wrapMiddleText } }) =>
-    clicked ? '#6e6eff' : wrapMiddleText};
+  color: ${({
+    clicked,
+    theme: {
+      self: { wrapMiddleText },
+    },
+  }) => (clicked ? '#6e6eff' : wrapMiddleText)};
   padding: 2.7vh;
 `;
 
 const WrapBottomText = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 1.5vh;
-  color: ${({ clicked, theme: { wrapBottomText } }) =>
-    clicked ? '#6e6eff' : wrapBottomText};
+  color: ${({
+    clicked,
+    theme: {
+      self: { wrapBottomText },
+    },
+  }) => (clicked ? '#6e6eff' : wrapBottomText)};
   padding: 0.3vh;
   white-space: pre;
   text-align: center;

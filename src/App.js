@@ -44,9 +44,14 @@ const Wrapper = styled.div`
 `;
 
 const WrapPage = styled.div`
-  background: ${({ theme: { wrapContentBgColor } }) => wrapContentBgColor};
+  background: ${({
+    theme: {
+      common: { wrapPageBgColor },
+    },
+  }) => wrapPageBgColor};
   display: flex;
-  ${({ isBackgroundGrey }) => isBackgroundGrey && 'background-color: #f6f6f6;'}
+  /* ${({ isBackgroundGrey }) =>
+    isBackgroundGrey && 'background-color: #f6f6f6;'} */
   ${({ toggleTrain }) =>
     toggleTrain
       ? `
@@ -120,7 +125,8 @@ export default function App() {
               toggleTrain={toggleTrain}
               isBackgroundGrey={
                 PATH === 'mypage' || PATH === 'replay' || PATH === 'withdraw'
-              }            >
+              }
+            >
               <div className="container">
                 {!toggleTrain && <O.ProfileMenuContainer name={name} />}
 

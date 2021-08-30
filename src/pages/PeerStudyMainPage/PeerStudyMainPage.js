@@ -20,6 +20,7 @@ export default function PeerStudyMainPage() {
   const { email } = useSelector(get('auth'));
   const isPageBottom = usePageBottom();
   const [groupList, setGroupList] = useState([]);
+  console.log('groupList: ', groupList);
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(0);
 
@@ -136,7 +137,7 @@ export default function PeerStudyMainPage() {
               <S.StudyListWrapper>
                 <S.Wrap onClick={handleStudyAddModal}>
                   <S.AddStudy>
-                    <A.Icon type="add_black" alt="add_black" />
+                    <span>+</span>
                     <S.AddText>방 만들기</S.AddText>
                   </S.AddStudy>
                 </S.Wrap>

@@ -9,8 +9,16 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme: { footerBgColor } }) => footerBgColor};
-  color: ${({ theme: { footerColor } }) => footerColor};
+  background-color: ${({
+    theme: {
+      landingPage: { footerBgColor },
+    },
+  }) => footerBgColor};
+  color: ${({
+    theme: {
+      landingPage: { footerColor },
+    },
+  }) => footerColor};
 `;
 
 const WrapLeft = styled.img.attrs(({ theme: { mainLogo } }) => ({
@@ -28,8 +36,11 @@ const WrapContainer = styled.div`
 `;
 
 const WrapLeftInner = styled.div`
-  color: ${({ theme: { landingFooterWrapLeftInnerColor } }) =>
-    landingFooterWrapLeftInnerColor};
+  color: ${({
+    theme: {
+      landingPage: { wrapLeftInnerColor },
+    },
+  }) => wrapLeftInnerColor};
   @media only screen and (max-width: 1150px) {
     width: 80%;
   }

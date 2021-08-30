@@ -14,7 +14,11 @@ const Wrapper = styled.div`
   height: 100vh;
   min-height: 20vh;
   border: none;
-  background: ${({ theme: { sideBarBgColor } }) => sideBarBgColor};
+  background: ${({
+    theme: {
+      common: { sideBarBgColor },
+    },
+  }) => sideBarBgColor};
   user-select: none;
   z-index: 10;
   transition: all ease 0.1s 0.1s;
@@ -139,7 +143,7 @@ export default function SideBar() {
         />
         <SidebarButton
           func={() => handleClick('mypage')}
-          type={path === 'mypage' ? 'profile_black' : 'profile_white'}
+          type={path === 'mypage' ? 'profile_blue' : 'profile_white'}
           clicked={path === 'mypage'}
           isHover={isHover}
           text="마이페이지"

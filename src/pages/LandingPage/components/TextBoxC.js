@@ -29,8 +29,13 @@ const WrapContent = styled.div`
   width: 100%;
   height: 256px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: ${({ theme: { textBoxCWrapContentBorder } }) =>
-    `solid 1px ${textBoxCWrapContentBorder}`};
+  border: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapContentBorder },
+      },
+    },
+  }) => `solid 1px ${wrapContentBorder}`};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -52,17 +57,35 @@ const wrapTextBasic = css`
 
 const WrapTextHeader = styled.div`
   ${wrapTextBasic}
-  color: ${({ theme: { textBoxCWrapTextHeader } }) => textBoxCWrapTextHeader};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapTextHeaderColor },
+      },
+    },
+  }) => wrapTextHeaderColor};
 `;
 
 const WrapTextSummary = styled.div`
   ${wrapTextBasic}
-  color: ${({ theme: { textBoxCWrapTextHeader } }) => textBoxCWrapTextHeader};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapTextSummaryColor },
+      },
+    },
+  }) => wrapTextSummaryColor};
 `;
 
 const WrapPadding = styled.div`
   padding: ${({ padding }) => padding && '30px 0 30px 0'};
-  color: ${({ theme: { textBoxCWrapTextSummary } }) => textBoxCWrapTextSummary};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapPaddingColor },
+      },
+    },
+  }) => wrapPaddingColor};
 `;
 
 export default function TextBoxC({ header = '', summary = [], icon = '' }) {
