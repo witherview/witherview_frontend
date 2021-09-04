@@ -52,6 +52,7 @@ const backgroundPositionType = {
   add_blue: unitGenerator([-86, -4.25]),
   folder_white: unitGenerator([-108.6, -3.5]),
   folder_blue: unitGenerator([-120, -3.5]),
+  refresh: unitGenerator([-97.5, -4.1]),
   post: unitGenerator([-4.3, -14]),
   cancel_blue: unitGenerator([-16, -14]),
   cancel_black: unitGenerator([-27.6, -14]),
@@ -137,6 +138,7 @@ export default function Icon({
       case 'add_orange':
       case 'add_blue':
       case 'check':
+      case 'refresh':
         setSize('sm');
         break;
       case 'drop_up':
@@ -222,6 +224,7 @@ Icon.propTypes = {
     'add_blue',
     'folder_white',
     'folder_blue',
+    'refresh',
     'post',
     'cancel_blue',
     'cancel_black',
