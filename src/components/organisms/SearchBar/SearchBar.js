@@ -3,23 +3,25 @@ import styled from 'styled-components';
 
 import A from '@atoms';
 import M from '@molecules';
+import commonStyles from '@style/commonStyles';
+
+const {
+  flexRow,
+  flexCol,
+  colors: { cornflower, white, grey1 },
+} = commonStyles;
 
 const SearchWrapper = styled.div`
   position: relative;
 
-  ${({ theme: { flexRow } }) => flexRow()}
+  ${flexRow()}
 
   width: 108vh;
   height: 7.3vh;
 
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(30, 30, 215, 0.04);
-  border: 0.2vh solid
-    ${({
-      theme: {
-        colors: { cornflower },
-      },
-    }) => cornflower};
+  border: 0.2vh solid ${cornflower};
 `;
 
 const IconWrapper = styled.div`
@@ -40,30 +42,22 @@ const Input = styled.input`
 `;
 
 const SearchButton = styled.div`
-  ${({ theme: { flexCol } }) => flexCol()};
+  ${flexCol()}
 
   width: 12.4vh;
   height: 7.3vh;
 
-  background-color: ${({
-    theme: {
-      colors: { cornflower },
-    },
-  }) => cornflower};
+  background-color: ${cornflower};
 
   border-top-right-radius: 1.8vh;
   border-bottom-right-radius: 1.8vh;
 
   font-size: 2vh;
-  color: ${({
-    theme: {
-      colors: { white },
-    },
-  }) => white};
+  color: ${white};
 `;
 
 const SelectBox = styled.div`
-  ${({ theme: { flexRow } }) => flexRow('space-between')}
+  ${flexRow('space-between')}
 
   width: 24vh;
   height: 3vh;
@@ -71,21 +65,11 @@ const SelectBox = styled.div`
   ${({ toggle }) => toggle && 'z-index: 10;'}
 
   border-left: 1px solid
-    ${({
-    theme: {
-      colors: { grey1 },
-    },
-    toggle,
-  }) => (!toggle ? grey1 : 'transparent')};
+    ${(grey1, ({ toggle }) => (!toggle ? grey1 : 'transparent'))};
 
   padding: 0 2.2vh;
 
-  color: ${({
-    theme: {
-      colors: { cornflower },
-    },
-    toggle,
-  }) => toggle && cornflower};
+  color: ${(cornflower, ({ toggle }) => toggle && cornflower)};
 
   > i {
     ${({ toggle }) =>
