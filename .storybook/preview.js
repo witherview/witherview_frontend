@@ -1,7 +1,9 @@
 import React from 'react';
 import { addDecorator, addParameters } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from '../src/style/globalStyles';
 import { Provider } from 'react-redux';
+import { WithThemeProvider } from 'storybook-addon-styled-components-themes'
 import { ThemeProvider } from 'styled-components';
 import theme from '../src/style/theme';
 import store from '@store';
@@ -30,15 +32,24 @@ const customViewports = {
   },
 };
 
+console.log('테마', theme);
+
 addParameters({
+  layout: 'fullscreen',
   viewport: { viewports: customViewports, defaultViewport: 'landScapeDefault' },
+  styledComponentsThemes: {
+    themes: [theme.viewModeTheme.light, theme.viewModeTheme.dark],
+    label: 'name'
+  }
 });
 
 addDecorator((Story) => (
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Story />
-    </ThemeProvider>
+    <WithThemeProvider>
+      <BrowserRouter>
+        <GlobalStyles />
+        <Story />
+      </BrowserRouter>
+    </WithThemeProvider>
   </Provider>
 ));

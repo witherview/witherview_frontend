@@ -49,3 +49,24 @@ export const registerApi = async (param) =>
     type: 'post',
     param,
   });
+
+export const passwordResetRequestEmailApi = async (param) =>
+  await api({
+    url: '/api/myinfo/password-reset',
+    type: 'post',
+    param,
+  });
+
+export const passwordResetApi = async (param) =>
+  await api({
+    url: '/api/myinfo/password-reset',
+    type: 'patch',
+    param,
+  });
+
+export const withdrawApi = async (param) =>
+  await api({
+    url: '/withdraw',
+    type: 'delete',
+    param,
+  });

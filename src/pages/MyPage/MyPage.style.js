@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import commonStyles from '@style/commonStyles';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -7,15 +8,16 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-top: 5vh;
 `;
 
 const ProfileWrapper = styled.div`
   display: flex;
-  width: 120vh;
+  width: 151.8vh;
   height: 17.1vh;
-  padding: 3.66vh 5.1vh;
+  padding: 3.8vh 4.2vh;
   border-radius: 1vh;
-  box-shadow: 0 0.6vh 1.2vh 0 rgba(158, 158, 158, 0.1);
+  box-shadow: 0 0.6vh 2.4vh 0 rgba(158, 158, 158, 0.1);
   border: solid 0.1vh #f6f6f6;
   background-color: #ffffff;
 `;
@@ -23,7 +25,7 @@ const ProfileWrapper = styled.div`
 const Profile = styled.div`
   display: flex;
   width: 55.5vh;
-  border-right: solid 0.1vh #d3d3d3;
+  border-right: solid 0.1vh ${commonStyles.colors.lightWhite};
 `;
 
 const ProfileInfo = styled.div`
@@ -36,8 +38,11 @@ const NameWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1.2vh;
-  > i {
-    cursor: pointer;
+
+  input {
+    height: 3.1vh;
+    font-size: 2.4vh;
+    margin-right: -9.5vh;
   }
 `;
 
@@ -56,15 +61,9 @@ const NameText = styled.div`
 `;
 
 const Jobs = styled.div`
-  margin-bottom: 3.2vh;
-  font-family: AppleSDGothicNeoM00;
-  font-size: 2vh;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.55;
-  letter-spacing: normal;
-  text-align: left;
+  margin-bottom: 3vh;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 1.6vh;
   color: #0c0c59;
 `;
 
@@ -115,12 +114,6 @@ const BarText = styled.span`
   margin-left: 2.2vh;
   font-family: TitilliumWeb;
   font-size: 2vh;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.55;
-  letter-spacing: normal;
-  text-align: left;
   color: #6e6eff;
 `;
 
@@ -134,19 +127,33 @@ const Info = styled.div`
   flex-direction: column;
   margin-left: 7.7vh;
   flex: 0 0 40%;
+
+  input {
+    margin-bottom: 2vh;
+  }
+
+  div > div > div > input {
+    height: 5vh;
+    font-size: 1.9vh;
+    font-family: AppleSDGothicNeoM00;
+    letter-spacing: 0.2vh;
+    border-bottom: 0.2vh solid #d3d3d3;
+    margin-bottom: inherit;
+  }
 `;
 
 const Title = styled.div`
   font-family: AppleSDGothicNeoB00;
-  font-size: 1.5vh;
-  font-weight: normal;
+  font-size: 2vh;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.4;
+  line-height: 1.2;
   letter-spacing: normal;
   text-align: left;
-  color: #3d3d3d;
+  color: #6e6eff;
 `;
+
 const Content = styled.div`
   margin-bottom: 3.3vh;
   font-family: TitilliumWeb;
@@ -170,8 +177,8 @@ const BlockItem = styled.div`
   padding: 0.9vh 2vh;
   margin-right: 2vh;
   border-radius: 1vh;
-  background-color: ${({ theme }) =>
-    theme === 'blue' ? '#6e6eff' : '#f2886b'};
+  background-color: ${({ blockItemTheme }) =>
+    blockItemTheme === 'blue' ? '#6e6eff' : '#f2886b'};
   font-family: AppleSDGothicNeoM00;
   font-size: 1.5vh;
   font-weight: normal;
@@ -185,10 +192,42 @@ const BlockItem = styled.div`
 
 const BoxWrapper = styled.div`
   display: flex;
-  width: 130.2vh;
+  width: 160.2vh;
   justify-content: space-between;
   margin-top: 3.7vh;
   flex-wrap: wrap;
+`;
+
+const ButtonWrapper = styled.div`
+  ${commonStyles.button}
+  display: flex;
+  width: 100%;
+  position: relative;
+  justify-content: center;
+`;
+
+const InputWrapper = styled.div`
+  ${commonStyles.input}
+  > input {
+    width: 100%;
+    border-bottom: 0.2vh solid #9e9e9e;
+    ${({ noBorder }) =>
+      noBorder && 'color: black; font-weight: bold; border-color: white;'}
+
+    &:disabled {
+      background-color: white;
+    }
+  }
+`;
+
+const WithdrawWrapper = styled.span`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 2.1vh;
+  font-family: AppleSDGothicNeoM00;
+  color: #3d3d3d;
+  cursor: pointer;
 `;
 
 export default {
@@ -210,4 +249,7 @@ export default {
   Block,
   BoxWrapper,
   BlockItem,
+  ButtonWrapper,
+  InputWrapper,
+  WithdrawWrapper,
 };

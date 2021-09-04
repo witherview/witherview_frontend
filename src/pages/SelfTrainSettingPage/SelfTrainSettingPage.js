@@ -15,6 +15,7 @@ import { get } from '@utils/snippet';
 import { getQuestionListAPI } from '@repository/questionListRepository';
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -55,7 +56,7 @@ const WrapToggle = styled.div`
 `;
 
 const WrapInput = styled.div`
-  > input {
+  input {
     height: 5vh;
     width: 100vh;
     font-size: 1.5vh;
@@ -81,13 +82,13 @@ const WrapText = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default function SelfTrainSettingPage({ match, history }) {
   const { id } = match.params;
   const dispatch = useDispatch();
-  const { selectedQnaId, job, company, standardTime } = useSelector(
+  const { selectedQnaId, job, company, standardTime, viewAnswer } = useSelector(
     get('train'),
   );
 
@@ -101,6 +102,14 @@ export default function SelfTrainSettingPage({ match, history }) {
     } catch (error) {
       console.error(error);
       alert(error);
+    }
+  };
+
+  const onToggleBtn = (isChecked) => {
+    if (isChecked) {
+      dispatch(setViewAnswer({ viewAnswer: true }));
+    } else {
+      dispatch(setViewAnswer({ viewAnswer: false }));
     }
   };
 
@@ -124,12 +133,7 @@ export default function SelfTrainSettingPage({ match, history }) {
           </WrapSubContainer>
           <WrapToggle>
             <WrapText>답변 보기 허용</WrapText>
-            <A.ToggleButton
-              funcActive={() => dispatch(setViewAnswer({ viewAnswer: true }))}
-              funcDecative={() =>
-                dispatch(setViewAnswer({ viewAnswer: false }))
-              }
-            />
+            <A.ToggleButton cb={onToggleBtn} checked={viewAnswer} />
           </WrapToggle>
           <WrapInput>
             <WrapText padding>기업 이름</WrapText>
@@ -139,6 +143,7 @@ export default function SelfTrainSettingPage({ match, history }) {
                 dispatch(setCompany({ company: e.target.value }))
               }
               width={967}
+              placeholder="기본 질문 리스트"
             />
           </WrapInput>
           <WrapInput>
@@ -147,14 +152,18 @@ export default function SelfTrainSettingPage({ match, history }) {
               value={job}
               onChange={(e) => dispatch(setJob({ job: e.target.value }))}
               width={967}
+              placeholder="공통"
             />
           </WrapInput>
         </WrapContainer>
         <WrapButton>
           <A.Button
-            theme={company && job && standardTime > 0 ? 'blue' : 'gray'}
+            btnTheme={company && job && standardTime > 0 ? 'blue' : 'gray'}
             text="다음"
-            func={() => history.push(`/self/train/${selectedQnaId}`)}
+            func={() => {
+              console.log('click');
+              history.push(`/self/train/${selectedQnaId}`);
+            }}
           />
         </WrapButton>
       </WrapContent>

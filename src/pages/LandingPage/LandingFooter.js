@@ -1,9 +1,6 @@
 import React from 'react';
-
 import styled from 'styled-components';
-
 import A from '@atoms';
-import Logo from '@assets/images/witherview_logo_title_dark.png';
 
 const Wrapper = styled.div`
   z-index: 2;
@@ -12,10 +9,21 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f6f6f6;
+  background-color: ${({
+    theme: {
+      landingPage: { footerBgColor },
+    },
+  }) => footerBgColor};
+  color: ${({
+    theme: {
+      landingPage: { footerColor },
+    },
+  }) => footerColor};
 `;
 
-const WrapLeft = styled.img`
+const WrapLeft = styled.img.attrs(({ theme: { mainLogo } }) => ({
+  src: mainLogo,
+}))`
   width: 120px;
 `;
 
@@ -28,6 +36,11 @@ const WrapContainer = styled.div`
 `;
 
 const WrapLeftInner = styled.div`
+  color: ${({
+    theme: {
+      landingPage: { wrapLeftInnerColor },
+    },
+  }) => wrapLeftInnerColor};
   @media only screen and (max-width: 1150px) {
     width: 80%;
   }
@@ -44,7 +57,6 @@ const WrapText = styled.div`
     display: none;
   }
   font-size: 10px;
-  color: #3d3d3d;
 `;
 
 export default function LandingFooter() {
@@ -52,7 +64,7 @@ export default function LandingFooter() {
     <Wrapper>
       <WrapContainer>
         <WrapLeftInner>
-          <WrapLeft src={Logo} />
+          <WrapLeft />
           <A.TextButton text="이용약관" />
           <A.TextButton text="개인정보처리방침" />
         </WrapLeftInner>

@@ -12,18 +12,23 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: ${({
+    theme: {
+      peerStudy: { profileInfoContainerWrapper },
+    },
+  }) => profileInfoContainerWrapper};
 `;
 
 const Name = styled.div`
-  font-family: AppleSDGothicNeoEB00;
-  font-size: 1.5vh;
+  font-family: AppleSDGothicNeoM00;
+  font-size: 2vh;
   padding-left: 2.5vh;
   user-select: none;
   color: #3d3d3d;
-`;
-
-const NameBelow = styled.div`
-  font-family: AppleSDGothicNeoM00;
+  line-height: 1.5;
+  .name {
+    font-family: AppleSDGothicNeoB00;
+  }
 `;
 
 export default function ProfileInfoContainer({ name, participateRate, src }) {
@@ -31,11 +36,11 @@ export default function ProfileInfoContainer({ name, participateRate, src }) {
     <Wrapper>
       <A.ProfileIcon src={src} isSmall />
       <Name>
-        <div>{name}</div>
-        <NameBelow>
+        <div className="name">{name}</div>
+        <div>
           {participateRate}
           %의 참여도
-        </NameBelow>
+        </div>
       </Name>
     </Wrapper>
   );

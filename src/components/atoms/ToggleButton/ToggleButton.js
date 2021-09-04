@@ -1,7 +1,5 @@
 import React from 'react';
-
 import styled from 'styled-components';
-
 import PropTypes from 'prop-types';
 
 const Switch = styled.label`
@@ -9,6 +7,7 @@ const Switch = styled.label`
   display: inline-block;
   width: 8.2vh;
   height: 4.6vh;
+  ${({ disabled }) => disabled && 'pointer-events: none; opacity: 0.5;'}
 `;
 
 const Input = styled.input`
@@ -52,17 +51,24 @@ const Slider = styled.span`
   }
 `;
 
-export default function ToggleButton({ className, funcActive, funcDeactive }) {
-  const handleFunction = (e) => {
-    if (e.target.checked) {
-      return funcActive();
-    }
-    return funcDeactive();
+export default function ToggleButton({
+  className = '',
+  cb,
+  disabled,
+  checked,
+}) {
+  const onCb = (e) => {
+    cb(e.target.checked);
   };
 
   return (
-    <Switch>
-      <Input type="checkbox" className={className} onChange={handleFunction} />
+    <Switch disabled={disabled}>
+      <Input
+        type="checkbox"
+        className={className}
+        onChange={onCb}
+        checked={checked}
+      />
       <Slider />
     </Switch>
   );
@@ -70,12 +76,7 @@ export default function ToggleButton({ className, funcActive, funcDeactive }) {
 
 ToggleButton.propTypes = {
   className: PropTypes.string,
-  funcActive: PropTypes.func,
-  funcDeactive: PropTypes.func,
-};
-
-ToggleButton.defaultProps = {
-  className: '',
-  funcActive: () => {},
-  funcDeactive: () => {},
+  cb: PropTypes.func,
+  disabled: PropTypes.bool,
+  checked: PropTypes.bool,
 };

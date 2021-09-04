@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -67,7 +68,7 @@ const WrapCamView = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default {

@@ -26,17 +26,22 @@ export const getEachGroupRoomApi = async (param) =>
     type: 'get',
   });
 
-// TODO: DELETE - /api/group/room/{id}
 export const deleteEachGroupRoomApi = async (param) =>
   await api({
     url: `/api/group/room/${param}`,
-    type: 'get',
+    type: 'delete',
   });
 
 // TODO: PATCH - /api/group/room/{id}
 export const patchEachGroupRoomApi = async (param) =>
   await api({
     url: `/api/group/room/${param}`,
+    type: 'patch',
+  });
+
+export const patchPassRoomHostEachGroupRoomApi = async (param) =>
+  await api({
+    url: `/api/group/room/${param}/host`,
     type: 'patch',
   });
 
@@ -53,9 +58,11 @@ export const postGroupRoomParticipantsApi = async (param) =>
     param,
   });
 
-// TODO: DELETE - /api/group/room/{id}/participants
 export const deleteEachGroupRoomParticipantsApi = async (param) =>
   await api({
     url: `/api/group/room/${param}/participants`,
     type: 'delete',
   });
+
+// TODO: set API
+export const postSelectedIndustriesApi = () => {};

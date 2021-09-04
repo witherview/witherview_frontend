@@ -119,7 +119,7 @@ export default function InterviewChat({ setInterviewer, chatData, onClick }) {
 
 InterviewChat.propTypes = {
   setInterviewer: PropTypes.bool,
-  chatData: PropTypes.object,
+  chatData: PropTypes.array,
   onClick: PropTypes.func,
 };
 

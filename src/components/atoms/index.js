@@ -6,6 +6,8 @@ import ProfileIcon from './ProfileIcon';
 import QuestionItem from './QuestionItem';
 import TextButton from './TextButton';
 import ToggleButton from './ToggleButton';
+import SubHeader from './SubHeader';
+import Validation from './Validation';
 
 export default {
   Button,
@@ -16,4 +18,6 @@ export default {
   QuestionItem,
   TextButton,
   ToggleButton,
+  SubHeader,
+  Validation,
 };

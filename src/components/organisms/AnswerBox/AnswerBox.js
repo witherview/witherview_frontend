@@ -36,7 +36,7 @@ const WrapDate = styled.div`
 const WrapAnswer = styled.textarea`
   width: 100%;
   height: 41.3vh;
-  background-color: white;
+  background-color: #ffffff;
   border: 0;
   font-family: AppleSDGothicNeoM00;
   font-size: 1.9vh;
@@ -56,7 +56,7 @@ const WrapOveray = styled.div`
   background-image: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0) -9%,
-    white 64%
+    rgba(255, 255, 255, 0) 64%
   );
 `;
 

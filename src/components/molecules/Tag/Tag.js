@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import TagIcon from '@atoms/TagIcon';
-import theme from '@style/theme';
+import commonStyles from '@style/theme';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -24,8 +24,8 @@ const Content = styled.p`
 
 export default function Tag({
   func,
-  tagColor,
-  contentColor,
+  tagColor = commonStyles.colors.cornflower,
+  contentColor = commonStyles.colors.white,
   isAddingTag,
   closeTagText,
 }) {
@@ -50,12 +50,4 @@ Tag.propTypes = {
   tagColor: PropTypes.string,
   contentColor: PropTypes.string,
   isAddingTag: PropTypes.bool,
-};
-
-Tag.defaultProps = {
-  func: () => {},
-  closeTagText: '화학',
-  tagColor: theme.colors.cornflower,
-  contentColor: theme.colors.white,
-  isAddingTag: false,
 };

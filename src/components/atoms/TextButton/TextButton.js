@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Text = styled.span`
   font-family: ${({ clicked }) =>
     clicked ? 'AppleSDGothicNeoEB00' : 'AppleSDGothicNeoM00'};
-  font-size: 1.9vh;
+  font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -14,7 +14,7 @@ const Text = styled.span`
   text-align: left;
   user-select: none;
   cursor: pointer;
-  color: ${({ clicked }) => (clicked ? '#0c0c59' : '#3d3d3d')};
+  color: ${({ clicked }) => (clicked ? '#6e6eff' : 'inherit')};
 `;
 
 export default function TextButton({ text }) {

@@ -1,76 +1,107 @@
-require('dotenv').config();
 const express = require('express');
 const http = require('http');
-const { userInfo } = require('os');
 
 const app = express();
 const server = http.createServer(app);
 const socket = require('socket.io');
 
-const io = socket(server);
+const io = socket(server, {
+  path: '/socket',
+  origins: ['http://localhost:3000', 'https://witherview-test.herokuapp.com/'],
+
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,POST',
+      'Access-Control-Allow-Credentials': true,
+    });
+    res.end();
+  },
+});
 
 const users = {};
 
-const socketToRoom = {};
+const socketToRoom = new Map();
 
 io.on('connection', (sock) => {
-  sock.on('join room', (roomID) => {
-    if (users[roomID]) {
-      const { length } = users[roomID];
-      if (length === 2) {
-        socketToRoom.roomID = {};
-        sock.emit('room full');
+  sock.on('join room', ({ roomId, email }) => {
+    if (users[roomId]) {
+      const { length } = users[roomId];
+      if (length === 6) {
+        sock.to(sock.id).emit('room_full');
         return;
       }
-      users[roomID].push(sock.id);
+      users[roomId].push({ id: sock.id, email });
     } else {
-      users[roomID] = [sock.id];
+      users[roomId] = [{ id: sock.id, email }];
     }
-    socketToRoom[sock.id] = roomID;
+    socketToRoom.set(sock.id, roomId);
 
-    const usersInThisRoom = users[roomID].filter((id) => id !== sock.id);
+    sock.join(roomId);
 
-    sock.emit('all users', usersInThisRoom);
+    console.log(`[${socketToRoom.get(sock.id)}]: ${sock.id} entered`);
+
+    const usersInThisRoom = users[roomId].filter(({ id }) => id !== sock.id);
+
+    console.log(usersInThisRoom);
+
+    io.sockets.to(sock.id).emit('all users', usersInThisRoom);
   });
 
-  sock.on('sending signal', (payload) => {
-    io.to(payload.userToSignal).emit('user joined', {
-      signal: payload.signal,
-      callerID: payload.callerID,
+  sock.on('offer', ({
+    offerReceiveID, sdp, offerSendID, offerSendEmail,
+  }) => {
+    sock.to(offerReceiveID).emit('getOffer', {
+      sdp,
+      offerSendID,
+      offerSendEmail,
     });
   });
 
-  sock.on('returning signal', (payload) => {
-    io.to(payload.callerID).emit('receiving returned signal', {
-      signal: payload.signal,
-      id: sock.id,
+  sock.on('answer', ({ answerReceiveID, sdp, answerSendID }) => {
+    sock.to(answerReceiveID).emit('getAnswer', { sdp, answerSendID });
+  });
+
+  sock.on('candidate', ({ candidateReceiveID, candidate, candidateSendID }) => {
+    sock.to(candidateReceiveID).emit('getCandidate', {
+      candidate,
+      candidateSendID,
     });
+  });
+
+  sock.on('disconnect', () => {
+    const roomId = socketToRoom.get(sock.id);
+
+    if (roomId === undefined) {
+      return;
+    }
+
+    sock.broadcast.emit('user left', { id: sock.id });
+
+    socketToRoom.delete(sock.id);
+
+    const room = users[roomId];
+
+    if (room) {
+      const filteredRoom = room.filter(({ id }) => id !== sock.id);
+
+      users[roomId] = filteredRoom;
+
+      if (filteredRoom.length === 0) {
+        delete users[roomId];
+      }
+    }
   });
 
   sock.on('next', () => {
     if (
-      users[socketToRoom[sock.id]]
-      && users[socketToRoom[sock.id]].length <= 2
+      users[socketToRoom.get(sock.id)]
+      && users[socketToRoom.get(sock.id)].length <= 2
     ) {
-      users[socketToRoom[sock.id]].forEach((val) => {
-        io.to(val).emit('clicked');
+      users[socketToRoom.get(sock.id)].forEach(({ id }) => {
+        io.sockets.to(id).emit('clicked');
       });
     }
-  });
-
-  sock.on('disconnect', () => {
-    if (
-      users[socketToRoom[sock.id]]
-      && users[socketToRoom[sock.id]].length <= 2
-    ) {
-      users[socketToRoom[sock.id]].forEach((val) => {
-        io.to(val).emit('refresh');
-      });
-      users[socketToRoom[sock.id]] = users[socketToRoom[sock.id]].filter(
-        (val) => val !== sock.id,
-      );
-    }
-    delete socketToRoom[sock.id];
   });
 });
 

@@ -155,7 +155,7 @@ export default function SelfTrainChecklistPage({ match }) {
       dispatch(setIsLoading({ isLoading: true }));
 
       formData.append('videoFile', blob);
-      formData.append('historyId', historyId);
+      formData.append('selfHistoryId', historyId);
 
       const {
         data: { id },
@@ -252,23 +252,23 @@ export default function SelfTrainChecklistPage({ match }) {
             <S.ButtonsWrapper>
               <A.Button
                 text="다시 연습하기"
-                theme="blue"
+                btnTheme="blue"
                 func={selfTraingAgain}
               />
               <A.Button
                 text="연습 영상 저장"
-                theme="white"
+                btnTheme="white"
                 func={saveInterviewVideo}
               />
               <A.Button
                 text="체크리스트 초기화"
-                theme="white"
+                btnTheme="white"
                 func={initCheckList}
               />
               <A.Button
                 disabled
                 text="체크리스트 저장"
-                theme="white"
+                btnTheme="white"
                 func={postChecklist}
               />
             </S.ButtonsWrapper>

@@ -13,11 +13,20 @@ const Wrapper = styled.div`
 const FirstText = styled.div`
   font-family: AppleSDGothicNeoEB00;
   font-size: 3.8vh;
+  color: ${({
+    theme: {
+      self: { firstTextColor },
+    },
+  }) => firstTextColor};
 `;
 
 const SecondText = styled.div`
   font-size: 1.9vh;
-  color: #3d3d3d;
+  color: ${({
+    theme: {
+      self: { secondTextColor },
+    },
+  }) => secondTextColor};
 `;
 
 export default function TextBox({ topText, bottomText }) {

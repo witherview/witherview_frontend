@@ -5,17 +5,19 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import A from '@atoms';
+import { commonStyles } from '@style';
 import LandingTopImage from '@assets/images/landing_top.png';
+import { useSelector } from 'react-redux';
+import { get } from '@utils/snippet';
 import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 1150px) {
-    height: 550px;
+    height: 600px;
   }
   width: 100%;
   user-select: none;
   height: 700px;
-  background-color: #f9f9ff;
   padding-top: 60px;
   display: flex;
   align-items: center;
@@ -54,11 +56,26 @@ const WrapImage = styled.img`
 
 const WrapButton = styled.div`
   padding-top: 30px;
-  ${({ theme }) => theme.landingButton}
+  ${commonStyles.landingButton}
 `;
 
 export default function LandingTop({ myRef }) {
+  const { viewMode } = useSelector(get('viewMode'));
   const history = useHistory();
+
+  const btnRender = () => {
+    const currentBtnTheme = viewMode === 'dark' ? 'outline' : 'blue';
+
+    return (
+      <A.Button
+        btnTheme={currentBtnTheme}
+        width={180}
+        func={() => history.push('/login')}
+        text="시작하기"
+      />
+    );
+  };
+
   return (
     <Wrapper ref={myRef}>
       <WrapContainer>
@@ -72,14 +89,7 @@ export default function LandingTop({ myRef }) {
               '화상 면접 스터디를 다양하게 체험해보세요.',
             ]}
           />
-          <WrapButton>
-            <A.Button
-              theme="blue"
-              width={180}
-              func={() => history.push('./login')}
-              text="시작하기"
-            />
-          </WrapButton>
+          <WrapButton>{btnRender()}</WrapButton>
         </WrapContent>
         <WrapImage src={LandingTopImage} />
       </WrapContainer>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 1150px) {
@@ -29,7 +29,13 @@ const WrapContent = styled.div`
   width: 100%;
   height: 256px;
   box-shadow: 0 6px 12px 0 rgba(4, 4, 161, 0.1);
-  border: solid 1px #f6f6f6;
+  border: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapContentBorder },
+      },
+    },
+  }) => `solid 1px ${wrapContentBorder}`};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -42,38 +48,66 @@ const WrapInnerContent = styled.div`
   width: 260px;
 `;
 
-const WrapText = styled.div`
-  ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}`};
+const wrapTextBasic = css`
+  text-align: center;
+  line-height: ${({ lineHeight }) => lineHeight};
   font-size: ${({ size }) => size}px;
   ${({ bold }) => bold && 'font-family: AppleSDGothicNeoB00;'}
-  color: ${({ color }) => color};
+`;
+
+const WrapTextHeader = styled.div`
+  ${wrapTextBasic}
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapTextHeaderColor },
+      },
+    },
+  }) => wrapTextHeaderColor};
+`;
+
+const WrapTextSummary = styled.div`
+  ${wrapTextBasic}
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapTextSummaryColor },
+      },
+    },
+  }) => wrapTextSummaryColor};
 `;
 
 const WrapPadding = styled.div`
   padding: ${({ padding }) => padding && '30px 0 30px 0'};
+  color: ${({
+    theme: {
+      landingPage: {
+        textBoxC: { wrapPaddingColor },
+      },
+    },
+  }) => wrapPaddingColor};
 `;
 
-export default function TextBoxC({ header, summary, icon }) {
+export default function TextBoxC({ header = '', summary = [], icon = '' }) {
   return (
     <Wrapper>
       <WrapIcon src={icon} />
       <WrapContent>
         <WrapInnerContent>
           <WrapPadding padding>
-            <WrapText size={19} bold>
+            <WrapTextHeader size={19} bold>
               {header}
-            </WrapText>
+            </WrapTextHeader>
           </WrapPadding>
           <div>
             {summary.map((each, key) => (
-              <WrapText
+              <WrapTextSummary
                 key={`${key}-summary-C`}
                 size={13}
                 lineHeight="130%"
-                color="#3d3d3d"
               >
                 {each}
-              </WrapText>
+              </WrapTextSummary>
             ))}
           </div>
         </WrapInnerContent>
@@ -86,9 +120,4 @@ TextBoxC.propTypes = {
   header: PropTypes.string,
   summary: PropTypes.array,
   icon: PropTypes.string.isRequired,
-};
-
-TextBoxC.defaultProps = {
-  header: '',
-  summary: [],
 };

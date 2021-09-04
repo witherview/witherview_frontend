@@ -14,7 +14,9 @@ import {
   // handleNextButton,
   // handleStepQuestion,
 } from '@store/Time/time';
-import { setToggleTrain } from '@store/Train/train';
+import { setToggleTrain, setSelectedQnaId } from '@store/Train/train';
+import { postPreGroupVideoApi } from '@repository/studyHistoryRepository';
+
 import { get } from '@utils/snippet';
 // import { setStep, setHistoryId } from '@store/Train/train';
 // import { postPreVideoApi } from '@repository/requestVideoRepository';
@@ -48,6 +50,7 @@ export default function PeerStudyTrainPage({
   handleClick,
   chat,
   isConnectStomp,
+  onFeedbackSubscribe,
 }) {
   // TODO: 녹화부분 연동
   // const { status, startRecording, stopRecording } = useReactMediaRecorder({
@@ -57,13 +60,29 @@ export default function PeerStudyTrainPage({
   const dispatch = useDispatch();
 
   const { time } = useSelector(get('time'));
+  const { isHost } = useSelector(get('train'));
+
   const [step, setStep] = useState(0);
   const { peers, userVideo, socketRef } = useSocketSignal({
     setStep,
     roomId,
   });
 
-  useEffect(() => () => dispatch(setToggleTrain({ toggleTrain: false })), []);
+  useEffect(() => {
+    if (isHost) {
+      (async () => {
+        const {
+          data: { id },
+        } = await postPreGroupVideoApi({ id: roomId });
+        await dispatch(setSelectedQnaId({ selectedQnaId: id }));
+        // TODO: socket으로 history id를 emit하는 코드 삽입
+        onFeedbackSubscribe(id);
+      })();
+    } else {
+      // TODO: socket으로 emit된 history id를 가져오는 코드 삽입
+    }
+    return () => dispatch(setToggleTrain({ toggleTrain: false }));
+  }, []);
 
   const textBox = (
     <M.TextBox topText={Fixture[step].top} bottomText={Fixture[step].bottom} />
@@ -76,12 +95,11 @@ export default function PeerStudyTrainPage({
     step === STEP_FINAL;
 
   useEffect(() => {
-    console.log('peer length', peers.length);
     if (peers.length === 1 && step === 0) {
       dispatch(setToggleTrain({ toggleTrain: true }));
       setStep(STEP_CONNECT);
     }
-    if (peers.length === 0 && step > 0) history.push('/peer-study');
+    // if (peers.length === 0 && step > 0) history.push('/peer-study');
     if (isTrain) {
       dispatch(startTime({ count: 1800 }));
     }
@@ -139,7 +157,7 @@ export default function PeerStudyTrainPage({
             </S.WrapBottomSide>
             <S.WrapButton>
               <A.Button
-                theme={step === STEP_FIRST ? 'gray' : 'blue'}
+                btnTheme={step === STEP_FIRST ? 'gray' : 'blue'}
                 text={Fixture[step].button}
                 socketRef
                 func={
@@ -163,4 +181,5 @@ PeerStudyTrainPage.propTypes = {
   handleClick: PropTypes.func,
   chat: PropTypes.array,
   isConnectStomp: PropTypes.bool,
+  onFeedbackSubscribe: PropTypes.func,
 };

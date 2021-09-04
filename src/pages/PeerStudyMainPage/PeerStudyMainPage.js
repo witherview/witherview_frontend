@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { get } from '@utils/snippet';
 import {
   getGroupRoomApi,
   getEachGroupRoomApi,
+  getGroupRoomParticipantsApi,
 } from '@repository/groupRepository';
 import A from '@atoms';
 import O from '@organisms';
@@ -14,10 +16,18 @@ import S from './PeerStudyMainPage.style';
 
 export default function PeerStudyMainPage() {
   const dispatch = useDispatch();
+
+  const { email } = useSelector(get('auth'));
   const isPageBottom = usePageBottom();
   const [groupList, setGroupList] = useState([]);
+  console.log('groupList: ', groupList);
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(0);
+
+  const handleStudyAddModal = () => {
+    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
+  };
+
   const fetch = async (pages) => {
     try {
       const { data } = await getGroupRoomApi(pages);
@@ -26,9 +36,14 @@ export default function PeerStudyMainPage() {
         const {
           data: { nowUserCnt },
         } = await getEachGroupRoomApi(val.id);
+        const { data: datas } = await getGroupRoomParticipantsApi(val.id);
         setMember((members) => [
           ...members,
-          { id: val.id, member: nowUserCnt },
+          {
+            id: val.id,
+            member: nowUserCnt,
+            emails: datas.reduce((acc, cur) => [...acc, cur.email], []),
+          },
         ]);
       });
       setGroupList((GroupList) =>
@@ -41,10 +56,6 @@ export default function PeerStudyMainPage() {
       console.error(error);
       alert(error);
     }
-  };
-
-  const handleStudyAddModal = () => {
-    dispatch(displayModal({ modalName: MODALS.STUDY_MAKE_MODAL }));
   };
 
   const handleReload = () => {
@@ -64,53 +75,43 @@ export default function PeerStudyMainPage() {
     fetch(page);
   }, [isPageBottom]);
 
-  const ButtonList = [
-    '이공계_사기업',
-    '이공계_공기업',
-    '인문계_사기업',
-    '인문계_공기업',
-    '자유_기타',
-  ];
-
   const MockProfile = () => {
     const item = [];
-    for (let i = 0; i < 2; i += 1) {
-      item.push(
-        <O.ProfileInfoContainer
-          name="이영희"
-          participateRate={95}
-          src="https://images.generated.photos/wNQ4DFhYBW1rhVfJcABnSbnEqvAYvNFC2FoXFmSlQDk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NjI5NTJfMDc4/MzU0N18wNzU2MTIz/LmpwZw.jpg"
-        />,
-      );
-      item.push(
-        <O.ProfileInfoContainer
-          name="김민수"
-          participateRate={97}
-          src="https://images.generated.photos/Mvj3BACVuVB7nhFBMntFD2_GSpti55sQZGA6W41CbkA/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2MjQwMjguanBn.jpg"
-        />,
-      );
-      item.push(
-        <O.ProfileInfoContainer
-          name="이수근"
-          participateRate={82}
-          src="https://images.generated.photos/2eakikvGnP8RXguLLlS5btl2IsS3ao6T9E1eE8b0Kik/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzM4ODZfMDI5/NzcyOF8wMTcyMjAz/LmpwZw.jpg"
-        />,
-      );
-      item.push(
-        <O.ProfileInfoContainer
-          name="박미나"
-          participateRate={91}
-          src="https://images.generated.photos/vrlHRAktOiwyM0-2632IhhbhEj2vDafwnBvTll8rpdk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NjgxMzYuanBn.jpg"
-        />,
-      );
-      item.push(
-        <O.ProfileInfoContainer
-          name="홍길동"
-          participateRate={90}
-          src="https://images.generated.photos/BJlxsNPRJxDUZKrc3v-ok3_aY10keLpkqvXb6wHPo6Q/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMTI1NDZfMDQ5/MTQxMV8wMTIxMjg5/LmpwZw.jpg"
-        />,
-      );
-    }
+    item.push(
+      <O.ProfileInfoContainer
+        name="이영희"
+        participateRate={95}
+        src="https://images.generated.photos/wNQ4DFhYBW1rhVfJcABnSbnEqvAYvNFC2FoXFmSlQDk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NjI5NTJfMDc4/MzU0N18wNzU2MTIz/LmpwZw.jpg"
+      />,
+    );
+    item.push(
+      <O.ProfileInfoContainer
+        name="김민수"
+        participateRate={97}
+        src="https://images.generated.photos/Mvj3BACVuVB7nhFBMntFD2_GSpti55sQZGA6W41CbkA/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2MjQwMjguanBn.jpg"
+      />,
+    );
+    item.push(
+      <O.ProfileInfoContainer
+        name="이수근"
+        participateRate={82}
+        src="https://images.generated.photos/2eakikvGnP8RXguLLlS5btl2IsS3ao6T9E1eE8b0Kik/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzM4ODZfMDI5/NzcyOF8wMTcyMjAz/LmpwZw.jpg"
+      />,
+    );
+    item.push(
+      <O.ProfileInfoContainer
+        name="박미나"
+        participateRate={91}
+        src="https://images.generated.photos/vrlHRAktOiwyM0-2632IhhbhEj2vDafwnBvTll8rpdk/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NjgxMzYuanBn.jpg"
+      />,
+    );
+    item.push(
+      <O.ProfileInfoContainer
+        name="홍길동"
+        participateRate={90}
+        src="https://images.generated.photos/BJlxsNPRJxDUZKrc3v-ok3_aY10keLpkqvXb6wHPo6Q/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMTI1NDZfMDQ5/MTQxMV8wMTIxMjg5/LmpwZw.jpg"
+      />,
+    );
     return item;
   };
 
@@ -123,33 +124,26 @@ export default function PeerStudyMainPage() {
         <S.ContentWrapper>
           <S.BoxWrapper>
             <S.ListWrapper>
-              <S.ButtonWrapper>
-                {ButtonList.map((val, key) => (
-                  <S.TextButtonWrapper key={key}>
-                    <A.TextButton text={val} />
-                  </S.TextButtonWrapper>
-                ))}
-                <S.FilterWrapper>
-                  <A.Icon type="filter" alt="filter" />
-                </S.FilterWrapper>
-              </S.ButtonWrapper>
               <S.StudyListWrapper>
                 <S.Wrap onClick={handleStudyAddModal}>
                   <S.AddStudy>
-                    <A.Icon type="add_black" alt="add_black" />
+                    <span>+</span>
                     <S.AddText>방 만들기</S.AddText>
                   </S.AddStudy>
                 </S.Wrap>
-                {groupList?.map((val) => {
-                  const count = member.filter((elem) => elem.id === val.id)[0];
+                {groupList?.map(({ id, title, description, time }) => {
+                  const roomInfo = member?.filter((elem) => elem.id === id)[0];
+                  const isParticipated = roomInfo?.emails.includes(email);
+
                   return (
                     <O.StudyCardView
-                      key={val.id}
-                      id={val.id}
-                      title={val.title}
-                      description={val.description}
-                      time={val.time}
-                      member={count && count.member}
+                      key={id}
+                      id={id}
+                      title={title}
+                      description={description}
+                      time={time}
+                      member={roomInfo && roomInfo?.member}
+                      canParticipate={isParticipated || roomInfo?.member === 1}
                     />
                   );
                 })}
@@ -158,6 +152,9 @@ export default function PeerStudyMainPage() {
             <S.PartiWrapper>
               <S.PartiText>참여도 높은 유저</S.PartiText>
               {MockProfile()}
+              <S.ButtonWrapper>
+                <A.Button btnTheme="outline" text="더보기" />
+              </S.ButtonWrapper>
             </S.PartiWrapper>
           </S.BoxWrapper>
         </S.ContentWrapper>

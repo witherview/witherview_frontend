@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { removeModal } from '@store/Modal/modal';
 import A from '@atoms';
+import { commonStyles } from '@style';
 
 import { MODALS } from '@utils/constant';
 import { postGroupFeedbackApi } from '@repository/groupRepository';
@@ -143,7 +144,7 @@ const EvaluateText = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 export default function EvaluationModal({ roomId }) {
@@ -165,8 +166,8 @@ export default function EvaluationModal({ roomId }) {
       studyRoomId: roomId,
       passOrFail: evaluate === 'pass',
       score,
-      studyHistoryId: '', // TODO: change this properly
-      receivedUser: 0, // TODO: change this properly
+      studyHistoryId: roomId, // TODO: change this properly
+      receivedUser: '', // TODO: change this properly
     };
 
     try {
@@ -234,7 +235,7 @@ export default function EvaluationModal({ roomId }) {
         </EvaluateBox>
       </EvaluateWrapper>
       <WrapButton>
-        <A.Button text="평가 완료" theme="blue" func={handleButtonClick} />
+        <A.Button text="평가 완료" btnTheme="blue" func={handleButtonClick} />
       </WrapButton>
     </Wrapper>
   );

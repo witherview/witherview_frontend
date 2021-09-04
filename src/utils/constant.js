@@ -4,4 +4,6 @@ export const MODALS = {
   SELF_TRAIN_START_MODAL: 'selfTrainStartModal',
   STUDY_MAKE_MODAL: 'studyMakeModal',
   EVALUATION_MODAL: 'evaluationModal',
+  INDUSTRY_SELECT_MODAL: 'industrySelectModal',
+  ALERT_MODAL: 'alertModal',
 };

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   height: 63vh;
@@ -32,7 +33,7 @@ const WrapperContent = styled.div`
   width: 100%;
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    background-color: white;
+    background-color: #ffffff;
     width: 0;
   }
 `;
@@ -77,7 +78,7 @@ const MessageText = styled.div`
   font-family: AppleSDGothicNeoM00;
   font-size: 2vh;
   line-height: 1.3;
-  color: ${({ theme }) => theme.colors.paleLiliac};
+  color: ${commonStyles.colors.paleLilac};
 `;
 
 const WrapChatInput = styled.div`
@@ -119,10 +120,10 @@ export default function RoomChat({
               </WrapProfileIcon>
               <WrapChat>
                 <WrapChatInfo>
-                  {val.name}
+                  {val.userName}
                   <span>{val.time}</span>
                 </WrapChatInfo>
-                <MessageText>{val.content}</MessageText>
+                <MessageText>{val.message}</MessageText>
               </WrapChat>
             </ChatMessageWrapper>
           ))}
@@ -137,7 +138,7 @@ export default function RoomChat({
 
 RoomChat.propTypes = {
   setInterviewer: PropTypes.bool,
-  chatData: PropTypes.object,
+  chatData: PropTypes.array,
   onClick: PropTypes.func,
   isConnectStomp: PropTypes.bool,
 };

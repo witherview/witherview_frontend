@@ -58,7 +58,13 @@ const Title = styled.div`
   font-style: normal;
   line-height: 1.44;
   letter-spacing: normal;
-  color: #000000;
+  color: ${({
+    theme: {
+      self: {
+        questionId: { titleColor },
+      },
+    },
+  }) => titleColor};
 `;
 
 const InputQuestion = styled.input`
@@ -239,6 +245,9 @@ export default function QuestionPage({ match }) {
                 placeholder="질문을 입력하세요."
                 value={title}
                 onChange={handleTitle}
+                onKeyDown={({ keyCode }) =>
+                  keyCode === 13 && handleQuestionAdd()
+                }
               />
               <IconWrapper>
                 <A.Icon
@@ -270,7 +279,7 @@ export default function QuestionPage({ match }) {
                 <A.Button
                   func={handleQuestionMake}
                   text={id === 'new' ? '저장' : '완료'}
-                  theme={isListEmpty ? 'gray' : 'blue'}
+                  btnTheme={isListEmpty ? 'gray' : 'blue'}
                 />
               </ButtonWrapper>
             </>

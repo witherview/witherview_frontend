@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -42,7 +43,7 @@ const WrapBottom = styled.div`
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const WrapBottomSide = styled.div`

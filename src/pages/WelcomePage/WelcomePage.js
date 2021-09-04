@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 import A from '@atoms';
 import M from '@molecules';
+import { commonStyles } from '@style';
 
 import { putProfileInfoApi } from '@repository/accountRepository';
 
@@ -52,7 +53,7 @@ const WrapBox = styled.div`
   width: 68.6vh;
   max-width: 80vw;
   height: 52.6vh;
-  background-color: white;
+  background-color: #ffffff;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
   border: solid 0.1vh #f6f6f6;
   border-radius: 2vh;
@@ -101,11 +102,11 @@ const WrapName = styled.div`
 const WrapMail = styled.div`
   font-family: TitilliumWeb;
   font-size: 2vh;
-  color: ${({ theme }) => theme.colors.warmGrey};
+  color: ${commonStyles.colors.warmGrey};
 `;
 
 const WrapButton = styled.div`
-  ${({ theme }) => theme.button}
+  ${commonStyles.button}
 `;
 
 const WrapBottomContainer = styled.div`
@@ -202,7 +203,7 @@ export default function WelcomePage({ history }) {
             </WrapMiddleContainer>
             <WrapButton>
               <A.Button
-                theme="blue"
+                btnTheme="blue"
                 func={() => {
                   uploadButton();
                   history.push('/self');

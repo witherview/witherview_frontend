@@ -148,6 +148,16 @@ export default function SelfTrainPage({ match }) {
     />
   );
 
+  const onToggle = (isChecked) => {
+    if (isChecked) {
+      // 답변보기 활성화
+      dispatch(setStep({ step: TOGGLE_SCRIPT }));
+    } else {
+      // 답변보기 비활성화
+      dispatch(setStep({ step: STEP_ING }));
+    }
+  };
+
   return (
     <S.Wrapper source={isBackground && StudyBackground}>
       <S.WrapContainer>
@@ -180,7 +190,7 @@ export default function SelfTrainPage({ match }) {
             {Fixture[step]?.button && (
               <S.WrapButton>
                 <A.Button
-                  theme="blue"
+                  btnTheme="blue"
                   text={Fixture[step].button}
                   func={
                     // TODO: 리펙토링 필요
@@ -199,12 +209,7 @@ export default function SelfTrainPage({ match }) {
               {isShowToggle && viewAnswer && (
                 <>
                   <S.WrapText>답변 보기 허용</S.WrapText>
-                  <A.ToggleButton
-                    funcActive={() =>
-                      dispatch(setStep({ step: TOGGLE_SCRIPT }))
-                    }
-                    funcDeactive={() => dispatch(setStep({ step: STEP_ING }))}
-                  />
+                  <A.ToggleButton cb={onToggle} checked={step} />
                 </>
               )}
             </S.WrapBottomSide>

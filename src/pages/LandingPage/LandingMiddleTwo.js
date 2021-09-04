@@ -8,24 +8,23 @@ import TextBoxA from './components/TextBoxA';
 
 const Wrapper = styled.div`
   @media only screen and (max-width: 1870px) {
-    min-height: 400px;
+    min-height: 500px;
   }
   width: 100%;
   user-select: none;
-  min-height: 500px;
+  min-height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9f9ff;
 `;
 
 const WrapContainer = styled.div`
   @media only screen and (max-width: 1870px) {
-    min-height: 350px;
+    min-height: 500px;
   }
-  min-height: 475px;
-  width: 80%;
-  max-width: 1100px;
+  min-height: 600px;
+  width: 85%;
+  max-width: 1150px;
   min-width: 600px;
   position: relative;
   display: flex;
@@ -42,16 +41,16 @@ const WrapPadding = styled.div`
 
 const WrapImage = styled.img`
   @media only screen and (max-width: 1870px) {
-    height: 350px;
+    height: 400px;
     bottom: 0;
   }
   @media only screen and (max-width: 1150px) {
     display: none;
   }
 
-  height: 550px;
+  height: 600px;
   position: absolute;
-  bottom: -100px;
+  bottom: -80px;
   left: -100px;
 `;
 
