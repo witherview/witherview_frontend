@@ -94,6 +94,10 @@ const Container = styled(WrapDropDownBottom)`
         background-color: #0c0c59;
       }
     }
+    .selected {
+      background-color: #eef0ff;
+      color: #6e6eff;
+    }
     .each {
       :first-child {
         margin-top: 1vh;
@@ -104,7 +108,7 @@ const Container = styled(WrapDropDownBottom)`
       }
       label {
         span {
-          top: -0.65vh;
+          top: -0.5vh;
           width: 2.4vh;
           height: 2.4vh;
           border-radius: 0.5vh;
@@ -199,7 +203,10 @@ export default function SearchDropDown({ setToggle }) {
             </div>
             <div className="scroll">
               {Object.keys(JOB).map((each) => (
-                <div key={each} className="each">
+                <div
+                  key={each}
+                  className={`each ${each === selectedJob ? 'selected' : ''}`}
+                >
                   <A.CheckBox
                     name={each}
                     func={(e) => handleCheck(e, '직무')}
