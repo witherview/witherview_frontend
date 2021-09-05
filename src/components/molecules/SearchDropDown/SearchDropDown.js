@@ -44,6 +44,9 @@ const Container = styled(WrapDropDownBottom)`
   font-size: 1.6vh;
 
   .header {
+    i {
+      cursor: pointer;
+    }
     font-size: 2vh;
     font-weight: bold;
     ${flexRow('space-between')}
@@ -131,20 +134,22 @@ const Container = styled(WrapDropDownBottom)`
   }
 `;
 
+const initialState = {
+  산업: [],
+  직무: {
+    '경영기획/사무': [],
+    '마케팅/유통': [],
+    영업: [],
+    생산품질: [],
+    '연구개발/설계': [],
+    'IT 서비스': [],
+    디자인: [],
+    기타: [],
+  },
+};
+
 export default function SearchDropDown({ setToggle }) {
-  const [checkBox, setCheckBox] = useState({
-    산업: [],
-    직무: {
-      '경영기획/사무': [],
-      '마케팅/유통': [],
-      영업: [],
-      생산품질: [],
-      '연구개발/설계': [],
-      'IT 서비스': [],
-      디자인: [],
-      기타: [],
-    },
-  });
+  const [checkBox, setCheckBox] = useState(initialState);
   const [selectedJob, setSelectedJob] = useState('');
 
   const handleCheck = (evt, temp) => {
@@ -194,7 +199,13 @@ export default function SearchDropDown({ setToggle }) {
             <div>산업</div>
             <div>직무</div>
           </div>
-          <A.Icon type="refresh" />
+          <A.Icon
+            type="refresh"
+            func={() => {
+              setCheckBox(initialState);
+              setSelectedJob('');
+            }}
+          />
         </div>
         <div className="body">
           <div>
