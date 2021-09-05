@@ -77,6 +77,14 @@ const Container = styled(WrapDropDownBottom)`
       width: 50%;
     }
 
+    .row {
+      height: 100%;
+      ${flexRow('flex-start', 'flex-start')}
+      .seperate {
+        width: 50%;
+      }
+    }
+
     .scroll {
       height: 100%;
       overflow-y: auto;
@@ -220,18 +228,39 @@ export default function SearchDropDown({ setToggle }) {
               ))}
             </div>
           </div>
-          <div className="scroll">
-            {selectedJob &&
-              JOB[selectedJob]?.map((each) => (
-                <div key={each} className="each">
-                  <A.CheckBox
-                    name={each}
-                    func={(e) => handleCheck(e, '세부직무')}
-                    checked={checkBox.직무[selectedJob]?.includes(each)}
-                  />
-                  <div className="text">{each}</div>
-                </div>
-              ))}
+          <div className="scroll row">
+            <div className="seperate">
+              {selectedJob &&
+                JOB[selectedJob]?.map(
+                  (each, index) =>
+                    index % 2 === 1 && (
+                      <div key={each} className="each">
+                        <A.CheckBox
+                          name={each}
+                          func={(e) => handleCheck(e, '세부직무')}
+                          checked={checkBox.직무[selectedJob]?.includes(each)}
+                        />
+                        <div className="text">{each}</div>
+                      </div>
+                    ),
+                )}
+            </div>
+            <div className="seperate">
+              {selectedJob &&
+                JOB[selectedJob]?.map(
+                  (each, index) =>
+                    index % 2 === 0 && (
+                      <div key={each} className="each">
+                        <A.CheckBox
+                          name={each}
+                          func={(e) => handleCheck(e, '세부직무')}
+                          checked={checkBox.직무[selectedJob]?.includes(each)}
+                        />
+                        <div className="text">{each}</div>
+                      </div>
+                    ),
+                )}
+            </div>
           </div>
         </div>
       </Container>
