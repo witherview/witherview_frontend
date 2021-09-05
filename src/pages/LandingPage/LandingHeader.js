@@ -140,7 +140,7 @@ export default function LandingHeader({
       <A.Button
         id="menu_btn"
         btnTheme={currentBtnTheme}
-        width={140}
+        width="140px"
         text="LOG IN"
         func={() => history.push('/login')}
       />

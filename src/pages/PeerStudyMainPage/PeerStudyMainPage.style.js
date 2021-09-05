@@ -11,6 +11,9 @@ const Wrapper = styled.div`
   .main-page-container {
     width: 100%;
   }
+  .wrapper {
+    width: 100%;
+  }
 `;
 
 const StudyText = styled.div`

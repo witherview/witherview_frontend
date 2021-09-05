@@ -32,7 +32,7 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: ${({ width }) => width}px;
+  width: ${({ width }) => width}px;
   height: 60px;
   border-radius: 10px;
   user-select: none;

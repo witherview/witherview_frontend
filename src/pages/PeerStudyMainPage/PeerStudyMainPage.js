@@ -118,7 +118,7 @@ export default function PeerStudyMainPage() {
   return (
     <S.Wrapper>
       <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload} />
-      <div>
+      <div className="wrapper">
         <O.SearchBar />
         <S.StudyText>현재 진행 중인 스터디 방</S.StudyText>
         <S.ContentWrapper>
