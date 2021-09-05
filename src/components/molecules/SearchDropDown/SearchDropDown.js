@@ -108,7 +108,7 @@ const Container = styled(WrapDropDownBottom)`
       }
       label {
         span {
-          top: -0.5vh;
+          top: -0.7vh;
           width: 2.4vh;
           height: 2.4vh;
           border-radius: 0.5vh;
@@ -196,6 +196,7 @@ export default function SearchDropDown({ setToggle }) {
                   <A.CheckBox
                     name={each}
                     func={(e) => handleCheck(e, '산업')}
+                    checked={checkBox.산업?.includes(each)}
                   />
                   <div className="text">{each}</div>
                 </div>
@@ -210,6 +211,7 @@ export default function SearchDropDown({ setToggle }) {
                   <A.CheckBox
                     name={each}
                     func={(e) => handleCheck(e, '직무')}
+                    checked={checkBox.직무[each].length > 0}
                   />
                   <div className="text" onClick={() => setSelectedJob(each)}>
                     {each}
