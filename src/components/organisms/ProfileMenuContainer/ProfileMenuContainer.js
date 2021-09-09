@@ -96,7 +96,7 @@ const Wrapper = styled.div`
   }
 
   li.item {
-    width: ${({ usePx }) => (usePx ? '87px' : '8.7vh')};
+    width: auto;
     padding-top: ${({ usePx }) => (usePx ? '12.5px' : '1.25vh')};
     padding-bottom: ${({ usePx }) => (usePx ? '12.5px' : '1.25vh')};
     display: flex;

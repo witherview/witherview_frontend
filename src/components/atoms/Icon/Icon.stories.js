@@ -10,6 +10,6 @@ const IconComponent = (args) => <Icon {...args} />;
 export const icon = IconComponent.bind({});
 
 icon.args = {
-  type: 'profile_blue',
+  type: 'refresh',
   alt: 'icon',
 };

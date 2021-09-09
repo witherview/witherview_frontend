@@ -118,19 +118,9 @@ export default function PeerStudyMainPage() {
   return (
     <S.Wrapper>
       <Modal modalName={MODALS.STUDY_MAKE_MODAL} func={handleReload} />
-      <div className="main-page-container">
-        <S.SearchWrapper>
-          <S.IconWrapper>
-            <A.Icon type="search" alt="search" />
-          </S.IconWrapper>
-          <S.Input placeholder="Search" />
-        </S.SearchWrapper>
-        <S.WrapTitleContainer>
-          <S.StudyText>현재 진행 중인 스터디 방</S.StudyText>
-          <S.FilterWrapper>
-            <A.Icon type="filter" alt="filter" />
-          </S.FilterWrapper>
-        </S.WrapTitleContainer>
+      <div className="wrapper">
+        <O.SearchBar />
+        <S.StudyText>현재 진행 중인 스터디 방</S.StudyText>
         <S.ContentWrapper>
           <S.BoxWrapper>
             <S.ListWrapper>

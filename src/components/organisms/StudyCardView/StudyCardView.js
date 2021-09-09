@@ -23,7 +23,6 @@ const Box = styled.div`
   height: 38.2vh;
   border-radius: 2vh;
   box-shadow: 0 0.6vh 1.2vh 0 rgba(4, 4, 161, 0.1);
-  border: solid 0.5px #9e9e9e;
   background-color: ${({
     theme: {
       peerStudy: { boxBgColor },

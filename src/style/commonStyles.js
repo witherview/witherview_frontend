@@ -58,6 +58,18 @@ const commonStyles = {
       }
     }
   `,
+  flexCol: (justifyContent = 'center', alignItems = 'center') => css`
+    display: flex;
+    flex-direction: column;
+    justify-content: ${justifyContent};
+    align-items: ${alignItems};
+  `,
+  flexRow: (justifyContent = 'center', alignItems = 'center') => css`
+    display: flex;
+    flex-direction: row;
+    justify-content: ${justifyContent};
+    align-items: ${alignItems};
+  `,
 };
 
 export default commonStyles;

@@ -8,6 +8,7 @@ import ProfileMenuContainer from './ProfileMenuContainer';
 import QuestionCardView from './QuestionCardView';
 import QuestionList from './QuestionList';
 import RoomChat from './RoomChat';
+import SearchBar from './SearchBar';
 import SideBar from './Sidebar';
 import StudyCardView from './StudyCardView';
 
@@ -21,6 +22,7 @@ export default {
   QuestionCardView,
   QuestionList,
   RoomChat,
+  SearchBar,
   SideBar,
   StudyCardView,
   Calendar,
