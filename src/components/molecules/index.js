@@ -11,7 +11,6 @@ import SmallCamView from './SmallCamView';
 import Tag from './Tag';
 import TextBox from './TextBox';
 import TimeButton from './TimeButton';
-import FeedbackContainerFooter from './FeedbackContainerFooter';
 
 export default {
   ButtonGroup,
@@ -27,5 +26,4 @@ export default {
   Tag,
   TextBox,
   TimeButton,
-  FeedbackContainerFooter,
 };

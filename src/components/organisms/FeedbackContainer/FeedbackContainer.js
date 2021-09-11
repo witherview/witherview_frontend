@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import profileExample from '@assets/images/profile_example.png';
 import A from '@atoms';
-import M from '@molecules';
 import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
@@ -29,10 +28,10 @@ const Wrapper = styled.div`
     line-height: 1.4;
   }
   div.feedback-list {
-    padding: 2.7vh 5.6vh 0;
+    padding: 2.7vh 5.6vh;
     overflow: auto;
     position: relative;
-    height: 44.2vh;
+    height: calc(44.2vh - 5.4vh);
   }
   div.gradient {
     background-image: linear-gradient(
@@ -40,9 +39,8 @@ const Wrapper = styled.div`
       rgba(255, 255, 255, 0) 0%,
       rgba(255, 255, 255, 1) 84%
     );
-    z-index: 1;
     height: 6.2vh;
-    width: 100%;
+    width: calc(100% - 14px);
   }
   div.item {
     display: flex;
@@ -61,6 +59,59 @@ const Wrapper = styled.div`
     position: absolute;
     bottom: 0;
   }
+  div.footer-contents {
+    width: calc(117.8vh - 11.2vh);
+    height: 11.5vh;
+    background-color: ${commonStyles.colors.paleLilac};
+    display: flex;
+    align-items: center;
+    padding: 0 5.6vh;
+    justify-content: space-between;
+    border-radius: 0 0 1vh 1vh;
+  }
+  p.description {
+    font-family: AppleSDGothicNeoB00;
+    font-size: 1.8vh;
+    text-align: left;
+    color: ${commonStyles.colors.cornflower};
+  }
+
+  div.label {
+    font-family: AppleSDGothicNeoB00;
+    font-size: 2vh;
+    color: #3d3d3d;
+    display: flex;
+  }
+
+  div.custom-margin {
+    margin-right: 7vh;
+    margin-top: 0.7vh;
+  }
+
+  span.score {
+    font-family: TitilliumWebBold;
+    vertical-align: middle;
+    font-size: 4vh;
+    padding: 0 1vh 0 2.6vh;
+    color: ${commonStyles.colors.darkIndigo};
+  }
+
+  div.is-passed {
+    border-radius: 10px;
+    border: solid 2px ${commonStyles.colors.cornflower};
+    background-color: ${commonStyles.colors.cornflower};
+    display: inline-flex;
+    width: 11.8vh;
+    height: 4vh;
+    font-family: AppleSDGothicNeoM00;
+    font-size: 2vh;
+    text-align: center;
+    color: #ffffff;
+    justify-content: center;
+    vertical-align: middle;
+    align-items: center;
+    margin-left: 2.5vh;
+  }
 `;
 
 export default function FeedbackContainer({
@@ -70,6 +121,7 @@ export default function FeedbackContainer({
   score,
   itemList,
 }) {
+  const isPassed = true; // TODO: 기준 설정 필요
   return (
     <Wrapper>
       <div className="feedback-container-header">
@@ -91,7 +143,20 @@ export default function FeedbackContainer({
       </div>
       <div className="feedback-container-footer">
         <div className="gradient" />
-        <M.FeedbackContainerFooter score={score} />
+        <div className="footer-contents">
+          <p className="description">
+            면접 점수와 합격 유무 기준은 상대방의 주관적 평가입니다.
+          </p>
+          <div className="label">
+            <div className="custom-margin">
+              현재 면접 점수 <span className="score">{score}</span>점
+            </div>
+            <div>
+              합격 유무
+              <div className="is-passed">{isPassed ? '합격' : '불합격'}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </Wrapper>
   );
