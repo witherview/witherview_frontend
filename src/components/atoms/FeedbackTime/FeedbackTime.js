@@ -8,6 +8,9 @@ const Wrapper = styled.label`
   font-family: TitilliumWebBold;
   font-size: 2vh;
   color: ${commonStyles.colors.cornflower};
+  align-items: center;
+  display: flex;
+  height: 100%;
 `;
 export default function FeedbackTime({ time }) {
   return <Wrapper>{moment(time, 'HH:mm:ss').format('m:ss')}</Wrapper>;

@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import { commonStyles } from '@style';
 
 const Wrapper = styled.div`
-  width: 117.8vh;
+  width: calc(117.8vh - 11.2vh);
   height: 11.5vh;
   background-color: ${commonStyles.colors.paleLilac};
   display: flex;
   align-items: center;
   padding: 0 5.6vh;
   justify-content: space-between;
+  border-radius: 0 0 1vh 1vh;
 
   p.description {
     font-family: AppleSDGothicNeoB00;

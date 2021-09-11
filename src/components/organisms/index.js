@@ -10,6 +10,7 @@ import QuestionList from './QuestionList';
 import RoomChat from './RoomChat';
 import SideBar from './Sidebar';
 import StudyCardView from './StudyCardView';
+import FeedbackContainer from './FeedbackContainer';
 
 export default {
   AnswerBox,
@@ -24,4 +25,5 @@ export default {
   SideBar,
   StudyCardView,
   Calendar,
+  FeedbackContainer,
 };
