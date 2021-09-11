@@ -8,7 +8,7 @@ import TextButton from './TextButton';
 import ToggleButton from './ToggleButton';
 import SubHeader from './SubHeader';
 import Validation from './Validation';
-import FeedBackTime from './FeedbackTime';
+import FeedbackTime from './FeedbackTime';
 import DateTime from './DateTime';
 
 export default {
@@ -22,6 +22,6 @@ export default {
   ToggleButton,
   SubHeader,
   Validation,
-  FeedBackTime,
+  FeedbackTime,
   DateTime,
 };
