@@ -11,6 +11,7 @@ import RoomChat from './RoomChat';
 import SearchBar from './SearchBar';
 import SideBar from './Sidebar';
 import StudyCardView from './StudyCardView';
+import FeedbackContainer from './FeedbackContainer';
 
 export default {
   AnswerBox,
@@ -26,4 +27,5 @@ export default {
   SideBar,
   StudyCardView,
   Calendar,
+  FeedbackContainer,
 };
