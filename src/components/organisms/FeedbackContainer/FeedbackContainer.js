@@ -85,20 +85,18 @@ const Wrapper = styled.div`
 
   div.custom-margin {
     margin-right: 7vh;
-    margin-top: 0.7vh;
   }
 
   span.score {
     font-family: TitilliumWebBold;
-    vertical-align: middle;
+    vertical-align: sub;
     font-size: 4vh;
     padding: 0 1vh 0 2.6vh;
     color: ${commonStyles.colors.darkIndigo};
   }
 
   div.is-passed {
-    border-radius: 10px;
-    border: solid 2px ${commonStyles.colors.cornflower};
+    border-radius: 1vh;
     background-color: ${commonStyles.colors.cornflower};
     display: inline-flex;
     width: 11.8vh;
@@ -149,7 +147,9 @@ export default function FeedbackContainer({
           </p>
           <div className="label">
             <div className="custom-margin">
-              현재 면접 점수 <span className="score">{score}</span>점
+              <div>
+                현재 면접 점수 <span className="score">{score}</span>점
+              </div>
             </div>
             <div>
               합격 유무
